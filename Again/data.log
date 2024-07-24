@@ -1,0 +1,4 @@
+2024-05-21 20:19:26,824 : root : INFO : start service
+2024-05-21 20:19:40,632 : root : DEBUG : Exception is 
+2024-05-21 20:19:40,632 : root : INFO : empty expression, stopping...
+2024-05-21 20:19:40,632 : root : INFO : stop service
