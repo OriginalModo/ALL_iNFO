@@ -5247,7 +5247,6 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
  pip uninstall -r requirements.txt -y
 
 
-
  Указать версию вместе с именем модуля:
  pip uninstall package_name == 2.26.0
 
@@ -9932,18 +9931,33 @@ def open_file(name):
  from unittest import TestCase, main
  from Again.unit_tests.calculator_new import calculator
 
-class CalculatorTest(TestCase):
+ class CalculatorTest(TestCase):
 
-    def test_plus(self):
-        self.assertEqual(calculator('2+2'), 4)
+     def test_plus(self):
+         self.assertEqual(calculator('2+2'), 4)
 
-    def test_many_sings(self):
-        with self.assertRaises(ValueError) as e:
-            calculator('2+2*10')
-        self.assertEqual('Выражение должно содержать 2 целых числа и 1 знак', e.exception.args[0])
+     def test_many_sings(self):
+         with self.assertRaises(ValueError) as e:
+             calculator('2+2*10')
+         self.assertEqual('Выражение должно содержать 2 целых числа и 1 знак', e.exception.args[0])
 
-if __name__ == '__main__':
-    main()
+ if __name__ == '__main__':
+     main()
+
+  Типы проверок в классе TestCase
+ assertEqual(a, b)          a == b
+ assertNotEqual(a, b)       a != b
+ assertTrue(x)              bool(x) is True
+ assertFalse(x)             bool(x) is False
+ assertIs(a, b)             a is b
+ assertIsNot(a, b)          a is not b
+ assertIsNone(x)            x is None
+ assertIsNotNone(x)         x is not None
+ assertIn(a, b)             a in b
+ assertNotIn(a, b)          a not in b
+ assertIsInstance(a, b)     isinstance(a, b)
+ assertNotIsInstance(a, b)  not isinstance(a, b)
+
 
  Модуль Mock: макеты-пустышки в тестировании
 
