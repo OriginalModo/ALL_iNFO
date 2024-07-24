@@ -5248,7 +5248,7 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
 
 
  Указать версию вместе с именем модуля:
- pip uninstall package_name == 2.26.0
+ pip uninstall package_name==2.26.0
 
  Это установит package_name версии 2.26.0 или более новую.
  pip install package_name>=2.26.0
