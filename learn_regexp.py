@@ -289,8 +289,17 @@ a = '1.79'
 
 
 
+# Нет Ошибки считается как одно слова
+print('HE''HE')                # -> HEHE
+print("HE""HE")                # -> HEHE
+print(f'HE'f'HE')              # -> HEHE
+print(f"HE""HE")               # -> HEHE
 
-
+# С отступами тоже самое
+print('HE'           'HE')     # -> HEHE
+print("HE"           "HE")     # -> HEHE
+print(f"HE"        f"HE")      # -> HEHE
+print(f'''HE'''    f'''HE''')  # -> HEHE
 
 
 
