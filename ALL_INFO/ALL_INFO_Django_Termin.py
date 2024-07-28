@@ -438,11 +438,11 @@ ________________________________________________________________________________
  для templates формирует перменную object_list
  template_name - 'women/index.html' # служит для указания шаблона(html)
  по умолчанию шаблон ищется:
- имя приложения / имя модели _list.html
+ имя приложения / имя модели_list.html
  'women/women_list.html'
  context_object_name = 'posts' # для изменения   object_list
  def get_queryset(self): - то что будет отображатся в качестве списка
-    Women.objects.all().select_related('cat')
+     Women.objects.all().select_related('cat')
  allow_empty = False - при пустом списке будет генерироватся исключение 404
 
  --- DetailView ---
