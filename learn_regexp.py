@@ -289,13 +289,17 @@ a = '1.79'
 lst = [3,2,3]
 lst1 = 9
 
+t = ('one', 'two')
+for i in t:
+    print(i) # -> one two
 
-
-
-
-
-
-
+# t = ('one')
+# for i in t:
+#     print(i) # -> o n e
+#
+#
+# t = ()
+# print(t) # -> ()
 
 
 
