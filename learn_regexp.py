@@ -283,33 +283,12 @@ a = '1.79'
 # register_check = lambda x: len(__import__('re').findall(r'yes', str(x)))
 # register_check = lambda x: len(__import__('re').findall(r'yes', str(x)))
 
+import gc
 
-
-
-lst = [3,2,3]
-lst1 = 9
-
-t = ('one', 'two')
-for i in t:
-    print(i) # -> one two
-
-# t = ('one')
-# for i in t:
-#     print(i) # -> o n e
-#
-#
-# t = ()
-# print(t) # -> ()
-
-
-
-
-
-
-
-
-
-
+t1 = ([1],)
+t2 = ((1.),)
+print(gc.is_tracked(t1))  # -> True   <-----
+print(gc.is_tracked(t2))  # -> True   <-----
 
 
 
