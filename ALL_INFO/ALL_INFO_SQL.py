@@ -1,5 +1,16 @@
 """
 
+ # Регулярки в SQL
+
+ SELECT ... WHERE title REGEXP BINARY '^(An?|The) +'; -- MySQL
+
+ SELECT ... WHERE REGEXP_LIKE(title, '^(An?|The) +', 'c'); -- Oracle
+
+ SELECT ... WHERE title ~ '^(An?|The) +'; -- PostgreSQL
+
+ SELECT ... WHERE title REGEXP '^(An?|The) +'; -- SQLite
+
+
  Создание таблицы book со столбцами определенного типа данных
 
  CREATE TABLE book(
@@ -214,6 +225,9 @@ ________________________________________________________________________________
 
  select title, author from book
    WHERE title like '% %' and title not like ' %' and (author like '%______ С___' or author like '%______ __С_')
+   # Тоже самое но с REGEXP
+   WHERE title REGEXP '(.+ .+)+' and  author REGEXP '(.+ С.А.)|(.+ А.С.)'
+
 
  # _ В like значит 1 любой символ
 
