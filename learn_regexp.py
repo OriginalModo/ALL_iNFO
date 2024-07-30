@@ -283,23 +283,17 @@ a = '1.79'
 # register_check = lambda x: len(__import__('re').findall(r'yes', str(x)))
 # register_check = lambda x: len(__import__('re').findall(r'yes', str(x)))
 
-import gc
 
-t1 = ([1],)
-t2 = ((1.),)
-print(gc.is_tracked(t1))  # -> True   <-----
-print(gc.is_tracked(t2))  # -> True   <-----
+import re, heapq
+from itertools import chain, islice
+# lst = [int(i) for i in 'h,e,l,l,o'.split(',')]
+# print(list(islice(iter('h,e,l,l,o'.split(',')), 2)))
 
+s = list({int(i) for i in '2, 2, 3, 1'.split(',')})
+heapq.heapify(s)
+res = heapq.nlargest(3, s)
 
-
-
-
-
-
-
-
-
-
+print(res[-1] if len(s) >= 3 else heapq.nlargest(1, s))
 
 
 
