@@ -248,6 +248,7 @@ ________________________________________________________________________________
  Следовательно, числовые данные, перед их использованием необходимо распознавать и преобразовывать к нужным типам.
  for line in iter(input, 'good'):  -> пока input() не будет равен 'good'            a = input('Введите что-то:')
     print(line.upper())
+
  ints = [int(i) for i in iter(input, '10')] - создание списка чисел пока не введем '10'
  res = list(iter(input, '10'))              - создание списка пока не введем '10'
 ________________________________________________________________________________________________________________________
@@ -290,6 +291,7 @@ ________________________________________________________________________________
  issubclass(A, A) # True Подкласс самого себя
  issubclass(B, A) # True
  issubclass(A, B) # False
+
  class C:
      pass
 
@@ -659,8 +661,8 @@ ________________________________________________________________________________
  # к свойству базового класса благодаря функции super().               x = B()
  class Laptop(Computer):                                               x.some_method()
      def __init__(self, computer, ram, ssd, model):
-         super().__init__(computer, ram, ssd)
-         self.model = model
+         super().__init__(computer, ram, ssd)                          # some_method A
+         self.model = model                                            # some_method B
 
 
  lenovo = Laptop('lenovo', 2, 512, 'l420')
@@ -709,11 +711,14 @@ ________________________________________________________________________________
 
  class Foo(object):
        bar = True
+ print(Foo.bar)  # True
+
  Foo = type('Foo', (), {'bar':True})
  print(Foo.bar)  # True
 
  class X:
     a = 1
+ print(X.a)  # 1
 
  X = type('X', (), dict(a=1))
  print(X.a) # 1

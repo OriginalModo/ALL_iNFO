@@ -289,23 +289,6 @@ from itertools import chain, islice
 # lst = [int(i) for i in 'h,e,l,l,o'.split(',')]
 # print(list(islice(iter('h,e,l,l,o'.split(',')), 2)))
 
-s = list({int(i) for i in '2, 2, 3, 1'.split(',')})
-heapq.heapify(s)
-res = heapq.nlargest(3, s)
-
-print(res[-1] if len(s) >= 3 else heapq.nlargest(1, s))
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
