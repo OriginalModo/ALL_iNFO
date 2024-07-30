@@ -284,56 +284,7 @@ a = '1.79'
 # register_check = lambda x: len(__import__('re').findall(r'yes', str(x)))
 
 
-import re, heapq
-from itertools import chain, islice
-# lst = [int(i) for i in 'h,e,l,l,o'.split(',')]
-# print(list(islice(iter('h,e,l,l,o'.split(',')), 2)))
-
-
-
-from more_itertools import ilen, islice_extended, unique_everseen
-from itertools import count
-
-text = r'<if>'
-
-# Если находим < то ищем if> или ищем if
-print(re.search(r"^(<)?(?(1)if>|if)$", text)[0])  # -> <if>
-print(re.search(r"^(?P<name><)?(?(name)if>|if)$", text)[0])  # -> <if>
-
-'(?P<name>...)'
-'(?P=name)'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import re
 
 
 
