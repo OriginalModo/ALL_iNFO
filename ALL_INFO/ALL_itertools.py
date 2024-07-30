@@ -1012,7 +1012,7 @@ ________________________________________________________________________________
  print(list(permutations('XYZ', 2)))
  # [('X', 'Y'), ('X', 'Z'), ('Y', 'X'), ('Y', 'Z'), ('Z', 'X'), ('Z', 'Y')]
  for item in permutations('XYZ', 2):
-   print(''.join(item))
+     print(''.join(item))
 ________________________________________________________________________________________________________________________
  itertools.product(*iterables, repeat=1) - Декартово произведение входных последовательностей.
 
@@ -1069,7 +1069,7 @@ ________________________________________________________________________________
  - itertools.combinations(): Порядок элементов не имеет значения.
 
  Разница между itertools.combinations() и itertools.combination_swith_replacement:
- - combinations(): Порядок элементов не имеет значения, и значения не повторяются.
+ - combinations(): Порядок элементов не имеет значения, и значения НЕ повторяются.
  - combinations_with_replacement(): Порядок элементов не имеет значения, и значения повторяются.
 
  from itertools import combinations, combinations_with_replacement, permutations

@@ -209,14 +209,14 @@ ________________________________________________________________________________
  чем их меньше - тем лучше. Убирать отступы можно при помощи уже упомянутого "Early Quit", а также при помощи вынесения
  части кода в отдельную функцию.
 
- or x in range(10):
-    result = foo(x)
-    if not result:
-        print('not good')
-        continue
+ for x in range(10):
+     result = foo(x)
+     if not result:
+         print('not good')
+         continue
 
-    second = bar(result)
-    print_second(second)
+     second = bar(result)
+     print_second(second)
 
  Частным случаем этого являются двойные, тройные и т.д. циклы, вроде:
  for x in range(100):
@@ -562,7 +562,7 @@ ________________________________________________________________________________
  несколько слов в названии переменной, и она вдруг от этого станет понятной. Если хорошее название - дело субъективное,
  то вот переопределение встроенных символов (например, list, set, next) - ОЧЕВИДНОЕ ЗЛО.
 
- НЕЛЬЗЯ ПЕРЕОПРЕДЕЛЯТЬ ВСТРОЕННЫХ СИМВОЛЫ (list, set, next, sum, max, min, print и так далее)
+ НЕЛЬЗЯ ПЕРЕОПРЕДЕЛЯТЬ ВСТРОЕННЫЕ СИМВОЛЫ (list, set, next, sum, max, min, print и так далее)
 
  -- Легко читать > Самодокументация > КОММЕНТАРИИ
 
@@ -688,10 +688,10 @@ ________________________________________________________________________________
      if max_val < min_val:
          raise ValueError("max_val is greater than min_val")  # тут уровень отступов == 2
 
-# ...вжух!
+ # ...вжух!
 
-if min_val is not None and max_val is not None and max_val < min_val:
-    raise ValueError("max_val is greater than min_val")       # тут уровень отступов == 1
+ if min_val is not None and max_val is not None and max_val < min_val:
+     raise ValueError("max_val is greater than min_val")       # тут уровень отступов == 1
 
  Pathlib
  pathlib (о котором я замолвлю словечко позже) позволяет читать и писать в одну строчку:
@@ -798,24 +798,24 @@ if min_val is not None and max_val is not None and max_val < min_val:
 
  Кстати, try-except вводят дополнительный отступ, а чем больше отступов... ну вы помните.
 
-def new_from_file(self, filename, selected=True):
-    try:
-        file_path = normalize_path(filename, True)
-        obj = DesktopParser(file_path)
-        sname = obj.get('Name',locale=LOCALE)
-        desc = obj.get('Comment',locale=LOCALE)
-        icon = obj.get('Icon')
-        pix = IconManager().get_icon(ThemedIcon('image-missing'),32)
-        if icon:
-            if icon.rfind('.') != -1:
-                pix = IconManager().get_icon(FileIcon(File(icon)),32)
-            else:
-                pix = IconManager().get_icon(ThemedIcon(icon),32)
+ def new_from_file(self, filename, selected=True):
+     try:
+         file_path = normalize_path(filename, True)
+         obj = DesktopParser(file_path)
+         sname = obj.get('Name',locale=LOCALE)
+         desc = obj.get('Comment',locale=LOCALE)
+         icon = obj.get('Icon')
+         pix = IconManager().get_icon(ThemedIcon('image-missing'),32)
+         if icon:
+             if icon.rfind('.') != -1:
+                 pix = IconManager().get_icon(FileIcon(File(icon)),32)
+             else:
+                 pix = IconManager().get_icon(ThemedIcon(icon),32)
 
-            data = (pix, '%s' % sname, obj, sname.upper(), file_path)
-        return self.launcher_view.add_row(data,selected)
-    except:
-        return None
+             data = (pix, '%s' % sname, obj, sname.upper(), file_path)
+         return self.launcher_view.add_row(data,selected)
+     except:
+         return None
 
 # ...вжух!
 
@@ -1074,7 +1074,7 @@ def new_from_file(self, filename, selected=True):
 
  Пожалуйста, не изобретайте велосипеды, если вам нужно запилить retry логику. Используйте tenacity.
 
-More-itertools
+ More-itertools
  Если вы не слышали про itertools из стандартной библиотеки, то самое время почитать. itertools.chain меня постоянно выручает.
  Но если itertools вам уже не хватает, то вэлкам: more-itertools.
  Тут есть chunked, spy, first, one, only, unique_everseen и прочие прелести. Осторожно, с этой дряни невозможно слезть.
@@ -1221,7 +1221,7 @@ More-itertools
 
  -- ЛЕГКО ТЕСТИРОВАТЬ --
 
- Как сделать тестирование лёгким и приятным? А вот как: пишите функции, которые
+ Как сделать тестирование лёгким и приятным? А вот как: пишите функции, которые:
 
  - ни от чего не зависят, кроме входных параметров
  - делают только одну вещь

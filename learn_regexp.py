@@ -291,43 +291,17 @@ from itertools import chain, islice
 
 
 
+from more_itertools import ilen, islice_extended, unique_everseen
+from itertools import count
 
+text = r'<if>'
 
+# Если находим < то ищем if> или ищем if
+print(re.search(r"^(<)?(?(1)if>|if)$", text)[0])  # -> <if>
+print(re.search(r"^(?P<name><)?(?(name)if>|if)$", text)[0])  # -> <if>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'(?P<name>...)'
+'(?P=name)'
 
 
 

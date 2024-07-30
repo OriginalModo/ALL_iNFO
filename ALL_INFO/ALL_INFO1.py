@@ -8977,6 +8977,11 @@ fact(30)
  - Нельзя получить длину итератора функцией len():
  len(it) -> TypeError: object of type 'list_iterator' has no len()
 
+ НО МОЖНО ИСПОЛЬЗОВАТЬ more_itertools.ilen(iterable) - Возвращает количество элементов в iterable .
+ from more_itertools import ilen
+
+ ilen(it) # -> 10
+
  - Итератор не поддерживает получение элемента по индексу:
  it[2] ->  TypeError: 'list_iterator' object is not subscriptable
 
@@ -8987,6 +8992,16 @@ fact(30)
 
  import itertools
  list(itertools.islice(it, 2, 5)) -> # [49, 64, 81]
+
+ class more_itertools.islice_extended(iterable, stop)  для получения отрицательных индексов
+ from more_itertools import islice_extended
+
+ iterable = iter('abcdefgh')
+ list(islice_extended(iterable, -4, -1))  # -> ['e', 'f', 'g']
+
+ # Срезы напрямую Любые Отрицательные или Положительные
+ iterable = iter('abcdefgh')
+ list(islice_extended(iterable))[-4:-1]  # -> ['e', 'f', 'g']
 
  - После прохождения по итератору, он остается пустым:
  it = iter([i*i for i in range(10)])
@@ -9075,6 +9090,7 @@ fact(30)
  - После прохождения по генератору, он остается пустым
 
  для срезов используем - itertools.islice()   но не поддерживает отрицательные индексы -1...
+ для Отрицательных или Положительных срезов используем - from more_itertools import islice_extended
 
  Методы Генератора:
  generator.__name__      - Имя
@@ -9453,18 +9469,34 @@ fact(30)
  Выражения-генераторы не поддерживают получение длины функцией len():
  len(i*i for i in range(10)) -> TypeError: object of type 'generator' has no len()
 
+ Можно использовать from more_itertools import ilen
+ ilen(i * i for i in range(10)) # -> 10
+
  Выражения-генераторы не поддерживают получение элемента по индексу:
  gen = (i*i for i in range(10))
  gen[1] -> TypeError: 'generator' object is not subscriptable
 
  К выражению-генератору нельзя применить обычные операции среза или функцию slice(). Для этих целей, можно
- воспользоваться функцией itertools.islice() модуля itertools.
+ воспользоваться функцией itertools.islice() модуля itertools. Для отрицательных индексов from more_itertools import islice_extended
  gen = (i*i for i in range(10))
  gen[1:5] -> TypeError: 'generator' object is not subscriptable
 
  import itertools
  list(itertools.islice(gen, 1, 5)) -> [1, 4, 9, 16]
  list(itertools.islice(gen, None, -1)) ->  ValueError: Stop argument for islice() must be None or an integer: 0 <= x <= sys.maxsize.
+
+ from more_itertools import ilen, islice_extended
+
+ gen = (i*i for i in range(10))
+ list(gen)                               # -> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+ gen = (i*i for i in range(10))
+ list(islice_extended(gen, None, -4))    # -> [0, 1, 4, 9, 16, 25]
+
+ gen = (i * i for i in range(10))
+ # Можно использовать напрямую срезы
+ print(list(islice_extended(gen)[:-4]))  # -> [0, 1, 4, 9, 16, 25]
+
 
  После использования/итерации по выражению-генератору, оно остается пустым:
  gen = (i*i for i in range(10))

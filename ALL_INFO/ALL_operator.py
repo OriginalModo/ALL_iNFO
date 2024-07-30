@@ -99,14 +99,14 @@ ________________________________________________________________________________
  from operator import attrgetter
 
 
-class MyObj:
+ class MyObj:
 
-    def __init__(self, arg):
-        super().__init__()
-        self.arg = arg
+     def __init__(self, arg):
+         super().__init__()
+         self.arg = arg
 
-    def __repr__(self):
-        return f'MyObj({self.arg})'
+     def __repr__(self):
+         return f'MyObj({self.arg})'
 
 
  l = [MyObj(i) for i in range(5)]
@@ -119,7 +119,8 @@ class MyObj:
  # [0, 1, 2, 3, 4]
 
  # теперь отсортируем, используя 'arg'
- print(l.reverse())
+ l.reverse()
+ print(l)
  # [MyObj(4), MyObj(3), MyObj(2), MyObj(1), MyObj(0)]
 
  print(sorted(l, key=g))
