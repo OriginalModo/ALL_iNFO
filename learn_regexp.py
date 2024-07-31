@@ -285,16 +285,20 @@ a = '1.79'
 
 
 import re
-from itertools import pairwise
 
 
+# Что увидим на экране после выполнения следующего кода?
 
-text = 'ddddddd4ddddAs'
+def do_it_something(lst):
+    lst[0] = "Гавайская"
+    lst[1] = "пицца"
+    return lst
 
 
-# Без ругулярки
-funcs, password = (str.isalpha, str.isupper, str.islower, str.isdigit), text
-print(all(map(lambda func: any(map(func, password)), funcs)) and len(password) >= 6)  # -> True
+values = ['Ребрышки', 'гриль', 'это', 'очень', 'вкусно']
+new_values = do_it_something(values)
+print(values)
+print(new_values)
 
 
 
