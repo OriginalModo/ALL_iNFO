@@ -56,6 +56,47 @@ ________________________________________________________________________________
  pandas.Series - одномерный массив.    это одномерный помеченный массив, способный хранить данные любого типа
  Каждый pandas.DataFrame и pandas.Series имеют индекс pandas.Index, который представляет собой метки строк данных.
 
+ import pandas as pd
+
+ df_filtered = df[df['column'] == 'condition']
+
+ # только на больших ДФ .query() работает медленнее.
+ df_filtered = df.query('column == "condition"')
+
+# Предположим, что game_events — это ваш DataFrame
+ game_events = pd.read_csv('путь_к_вашему_файлу.csv')  # Загрузите данные, если это необходимо
+
+ Разные функции pandas              # Так тоже можно
+ game_events['revenue'].count()     game_events.revenue.count()
+ game_events['revenue'].sum()       game_events.revenue.sum()
+ game_events['revenue'].mean()      game_events.revenue.mean()
+ game_events['revenue'].max()       game_events.revenue.max()
+ game_events['revenue'].min()       game_events.revenue.min()
+ game_events['revenue'].median()    game_events.revenue.median()
+
+ # Получить столбец
+ df['type']
+ game_events['type']
+
+ # Только уникальные
+ game_events['user_id'].unique()   #  ['7f0344f8' '00aa49ac' 'f5ef9841' '13d17d67']  сами уникальные элементы
+ game_events['user_id'].nunique()  #  4                                              количество уникальных элементов
+
+ # Фильтрация
+ count_events = game_events[game_events['user_id'] == 'f5ef9841']['event_name'].count()
+
+ # Тоже самое но SQL
+ SELECT COUNT(event_name) AS count_events
+ FROM game_events
+ WHERE user_id = 'f5ef9841'
+
+
+ # Фильтрация с датой
+ count_events = game_events[game_events['event_date'] == '2021-01-15']['event_name'].count()
+
+ # Выберите только те строки, где внутриигровые покупки пользователей больше или равны числу 7.49.
+ game_events[game_events['revenue'] >= 7.49]
+
  Jupyter-ноутбук — это среда разработки, где сразу можно видеть результат выполнения кода и его отдельных фрагментов.
  расширение файлов  .ipynb
  IPython – это интерактивная оболочка с широким набором возможностей и ядро для Jupyter
