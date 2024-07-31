@@ -326,6 +326,7 @@ ________________________________________________________________________________
  ManyToManyField – для связей Many to Many (Многие ко многим)
  OneToOneField – для связей One to One (Один к одному)
 
+ # Если модель в кавычках 'имя_модели' то её можно опеределять даже выше (python найдет её)
  cat = models.ForeignKey('Category', on_delete=models.PROTECT) # функция(PROTECT) не удаляет все связанные записи с Category
  cat = models.ForeignKey('Category', on_delete=models.CASCADE) # функция(CASCADE) удаляет все связанные записи с Category
 

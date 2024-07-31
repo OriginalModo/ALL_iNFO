@@ -12,7 +12,7 @@
 
  (venv) - Если вначале Терминала стоит строчка  (venv) значит используется Виртуальное Окружение
 
- Другой кнопкой мышки на проект и выбираем Reload from disk - Обновить папку вручную
+ Другой кнопкой мышки на проект и выбираем Reload from disk - Обновить папку вручную. Изменения не сразу Обновляются
 
 
  Чтобы выполнять команды нужно Быть в той же папке на том же уровне или используем команду cd
@@ -68,7 +68,7 @@
  2) Статические файлы, перечисленные внутри, myapp/static/будут обнаружены как часть collectstatic или службы
  статических файлов тестового сервера, но myuninstalledapp/staticфайлы не будут обнаружены.
 
- 3) Тесты внутри myapp/tests.pyзапускались, но myuninstalledapp/tests.pyне работали.
+ 3) Тесты внутри myapp/tests.py запускались, но myuninstalledapp/tests.py не работали.
 
  4) Команды управления, перечисленные в, myuninstalledapp/management/commands/не будут обнаружены.
 
@@ -272,8 +272,10 @@
  Перед столбцом Элементы нажимаем на Стрелочку или Ctrl + Shift + C  можно просмотреть элемент (что влияет на страницу)
 
 
+ В html отступы/пробелы вне любых тегов <li>   </li>  НЕ СЧИТАЮТСЯ
+
  Шаблонизатор Jinja2 в Django в Html
- пишем тег затем нажимаем Tab и тег сам сделаем {% if ...%} {% endif %} или другие операторы
+ пишем тег затем нажимаем Tab и тег сам сделает {% if ...%} {% endif %} или другие операторы
  Теги и ссылка:
     {% for zod in zodiacks %}
         <li><a href="{% url 'horoscope_name' sign_zodiac=zod %}">{{ zod|title }}</a></li>
@@ -339,7 +341,7 @@
 
 
  СУБД - Система управления Базами Данных
- Реляционные базы данных - SQL       - Все данных хранятся в виде Таблиц
+ Реляционные базы данных - SQL       - Все данные хранятся в виде Таблиц
  Строго структурированные (Есть привязки к типу донных)
 
  НЕ Реляционные базы данных - NOSQL  - Данные могут хранится различным способом
@@ -378,17 +380,17 @@
  Фильтры запросов  Lookups
  # https://docs.djangoproject.com/en/5.0/ref/models/querysets/
 
- Movies.objects.filter(budget=1000)                         фильтр на равенство поля
- Movies.objects.filter(budget__gt=1000)                     фильтр на поле больше значения (great then)
- Movies.objects.filter(budget__lt=1000)                     фильтр на поле меньше значения
- Movies.objects.filter(budget__gte=1000)                    фильтр на поле больше либо равно значения
- Movies.objects.filter(budget__lte=1000)                    фильтр на поле меньше либо равно значения
- Movies.objects.exclude(budget=1000)                        фильтр на поле не равно значению
+ Movies.objects.filter(budget=1000)                    ==   фильтр на равенство поля
+ Movies.objects.filter(budget__gt=1000)                 >   фильтр на поле больше значения (great then)
+ Movies.objects.filter(budget__lt=1000)                 <   фильтр на поле меньше значения
+ Movies.objects.filter(budget__gte=1000)               >=   фильтр на поле больше либо равно значения
+ Movies.objects.filter(budget__lte=1000)               <=   фильтр на поле меньше либо равно значения
+ Movies.objects.exclude(budget=1000)                   !=   фильтр на поле не равно значению
  Movies.objects.filter(year__isnull=True)                   фильтр на поле пустое (False - не пустое)
  Movies.objects.filter(year__isnull=True, name=’Avatar’)    фильтр на два поля
  Movies.objects.exclude(budget=1000).filter(name=’Avatar’)  фильтр на два поля
  Movies.objects.filter(name__contains=’Avatar’)             поле содержит значение, чувствителен к регистру
- Movies.objects.filter(name__icontains=’Avatar’)            поле содержит значение, не чувствителен к регистру
+ Movies.objects.filter(name__icontains=’Avatar’)            поле содержит значение, НЕ чувствителен к регистру
  Movies.objects.filter(name__startswith=’a’)                поле начинается с “a”
  Movies.objects.filter(name__endswith=’a’)                  поле заканчивается на “a”
  Movies.objects.filter(id__in=[3,5,6]’)                     выбираются все значения из списка
@@ -410,7 +412,7 @@
     name_class.objects.filter(аргумент__lt=10000) - Movie.objects.filter(budget__lt=10000) - найдет все подходящие
     записи, которые подходят под условие аргумента
 
- 5. Метод __gte - если хотим найти значение >=
+ 5. Метод __gte - если хотим найти значение >=   Метод __lte <=
     name_class.objects.filter(аргумент__gte=10000) - Movie.objects.filter(budget__gte=10000) - найдет все подходящие
     записи, которые подходят под условие аргумента
 
@@ -455,7 +457,7 @@
 
  Можно использовать регулярные выражения
 
- # Очень полезные методы   __regex  - чувствительное к регистру       __iregex - нечувствительное к регистру
+ # Очень полезные методы   __regex  - чувствительное к регистру       __iregex - НЕчувствительное к регистру
  # https://docs.djangoproject.com/en/5.0/ref/models/querysets/#regex
  Синтаксис регулярных выражений соответствует синтаксису используемой базы данных.
 
@@ -671,7 +673,7 @@
  path('detail/<int:pk>', DetailView.as_view(model=Feedback)),
 
 
- # Формы прописываются в файле forms
+ # Формы прописываются в файле forms.py
  from django import forms
  from .models import *
 

@@ -287,27 +287,6 @@ a = '1.79'
 import re
 
 
-# Что увидим на экране после выполнения следующего кода?
-
-def do_it_something(lst):
-    lst[0] = "Гавайская"
-    lst[1] = "пицца"
-    return lst
-
-
-values = ['Ребрышки', 'гриль', 'это', 'очень', 'вкусно']
-new_values = do_it_something(values)
-print(values)
-print(new_values)
-
-
-
-
-
-
-
-
-
 
 
 
