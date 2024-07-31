@@ -285,57 +285,16 @@ a = '1.79'
 
 
 import re
+from itertools import pairwise
 
 
 
+text = 'ddddddd4ddddAs'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Без ругулярки
+funcs, password = (str.isalpha, str.isupper, str.islower, str.isdigit), text
+print(all(map(lambda func: any(map(func, password)), funcs)) and len(password) >= 6)  # -> True
 
 
 

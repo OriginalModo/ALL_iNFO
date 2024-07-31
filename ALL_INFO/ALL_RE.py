@@ -3993,20 +3993,84 @@ ________________________________________________________________________________
  # Тоже самое без re
  print(text.title().replace('_', ''))  # -> VeryVeryBigVariable123
 
- -----------------------------------------------------------------------------------------------------------------------
-
-
-
 
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Замените в строке последние 5 символов на первые 5.
 
+ text = 'hello crazy world snake'
+
+ from re import sub, match
+ print(sub(r'.{1,5}$', match(r'^.{1,5}', text).group(), text))   # -> hello crazy world hello
+
+ print(re.sub(r'^(.{5}).*$', lambda m: m[0][:-5] + m[1], text))  # -> hello crazy world hello
+ print((text:='hello crazy world snake')[:-5] + text[:5])        # -> hello crazy world hello
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+ text = 'ap fl hk ap hk fl'
+
+ # Вернуть первое слово, у которого существуют повторения в строке. Если такого слова нет - функция возвращает None.
+
+ def find_repeated(text: str) -> str | None:
+     match = re.search(r"\b(\w+)\b(?=.+\b\1\b)", text)
+     if match:
+         return match[0]
+
+ print(find_repeated(text))  # -> ap
 
 
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Библиотека regex для Использование POSIX class
+
+ Напишите регулярное выражение, которое проверит, что в пароле выполняются следующие условия:
+
+ Длина минимум 6 символов
+ Содержит букву нижнего регистра
+ Содержит букву верхнего регистра
+ Содержит цифру
+ Может содержать только буквы и цифры (_ не подойдёт)
+ Если пароль подходит - выведите True, иначе - False.
+
+ import regex
+
+ text = 'ddddddd4ddddAs'
+
+ pattern = '''
+ (?x)^(?=[^\W_]{6,})  # длина пароля более 6 символов
+ (?=.*?\d)  # определяю наличие цифры
+ (?=.*?[[:upper:]])  # определяю наличие заглавной буквы
+ (?=.*?[[:lower:]])  # определяю наличие маленькой буквы
+ [^\W_]+$  # записываю пароль правильными символами
+ '''.strip()
+ pattern = regex.compile(pattern)
+
+ print(bool(pattern.fullmatch(text)))  # -> True
+
+ +-------------+-----------------------+----------------------------------------------------------------------+
+ | POSIX class | similar to            | meaning                                                              |
+ +-------------+-----------------------+----------------------------------------------------------------------+
+ | [:upper:]   | [A-Z]	               | uppercase letters                                                    |
+ | [:lower:]   | [a-z]	               | lowercase letters                                                    |
+ | [:alpha:]   | [A-Za-z]	           | upper- and lowercase letters                                         |
+ | [:digit:]   | [0-9]	               | digits                                                               |
+ | [:xdigit:   | [0-9A-Fa-f]	       | hexadecimal digits                                                   |
+ | [:alnum:]   | [A-Za-z0-9]	       | digits, upper- and lowercase letters                                 |
+ | [:punct:]   | 	                   | punctuation (all graphic characters except letters and digits)       |
+ | [:blank:]   | [ \t]	               | space and TAB characters only                                        |
+ | [:space:]   | [ \t\n\r\f\v]         | blank (whitespace) characters                                        |
+ | [:cntrl:]   | 	                   | control characters                                                   |
+ | [:graph:]   | [^ [:cntrl:]]         | graphic characters (all characters which have graphic representation)|
+ | [:print:]   | [[:graph:] ]          | graphic characters and space                                         |
+ +-------------+-----------------------+----------------------------------------------------------------------+
 
 
+ text = 'ddddddd4ddddAs'
+
+ # Без ругулярки
+ funcs, password = (str.isalpha, str.isupper, str.islower, str.isdigit), text
+ print(all(map(lambda func: any(map(func, password)), funcs)) and len(password) >= 6)  # -> True
 
  -----------------------------------------------------------------------------------------------------------------------
 
