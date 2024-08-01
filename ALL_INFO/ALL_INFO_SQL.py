@@ -583,11 +583,212 @@ ________________________________________________________________________________
 
 
 
+ С помощью выражения ON DELETE можно установить действия, которые выполняются для записей подчиненной таблицы
+ при удалении связанной строки из главной таблицы. При удалении можно установить следующие опции:
+
+ - CASCADE: автоматически удаляет строки из зависимой таблицы при удалении  связанных строк в главной таблице.
+ - SET NULL: при удалении  связанной строки из главной таблицы устанавливает для столбца внешнего ключа значение NULL.
+ (В этом случае столбец внешнего ключа должен поддерживать установку NULL).
+ - SET DEFAULT похоже на SET NULL за тем исключением, что значение  внешнего ключа устанавливается не в NULL,
+ а в значение по умолчанию для данного столбца.
+ - RESTRICT: отклоняет удаление строк в главной таблице при наличии связанных строк в зависимой таблице.
+
+ Важно! Если для столбца установлена опция SET NULL, то при его описании нельзя задать ограничение на пустое значение.
+
+ # Создание таблицы с внешними ключами  FOREIGN KEY
+ CREATE TABLE book (
+     book_id INT PRIMARY KEY AUTO_INCREMENT,
+     title VARCHAR(50),
+     author_id INT NOT NULL,
+     genre_id INT,
+     price DECIMAL(8,2),
+     amount INT,
+     FOREIGN KEY (author_id)  REFERENCES author (author_id) ON DELETE CASCADE,
+     FOREIGN KEY (genre_id) REFERENCES genre (genre_id) ON DELETE SET NULL
+     );
+
+
+
+ --- JOINS ---
+ В pandas это - pandas.DataFrame.join   pandas.DataFrame.merge
+
+ <join_type> ::=
+    [ { INNER | { { LEFT | RIGHT | FULL } [ OUTER ] } } [ <join_hint> ] ]       # [] - НЕобязательное
+    JOIN
+
+ Ключевое слово OUTER отмечено как необязательное (заключено в квадратные скобки). В этом конкретном случае OUTER
+ не имеет значения, указываете вы его или нет. Обратите внимание, что хотя другие элементы предложения join также
+ отмечены как необязательные, их исключение будет иметь значение.
+
+ Например, вся часть type в JOIN предложении является необязательной, в этом случае по умолчанию будет, INNER
+ если вы просто укажете JOIN. Другими словами, это допустимо:
+
+ SELECT *
+ FROM A JOIN B ON A.X = B.Y
+
+ Вот список эквивалентных синтаксисов:
+ A LEFT JOIN B            A LEFT OUTER JOIN B
+ A RIGHT JOIN B           A RIGHT OUTER JOIN B
+ A FULL JOIN B            A FULL OUTER JOIN B
+ A INNER JOIN B           A JOIN B
+
+
+ На верхнем уровне в основном существуют 3 типа соединений:
+
+ 1.INNER JOIN извлекает данные, если они присутствуют в обеих таблицах.
+
+ 2.OUTER JOINs бывают 3 типов:
+    1.LEFT OUTER JOIN- извлекает данные, если они присутствуют в левой таблице.
+    2.RIGHT OUTER JOIN- извлекает данные, если они присутствуют в нужной таблице.
+    3.FULL OUTER JOIN- извлекает данные, если они присутствуют в любой из двух таблиц.
+ 3. CROSS JOIN, как следует из названия, делает n раз m пар, которые соединяют все со всем. Это похоже на то, как мы
+ просто перечисляем таблицы для соединения (в предложении FROM оператора SELECT), используя запятые для их разделения.
+
+ Следует отметить следующее:
+ - Если вы просто упомянули JOIN, то по умолчанию это INNER JOIN.
+ - Соединение OUTER должно быть LEFT| RIGHT| FULL; вы не можете просто сказать OUTER JOIN.
+ - Вы можете опустить OUTER ключевое слово и просто сказать LEFT JOIN или RIGHT JOIN или FULL JOIN.  <-----
+
+
+
+  --- Pandas vs SQL ---
+
+ -- INNER JOIN --
+
+ SELECT *                     # Pandas
+ FROM df1                     pd.merge(df1, df2, on="key")
+ INNER JOIN df2
+   ON df1.key = df2.key;
+
+
+ merge() также предлагает параметры для случаев, когда вы хотите объединить столбец одного DataFrame с индексом другого DataFrame.
+ indexed_df2 = df2.set_index("key")
+ pd.merge(df1, indexed_df2, left_on="key", right_index=True)
+
+
+ -- LEFT OUTER JOIN --
+
+ SELECT *                      # Pandas
+ FROM df1                      pd.merge(df1, df2, on="key", how="left")
+ LEFT OUTER JOIN df2
+   ON df1.key = df2.key;
+
+
+ -- RIGHT JOIN --
+
+ SELECT *                      # Pandas
+ FROM df1                      pd.merge(df1, df2, on="key", how="right")
+ RIGHT OUTER JOIN df2
+   ON df1.key = df2.key;
+
+
+ -- FULL JOIN --
+
+ SELECT *                       # Pandas
+ FROM df1                       pd.merge(df1, df2, on="key", how="outer")
+ FULL OUTER JOIN df2
+   ON df1.key = df2.key;
 
 
 
 
 
+ # Соединение INNER JOIN  можно использовать просто JOIN   разницы никакой!!!
+ Оператор внутреннего соединения INNER JOIN соединяет две таблицы. Порядок таблиц для оператора неважен,
+ поскольку оператор является симметричным.
+
+
+ # Исходные таблицы
+ Таблица genre:
+ +----------+-------------+
+ | genre_id | name_genre  |
+ +----------+-------------+
+ | 1        | Роман       |
+ | 2        | Поэзия      |
+ | 3        | Приключения |
+ +----------+-------------+
+
+ Таблица author:
+ +-----------+------------------+
+ | author_id | name_author      |
+ +-----------+------------------+
+ | 1         | Булгаков М.А.    |
+ | 2         | Достоевский Ф.М. |
+ | 3         | Есенин С.А.      |
+ | 4         | Пастернак Б.Л.   |
+ | 5         | Лермонтов М.Ю.   |
+ +-----------+------------------+
+
+ Таблица book:
+ +---------+-----------------------+-----------+----------+--------+--------+
+ | book_id | title                 | author_id | genre_id | price  | amount |
+ +---------+-----------------------+-----------+----------+--------+--------+
+ | 1       | Мастер и Маргарита    | 1         | 1        | 670.99 | 3      |
+ | 2       | Белая гвардия         | 1         | 1        | 540.50 | 5      |
+ | 3       | Идиот                 | 2         | 1        | 460.00 | 10     |
+ | 4       | Братья Карамазовы     | 2         | 1        | 799.01 | 3      |
+ | 5       | Игрок                 | 2         | 1        | 480.50 | 10     |
+ | 6       | Стихотворения и поэмы | 3         | 2        | 650.00 | 15     |
+ | 7       | Черный человек        | 3         | 2        | 570.20 | 6      |
+ | 8       | Лирика                | 4         | 2        | 518.99 | 2      |
+ +---------+-----------------------+-----------+----------+--------+--------+
+
+ # Вывести название, жанр и цену тех книг, количество которых больше 8, в отсортированном по убыванию цены виде.
+
+
+ SELECT title, name_genre, price             SELECT title, name_genre, price
+ FROM genre INNER JOIN book                  FROM genre g JOIN book b
+      ON genre.genre_id = book.genre_id      ON g.genre_id = b.genre_id AND b.amount > 8
+ WHERE amount > 8                            ORDER BY price DESC;
+ ORDER BY price DESC;
+
+
+ # Можно использовать  USING    book.genre_id = genre.genre_id на USING(genre_id) - записи эквивалентны
+
+ SELECT title, name_genre, price from book
+ JOIN genre USING(genre_id)
+ WHERE amount > 8
+ ORDER BY price DESC;
+
+ # Моё решение
+ select title, name_genre, price from book
+ join genre on book.genre_id = genre.genre_id
+ where amount > 8
+ order by price desc
+
+
+
+ # Внешнее соединение LEFT и RIGHT OUTER JOIN
+ Оператор внешнего соединения LEFT OUTER JOIN  (можно использовать LEFT JOIN) соединяет две таблицы.
+ Порядок таблиц для оператора важен, поскольку оператор не является симметричным.
+
+
+ # Вывести все жанры, которые не представлены в книгах на складе.
+
+ SELECT DISTINCT name_genre
+ FROM genre LEFT JOIN book
+      on genre.genre_id = book.genre_id
+ WHERE title is NUll;
+
+
+ # Вывести (жанр, книга, автор), относящихся к жанру, включающему слово «роман» в отсортированном по названиям книг виде.
+
+ select name_genre, title, name_author from book      select name_genre, title, name_author from book
+ JOIN genre ON book.genre_id = genre.genre_id         JOIN genre ON book.genre_id = genre.genre_id
+ JOIN author ON book.author_id = author.author_id     JOIN author ON book.author_id = author.author_id
+ where name_genre like '%Роман%'                      WHERE book.genre_id=1
+ order by title                                       order by title
+
+
+ # Лучше решения!!!
+                                               # LIKE регистроНЕзависимый, всю эту конструкцию можно заменить одним WHERE LIKE '%роман%'
+ SELECT name_genre, title, name_author         SELECT name_genre, title, name_author
+  FROM genre g                                 FROM genre g
+       INNER JOIN book b                           INNER JOIN book b ON g.genre_id=b.genre_id
+       ON g.genre_id = b.genre_id                  INNER JOIN author a ON a.author_id=b.author_id
+          AND g.name_genre LIKE '%_оман%'      WHERE LOWER(name_genre) RLIKE '[[:<:]]роман[[:>:]]'
+       INNER JOIN author USING(author_id)      ORDER BY title
+ ORDER BY title;
 
 
 
@@ -620,7 +821,7 @@ ________________________________________________________________________________
  group by user_id
 
 
-Копирую решение уже в который раз...
+
 
 
 

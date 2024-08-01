@@ -97,6 +97,111 @@ ________________________________________________________________________________
  # Выберите только те строки, где внутриигровые покупки пользователей больше или равны числу 7.49.
  game_events[game_events['revenue'] >= 7.49]
 
+
+ # Пример JOIN в pandas   pandas.DataFrame.join
+ DataFrame.join(other, on=None, how='left', lsuffix='', rsuffix='', sort=False, validate=None)
+
+ df.join(other, lsuffix='_caller', rsuffix='_other')
+ df.set_index('key').join(other.set_index('key'))
+ df.join(other.set_index('key'), on='key')
+ df.join(other.set_index('key'), on='key', validate='m:1')
+
+
+ # Пример JOINs в pandas   pandas.DataFrame.merge
+
+ DataFrame.merge(right, how='inner', on=None, left_on=None, right_on=None, left_index=False, right_index=False,
+                 sort=False, suffixes=('_x', '_y'), copy=None, indicator=False, validate=None)
+
+ # Примеры!!!
+ df1 = pd.DataFrame({'lkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [1, 2, 3, 5]})
+ df2 = pd.DataFrame({'rkey': ['foo', 'bar', 'baz', 'foo'],
+                    'value': [5, 6, 7, 8]})
+
+ # Объединить df1 и df2 в столбцах lkey и rkey. Столбцы значений имеют суффиксы по умолчанию, _x и _y, добавленные.
+
+ df1.merge(df2, left_on='lkey', right_on='rkey')
+
+ # Объединить фреймы данных df1 и df2 с указанными левыми и правыми суффиксами, добавленными ко всем перекрывающимся столбцам.
+
+ df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=('_left', '_right'))
+
+ # Объединить DataFrames df1 и df2, но вызвать исключение, если DataFrames имеют перекрывающиеся столбцы.
+
+ df1.merge(df2, left_on='lkey', right_on='rkey', suffixes=(False, False))
+
+
+
+ df1 = pd.DataFrame({'a': ['foo', 'bar'], 'b': [1, 2]})
+ df2 = pd.DataFrame({'a': ['foo', 'baz'], 'c': [3, 4]})
+
+ df1.merge(df2, how='inner', on='a')
+ df1.merge(df2, how='left', on='a')
+ df1.merge(df2, how='cross')
+
+
+
+   --- Pandas vs SQL ---
+
+ # Таблицы
+ df1 = pd.DataFrame({"key": ["A", "B", "C", "D"], "value": np.random.randn(4)})
+ df2 = pd.DataFrame({"key": ["B", "D", "D", "E"], "value": np.random.randn(4)})
+
+ -- INNER JOIN --
+
+ SELECT *                     # Pandas
+ FROM df1                     pd.merge(df1, df2, on="key")
+ INNER JOIN df2
+   ON df1.key = df2.key;
+
+
+ merge() также предлагает параметры для случаев, когда вы хотите объединить столбец одного DataFrame с индексом другого DataFrame.
+ indexed_df2 = df2.set_index("key")
+ pd.merge(df1, indexed_df2, left_on="key", right_index=True)
+
+
+ -- LEFT OUTER JOIN --
+
+ SELECT *                      # Pandas
+ FROM df1                      pd.merge(df1, df2, on="key", how="left")
+ LEFT OUTER JOIN df2
+   ON df1.key = df2.key;
+
+
+ -- RIGHT JOIN --
+
+ SELECT *                      # Pandas
+ FROM df1                      pd.merge(df1, df2, on="key", how="right")
+ RIGHT OUTER JOIN df2
+   ON df1.key = df2.key;
+
+
+ -- FULL JOIN --
+
+ SELECT *                       # Pandas
+ FROM df1                       pd.merge(df1, df2, on="key", how="outer")
+ FULL OUTER JOIN df2
+   ON df1.key = df2.key;
+
+
+ -- UNION --
+
+ df1 = pd.DataFrame({"city": ["Chicago", "San Francisco", "New York City"], "rank": range(1, 4)})
+ df2 = pd.DataFrame({"city": ["Chicago", "Boston", "Los Angeles"], "rank": [1, 4, 5]})
+
+ SELECT city, rank              # Pandas
+ FROM df1                       pd.concat([df1, df2])
+ UNION ALL
+ SELECT city, rank
+ FROM df2;
+
+
+ -- LIMIT --
+
+ SELECT * FROM tips             # Pandas
+ LIMIT 10;                      tips.head(10)
+
+
  Jupyter-ноутбук — это среда разработки, где сразу можно видеть результат выполнения кода и его отдельных фрагментов.
  расширение файлов  .ipynb
  IPython – это интерактивная оболочка с широким набором возможностей и ядро для Jupyter
