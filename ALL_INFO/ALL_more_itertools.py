@@ -61,6 +61,10 @@ ________________________________________________________________________________
  list(chunked([1], 2, strict=True)) # -> ValueError: iterable is not divisible by n.
 
  Исходник:
+ from functools import partial
+ from itertools import islice
+ from more_itertools import take
+
  def chunked(iterable, n, strict=False):
     iterator = iter(partial(take, n, iter(iterable)), [])
         if strict:
@@ -2700,6 +2704,8 @@ ________________________________________________________________________________
  list(it)  # -> ['10', '12', '14', '16', '18']
 
  Исходник Не хилый:
+ from itertools import islice
+
  class islice_extended:
 
      def __init__(self, iterable, *args):
