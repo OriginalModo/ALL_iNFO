@@ -203,6 +203,94 @@ ________________________________________________________________________________
  print(convert2([2, 7, 3, 1, 5, 2, 6, 2], 3))  # -> [7, 7, 5, 5, 6, 6]
 ________________________________________________________________________________________________________________________
 
+ Задача на программирование: небольшое число Фибоначчи    Посмотри тесты в конце!!!    Важно!!! <-----    <-----
+
+ # Скорость O(1)                      # Скорость O(1)
+ def fibonacci__1(n):                 import math
+     if n == 0:
+         return 0                     def fibonacci__2(n):
+     elif n == 1:                         phi = (1 + math.sqrt(5)) / 2
+         return 1                         return round((phi**n - (1 - phi)**n) / math.sqrt(5))
+
+     a, b = 0, 1
+     for _ in range(2, n + 1):
+         a, b = b, a + b
+     return b
+
+ n = 7                                 n = 7
+ print(fibonacci__1(n))  # -> 13       print(fibonacci__2(n))   # -> 13
+
+
+ # Решения с мемоизацией КЭШ  Скорость O(n)
+ # @__import__('functools').lru_cache(maxsize=None)  #  Так тоже можно импортировать
+ @functools.lru_cache(maxsize=None)
+ def fibonacci__3(n):
+     if n < 2:
+         return n
+     else:
+         return fibonacci__3(n - 1) + fibonacci__3(n - 2)
+
+ n = 7
+ print(fibonacci__3(n))  # -> 13
+
+
+ # Простая функция  if/else                               # Простая функция  match/case     <-----  Посмотри тесты в конце!!!
+ def fibonacci__0(n):                                     def fib(n):
+     if n < 2:                                                match n:
+         return n                                                 case 0 | 1:
+     else:                                                            return n
+         return fibonacci__0(n - 1) + fibonacci__0(n - 2)         case _:
+                                                                    return fib(n - 1) + fib(n - 2)
+ n = 7                                                    n = 7
+ print(fibonacci__0(n))  # -> 13                          print(fibonacci__0(n))  # -> 13
+
+
+ # Замеры с параметром 50!!!
+ print(timeit.timeit('fibonacci__1(50)', globals=globals()))                          # -> 2.737594800069928
+ print(timeit.timeit('fibonacci__2(50)', globals=globals()))                          # -> 1.235288399970159
+ print(timeit.timeit('fibonacci__3(50)', globals=globals()))                          # -> 0.10358340013772249
+
+ # Замер простой функции с параметром ТОЛЬКО 10!!!
+ print(timeit.timeit('fibonacci__0(10)', globals=globals()))                          # -> 16.955934199970216
+ # Замер match case простой функции с параметром ТОЛЬКО 10!!!
+ print(timeit.timeit('fib(10)', globals=globals()))                                   # -> 24.523009299999103
+
+
+ # Тоже самое но с setup()
+ print(timeit.timeit('fibonacci__1(50)', setup="from __main__ import fibonacci__1"))  # -> 2.7405860000289977
+ print(timeit.timeit('fibonacci__2(50)', setup="from __main__ import fibonacci__2"))  # -> 1.2412337001878768
+ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3"))  # -> 0.09871609997935593
+
+ # Замер простой функции с параметром ТОЛЬКО 10!!!
+ print(timeit.timeit('fibonacci__0(10)', setup="from __main__ import fibonacci__0"))  # -> 16.960932299960405
+
+ # Замер match case простой функции с параметром ТОЛЬКО 10!!!
+ print(timeit.timeit('fib(10)', setup="from __main__ import fib"))                    # -> 24.574260200140998
+
+
+ times = {
+     'fibonacci__1': round(timeit.timeit('fibonacci__1(50)', globals=globals()), 3),
+     'fibonacci__2': round(timeit.timeit('fibonacci__2(50)', globals=globals()), 3),
+     'fibonacci__3': round(timeit.timeit('fibonacci__3(50)', globals=globals()), 3),
+     'Default': round(timeit.timeit('fibonacci__0(10)', globals=globals()), 3),
+     'Default match case': round(timeit.timeit('round(fib(10), 2)', globals=globals()), 3),
+ }
+
+ # Оценим время, за которое они завершили исполнение!   Странно match case очень долго работает
+ print(sorted(times.items(), key=lambda x: x[1]))
+ # [('fibonacci__3', 0.104), ('fibonacci__2', 1.225), ('fibonacci__1', 2.692), ('Default', 17.286), ('Default match case', 25.659)]
+________________________________________________________________________________________________________________________
+
+
+________________________________________________________________________________________________________________________
+
+
+________________________________________________________________________________________________________________________
+
+
+________________________________________________________________________________________________________________________
+
+
 ________________________________________________________________________________________________________________________
 
 
@@ -2158,6 +2246,7 @@ ________________________________________________________________________________
 
  assert res == 'qwertyhasdfgasdfghzxcvb'
  -----------------------------------------------------------------------------------------------------------------------
+
 
 
  -----------------------------------------------------------------------------------------------------------------------

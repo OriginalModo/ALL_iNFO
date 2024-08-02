@@ -294,28 +294,8 @@ import re
 a = ' '.join('234').split()
 a = map(int, '8, 11, 12, 13'.split(', '))
 
-
-from collections import Counter
-
-
-
-class TaskManager:
-    pass
-
-
-todos = [TaskManager() for i in range(20)]
-print(todos)
-
-
-
-
-
-
-
-
-
-
-
+# Наибольший общий делитель двух чисел  math.gcd
+print(__import__('math').gcd(30, 18))  # -> 6
 
 
 
