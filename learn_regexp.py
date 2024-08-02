@@ -302,33 +302,19 @@ from collections import Counter
 res = []
 res_2 = []
 
-res = ['вода кислород водород', 'аммиак азот водород', 'ацетон углерод водород кислород']
-res_2 = ['кислород', 'водород']
-
-print((len(a:=input())), set(a))
+res = 'comfort'
+s = 'comfort'
 
 
+# input()
+# int(input())
 
+n = 3
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+s = '1'
+for i in range(2, n+2):
+    print(s)
+    s += str(i)
 
 
 
