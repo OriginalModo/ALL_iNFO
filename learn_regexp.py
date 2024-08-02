@@ -299,37 +299,12 @@ from collections import Counter
 
 
 
-res = []
-res_2 = []
-
-res = 'comfort'
-s = 'comfort'
+class TaskManager:
+    pass
 
 
-# input()
-# int(input())
-
-n = 3
-
-s = '1'
-for i in range(2, n+2):
-    print(s)
-    s += str(i)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+todos = [TaskManager() for i in range(20)]
+print(todos)
 
 
 
