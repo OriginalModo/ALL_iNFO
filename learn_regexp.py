@@ -291,22 +291,27 @@ import re
 
 
 
-a = ' '.join('234').split()
-a = map(int, '8, 11, 12, 13'.split(', '))
-
-# Наибольший общий делитель двух чисел  math.gcd
-print(__import__('math').gcd(30, 18))  # -> 6
 
 
 
+from datetime import date
+
+date_24_06_1987 = __import__('datetime').date(year=1987, month=6, day=24)
+date_18_12_2022 = __import__('datetime').date(year=2022, month=1, day=18)
+# print(f'{date_24_06_1987:%Y-%m-%d}\n{date_18_12_2022:%Y-%m-%d}')
 
 
 
+from datetime import date
+from collections import defaultdict
+import re
 
+a_dict = defaultdict(list)
 
-
-
-
+for i in range(1, 31+True):
+    a_dict[date(1945, 5, i)].append([date(1945, 5, i) for i in range(1, i+1)])
+may_days = re.sub(r'(\[(?=\[))|(\](?=\]))|(defaultdict\(<class \'list\'>, )|(?<=})\)|(datetime\.)', '', str(a_dict))
+print(eval(may_days))
 
 
 
