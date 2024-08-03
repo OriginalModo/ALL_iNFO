@@ -2247,16 +2247,87 @@ ________________________________________________________________________________
  assert res == 'qwertyhasdfgasdfghzxcvb'
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Суммирует все кубические значения от 1 до n (включительно) и возвращает эту сумму.
+
+ # Можно перед range НЕ ставить list               # Тоже самое
+ def sum_cubes(n):                                 def sum_cubes(n):
+     return sum(map(lambda x: x**3, range(n+1)))       return sum(i**3 for i in range(n+1))
+
+ print(sum_cubes(10), 3025)  # -> 3025 3025
 
 
+ # Интересный вариант!!!
+ def sum_cubes(n):
+     res = iter(list(range(n+1)))
+     return sum([next(res)**3 for _ in range(n+1)])
+
+ print(sum_cubes(10), 3025)  # -> 3025 3025
  -----------------------------------------------------------------------------------------------------------------------
 
+ # "Even" для четных чисел или "Odd" для нечетных чисел.
+ # Функция также должна возвращать "Even" или "Odd" при доступе к значению по целочисленному индексу.
 
+ # Тоже самое                                        # Тоже самое
+ class EvenOrOdd:                                    class EvenOrOdd:
+     def __call__(self, num):                            def __call__(self, number):
+         return "Even" if num % 2 == 0 else "Odd"            return ['Even', 'Odd'][number % 2]
+
+     def __getitem__(self, num):                         def __getitem__(self, number):
+         return self(num)                                    return self.__call__(number)
+
+ even_or_odd = EvenOrOdd()
+
+ print(even_or_odd(10))  # -> Even
+ print(even_or_odd(9))   # -> Odd
+
+ # Можно вызывать через []
+ print(even_or_odd[10])  # -> Even
+ print(even_or_odd[9])   # -> Odd
+
+ # Тоже самое
+ class Obj:
+     __call__ = __getitem__ = lambda self, n: "Even" if not n % 2 else "Odd"
+
+ even_or_odd = Obj()
+
+ # Тоже самое
+ even_or_odd = type('', (), {'__call__': (f:=lambda _, n: 'EOvdedn'[n%2::2]), '__getitem__': f})()
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Найти индекс в списке две заглавные буквы О, с как минимум одним тире между ними!
 
+ find_glasses = lambda x: next(i for i, v in enumerate(x) if re.search(r'O-+O', v))
+
+ print(find_glasses(["O-O"]), 0)           # -> 0 0
+ print(find_glasses(['o-o', "O---O"]), 1)  # -> 1 1
  -----------------------------------------------------------------------------------------------------------------------
 
+ # JavaScript предоставляет встроенный метод parseInt. Его можно использовать следующим образом:
+ # parseInt("10")              возвращается 10
+ # parseInt("10 apples") также возвращается 10
+
+ # Мы хотели бы, чтобы он возвращался "NaN"(в виде строки) во втором случае, поскольку входная строка не является допустимым числом.
+
+ def my_parse_int(strn):
+     return int(s.group()) if (s:=re.fullmatch(r'\s*\d+\s*', strn)) else 'NaN'
+
+ print(my_parse_int("1"), 1)              # -> 1 1
+ print(my_parse_int("  1 "), 1)           # -> 1 1
+ print(my_parse_int("08"), 8)             # -> 8 8
+ print(my_parse_int("5 friends"), "NaN")  # -> NaN NaN
+ print(my_parse_int("16.5"), "NaN")       # -> NaN NaN
+
+
+ # Тоже самое
+ my_parse_int = lambda s: int(s) if s.strip().isdigit() else "NaN"
+
+
+ # Хитрый вариант
+ def my_parse_int(s):
+     try:
+         return int(s)
+     except ValueError:
+         return 'NaN'
 
  -----------------------------------------------------------------------------------------------------------------------
 

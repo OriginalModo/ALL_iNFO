@@ -291,49 +291,23 @@ import re
 
 
 
+# JavaScript предоставляет встроенный метод parseInt. Его можно использовать следующим образом:
+# parseInt("10")              возвращается 10
+# parseInt("10 apples") также возвращается 10
 
-
-
-from datetime import date
-
-date_24_06_1987 = __import__('datetime').date(year=1987, month=6, day=24)
-date_18_12_2022 = __import__('datetime').date(year=2022, month=1, day=18)
-# print(f'{date_24_06_1987:%Y-%m-%d}\n{date_18_12_2022:%Y-%m-%d}')
-
-
-
-from datetime import date
-from collections import defaultdict
 import re
 
-a_dict = defaultdict(list)
-
-for i in range(1, 31+True):
-    a_dict[date(1945, 5, i)].append([date(1945, 5, i) for i in range(1, i+1)])
-may_days = re.sub(r'(\[(?=\[))|(\](?=\]))|(defaultdict\(<class \'list\'>, )|(?<=})\)|(datetime\.)', '', str(a_dict))
-print(eval(may_days))
+def get_users_ids(st):
+    res_2 = [re.sub(r'\buid', '', i.replace('#', '')).lower().strip() for i in st.split(', ')]
+    return res_2
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(get_users_ids("uid12345"), ["12345"])
+print(get_users_ids("   uidabc  "), ["abc"])
+print(get_users_ids("#uidswagger"), ["swagger"])
+print(get_users_ids("uidone, uidtwo"), ["one", "two"])
+print(get_users_ids("uidCAPSLOCK"), ["capslock"])
+print(get_users_ids("uidCAPSLOCK"), ["capslock"])
 
 
 
