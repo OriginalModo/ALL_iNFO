@@ -295,26 +295,35 @@ import re
 # parseInt("10")              возвращается 10
 # parseInt("10 apples") также возвращается 10
 
+
+# Реализуйте функцию createTemplate, которая принимает строку с тегами, упакованными {{brackets}}в качестве входных
+# данных, и возвращает замыкание, которое может заполнять строку данными (плоский объект, где ключами являются имена тегов).
+
+# Пример что должно быть на выходе
+
+# template = create_template("{{name}} likes {{animalType}}")
+# template(name="John", animalType="dogs")  # ->  John likes dogs
+
 import re
 
-def get_users_ids(st):
-    res_2 = [re.sub(r'\buid', '', i.replace('#', '')).lower().strip() for i in st.split(', ')]
-    return res_2
+PATTERN = re.compile(
+'^'                   # begin string
+'(?=.*?[A-Z])'        # at least one uppercase letter
+'(?=.*?[a-z])'        # at least one lowercase letter
+'(?=.*?\d)'           # at least one digit
+'(?=.*?[!@#$%^&*?])'  # at least one special character
+'[A-Za-z\d!@#$%^&*?]' # only the given characters
+'{8,20}'              # between 8 and 20 characters long
+'$'                   # end string
+)
 
-
-print(get_users_ids("uid12345"), ["12345"])
-print(get_users_ids("   uidabc  "), ["abc"])
-print(get_users_ids("#uidswagger"), ["swagger"])
-print(get_users_ids("uidone, uidtwo"), ["one", "two"])
-print(get_users_ids("uidCAPSLOCK"), ["capslock"])
-print(get_users_ids("uidCAPSLOCK"), ["capslock"])
-
-
-
-
+def check_password(s):
+    return "valid" if PATTERN.match(s) else "not valid"
 
 
 
+print(check_password("P1@p"), "not valid")  # -> not valid not valid
+print(check_password("P1@pP1@p"), "valid")  # -> valid valid
 
 
 

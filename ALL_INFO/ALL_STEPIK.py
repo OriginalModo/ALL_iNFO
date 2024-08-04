@@ -2331,6 +2331,86 @@ ________________________________________________________________________________
 
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Реализуйте функцию createTemplate, которая принимает строку с тегами, упакованными {{brackets}}в качестве входных
+ # данных, и возвращает замыкание, которое может заполнять строку данными (плоский объект, где ключами являются имена тегов).
+
+ # Пример что должно быть на выходе:
+
+ # template = create_template("{{name}} likes {{animalType}}")
+ # template(name="John", animalType="dogs")  # ->  John likes dogs
+
+ # Первый вариант
+ from jinja2 import Template
+
+ def create_template(template):
+     return lambda **vals: Template(template).render(vals)
+
+
+ # Второй вариант
+ def create_template(template):
+     return lambda **kwargs: re.sub(r'{{(.*?)}}', lambda m: kwargs.get(m.group(1), ''), template)
+
+
+ # Третий вариант
+ def create_template(template):
+    def closure(**kwargs):
+        return re.sub(r"{{(\w+)}}", lambda x: kwargs.get(x.group(1)) ,template)
+
+    return closure
+
+
+ template = create_template("{{firstName}} {{lastName}} likes {{interests}}")
+ print(template(firstName="John", lastName="Smith", interests="sport"), "John Smith likes sport")
+ print(template(firstName="Albert", lastName="Einstein", occuptation="physicist"), "Albert Einstein likes ")
+ -----------------------------------------------------------------------------------------------------------------------
+
+ Валидация пароля  длина пароля От 8 до 20 символов  1 заглавная, 1 строчная, 1 цифра, специальные символы из!@#$%^&*?
+
+ # Первый вариант
+ def check_password(s):
+     if re.search('^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[!@#$%^&*?])[a-zA-Z\d!@#$%^&*?]{8,20}$', s):
+         return 'valid'
+     else:
+         return 'not valid'
+
+
+ # Второй вариант
+ PATTERN = re.compile(
+ '^'                   # begin string
+ '(?=.*?[A-Z])'        # at least one uppercase letter
+ '(?=.*?[a-z])'        # at least one lowercase letter
+ '(?=.*?\d)'           # at least one digit
+ '(?=.*?[!@#$%^&*?])'  # at least one special character
+ '[A-Za-z\d!@#$%^&*?]' # only the given characters
+ '{8,20}'              # between 8 and 20 characters long
+ '$'                   # end string
+ )
+
+ def check_password(s):
+     return "valid" if PATTERN.match(s) else "not valid"
+
+ print(check_password("P1@p"), "not valid")  # -> not valid not valid
+ print(check_password("P1@pP1@p"), "valid")  # -> valid valid
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
+
+ -----------------------------------------------------------------------------------------------------------------------
+
 
  -----------------------------------------------------------------------------------------------------------------------
 
