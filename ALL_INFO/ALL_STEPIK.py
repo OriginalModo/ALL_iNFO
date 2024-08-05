@@ -2393,10 +2393,40 @@ ________________________________________________________________________________
  print(check_password("P1@pP1@p"), "valid")  # -> valid valid
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Ваша задача — удалить все последовательные дубликаты
+ def remove_consecutive_duplicates(s):
+     res = []
+     for i in s.split():
+         if i not in res:
+             res.append(i)
+         if i != res[-1]:
+             res.append(i)
+     return ' '.join(res)
 
+
+ # Тоже самое
+ from itertools import groupby
+
+ def remove_consecutive_duplicates(s):
+     return ' '.join(k for k,_ in groupby(s.split()))
+
+ # Тоже самое
+ def remove_consecutive_duplicates(s):
+     return re.sub(r'\b(\w+)(?:\s\1)+\b', r'\1', s)
+
+
+ print(remove_consecutive_duplicates('alpha beta beta gamma gamma gamma delta alpha beta beta gamma gamma gamma delta'))
+ # alpha beta gamma delta alpha beta gamma delta
+
+ print(remove_consecutive_duplicates('1 2 2 2 2 3 3 3 3 3 3 3 3 3'))  # -> 1 2 3
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Создайте регулярное выражение, которое соответствует строке со строчными символами в алфавитном порядке,
+ # включая любое количество пробелов. Между группами одинаковых букв НЕ может быть пробелов. Начальные и конечные пробелы
+ # также разрешены. Должна соответствовать пустая строка.
 
+ REGEX = r'^ *a* *b* *c* *d* *e* *f* *g* *h* *i* *j* *k* *l* *m* *n* *o* *p* *q* *r* *s* *t* *u* *v* *w* *x* *y* *z* *\Z'
+ REGEX = fr"\A *{'* *'.join('abcdefghijklmnopqrstuvwxyz')}* *\Z"
  -----------------------------------------------------------------------------------------------------------------------
 
 

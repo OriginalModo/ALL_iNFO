@@ -304,47 +304,68 @@ import re
 # template = create_template("{{name}} likes {{animalType}}")
 # template(name="John", animalType="dogs")  # ->  John likes dogs
 
+
+
+'aeiouy'
+'bcdfghjklmnpqrstvwxzy'
+
+
 import re
 
-PATTERN = re.compile(
-'^'                   # begin string
-'(?=.*?[A-Z])'        # at least one uppercase letter
-'(?=.*?[a-z])'        # at least one lowercase letter
-'(?=.*?\d)'           # at least one digit
-'(?=.*?[!@#$%^&*?])'  # at least one special character
-'[A-Za-z\d!@#$%^&*?]' # only the given characters
-'{8,20}'              # between 8 and 20 characters long
-'$'                   # end string
-)
-
-def check_password(s):
-    return "valid" if PATTERN.match(s) else "not valid"
+import itertools
 
 
+# Создайте регулярное выражение, которое соответствует строке со строчными символами в алфавитном порядке,
+# включая любое количество пробелов. Между группами одинаковых букв НЕ может быть пробелов. Начальные и конечные пробелы
+# также разрешены. Должна соответствовать пустая строка.
 
-print(check_password("P1@p"), "not valid")  # -> not valid not valid
-print(check_password("P1@pP1@p"), "valid")  # -> valid valid
+REGEX = r'^ *a* *b* *c* *d* *e* *f* *g* *h* *i* *j* *k* *l* *m* *n* *o* *p* *q* *r* *s* *t* *u* *v* *w* *x* *y* *z* *\Z'
+REGEX = fr"\A *{'* *'.join('abcdefghijklmnopqrstuvwxyz')}* *\Z"
 
-
-
-
-
-
-
-
-
-
-
-
+def check_root(strng):
+    # for i, j in itertools.pairwise(strng):
+    #     if i in string.ascii_lowercase:
+    #         if ord(i) > ord(j) or ord(i) != ord(j):
+    #             return None
+    return re.fullmatch(r'^ *[a]* *[b]* *[c]* *[d]* *[e]* *[f]* *[g]* *[h]* *[i]* *[j]* *[k]* *[l]* *[m]* *[n]* *[o]* *[p]* *[q]* *[r]* *[s]* *[t]* *[u]* *[v]* *[w]* *[x]* *[y]* *[z]* *', strng)
 
 
+# print(check_root(""))
+# print(check_root("abc"))
+# print(check_root("aaabc "))
+# print(check_root("a bc"))
+# print(check_root("  abcdefghijk"))
+# print(check_root("abdfkmnpstvxz"))
+# print(check_root("cxy"))
+# print(check_root("cdklstxy"))
+# print(check_root("bfrtw"))
+# print(check_root("a b c  "))
+# print(check_root(" acg jko pr"))
+# print(check_root("a z "))
+# print(check_root("v  z"))
+# print(check_root("a  b cdefg kl"))
+# print(check_root("uv xyz"))
+# print(check_root(" ab de gh"))
+# print(check_root("x yz"))
+# print(check_root("abcdefghijklmnopqrstuvwxyz"))
+# print(check_root("a bcdefghijklmnopqrstuvwxyz"))
 
 
 
-
-
-
-
+print(check_root("abcb"))
+print(check_root("a ab"))
+print(check_root("abccc cd"))
+print(check_root("a bcdjkrza"))
+print(check_root("qwerty"))
+print(check_root("zyxcba"))
+print(check_root("abcdfe"))
+print(check_root("ab c dfe"))
+print(check_root("a  z  a"))
+print(check_root("asdfg"))
+print(check_root("asd  f g"))
+print(check_root("poqwoieruytjhfg"))
+print(check_root("\tab"))
+print(check_root("abc\n"))
 
 
 
