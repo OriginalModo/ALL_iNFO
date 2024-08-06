@@ -2429,13 +2429,71 @@ ________________________________________________________________________________
  REGEX = fr"\A *{'* *'.join('abcdefghijklmnopqrstuvwxyz')}* *\Z"
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Вам будет дан массив строк. Слова в массиве должны сцепляться вместе, где одна или несколько букв в конце одного слова
+ # будут иметь те же буквы (в том же порядке), что и следующее слово в массиве.
 
+ # Моё решение
+ import re
+ from itertools import pairwise
+
+ def word_mesh(words):
+     res = []
+     for i in pairwise(words):
+         for j in range(len(i[0])):
+             if re.match(rf'{i[0][j:]}', i[1]):
+                 res.append(i[0][j:])
+                 break
+     return ''.join(res) if len(res)+1 == len(words) else "failed to mesh"
+
+
+ # Тоже самое
+ def word_mesh(arr):
+     common = re.findall(r'(.+) (?=\1)',' '.join(arr))
+     return ''.join(common) if len(common) + 1 == len(arr) else 'failed to mesh'
+
+ print(word_mesh(["beacon", "condominium", "umbilical", "california"]), "conumcal")               # -> conumcal conumcal
+ print(word_mesh(["allow", "lowering", "ringmaster", "terror"]), "lowringter")                    # -> lowringter lowringter
+ print(word_mesh(['muchbetter', 'terriblestorm', 'stormwarning', 'greatlymissed']), 'terstormg')  # -> terstormg terstormg
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Верните общий балл в виде целого числа.
+ def eval_parentheses(s):
+     return eval(s.replace(')(', ')+(').replace('()', '1').replace('(', '2*('))
 
+
+ # Тоже самое
+ from re import compile
+
+ REGEX = compile(r"\(\)|[\(\)]").finditer
+
+ def eval_parentheses(s):
+     level = result = 0
+     for x in REGEX(s):
+         match x.group(0):
+             case "(": level += 1
+             case ")": level -= 1
+             case _:  result += 1 << level
+     return result
+
+ print(eval_parentheses("()"), 1)         # -> 1 1
+ print(eval_parentheses("(())"), 2)       # -> 2 2
+ print(eval_parentheses("()()"), 2)       # -> 2 2
+ print(eval_parentheses("((())())"), 6)   # -> 6 6
+ print(eval_parentheses("(()(()))"), 6)   # -> 6 6
+ print(eval_parentheses("()(())"), 3)     # -> 3 3
+ print(eval_parentheses("()((()))"), 5)   # -> 5 5
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Если строка может рассматриваться как повторение более простого/короткого подшаблона или нет.
 
+ def has_subpattern(strng):
+     return bool(re.fullmatch(r'(.+)\1+', strng))
+
+ print(has_subpattern("a"), False)          # -> False False
+ print(has_subpattern("aaaa"), True)        # -> True True
+ print(has_subpattern("abcd"), False)       # -> False False
+ print(has_subpattern("abababab"), True)    # -> True True
+ print(has_subpattern("ababababa"), False)  # -> False False
  -----------------------------------------------------------------------------------------------------------------------
 
 

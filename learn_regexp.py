@@ -309,63 +309,341 @@ import re
 'aeiouy'
 'bcdfghjklmnpqrstvwxzy'
 
+import re
+from itertools import pairwise, zip_longest
+
+def sub_fun(m):
+    if m[0] == 'FIRE':
+        return
 
 import re
 
-import itertools
+def string_parse(strng):
+    if type(strng) != str:
+        return "Please enter a valid string"
+    res = []
+    res_2 = []
+    for i in strng:
+        if len(re.search(rf'{i}+', strng).group()) <= 2:
+            res_2.append(i)
+    if len(res_2) == len(strng):
+        return strng
+
+    for i in strng:
+        if strng.count(i) <= 2:
+            ss = ''.join(re.search(rf'{i}{{1,2}}', strng).group())
+
+            res.append(ss)
+        else:
+            sss = ''.join(re.search(rf'{i}+', strng).group())
+            if sss not in res:
+                res.append(f'{sss}')
+
+    return ''.join([i if len(i) <= 2 else f'{i[:2]}[{i[2:]}]' for i in res])
 
 
-# Создайте регулярное выражение, которое соответствует строке со строчными символами в алфавитном порядке,
-# включая любое количество пробелов. Между группами одинаковых букв НЕ может быть пробелов. Начальные и конечные пробелы
-# также разрешены. Должна соответствовать пустая строка.
-
-REGEX = r'^ *a* *b* *c* *d* *e* *f* *g* *h* *i* *j* *k* *l* *m* *n* *o* *p* *q* *r* *s* *t* *u* *v* *w* *x* *y* *z* *\Z'
-REGEX = fr"\A *{'* *'.join('abcdefghijklmnopqrstuvwxyz')}* *\Z"
-
-def check_root(strng):
-    # for i, j in itertools.pairwise(strng):
-    #     if i in string.ascii_lowercase:
-    #         if ord(i) > ord(j) or ord(i) != ord(j):
-    #             return None
-    return re.fullmatch(r'^ *[a]* *[b]* *[c]* *[d]* *[e]* *[f]* *[g]* *[h]* *[i]* *[j]* *[k]* *[l]* *[m]* *[n]* *[o]* *[p]* *[q]* *[r]* *[s]* *[t]* *[u]* *[v]* *[w]* *[x]* *[y]* *[z]* *', strng)
-
-
-# print(check_root(""))
-# print(check_root("abc"))
-# print(check_root("aaabc "))
-# print(check_root("a bc"))
-# print(check_root("  abcdefghijk"))
-# print(check_root("abdfkmnpstvxz"))
-# print(check_root("cxy"))
-# print(check_root("cdklstxy"))
-# print(check_root("bfrtw"))
-# print(check_root("a b c  "))
-# print(check_root(" acg jko pr"))
-# print(check_root("a z "))
-# print(check_root("v  z"))
-# print(check_root("a  b cdefg kl"))
-# print(check_root("uv xyz"))
-# print(check_root(" ab de gh"))
-# print(check_root("x yz"))
-# print(check_root("abcdefghijklmnopqrstuvwxyz"))
-# print(check_root("a bcdefghijklmnopqrstuvwxyz"))
+print(string_parse("aaaabbcdefffffffg"), "aa[aa]bbcdeff[fffff]g")
+print(string_parse(3), "Please enter a valid string")
+print(string_parse("boopdedoop"), "boopdedoop")
+print(string_parse("helloookat"), "helloo[o]kat")
+print(string_parse(True), "Please enter a valid string")
+print(string_parse('aAAabbcdeFFFffffg'), 'aAAabbcdeFF[F]ff[ff]g')
 
 
 
-print(check_root("abcb"))
-print(check_root("a ab"))
-print(check_root("abccc cd"))
-print(check_root("a bcdjkrza"))
-print(check_root("qwerty"))
-print(check_root("zyxcba"))
-print(check_root("abcdfe"))
-print(check_root("ab c dfe"))
-print(check_root("a  z  a"))
-print(check_root("asdfg"))
-print(check_root("asd  f g"))
-print(check_root("poqwoieruytjhfg"))
-print(check_root("\tab"))
-print(check_root("abc\n"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
