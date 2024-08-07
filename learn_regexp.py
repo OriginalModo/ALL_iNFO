@@ -318,36 +318,6 @@ def sub_fun(m):
 
 import re
 
-def string_parse(strng):
-    if type(strng) != str:
-        return "Please enter a valid string"
-    res = []
-    res_2 = []
-    for i in strng:
-        if len(re.search(rf'{i}+', strng).group()) <= 2:
-            res_2.append(i)
-    if len(res_2) == len(strng):
-        return strng
-
-    for i in strng:
-        if strng.count(i) <= 2:
-            ss = ''.join(re.search(rf'{i}{{1,2}}', strng).group())
-
-            res.append(ss)
-        else:
-            sss = ''.join(re.search(rf'{i}+', strng).group())
-            if sss not in res:
-                res.append(f'{sss}')
-
-    return ''.join([i if len(i) <= 2 else f'{i[:2]}[{i[2:]}]' for i in res])
-
-
-print(string_parse("aaaabbcdefffffffg"), "aa[aa]bbcdeff[fffff]g")
-print(string_parse(3), "Please enter a valid string")
-print(string_parse("boopdedoop"), "boopdedoop")
-print(string_parse("helloookat"), "helloo[o]kat")
-print(string_parse(True), "Please enter a valid string")
-print(string_parse('aAAabbcdeFFFffffg'), 'aAAabbcdeFF[F]ff[ff]g')
 
 
 
@@ -362,18 +332,50 @@ print(string_parse('aAAabbcdeFFFffffg'), 'aAAabbcdeFF[F]ff[ff]g')
 
 
 
+# a = (1, 2, 3)
+# b = (3, 4, 5)
+
+# print(tuple({*a, *b}))
+# print(tuple(set(a)+set(b)))
+
+# a = ('John', 'Peter')
+# b = (1, 2)
+#
+# print({key: value for key, value in zip(a, b)})
+# print({key: value for key, value in (a, b)})
+# print(dict(keys=a, value=b))
+# print({key: b[i] for i, key in enumerate(a)})
 
 
+# class Base:
+#     def __init__(self):
+#         self.val = 0
+#
+#     def add_one(self):
+#         self.val += 1
+#
+#     def add_many(self, x):
+#         for i in range(x):
+#             self.add_one()
+#
+#
+# class Derived(Base):
+#     def add_one(self):
+#         self.val += 10
+#
+#
+# a = Derived()
+# a.add_one()
+#
+# b = Derived()
+# b.add_many(3)
+#
+# print(a.val)
+# print(b.val)
 
 
-
-
-
-
-
-
-
-
+# Для чего используется пустой слайс [:] списка?   Ответ для получения всех элементов коллекции
+print([1, 2, 3][:])  # -> [1, 2, 3]
 
 
 
