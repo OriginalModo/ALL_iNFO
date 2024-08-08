@@ -380,30 +380,39 @@ import re
 
 
 
+import re
+
+# Моё решение!!!   Важно (\w)\1+
+def string_parse(strng):
+    c = strng
+    if type(strng) != str:
+        return "Please enter a valid string"
+    if not strng:
+        return strng
+    res = []
+    while strng:
+        if res_2 := re.match(r'(\w)\1+', strng):     #  (\w)\1+   <----
+            res.append(res_2.group())
+            strng = strng.replace(res_2.group(), '', 1)
+            continue
+        if res_3 := re.match(r'\w', strng):
+            res.append(res_3.group())
+            strng = strng.replace(res_3.group(), '', 1)
+    res_res = ''.join([f'{i[:2]}[{i[2:]}]' if len(i) > 2 else i for i in res])
+    return c if all([len(i) <= 2 for i in res]) else res_res
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print(string_parse("boopdedoop"), "boopdedoop")
+# print(string_parse("aaaabbcdefffffffg"), "aa[aa]bbcdeff[fffff]g")
+# print(string_parse(3), "Please enter a valid string")
+# print(string_parse("helloookat"), "helloo[o]kat")
+# print(string_parse(True), "Please enter a valid string")
+# print(string_parse(''), '')
+# print(string_parse('aAAabbcdeffFfFffg'), 'aAAabbcdeffFfFffg')
+print(string_parse('aAAabbcdeFFFffffg'), 'aAAabbcdeFF[F]ff[ff]g')
+# print(string_parse({}), "Please enter a valid string")
+# print(string_parse([5.3]), "Please enter a valid string")
 
 
 

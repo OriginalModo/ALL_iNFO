@@ -2487,7 +2487,7 @@ ________________________________________________________________________________
  # Если строка может рассматриваться как повторение более простого/короткого подшаблона или нет.
 
  def has_subpattern(strng):
-     return bool(re.fullmatch(r'(.+)\1+', strng))
+     return bool(re.fullmatch(r'(.+)\1+', strng))                     <-----        \1+
 
  print(has_subpattern("a"), False)          # -> False False
  print(has_subpattern("aaaa"), True)        # -> True True
@@ -2577,10 +2577,64 @@ ________________________________________________________________________________
  print(a)        # -> [[1], [1], [1]]
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
 
+ # Первый вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     res = []
+     for i in lst:
+         if i not in res:
+             res.append(i)
+     return res
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+ # Второй вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     res = []
+     [res.append(i) for i in lst if i not in res]
+     return res
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+ # Третий вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
  -----------------------------------------------------------------------------------------------------------------------
 
+ Важно !!! \1+
+ # Если в строке встречаются дубликаты более двух буквенных символов, возвращать строку со всеми лишними символами в скобках.
 
+ def string_parse(s):
+     if isinstance(s, str):
+         return re.sub(r"(.)\1(\1+)", r"\1\1[\2]", s)
+     return "Please enter a valid string"
+
+ print(string_parse("aaaabbcdefffffffg"), "aa[aa]bbcdeff[fffff]g")  # -> aa[aa]bbcdeff[fffff]g aa[aa]bbcdeff[fffff]g
+
+ assert string_parse("aaaabbcdefffffffg") == "aa[aa]bbcdeff[fffff]g"
+
+
+ # Моё решение!!!   Важно (\w)\1+
+ def string_parse(strng):
+     c = strng
+     if type(strng) != str:
+         return "Please enter a valid string"
+     if not strng:
+         return strng
+     res = []
+     while strng:
+         if res_2 := re.match(r'(\w)\1+', strng):               #  (\w)\1+   <-----   <-----
+             res.append(res_2.group())
+             strng = strng.replace(res_2.group(), '', 1)
+             continue
+         if res_3 := re.match(r'\w', strng):
+             res.append(res_3.group())
+             strng = strng.replace(res_3.group(), '', 1)
+     res_res = ''.join([f'{i[:2]}[{i[2:]}]' if len(i) > 2 else i for i in res])
+     return c if all([len(i) <= 2 for i in res]) else res_res
  -----------------------------------------------------------------------------------------------------------------------
 
 
