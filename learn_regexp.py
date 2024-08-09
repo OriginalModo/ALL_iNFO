@@ -401,11 +401,10 @@ from functools import wraps
 from time import time, perf_counter
 
 
-def sum_recursive(value: int) -> int:
+def sum_eval(value: int) -> int:
     return eval('+'.join(re.sub(r'[^-\d+]', '', str(value))))
 
-print(sum_recursive([1, 2, 3]))
-
+print(sum_eval([1, 2, 3]))  # -> 6
 
 
 
