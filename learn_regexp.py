@@ -395,46 +395,26 @@ import re
 # Ну не могу я в рекурсию...сложно что-то)))
 
 import re
-import timeit
-
-from functools import wraps
-from time import time, perf_counter
-
-
-def sum_eval(value: int) -> int:
-    return eval('+'.join(re.sub(r'[^-\d+]', '', str(value))))
-
-print(sum_eval([1, 2, 3]))  # -> 6
 
 
 
 
+class Timer:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        start = time.time()
+        res = self.func(*args, **kwargs)
+        finish = time.time()
+        return f'{finish-start} {res}'
 
 
+@Timer
+def plus(a, b):
+    return a + b
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(plus(2, 2))
 
 
 
