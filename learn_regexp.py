@@ -399,27 +399,6 @@ import re
 
 
 
-class Timer:
-    def __init__(self, func):
-        self.func = func
-
-    def __call__(self, *args, **kwargs):
-        start = time.time()
-        res = self.func(*args, **kwargs)
-        finish = time.time()
-        return f'{finish-start} {res}'
-
-
-@Timer
-def plus(a, b):
-    return a + b
-
-print(plus(2, 2))
-
-
-
-
-
 
 
 

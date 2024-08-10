@@ -1033,10 +1033,15 @@ ________________________________________________________________________________
  +------------------+-----------------------+--------------+------+
 
 
+ # Вернуть чётное число в таблице или нет!     PostgreSQL 13.0
+ SELECT number,
+ CASE WHEN (number % 2) = 0 THEN 'Even'
+ ELSE 'Odd' END AS is_even
+ FROM numbers;
 
-
-
-
+ # Выбор всех студентов у которых tuition_received==False      # В SQL так же работает оператор not как и в Python
+ select * from students
+ where not tuition_received
 
 
 
