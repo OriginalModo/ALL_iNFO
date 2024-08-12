@@ -375,65 +375,33 @@ import re
 
 
 
-# Необходимо обменять значение двух переменных, не применяя других переменных. Отметьте верный способ.
-# >>> {'John': 1, 'Peter': 2}
-
-
 from more_itertools import chunked
-import re
 
-
-
-# Ну не могу я в рекурсию...сложно что-то)))
-import re
-
-
-
-
-
-# Почему интересно такой вариант не прошел все тесты ? Профи Подскажите...
-# Ну не могу я в рекурсию...сложно что-то)))
-
-import re
 
 from itertools import tee
 
 x = list(range(9, 15))
 rez = tee(x, 3)
 
-for l in rez:
-    print(list(l))
+# for l in rez:
+#     print(list(l))
 
 # [9, 10, 11, 12, 13, 14]
 # [9, 10, 11, 12, 13, 14]
 # [9, 10, 11, 12, 13, 14]
 
-print([list(i) for i in tee([1, 2, 3], 2)])  # -> [[1, 2, 3], [1, 2, 3]]
+# print([list(i) for i in tee([1, 2, 3], 2)])  # -> [[1, 2, 3], [1, 2, 3]]
 
 
+import re
 
+def search(titles, term):
+    return list(filter(lambda title: term in title, titles))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+titles = ['The Big Bang Theory', 'How I Met Your Mother', 'Dexter', 'Breaking Bad', 'Doctor Who', 'The Hobbit', 'Pacific Rim', 'Pulp Fiction', 'The Avengers', 'Shining']
+print(search(titles, 'ho'), ['How I Met Your Mother', 'Doctor Who', 'The Hobbit'])
+print(search(titles, 'exte'), ['Dexter'])
+print(search(titles, 'the'), ['The Big Bang Theory', 'How I Met Your Mother', 'The Hobbit', 'The Avengers'])
 
 
 

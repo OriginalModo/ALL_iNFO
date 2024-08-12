@@ -78,6 +78,24 @@
 
  Чтобы в Pycharm Создать SQL file: Создает текстовый файл с расширением .sql или .SQL
 
+ Как закомментировать код в SQL?  Ставим -- перед
+ select * from book
+ -- where amount = 3 and price >= 500
+
+ Как в СЕРЕДИНЕ закомментировать код в SQL?  Оборачиваем в /* */
+ select * from book
+ where amount = 3 /* and price >= 500 */
+
+
+ Проверка на bool   Как в Python  print('1' if True else '0')  # -> 1
+
+ # Тоже самое
+ SELECT * FROM students WHERE IsActive;
+ SELECT * FROM students WHERE isActive = 1;
+ SELECT * FROM students WHERE not not IsActive;
+ select * from students where students.isActive = 1
+ Select * FROM students WHERE IsActive == 1;
+ Select * FROM students WHERE isActive <> 0;
 
  WITH позволяет дать блоку подзапроса имя/псевдоним, на которое можно ссылаться в нескольких местах основного SQL-запроса.
  Имя, присвоенное подзапросу, обрабатывается так, как если бы оно было встроенным представлением или таблицей.
