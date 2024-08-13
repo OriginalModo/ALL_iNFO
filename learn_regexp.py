@@ -395,17 +395,19 @@ rez = tee(x, 3)
 
 import re
 
-def search(titles, term):
-    return list(filter(lambda title: term in title, titles))
+def hungry_seven(arr):
+    res = re.sub(r'(7+)(8+)(9+)', r'\2\3\1', ''.join([str(i) for i in arr]))
+    return [int(i+' ') for i in res]
 
-titles = ['The Big Bang Theory', 'How I Met Your Mother', 'Dexter', 'Breaking Bad', 'Doctor Who', 'The Hobbit', 'Pacific Rim', 'Pulp Fiction', 'The Avengers', 'Shining']
-print(search(titles, 'ho'), ['How I Met Your Mother', 'Doctor Who', 'The Hobbit'])
-print(search(titles, 'exte'), ['Dexter'])
-print(search(titles, 'the'), ['The Big Bang Theory', 'How I Met Your Mother', 'The Hobbit', 'The Avengers'])
+print(hungry_seven([7, 8, 9]), [8, 9, 7])
+print(hungry_seven([7, 7, 7, 8, 9]), [8, 9, 7, 7, 7])
+print(hungry_seven([8, 7, 8, 9, 8, 9, 7, 8]), [8, 8, 9, 8, 9, 7, 7, 8])
+print(hungry_seven([8, 7, 8, 7, 9, 8]), [8, 7, 8, 7, 9, 8])
 
-
-
-
+# Хороший пример  Список внутри кортежа мы можем изменить потому что кортеж хранит ссылки,
+a_tuple = (1, 2, ['a', 'b'])
+a_tuple[2].append(9999999)
+print(a_tuple)  # -> (1, 2, ['a', 'b', 9999999])
 
 
 
