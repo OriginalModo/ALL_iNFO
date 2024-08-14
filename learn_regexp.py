@@ -393,33 +393,18 @@ rez = tee(x, 3)
 # print([list(i) for i in tee([1, 2, 3], 2)])  # -> [[1, 2, 3], [1, 2, 3]]
 
 
+
 import re
 
-def hungry_seven(arr):
-    res = re.sub(r'(7+)(8+)(9+)', r'\2\3\1', ''.join([str(i) for i in arr]))
-    return [int(i+' ') for i in res]
+# from datetime import datetime, date
 
-print(hungry_seven([7, 8, 9]), [8, 9, 7])
-print(hungry_seven([7, 7, 7, 8, 9]), [8, 9, 7, 7, 7])
-print(hungry_seven([8, 7, 8, 9, 8, 9, 7, 8]), [8, 8, 9, 8, 9, 7, 7, 8])
-print(hungry_seven([8, 7, 8, 7, 9, 8]), [8, 7, 8, 7, 9, 8])
-
-# Хороший пример  Список внутри кортежа мы можем изменить потому что кортеж хранит ссылки,
-a_tuple = (1, 2, ['a', 'b'])
-a_tuple[2].append(9999999)
-print(a_tuple)  # -> (1, 2, ['a', 'b', 9999999])
+def is_today(date1 : datetime) -> bool:
+    return datetime.today() == date1
 
 
-
-
-
-
-
-
-
-
-
-
+print(is_today(datetime(2020, 10, 1, 1, 1, 1, 1)), False)
+print(is_today(datetime(2080, 10, 1, 1, 1, 1, 1)), False)
+print(is_today(datetime.today()), True)
 
 
 

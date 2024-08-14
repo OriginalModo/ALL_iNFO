@@ -49,6 +49,7 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
+
 # Ответ docstring/name
 
 '''
