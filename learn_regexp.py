@@ -396,30 +396,19 @@ rez = tee(x, 3)
 
 import re
 
-# from datetime import datetime, date
+from collections import deque
 
-def is_today(date1 : datetime) -> bool:
-    return datetime.today() == date1
-
-
-print(is_today(datetime(2020, 10, 1, 1, 1, 1, 1)), False)
-print(is_today(datetime(2080, 10, 1, 1, 1, 1, 1)), False)
-print(is_today(datetime.today()), True)
-
+# Напишите функцию, которая будет брать ключ X и помещать его в середину Y, повторяя N раз.
+# Внутри f-строки можно использовать {} Внимательно посмотри пример
+def middle_me(N, X, Y):
+    if N % 2 == 0:
+        return f'{Y}{X:{Y}^{N}}'
+    return X
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+# Можно использовать {{}} Разбери Пример
+a, b, c = 10, 'z', '#'
+print((lambda N, X, Y: f'{Y}{X:{Y}^{N}}')(a, b, c))  # -> #####z#####
 
 
 
