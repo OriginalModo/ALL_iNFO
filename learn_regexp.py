@@ -398,22 +398,50 @@ import re
 
 from collections import deque
 
-# Напишите функцию, которая будет брать ключ X и помещать его в середину Y, повторяя N раз.
-# Внутри f-строки можно использовать {} Внимательно посмотри пример
-def middle_me(N, X, Y):
-    if N % 2 == 0:
-        return f'{Y}{X:{Y}^{N}}'
-    return X
+# def increment_string(strng):
+#     if not strng:
+#         return '1'
+#     if not re.search(r'\d+$', strng):
+#         return strng+'1'
+#     res = re.search(r'\d+$', strng).group()
+#     res_1 = re.sub(r'[^0]', '', res)
+#     res_2 = f'{res_1}{int(res) + 1}'
+#     res_3 = res_2[1:] if len(res_2) > 3 else res_2
+#     return res_3
+#
+#
+# print(increment_string("foo"), "foo1")
+# print(increment_string("foobar001"), "foobar002")
+# print(increment_string("foobar1"), "foobar2")
+# print(increment_string("foobar00"), "foobar01")
+# print(increment_string("foobar99"), "foobar100")
+# print(increment_string("foobar099"), "foobar100")
+# print(increment_string("fo99obar99"), "fo99obar100")
+# print(increment_string(""), "1")
 
 
-# Можно использовать {{}} Разбери Пример
-a, b, c = 10, 'z', '#'
-print((lambda N, X, Y: f'{Y}{X:{Y}^{N}}')(a, b, c))  # -> #####z#####
+
+
+def searchInsert(nums: List[int], target: int) -> int:
+    if target not in nums:
+        for i, v in enumerate(nums):
+            if target >= v:
+                return i+1
+
+    for i, v in enumerate(nums):
+        if v == target:
+            return i
 
 
 
 
 
+nums = [3,6,7,8,10]
+nums = [1,3,5,6]
+target = 5
+target = 7
+
+print(searchInsert(nums, target))
 
 
 
