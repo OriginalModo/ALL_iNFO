@@ -2732,7 +2732,31 @@ ________________________________________________________________________________
  print(middle_me(19, 'z', '#'), 'z')                    # ->  z z
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Remove Duplicates from Sorted Array/Удалить дубликаты из отсортированного массива    Можно просто использовать [:]
 
+ # Мой Вариант
+ def removeDuplicates(nums: List[int]) -> int:
+     while len(nums) != len(set(nums)):
+         for i in nums:
+             if nums.count(i) > 1:
+                 nums.remove(i)
+     return len(nums)
+
+ nums = [0,0,1,1,1,2,2,3,3,4]
+
+ print(removeDuplicates(nums))  # 5
+ print(nums)                    # [0, 1, 2, 3, 4]
+
+
+ # Хороший варинт    Можно просто использовать [:]
+ def removeDuplicates(nums: list[int]) -> int:
+     nums[:] = sorted(set(nums))
+     return len(nums)
+
+ nums = [0,0,1,1,1,2,2,3,3,4]
+
+ print(removeDuplicates(nums))  # [0, 1, 2, 3, 4]
+ print(nums)                    # [0, 1, 2, 3, 4]
  -----------------------------------------------------------------------------------------------------------------------
 
 
