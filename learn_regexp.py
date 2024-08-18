@@ -397,33 +397,15 @@ rez = tee(x, 3)
 import re
 
 
+def reverseList(head):
+    head.reverse()
+    return head
 
 
 
+head = [1,2,3,4,5]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(reverseList(head))
 
 
 

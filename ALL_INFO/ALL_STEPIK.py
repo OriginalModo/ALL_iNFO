@@ -2759,16 +2759,56 @@ ________________________________________________________________________________
  print(nums)                    # [0, 1, 2, 3, 4]
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Проверить совпадают типы или нет.
+ def type_validation(variable, _type):
+     return type(variable).__name__ == _type
 
+ print(type_validation(42, "int"), True)     # -> True True
+ print(type_validation("42", "int"), False)  # -> False False
+
+
+ def type_validation(variable, _type):
+     return _type in str(type(variable))
+
+ print(type_validation(42, "int"), True)     # -> True True
+ print(type_validation("42", "int"), False)  # -> False False
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Интересный момент
 
+ print(type(42).__name__)  # -> int
+ print(type(42))           # -> <class 'int'>
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Простая функция Фибоначчи с assert внутри   Лучше использовать functools lru_cache  Но с большим число НЕ будет Работать
 
+ cache = {}
+
+ def fib1(n):
+     assert n >= 0
+     if n not in cache:
+         cache[n] = n if n <= 1 else fib1(n - 1) + fib1(n - 2)
+     return cache[n]
+
+ print(fib1(8))   # -> 21
+ print(fib1(-1))  # -> AssertionError
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Вернуть элемент, следующий сразу за указанным элементом.
+ def next_item(xs, item):
+     xs = iter(xs)
+     try:
+         for i in xs:
+             if i == item:
+                 return next(xs)
+     except:
+         pass
 
+ print(next_item([1, 2, 3, 4, 5, 6, 7, 8], 5), 6)  # -> 6 6
+ print(next_item(['a', 'b', 'c'], 'd'), None)      # -> None None
+ print(next_item(['a', 'b', 'c'], 'c'), None)      # -> None None
+ print(next_item('testing', 't'), 'e')             # -> e e
+ print(next_item(iter(range(1, 30000)), 12), 13)   # -> 13 13
  -----------------------------------------------------------------------------------------------------------------------
 
 
