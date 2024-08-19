@@ -397,80 +397,30 @@ rez = tee(x, 3)
 import re
 
 
-def reverseList(head):
-    head.reverse()
-    return head
+class MyStack:
 
+    def __init__(self):
+        self.stack = deque()
 
+    def push(self, x: int) -> None:
+        self.stack.append(x)
 
-head = [1,2,3,4,5]
+    def pop(self) -> int:
+        return self.stack.pop()
 
-print(reverseList(head))
+    def top(self) -> int:
+        return self.stack[-1]
 
+    def empty(self) -> bool:
+        return len(self.stack) != 0
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+myStack = MyStack()
+myStack.push(1)
+myStack.push(2)
+print(myStack.top())
+print(myStack.pop())
+print(myStack.empty())
 
 
 
