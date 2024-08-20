@@ -30,6 +30,33 @@
  Если научиться принимать вещи как они есть, страдание исчезнет.
 ________________________________________________________________________________________________________________________
 
+ # Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
+
+ xs = [
+     '1_a.txt',
+     '2_b.txt',
+     '1_c.txt',
+     '3_d.txt',
+     '1_e.txt',
+ ]
+
+ def sub_fun(x):
+     return -int(re.sub(r'[^\d]+', '', x)), re.search(r'(?<=_)[a-z]+(?=\.)', x, flags=re.I).group()
+
+ def my_func(lst: list) -> list:
+     return sorted(lst, key=sub_fun)
+
+ print(my_func(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+
+ print(sorted(xs, key=lambda x: (-int(x[0]), x[1])))
+ print(sorted(xs, key=lambda x: (-int(re.sub(r'[^\d]+', '', x)), re.search(r'(?<=_)[a-z]+(?=\.)', x, flags=re.I).group())))
+ print(sorted(xs, key=sub_fun))
+ # ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+ # ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+ # ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+________________________________________________________________________________________________________________________
+
+
 
  # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars
 

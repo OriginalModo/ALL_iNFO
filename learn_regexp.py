@@ -396,58 +396,16 @@ rez = tee(x, 3)
 
 import re
 
-
-class MyStack:
-
-    def __init__(self):
-        self.stack = deque()
-
-    def push(self, x: int) -> None:
-        self.stack.append(x)
-
-    def pop(self) -> int:
-        return self.stack.pop()
-
-    def top(self) -> int:
-        return self.stack[-1]
-
-    def empty(self) -> bool:
-        return len(self.stack) != 0
+def addDigits(num: int) -> int:
+    res = eval('+'.join(list(str(num))))
+    while len(str(res)) != 1:
+        res = str(eval('+'.join(list(str(res)))))
+    return res
 
 
-myStack = MyStack()
-myStack.push(1)
-myStack.push(2)
-print(myStack.top())
-print(myStack.pop())
-print(myStack.empty())
+num = 38
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(addDigits(num))
 
 
 
