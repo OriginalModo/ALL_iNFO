@@ -11839,11 +11839,29 @@ fact(30)
  abc (аббревиатура от Abstract Base Classes) from abc import ABC, abstractmethod
  и вешаем декоратор @abstractmethod на pass функции
 
+
  from abc import ABC, abstractmethod
  class Shape(ABC):
      @abstractmethod
      def area(self):
          pass
+
+ # Нельзя создать экземпляр класса Shape:
+ s = Shape()  # -> TypeError: Can't instantiate abstract class Shape with abstract method area
+
+ # Нужно реализовать метод area
+ class MyClass(Shape):
+     pass
+
+ c = MyClass()  # -> TypeError: Can't instantiate abstract class MyClass with abstract method area
+
+ # Всё работает
+ class MyClass(Shape):
+     def area(self):
+         return 1000
+
+ c = MyClass()
+ print(c.area())  # -> 1000
 
  Класс, который наследует абстрактный класс, должен реализовать все его абстрактные методы, иначе он не будет создан.
 

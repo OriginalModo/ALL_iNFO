@@ -4,6 +4,60 @@ import time
 import types
 
 
+# Перепиши ниже Обновление словаря/множества
+
+
+
+
+"""
+# Обновление словаря
+a_dict = {"a": 2}
+a_dict.update({"b": 10})
+print(a_dict)  # -> {'a': 2, 'b': 10}
+
+# Обновление множества
+a_set = {"a", 2}
+a_set.update({"b": 10})
+print(a_set)  # -> {'a': 2, 'b': 10}
+
+a_set.update([1, 2], (3, 4))
+print(a_set)  # -> {1, 2, 'b', 3, 4, 'a'}
+"""
+
+
+# Перепиши ниже Обьединение *   Объединения **   |
+
+
+
+
+
+# Обьединение *   Объединения **   |
+
+"""
+from itertools import chain
+# Обьединение *
+A = [1, 2, 3]  # list
+B = (4, 5, 6)  # tuple
+C = {7, 8, 9}  # set
+L = [*A, *B, *C]
+G = list(chain(A, B, C))
+print(L)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7]
+print(G)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7]
+
+
+# Объединения **
+a = {"w": 5, "x": 6}
+b = {"y": 7}
+c = {"z": 8, **a, **b}
+print(c)  # -> {'z': 8, 'w': 5, 'x': 6, 'y': 7}
+
+# Тоже самое
+c = {"z": 8}
+c = c | a | b
+print(c)  # -> {'z': 8, 'w': 5, 'x': 6, 'y': 7}
+"""
+
+
 # default  Аргументы по умолчанию в функциях:
 """
 def f(a, L=[]):                       def f(a, L=set()):                    def f(key, value, L={}):
@@ -792,6 +846,39 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 """
 
 
+# # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+
+
+
+
+
+"""
+# Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+s = Shape()  # -> TypeError: Can't instantiate abstract class Shape with abstract method area
+
+class MyClass(Shape):
+    pass
+
+c = MyClass()  # -> TypeError: Can't instantiate abstract class Shape with abstract method area
+
+
+# Всё работает
+class MyClass(Shape):
+    def area(self):
+        return 1000
+
+c = MyClass()
+print(c.area())  # -> 1000
+"""
+
+
 # Написать Асинхронный код
 
 
@@ -818,6 +905,280 @@ async def main():
 if __name__ == '__main__':
     asyncio.run(main())
 """
+
+
+# Как запустить что-то в потоке и вывести результат?  ThreadPoolExecutor
+
+
+
+
+
+
+"""
+# Как запустить что-то в потоке и вывести результат?  ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
+
+fn = lambda: 5
+with ThreadPoolExecutor(max_workers=5) as pool:
+    future = pool.submit(fn)
+    print(future.result())  # -> 5
+
+with ThreadPoolExecutor(max_workers=1) as executor:
+    future = executor.submit(pow, 10, 3)
+    print(future.result())  # -> 1000.0
+"""
+
+
+# Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
+
+
+
+
+
+
+"""
+# Как запустить что-то в Процессах и вывести результат? 
+
+from concurrent.futures import ProcessPoolExecutor
+
+# lambda не сериализуется pickle
+fn = lambda: 5
+
+if __name__ == "__main__":
+# Создание ProcessPoolExecutor с 4 рабочими процессами
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        future = executor.submit(fn)
+        result = future.result()
+        print(result)  # -> 16
+# _pickle.PicklingError: Can't pickle <function <lambda> at 0x000001C4AA9B8860>: attribute lookup <lambda> on __main__ failed
+
+
+
+# Так будет работать
+
+def task_function(param):
+    return param ** 5
+
+if __name__ == "__main__":
+# Создание ProcessPoolExecutor с 4 рабочими процессами
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        future = executor.submit(task_function, 10)
+        result = future.result()
+        print(result)  # -> 100000
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

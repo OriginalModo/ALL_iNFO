@@ -395,37 +395,20 @@ rez = tee(x, 3)
 
 
 import re
-
-def addDigits(num: int) -> int:
-    res = eval('+'.join(list(str(num))))
-    while len(str(res)) != 1:
-        res = str(eval('+'.join(list(str(res)))))
-    return res
+from concurrent.futures import ProcessPoolExecutor
 
 
-num = 38
+# Так будет работать
 
-print(addDigits(num))
+def task_function(param):
+    return param ** 5
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == "__main__":
+# Создание ProcessPoolExecutor с 4 рабочими процессами
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        future = executor.submit(task_function, 10)
+        result = future.result()
+        print(result)  # -> 100000
 
 
 
