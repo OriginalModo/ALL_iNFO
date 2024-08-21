@@ -394,25 +394,11 @@ rez = tee(x, 3)
 
 
 
+
 import re
-from concurrent.futures import ProcessPoolExecutor
 
-
-# Так будет работать
-
-def task_function(param):
-    return param ** 5
-
-if __name__ == "__main__":
-# Создание ProcessPoolExecutor с 4 рабочими процессами
-    with ProcessPoolExecutor(max_workers=4) as executor:
-        future = executor.submit(task_function, 10)
-        result = future.result()
-        print(result)  # -> 100000
-
-
-
-
+def validate_usr(username):
+    return bool(re.fullmatch(r'[a-z\d_]{16}', username))
 
 
 
