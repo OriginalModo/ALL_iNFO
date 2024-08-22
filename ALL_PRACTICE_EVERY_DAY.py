@@ -8,6 +8,82 @@ import time
 import types
 import re
 
+
+
+# Интересный пример Повтори кстати сам его придумал
+
+
+
+
+
+
+# s = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
+a = 'aaaabbcaa'
+
+# Придумал сам)
+re.sub(r'(\w)\1+|\w', lambda x: f'{x[0][0]}{len(x[0])}', a)  # -> a4b2c1a2
+
+
+
+# Так можно разделить легко  Повтори
+
+
+
+
+
+
+
+
+# Разделит число из тестовых данных на числа, в конце которых стоит единица. 1
+"""
+text = r'17383147371'
+
+print(re.findall(r'\d*?1', text))  # -> ['1', '73831', '47371']
+print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
+"""
+
+
+
+
+# Классный пример Повтори   По сути это if...else в Регулярках
+
+
+
+
+
+# По сути это if...else в Регулярках
+"""
+# Если находим A значит ищем B иначе ищем C     1 - Номер группы
+re.search(r"(A)?(?(1)B|C)", 'ABC')  # -> <re.Match object; span=(0, 2), match='AB'>
+re.search(r"(A)?(?(1)B|C)", 'BC')  # -> <re.Match object; span=(1, 2), match='C'>
+
+# Можно и без последнего условия  Шаблон после | необязателен и может быть опущен.
+re.search(r"(A)?(?(1)B)", 'ABC')  # -> <re.Match object; span=(0, 2), match='AB'>
+re.search(r"(A)?(?(1)B)", 'BC')  # -> <re.Match object; span=(1, 2), match='C'>
+
+# Если находим A значит ищем B иначе ищем C     name - Имя группы
+print(re.search(r"(?P<name>A)(?(name)B|C)", 'ABC').group())   # -> AB
+print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
+"""
+
+
+# Используйте re.compile
+
+
+
+
+
+
+
+# Использование re.compile
+"""
+regex = re.compile("[A-Za-z_]"      # letter or underscore             буква или подчеркивание
+                   "[A-Za-z0-9_]*"  # letter, digit or underscore      буква, цифра или подчеркивание
+                   )
+re.findall(regex, 'ABC123---')  # -> ['ABC123']
+"""
+
+
 # Поменяйте местами в регулярке использую Обычные/Именованные группы или Перепишите
 
 
