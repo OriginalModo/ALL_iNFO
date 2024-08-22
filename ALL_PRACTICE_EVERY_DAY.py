@@ -1,12 +1,71 @@
 import asyncio
 import collections
 import functools
+import itertools
 import operator
+import sys
 import time
 import types
+import re
+
+# Поменяйте местами в регулярке использую Обычные/Именованные группы или Перепишите
 
 
-# Перепиши ниже Обновление словаря/множества
+
+
+
+
+# Замена по индексу группы: '\1' '\2'
+re.sub(r'(\w+)\s*(\d+)', r'\2 \1',  'ABC 123')                                    # -> 123 ABC   # Поменяли местами
+# Замена по Имени группы:   '\g<name>'
+re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')  # -> 123 ABC   # Поменяли местами
+
+
+
+# Напишите или Перепишите Обычные/Именованные группы
+
+
+
+
+
+
+
+# Обычные/Именованные группы
+text = r'ggg wp'
+re.search(r'([a-zA-Zа-яА-ЯёЁ])\1\1', text).group()                           # -> ggg
+re.search(r'([a-zA-Zа-яА-ЯёЁ])\1', text).group()                             # -> gg
+
+# Тоже самое
+re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)', text).group()            # -> gg
+re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)(?P=first)', text).group()  # -> ggg
+
+
+
+
+# Напишите Обычную группу и  группу БЕЗ Захвата
+
+
+
+
+
+
+
+# Группа С захватом ()   Группа БЕЗ захвата   (?:)
+re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
+re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захвата   (?:)
+
+
+
+
+# Перепиши ниже Обновление Словаря/Множества
+
+a_dict = {"a": 2}
+b_dict = {"b": 3}
+
+a_set = {"a", 2}
+b_set = {"b", 3}
+
+
 
 
 
@@ -29,6 +88,12 @@ print(a_set)  # -> {1, 2, 'b', 3, 4, 'a'}
 
 # Перепиши ниже Обьединение *   Объединения **   |
 
+A = [1, 2, 3]  # list
+B = (4, 5, 6)  # tuple
+C = {7, 8, 9}  # set
+
+a = {"w": 5, "x": 6}
+b = {"y": 7}
 
 
 
@@ -81,6 +146,9 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
+
+
+
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 
 """
@@ -99,7 +167,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 # Напишите функцию с docstring/name. Выведите документацию и название функции
-
 
 
 
@@ -129,6 +196,8 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
+
+
 """
 # Итератор
 it = iter([i*i for i in range(10)])
@@ -136,6 +205,7 @@ it = iter([i*i for i in range(10)])
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
+
 
 
 
@@ -168,6 +238,9 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 # Напишите Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
+
+
+
 
 
 
@@ -274,6 +347,7 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 
+
 # Замыкание
 """
 def names():
@@ -292,6 +366,7 @@ print(boys.__closure__[0].cell_contents)  # -> ['Vasya', 'Sasya']
 
 
 # Напишите Замыкание lambda или Перепишите
+
 
 
 
@@ -326,7 +401,6 @@ print(pow_(2)(3))  # -> 9
 
 
 
-
 # Ответ lambda
 """
 double = lambda x: x * 2
@@ -343,6 +417,7 @@ ints = list(range(20))
 
 
 
+
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
 
 
@@ -356,6 +431,7 @@ class Cat:
 
     def __repr__(self):
         return f'Cat {self.name}, age is {self.age}'
+
 
 
 
@@ -419,7 +495,7 @@ foo()
 # Решение с nonlocal:                       Решение с global:
 x = 10                                      x = 10
 def foo():                                  def foo():
-    x = 10                                      global x, z
+    x = 10                                      global x, z    # МОЖЕТ создать z 
     def bar():                                  print(x)
         nonlocal x # не может создать z         x += 1
         print(x)                                z = 100
@@ -469,7 +545,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -491,7 +566,6 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
-
 
 
 
@@ -541,6 +615,7 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
+
 # Пример Singleton/Одиночка  # id Одинаковые     Гарантируется, что объект всегда будет один и тот же.
 """
 class Singleton:
@@ -569,6 +644,7 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 """
 
 # Напишите Monostate
+
 
 
 
@@ -619,6 +695,8 @@ print(mono_1.__dict__)  # -> {'a': 9999999999}
 
 
 
+
+
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -651,7 +729,6 @@ print(my_.foo())   # -> 42
 
 
 
-
 # Ответ 1)
 """
 from functools import wraps
@@ -665,6 +742,8 @@ def timer(func):
         finish = perf_counter()
         print(f"Время выполнения функции '{func.__name__}': {finish - start:.4f} секунд")
         return res
+    wrapper.__name__ = func.__name__   # Тоже самое что   @wraps(func)  Только ручное  
+    wrapper.__doc__ = func.__doc__     # Тоже самое что   @wraps(func)  Только ручное
     return wrapper
 
 @timer
@@ -678,6 +757,9 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
+
+
+
 
 
 
@@ -777,8 +859,6 @@ print(divide(10, 2))  # -> 5.0
 
 
 
-
-
 # ДЕКОРАТОР С ПАРАМЕТРАМИ - ЭТО ДОБАВЛЕНИЕ ЕЩЕ ОДНОГО УРОВНЯ ВЛОЖЕННОСТИ ДЛЯ ТОГО ЧТОБЫ ПЕРЕДАТЬ КАКОЙ-ТО ПАРАМЕТР А
 # ВНУТРИ ЛЕЖИТ ОБЫЧНЫЙ ДЕКОРАТОР.
 """
@@ -820,6 +900,8 @@ if __name__ == '__main__':
 
 
 
+
+
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -834,6 +916,7 @@ for _ in range(10):
 """
 
 # 4) Получить из файла текст в юникоде.
+
 
 
 
@@ -918,6 +1001,7 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 
 
+
 """
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
 from abc import ABC, abstractmethod
@@ -946,6 +1030,9 @@ print(c.area())  # -> 1000
 
 
 # Написать Асинхронный код
+
+
+
 
 
 
@@ -1000,8 +1087,6 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 # Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
-
-
 
 
 
