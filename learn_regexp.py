@@ -397,28 +397,17 @@ rez = tee(x, 3)
 
 import re
 
-# s = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
-a = 'aaaabbcaa'
-
-# Придумал сам)
-# Разделит число из тестовых данных на числа, в конце которых стоит единица. 1
-text = r'17383147371'
-
-print(re.findall(r'\d*?1', text))  # -> ['1', '73831', '47371']
-print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
+from itertools import permutations, combinations
 
 
+def permute(nums):
+    return list(map(list, list(permutations(nums, len(nums)))))
 
 
+nums = [0,1]
+nums = [1,2,3]
 
-
-
-
-
-
-
-
-
+print(permute(nums))
 
 
 
