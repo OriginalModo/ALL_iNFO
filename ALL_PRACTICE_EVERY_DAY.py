@@ -12,6 +12,7 @@ import re
 
 # Интересный пример Повтори кстати сам его придумал
 
+a = 'aaaabbcaa'
 
 
 
@@ -27,7 +28,7 @@ re.sub(r'(\w)\1+|\w', lambda x: f'{x[0][0]}{len(x[0])}', a)  # -> a4b2c1a2
 
 # Так можно разделить легко  Повтори
 
-
+text = r'17383147371'
 
 
 
@@ -46,6 +47,7 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 
 
 # Классный пример Повтори   По сути это if...else в Регулярках
+
 
 
 
@@ -74,24 +76,27 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 
 
 
-
 # Использование re.compile
 """
 regex = re.compile("[A-Za-z_]"      # letter or underscore             буква или подчеркивание
                    "[A-Za-z0-9_]*"  # letter, digit or underscore      буква, цифра или подчеркивание
                    )
 re.findall(regex, 'ABC123---')  # -> ['ABC123']
+
+# Тоже самое
+regex.findall('ABC123---')  # -> ['ABC123']
 """
 
 
 # Поменяйте местами в регулярке использую Обычные/Именованные группы или Перепишите
 
+text = 'ABC 123'
 
 
 
 
 
-# Замена по индексу группы: '\1' '\2'
+# Замена по индексу группы: '\1' '\2'    между группами можно использовать любые знаки
 re.sub(r'(\w+)\s*(\d+)', r'\2 \1',  'ABC 123')                                    # -> 123 ABC   # Поменяли местами
 # Замена по Имени группы:   '\g<name>'
 re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')  # -> 123 ABC   # Поменяли местами
@@ -100,7 +105,7 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 
 # Напишите или Перепишите Обычные/Именованные группы
 
-
+text = r'ggg wp'
 
 
 
@@ -120,6 +125,7 @@ re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)(?P=first)', text).group(
 
 # Напишите Обычную группу и  группу БЕЗ Захвата
 
+text = "abc"
 
 
 
@@ -170,6 +176,7 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
+
 
 
 
@@ -250,8 +257,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
-
-
 # Ответ docstring/name
 
 '''
@@ -272,8 +277,6 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
-
-
 """
 # Итератор
 it = iter([i*i for i in range(10)])
@@ -281,9 +284,6 @@ it = iter([i*i for i in range(10)])
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
-
-
-
 
 
 
@@ -341,6 +341,8 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
+
 
 
 
@@ -477,6 +479,7 @@ print(pow_(2)(3))  # -> 9
 
 
 
+
 # Ответ lambda
 """
 double = lambda x: x * 2
@@ -500,6 +503,7 @@ a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
 
 
 
+
 class Cat:
     def __init__(self, name, age):
         self.name = name
@@ -507,7 +511,6 @@ class Cat:
 
     def __repr__(self):
         return f'Cat {self.name}, age is {self.age}'
-
 
 
 
@@ -566,6 +569,11 @@ foo()
 
 
 
+
+
+
+
+
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -586,6 +594,7 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
+h = [20, 10, 1]
 
 
 
@@ -618,9 +627,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 
-
-
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -642,6 +648,9 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
+
+
+
 
 
 
@@ -773,6 +782,7 @@ print(mono_1.__dict__)  # -> {'a': 9999999999}
 
 
 
+
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -797,7 +807,6 @@ print(my_.foo())   # -> 42
 
 
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
-
 
 
 
@@ -833,8 +842,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
-
-
 
 
 
@@ -880,6 +887,8 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
+
+
 # Ответ 1.2)
 # Декорирование класса в Python:
 """
@@ -895,6 +904,7 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 """
 
 # 2) Написать декоратор, который возвращает либо результат, либо экземпляр исключения:
+
 
 
 
@@ -978,6 +988,7 @@ if __name__ == '__main__':
 
 
 
+
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -1001,7 +1012,6 @@ for _ in range(10):
 
 
 
-
 # Ответ 4)
 """
 def read_unicode_file(file_path):
@@ -1015,6 +1025,8 @@ print(текст)
 """
 
 # 5) Написать генератор чисел Фибоначчи вида def fib(a=1, b=2):
+
+
 
 
 
@@ -1047,6 +1059,7 @@ for _ in range(10):
 
 
 
+
 # Решения Фибоначч с мемоизацией КЭШ  Скорость O(n)
 """
 import timeit
@@ -1069,6 +1082,7 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 
 # # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+
 
 
 
@@ -1147,6 +1161,7 @@ if __name__ == '__main__':
 
 
 
+
 """
 # Как запустить что-то в потоке и вывести результат?  ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
@@ -1163,6 +1178,7 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 # Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
+
 
 
 
@@ -1205,12 +1221,303 @@ if __name__ == "__main__":
 
 
 
+# --- Алгоритмы сортировки Python ---
+
+
+
+
+# Задача с собеседования
+# Написать Quick Sort/Быстрая сортировка
 
 
 
 
 
 
+# Реализация Quick Sort/Быстрая сортировка
+"""
+# Вариант 1: Опорный элемент — последний элемент массива
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot = arr[-1]
+    left = []
+    right = []
+    middle = []
+
+    for i in arr:
+        if i < pivot:
+            left.append(i)
+        elif i > pivot:
+            right.append(i)
+        else:
+            middle.append(i)
+
+    return quick_sort(left) + middle + quick_sort(right)
+
+
+# Пример использования
+arr = [10, 7, 8, 9, 1, 5]
+sorted_arr = quick_sort(arr)
+print("Отсортированный массив:", sorted_arr)  # -> Отсортированный массив: [1, 5, 7, 8, 9, 10]
+
+
+
+# Вариант 2: Опорный элемент — средний элемент массива
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot_index = len(arr)//2
+    pivot = arr[pivot_index]
+    left = []
+    right = []
+    middle = []
+
+    for i in arr:
+        if i < pivot:
+            left.append(i)
+        elif i > pivot:
+            right.append(i)
+        else:
+            middle.append(i)
+
+    return quick_sort(left) + middle + quick_sort(right)
+
+
+# Пример использования
+arr = [10, 7, 8, 9, 1, 5]
+sorted_arr = quick_sort(arr)
+print("Отсортированный массив:", sorted_arr)  # -> Отсортированный массив: [1, 5, 7, 8, 9, 10]
+
+
+
+# Вариант 3: Случайный выбор опорного элемента
+
+import random
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot = random.choice(arr)  # Случайный опорный элемент
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Пример использования
+arr = [10, 7, 8, 9, 1, 5]
+sorted_arr = quick_sort(arr)
+print("Отсортированный массив:", sorted_arr)  # -> Отсортированный массив: [1, 5, 7, 8, 9, 10]
+"""
+
+
+# Написать Сортировку пузырьком (Bubble Sort)
+
+
+
+
+
+
+# Сортировка пузырьком (Bubble Sort)
+"""
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return arr
+
+
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = bubble_sort(arr)
+print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64, 90]
+"""
+
+
+# Написать Сортировку выбором (Selection Sort)
+
+
+
+
+
+
+
+
+
+# Сортировка выбором (Selection Sort)
+"""
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_index = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return arr
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = selection_sort(arr)
+print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 64]
+"""
+
+
+
+# Написать Сортировку вставками (Insertion Sort)
+
+
+
+
+
+
+
+
+# Сортировка вставками (Insertion Sort)
+"""
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+    return arr
+
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11]
+sorted_arr = insertion_sort(arr)
+print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 34, 64]
+"""
+
+
+
+# Написать Быстрая сортировка (Quick Sort)
+
+
+
+
+
+
+
+
+
+# Быстрая сортировка (Quick Sort)
+"""
+def quick_sort(arr):
+    match arr:
+        case x if len(x) <= 1:
+            return arr
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = quick_sort(arr)
+print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 90]
+"""
+
+
+
+# Написать Сортировку слиянием (Merge Sort)
+
+
+
+
+
+
+
+# Сортировка слиянием (Merge Sort)
+"""
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result += left[i:]
+    result += right[j:]
+    return result
+
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 90]
+"""
+
+
+
+# Дальше Добавь Другие сортировки...
+
+
+
+
+
+
+
+# Напиши SQL Задачу с собеседования ---
+
+
+
+
+
+
+
+# --- SQL Задача с собеседования ---
+
+"""
+Таблицы:
+users (пользователи):
+    id (INT, PRIMARY KEY)
+    name (VARCHAR)
+    email (VARCHAR)
+    registration_date (DATE)
+
+products (продукты):
+    id (INT, PRIMARY KEY)
+    name (VARCHAR)
+    category (VARCHAR)
+    price (DECIMAL)
+
+orders (заказы):
+    id (INT, PRIMARY KEY)
+    user_id (INT, FOREIGN KEY на users.id)
+    product_id (INT, FOREIGN KEY на products.id)
+    order_date (DATE)
+    quantity (INT)
+
+
+# Будем сцепляться по id    
+select u.name from users as u
+left join products as p on u.if = p.id
+
+"""
 
 
 

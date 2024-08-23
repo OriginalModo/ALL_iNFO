@@ -397,25 +397,34 @@ rez = tee(x, 3)
 
 import re
 
-from itertools import permutations, combinations
 
 
-def permute(nums):
-    return list(map(list, list(permutations(nums, len(nums)))))
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
 
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result += left[i:]
+    result += right[j:]
+    return result
 
-nums = [0,1]
-nums = [1,2,3]
-
-print(permute(nums))
-
-
-
-
-
-
-
-
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 90]
 
 
 
