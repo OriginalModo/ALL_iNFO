@@ -2,7 +2,9 @@ import asyncio
 import collections
 import functools
 import itertools
+import json
 import operator
+import random
 import sys
 import time
 import types
@@ -10,7 +12,340 @@ import re
 
 
 
-# Интересный пример Повтори кстати сам его придумал
+
+
+# Повтори примеры  МОРЖА/Walrus  Разные примеры!!!  Моржовый оператор/Walrus
+
+# Перепиши с Моржом
+n = 10
+# print(5 <= n < 10 or 101 < n < 201)
+
+
+
+
+s = "Hello"
+# print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
+
+
+
+
+# Напечатайте индекс наименьшего числа в списке.
+lst = [5, 8, 3, 2, 7, 4, 9]
+
+
+
+
+
+
+# Использование МОРЖА/Walrus  Разные примеры!!!  Моржовый оператор/Walrus
+"""
+# Пример 1
+
+# Без Моржика
+n = 10
+print(5 <= n < 10 or 101 < n < 201)          # -> # False
+# 1 раз обьявляем Моржика := и потом используем
+print(5 <= (с := 10) < 10 or 101 < с < 201)  # -> # False
+# Переменная создана
+print(с)  # -> 10
+
+
+# Пример 2
+print(f'Если перевернуть слово "{(s:="Hello")}", получится "{s[::-1]}".')
+# -> Если перевернуть слово "Hello", получится "olleH".
+print(s)  # -> Hello
+
+
+# Пример 3
+# match case и Моржик и несколько переменных сразу
+match (a := 7), (b := 4):
+    case 7, 4:
+        print(6)  # -> 6
+    case 10, 5:
+        print(10)
+    case 6, 3:
+        print(4)
+
+print(a, b)  # -> 7 4
+
+
+# Пример 4
+# Напечатайте индекс наименьшего числа в списке.
+lst = [5, 8, 3, 2, 7, 4, 9]
+
+print(abs(lst.index(min(lst))))                        # -> 3
+print((arr := [5, 8, 3, 2, 7, 4, 9]).index(min(arr)))  # -> 3  # Морж классный  <-----
+print(min(range(len(lst)), key=lst.__getitem__))       # -> 3
+
+
+# Пример 5
+# Моржика в условии нельзя
+print((nn := 10) + 10 if nn % 2 == 0 else nn - 10)  # -> NameError: name 'n' is not defined
+print(nn + 10 if (nn := 10) % 2 == 0 else nn - 10)  # -> 20"""
+
+
+
+# Распарсить JSON-строку  json.loads()
+
+json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
+
+
+
+
+
+
+
+
+# Пример разбора JSON-строки
+# json.loads()` для разбора JSON-строки.
+"""
+json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
+
+import json
+
+data = json.loads(json_string)
+print(data)          # -> {'name': 'Alice', 'age': 30, 'city': 'New York'}
+print(data['name'])  # -> Alice
+"""
+
+
+
+# Распарсить JSON-файл  json.load()
+# Предположим, у вас есть файл `data.json` с содержимым:
+"""
+{
+    "employees": [
+        {"name": "John", "age": 28},
+        {"name": "Anna", "age": 22},
+        {"name": "Mike", "age": 32}
+    ]
+}
+"""
+
+
+
+
+
+
+
+# Пример разбора JSON из файла
+# json.load()` для разбора JSON-данных из файла
+# Предположим, у вас есть файл `data.json` с содержимым:
+"""
+{
+    "employees": [
+        {"name": "John", "age": 28},
+        {"name": "Anna", "age": 22},
+        {"name": "Mike", "age": 32}
+    ]
+}
+
+import json
+
+# Открытие файла и разбор JSON
+with open('data.json', 'r') as file:
+    data = json.load(file)
+
+# Вывод результата
+print(data)
+print(data['employees'][0]['name'])  # "John"
+"""
+
+
+# Используйте метод `json.dump()` с отступами   Перепишите пример ниже
+
+data = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+
+
+
+
+
+
+# Пример с `json.dump()` с отступами
+# `json.dump()` сериализует объект Python и записывает его в файл в формате JSON.
+"""
+import json
+
+# Пример данных для сериализации
+data = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+# Запись данных в файл в формате JSON
+with open('data.json', 'w') as file:
+    json.dump(data, file, indent=4)
+
+print("Данные успешно записаны в файл data.json")
+"""
+
+
+# Используйте метод `json.dumps()` с отступами   Перепишите пример ниже
+
+data = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+
+
+
+
+
+# Пример с `json.dumps()` с отступами
+# `json.dumps()` сериализует объект Python и возвращает его в виде строкового представления JSON.
+
+"""
+import json
+
+data = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+# Сериализация данных в строку JSON с отступами
+json_string = json.dumps(data, indent=4)
+
+print("Строка JSON с форматированием:")
+print(json_string)
+"""
+
+
+# Перепиши Ниже вариант match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
+
+cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
+
+
+
+
+
+
+
+
+
+
+# match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
+"""
+# Всё Работает так же как и при обычной распаковке '*'
+
+cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]  # 7 Элементов Список
+author, title, price, *_ = cmd   # Так будет работать используем *    *_
+author, title, price = cmd       # -> ValueError: too many values to unpack (expected 3)
+print(author, title, price)      # -> 1 Learning Python
+
+
+# Ограничить Размер Кортежа/Списка используем guard if     Можно использовать любые скобки () [] или без скобок
+match cmd:
+    case [_, str() as author, str(title), float() as price, *_] if len(cmd) >= 7 and len(title) < 10:   # guard
+        print(f'Список: {author} {title} {price}')
+    case _:  # wildcard
+        print(f'Непонятный формат данных')
+# -> Список: Learning Python 2000.78 [5, 3, 5, 10]
+"""
+
+
+
+# Перепиши Ниже    match case Словарь  dict '**'
+
+json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', 'email': 'xxx@mail.com'}, 2000, 56.4]}
+
+def parse_json(data):
+    pass
+
+
+# print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
+# print(parse_json(json_data))  # -> (True, '26.05.2023')
+
+
+
+
+
+
+
+# match case    Словарь  dict '**'
+"""
+def parse_json(data):
+    match data:
+        case {'access': bool() as access, 'data': list([date, *_])}:
+            return access, date
+    return None
+
+json_data = {'id': 2, 'access': False, 'data': ['26.05.2023', {'login': '1234', 'email': 'xxx@mail.com'}, 2000, 56.4]}
+print(parse_json(json_data))  # -> (False, '26.05.2023')
+
+# Другой вариант
+def parse_json(data):
+    match data:
+        case {'access': access, 'data': [_, {'login': login, **kwargs}, *_]} if access:
+            return login, kwargs
+
+json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', 'email': 'xxx@mail.com'}, 2000, 56.4]}
+print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
+"""
+
+
+
+# Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
+
+head = [0, 3, 1, 0, 4, 5, 2, 0]
+
+
+
+
+
+
+
+
+# Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
+"""
+head = [0, 3, 1, 0, 4, 5, 2, 0]
+
+def mergeNodes(head):
+    res = re.sub(r'[,\s\]\[]', '', str(head))
+    return [eval('+'.join(i)) for i in re.split(r'0', res) if i]
+
+# Тоже самое но с map
+def mergeNodes(head):
+    res = ''.join([*map(str, head)]).split('0')
+    return [sum(map(int, ' '.join(i).split())) for i in res if i]
+
+print(mergeNodes(head))  # -> [4, 11]
+"""
+
+
+
+# Напишите from functools import reduce/eval   Используя lambda/operator   eval - НЕ забудь
+
+lst = [1, 2, 3, 4]
+
+
+
+
+
+
+
+
+# Ответ  reduce/eval   lambda/operator
+"""
+import functools, operator
+lst = [1, 2, 3, 4]
+print(functools.reduce(operator.add, lst))      # -> 10
+print(functools.reduce(lambda x, y: x+y, lst))  # -> 10
+print(eval('+'.join([str(i) for i in lst])))    # -> 10
+"""
+
+
+
+
+# Интересный пример Повтори кстати сам его придумал  a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'
 
 a = 'aaaabbcaa'
 
@@ -19,17 +354,21 @@ a = 'aaaabbcaa'
 
 
 
-# s = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
+
+
+# a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
+"""
 a = 'aaaabbcaa'
 
 # Придумал сам)
 re.sub(r'(\w)\1+|\w', lambda x: f'{x[0][0]}{len(x[0])}', a)  # -> a4b2c1a2
-
+"""
 
 
 # Так можно разделить легко  Повтори
 
 text = r'17383147371'
+
 
 
 
@@ -51,6 +390,8 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 # Классный пример Повтори   По сути это if...else в Регулярках
 
 text = 'ABC'
+
+
 
 
 
@@ -102,10 +443,14 @@ text = 'ABC 123'
 
 
 
+
+
 # Замена по индексу группы: '\1' '\2'    МЕЖДУ/ПЕРЕД/ПОСЛЕ групп можно использовать любые знаки
+"""
 re.sub(r'(\w+)\s*(\d+)', r'+__\2  \1 !!+',  'ABC 123')                            # -> +__123  ABC !!+   # Поменяли местами
 # Замена по Имени группы:   '\g<name>'
 re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')  # -> 123 ABC   # Поменяли местами
+"""
 
 
 
@@ -121,6 +466,7 @@ text = r'ggg wp'
 
 
 # Обычные/Именованные группы
+"""
 text = r'ggg wp'
 re.search(r'([a-zA-Zа-яА-ЯёЁ])\1\1', text).group()                           # -> ggg
 re.search(r'([a-zA-Zа-яА-ЯёЁ])\1', text).group()                             # -> gg
@@ -128,8 +474,7 @@ re.search(r'([a-zA-Zа-яА-ЯёЁ])\1', text).group()                          
 # Тоже самое
 re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)', text).group()            # -> gg
 re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)(?P=first)', text).group()  # -> ggg
-
-
+"""
 
 
 # Напишите Обычную группу и  группу БЕЗ Захвата
@@ -143,9 +488,10 @@ text = "abc123"
 
 
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
+"""
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
 re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захвата   (?:)
-
+"""
 
 
 
@@ -194,6 +540,9 @@ b = {"y": 7}
 
 
 
+
+
+
 # Обьединение *   Объединения **   |
 
 """
@@ -222,6 +571,8 @@ print(c)  # -> {'z': 8, 'w': 5, 'x': 6, 'y': 7}
 """
 
 
+
+# Написать решение чтобы каждый раз создавался новый обьект
 # default  Аргументы по умолчанию в функциях:
 """
 def f(a, L=[]):                       def f(a, L=set()):                    def f(key, value, L={}):
@@ -235,13 +586,6 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 """
 
 
-# Написать решение чтобы каждый раз создавался новый обьект
-
-
-
-
-
-
 
 
 
@@ -250,7 +594,6 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
-
 """
 # list                               # set                                   # dict
 def f(a, L=None):                    def f(a, L=None):                       def f(key, value, L=None):
@@ -276,7 +619,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 # Ответ docstring/name
-
 '''
 def add_numbers(a, b):
     """This function takes in two numbers and returns their sum"""
@@ -296,6 +638,7 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
+# Итератор  range(10)
 """
 # Итератор
 it = iter([i*i for i in range(10)])
@@ -309,6 +652,8 @@ it = iter([i*i for i in range(10)])
 
 
 
+
+# Функцию-Генератор  range(5) и Обычный генератор
 """
 # Генератор
 def generate_ints(N):
@@ -373,6 +718,7 @@ print([*gen_list2('python')])     # -> ['p', 'y', 't', 'h', 'o', 'n']
 
 
 
+# Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
 """
 # Например, такой генератор, как:
 def squares(start, stop):
@@ -391,8 +737,6 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
-
-
 
 
 
@@ -509,6 +853,8 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
+
+
 # Замыкание lambda
 """
 def pow_(base):
@@ -555,11 +901,7 @@ ints = list(range(20))
 
 
 
-
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
-
-
-
 
 
 
@@ -608,6 +950,8 @@ if __name__ == '__main__':
 """
 
 
+
+# Написать Решение с nonlocal и Решение с global   Переписать рещение выше чтобы НЕ было ошибки
 # Ошибка UnboundLocalError:
 """
 # Пример ошибки nonlocal:           Пример ошибки global:
@@ -622,16 +966,6 @@ def foo():                          def foo():
 foo()
 # UnboundLocalError: cannot access local variable 'x' where it is not associated with a value
 """
-
-# Написать Решение с nonlocal и Решение с global   Переписать рещение выше чтобы НЕ было ошибки
-
-
-
-
-
-
-
-
 
 
 
@@ -671,9 +1005,6 @@ h = [20, 10, 1, 2]
 
 
 
-
-
-
 # Пример heapq
 """
 import heapq
@@ -694,7 +1025,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 # Написать Рекурсию сумма Входного списка  Проверьте assert
-
 
 
 
@@ -780,8 +1110,6 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
-
-
 # Пример Singleton/Одиночка  # id Одинаковые     Гарантируется, что объект всегда будет один и тот же.
 """
 class Singleton:
@@ -810,8 +1138,6 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 """
 
 # Напишите Monostate
-
-
 
 
 
@@ -866,6 +1192,10 @@ print(mono_1.__dict__)  # -> {'a': 9999999999}
 
 
 
+
+
+
+
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -891,6 +1221,7 @@ print(my_.foo())   # -> 42
 
 
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
+
 
 
 
@@ -939,6 +1270,8 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
+
+
 # Ответ 1.1)
 # Класс как ДЕКОРАТОР
 """
@@ -966,7 +1299,6 @@ example_function(1000000)  # -> Время выполнения функции '
 """
 
 # 1.2) Написать dataclass
-
 
 
 
@@ -1027,10 +1359,6 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
-
-
-
-
 
 
 
@@ -1131,8 +1459,6 @@ print(текст)
 
 
 
-
-
 # Ответ 5)
 """
 def fib(a=1, b=2):
@@ -1192,7 +1518,6 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 
 
-
 """
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
 from abc import ABC, abstractmethod
@@ -1221,7 +1546,6 @@ print(c.area())  # -> 1000
 
 
 # Написать Асинхронный код
-
 
 
 
@@ -1292,8 +1616,6 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 
-
-
 """
 # Как запустить что-то в Процессах и вывести результат? 
 
@@ -1336,7 +1658,6 @@ if __name__ == "__main__":
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -1438,6 +1759,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -1461,6 +1783,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # Написать Сортировку выбором (Selection Sort)
+
 
 
 
@@ -1504,6 +1827,8 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
+
+
 # Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -1525,6 +1850,8 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 # Написать Быстрая сортировка (Quick Sort)
+
+
 
 
 
@@ -1556,35 +1883,14 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-def merge_sort(lst):
-    if len(lst) <= 1:
-        return lst
-    mid = len(lst) // 2
-    l = merge_sort(lst[:mid])
-    r = merge_sort(lst[mid:])
-    return merge(l, r)
-
-
-def merge(l, r):
-    res = []
-    i = j = 0
-    while i < len(l) and j < len(r):
-        if l[i] < r[j]:
-            res.append(l[i])
-            i +=1
-        else:
-            res.append(r[j])
-            j +=1
-    res += l[i:]
-    res += r[j:]
-    return res
 
 
 
 
-arr = [64, 34, 25, 12, 22, 11, 90]
-sorted_arr = merge_sort(arr)
-print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 90]
+
+
+
+
 
 
 # Сортировка слиянием (Merge Sort)
@@ -1662,7 +1968,7 @@ orders (заказы):
 
 # Будем сцепляться по id    
 select u.name from users as u
-left join products as p on u.if = p.id
+left join products as p on u.id = p.id
 
 """
 
