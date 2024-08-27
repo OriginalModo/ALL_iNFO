@@ -21,6 +21,7 @@ import re
 
 
 
+
 # dis - Библиотека работы с Байт-кодом  from dis import dis
 """
 from dis import dis
@@ -44,6 +45,8 @@ matrix = [
     [5, 6, 7, 8],
     [9, 10, 11, 12],
 ]
+
+
 
 
 
@@ -92,26 +95,6 @@ print(list(zip(matrix)))   # -> [([1, 2, 3, 4],), ([5, 6, 7, 8],), ([9, 10, 11, 
 
 
 
-
-# Повтори from itertools import groupby
-
-res = 'AAAABBBCCDAABBB'
-
-
-
-
-
-
-
-# Пример from itertools import groupby
-"""
-from itertools import groupby
-[k for k, g in groupby('AAAABBBCCDAABBB')] #→ A B C D A B    # -> ['A', 'B', 'C', 'D', 'A', 'B']
-[list(g) for k, g in groupby('AAAABBBCCD')]#→ AAAA BBB CC D  # -> [['A', 'A', 'A', 'A'], ['B', 'B', 'B'], ['C', 'C'], ['D']]
-"""
-
-
-
 # Повтори примеры  МОРЖА/Walrus  Разные примеры!!!  Моржовый оператор/Walrus
 
 # Перепиши с Моржом
@@ -127,9 +110,9 @@ s = "Hello"
 
 
 
+
 # Напечатайте индекс наименьшего числа в списке.
 lst = [5, 8, 3, 2, 7, 4, 9]
-
 
 
 
@@ -195,8 +178,9 @@ json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 
 
 
+
 # Пример разбора JSON-строки
-# json.loads()` для разбора JSON-строки.
+# 'json.loads()' для разбора JSON-строки.
 """
 json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 
@@ -210,7 +194,7 @@ print(data['name'])  # -> Alice
 
 
 # Распарсить JSON-файл  json.load()
-# Предположим, у вас есть файл `data.json` с содержимым:
+# Предположим, у вас есть файл 'data.json' с содержимым:
 """
 {
     "employees": [
@@ -226,9 +210,10 @@ print(data['name'])  # -> Alice
 
 
 
+
 # Пример разбора JSON из файла
 # json.load()` для разбора JSON-данных из файла
-# Предположим, у вас есть файл `data.json` с содержимым:
+# Предположим, у вас есть файл 'data.json' с содержимым:
 """
 {
     "employees": [
@@ -250,7 +235,7 @@ print(data['employees'][0]['name'])  # "John"
 """
 
 
-# Используйте метод `json.dump()` с отступами   Перепишите пример ниже
+# Используйте метод 'json.dump()' с отступами   Перепишите пример ниже
 
 data = {
     "name": "Alice",
@@ -263,7 +248,8 @@ data = {
 
 
 
-# Пример с `json.dump()` с отступами
+
+# Пример с 'json.dump()' с отступами
 # `json.dump()` сериализует объект Python и записывает его в файл в формате JSON.
 """
 import json
@@ -283,7 +269,7 @@ print("Данные успешно записаны в файл data.json")
 """
 
 
-# Используйте метод `json.dumps()` с отступами   Перепишите пример ниже
+# Используйте метод 'json.dumps()' с отступами   Перепишите пример ниже
 
 data = {
     "name": "Alice",
@@ -295,8 +281,7 @@ data = {
 
 
 
-
-# Пример с `json.dumps()` с отступами
+# Пример с 'json.dumps()' с отступами
 # `json.dumps()` сериализует объект Python и возвращает его в виде строкового представления JSON.
 
 """
@@ -357,6 +342,8 @@ json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', '
 def parse_json(data):
     pass
 
+
+
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
 # print(parse_json(json_data))  # -> (True, '26.05.2023')
 
@@ -399,7 +386,6 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
-
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -418,34 +404,11 @@ print(mergeNodes(head))  # -> [4, 11]
 
 
 
-# Напишите from functools import reduce/eval   Используя lambda/operator   eval - НЕ забудь
-
-lst = [1, 2, 3, 4]
-
-
-
-
-
-
-
-
-# Ответ  reduce/eval   lambda/operator
-"""
-import functools, operator
-lst = [1, 2, 3, 4]
-print(functools.reduce(operator.add, lst))      # -> 10
-print(functools.reduce(lambda x, y: x+y, lst))  # -> 10
-# Тоже самое
-print(eval('+'.join([str(i) for i in lst])))    # -> 10
-print(eval('+'.join(map(str, lst))))            # -> 10
-"""
-
-
-
 
 # Интересный пример Повтори кстати сам его придумал  a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'
 
 a = 'aaaabbcaa'
+
 
 
 
@@ -496,7 +459,6 @@ text = 'ABC'
 
 
 
-
 # По сути это if...else в Регулярках
 """
 # Если находим A значит ищем B иначе ищем C     1 - Номер группы
@@ -516,6 +478,8 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте re.compile
 
 text = 'ABC123---'
+
+
 
 
 
@@ -544,6 +508,7 @@ text = 'ABC 123'
 
 
 
+
 # Замена по индексу группы: '\1' '\2'    МЕЖДУ/ПЕРЕД/ПОСЛЕ групп можно использовать любые знаки
 """
 re.sub(r'(\w+)\s*(\d+)', r'+__\2  \1 !!+',  'ABC 123')                            # -> +__123  ABC !!+   # Поменяли местами
@@ -556,6 +521,7 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 # Напишите или Перепишите Обычные/Именованные группы
 
 text = r'ggg wp'
+
 
 
 
@@ -633,9 +599,6 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
-
-
-
 
 
 
@@ -737,6 +700,7 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
+
 # Итератор  range(10)
 """
 # Итератор
@@ -745,6 +709,8 @@ it = iter([i*i for i in range(10)])
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
+
+
 
 
 
@@ -779,6 +745,7 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 # Напишите Конструкцию yield from и ЕЁ аналог
+
 
 
 
@@ -838,6 +805,7 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
 
 
 
@@ -925,7 +893,6 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 
-
 # Замыкание
 """
 def names():
@@ -947,7 +914,6 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 # Напишите Замыкание lambda или Перепишите
-
 
 
 
@@ -989,7 +955,6 @@ print(pow_(2)(3))  # -> 9
 
 
 
-
 # Ответ lambda
 """
 double = lambda x: x * 2
@@ -1008,7 +973,10 @@ ints = list(range(20))
 
 
 
+
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
+
+
 
 
 
@@ -1085,6 +1053,8 @@ foo()
 
 
 
+
+
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1106,6 +1076,7 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
+
 
 
 
@@ -1143,7 +1114,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -1165,8 +1135,6 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
-
-
 
 
 
@@ -1303,9 +1271,6 @@ print(mono_1.__dict__)  # -> {'a': 9999999999}
 
 
 
-
-
-
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -1330,11 +1295,394 @@ print(my_.foo())   # -> 42
 
 
 
+
+
+# --- Модуль itertools в Python, эффективные итераторы для циклов   - сборник полезных итераторов --- ---
+
+# --- Бесконечные итераторы   Infinite iterators ---
+
+
+# itertools.count(start=0, step=1)
+# Использовать count
+
+
+
+
+
+
+
+# Ответы count
+"""
+from itertools import count
+for i in count(10):
+    if i > 15:
+        break
+    else:
+        print(i, end=' ')  # 10 11 12 13 14 15
+
+
+# Другой способ ограничить вывод бесконечного итератора - использовать другую функцию из itertools с именем islice().
+from itertools import islice, count
+
+for i in islice(count(10), 5):
+    print(i, end=' ')  # 10 11 12 13 14
+    
+    
+print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
+"""
+
+
+
+
+# itertools.cycle(iterable)
+# Использовать cycle
+
+
+
+
+
+
+# Ответы cycle
+"""
+from itertools import cycle, islice
+
+for index, value in enumerate(cycle('XYZ')):
+    if index > 5:
+        break
+    print(value, end=' ')
+# X Y Z X Y Z
+
+
+# Пример с islice
+for i in islice(cycle([1, 2, 3]), 5):
+    print(i, end=' ')  # 1 2 3 1 2 
+"""
+
+
+
+# itertools.repeat(object[, times])
+# Использовать repeat
+
+
+
+
+
+
+
+
+# Ответы repeat
+"""
+from itertools import repeat
+
+print(list(repeat(10, 3)))  # -> [10, 10, 10]
+
+
+# Обычное использование для itertools.repeat() - предоставить поток постоянных значений для map() или zip():
+
+# квадраты элементов списка
+print(list(map(pow, range(10), repeat(2))))
+# [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+ 
+# кубы элементов списка
+print(list(map(pow, range(10), repeat(3))))
+# [0, 1, 8, 27, 64, 125, 216, 343, 512, 729]
+
+# Интересный пример с zip
+fruits = ['apples', 'oranges', 'bananas']
+
+# Initialize inventory to zero for each fruit type.
+inventory = dict(zip(fruits, repeat(2)))
+print(inventory)  # -> {'apples': 2, 'oranges': 2, 'bananas': 2}
+
+inventory = dict(zip(fruits, repeat(0)))
+print(inventory)  # -> {'apples': 0, 'oranges': 0, 'bananas': 0}
+
+
+# Классный пример 
+from itertools import chain, repeat, cycle
+
+fruits = ['apples', 'oranges', 'bananas', 'pineapples','grapes',"berries"]
+
+inventory = list(zip(fruits, chain(repeat(10, 2), cycle(range(1, 3)))))
+print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pineapples', 2), ('grapes', 1), ('berries', 2)]
+"""
+
+
+
+# --- Конечные итераторы    Iterators terminating on the shortest input sequence ---
+# --- Итераторы, оканчивающиеся на самой короткой входной последовательности ---
+
+
+# itertools.accumulate(iterable[, function, *, initial=None])
+# Использовать accumulate
+
+
+
+
+
+
+
+
+
+# Ответы accumulate
+"""
+from itertools import accumulate
+
+print(list(accumulate([1, 2, 3, 4, 5])))  # -> [1, 3, 6, 10, 15]
+print(list(accumulate([1, 2, 3, 4, 5], initial=100)))  # -> [100, 101, 103, 106, 110, 115]
+print(list(accumulate([1, 2, 3, 4, 5], operator.mul)))  # -> [1, 2, 6, 24, 120]
+print(list(accumulate([1, 2, 3, 4, 5], operator.sub)))  # -> [1, -1, -4, -8, -13]
+"""
+
+
+
+# itertools.batched(iterable, n)  Работает с версии Питона 3.12 +
+# Использовать batched
+
+
+
+
+# Ответы batched
+"""
+from itertools import batched
+flattened_data = ['roses', 'red', 'violets', 'blue', 'sugar', 'sweet']
+unflattened = list(batched(flattened_data, 2))
+print(unflattened)  # -> [('roses', 'red'), ('violets', 'blue'), ('sugar', 'sweet')]
+"""
+
+
+
+
+
+# itertools.chain(*iterables)
+# Использовать chain
+
+
+
+
+
+
+
+
+# Ответы chain
+"""
+from itertools import chain
+A = [1, 2, 3]  # list
+B = (4, 5, 6)  # tuple
+C = {7, 8, 9}  # set
+D = {'A': '11', 'B': '22'}  # dict
+
+G = list(chain(A, B, C, D))
+L = [*chain(A, B, C, D)]    # Тоже самое
+
+print(L)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7, 'A', 'B']
+print(G)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7, 'A', 'B']
+
+# НЕ распакует вложенные без *
+print(list(chain([[1, 2, 3]])))   # -> [[1, 2, 3]]
+print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
+"""
+
+
+
+
+# classmethod chain.from_iterable(iterable)
+# Использовать chain.from_iterable
+
+
+
+
+
+
+
+
+
+# Ответы chain.from_iterable
+
+"""
+from itertools import chain
+
+lst = ['foo', ['one', 'two', [1, 2]]]
+
+# Сравнение chain vs chain.from_iterable
+
+# itertools.chain(*iterables)
+print(list(chain.from_iterable(lst)))  # -> ['f', 'o', 'o', 'one', 'two', [1, 2]]
+print([*chain.from_iterable(lst)])     # -> ['f', 'o', 'o', 'one', 'two', [1, 2]]
+
+
+# chain.from_iterable(iterable)
+print(list(chain(lst)))                 # -> ['foo', ['one', 'two', [1, 2]]]
+print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
+"""
+
+
+
+# itertools.compress(data, selectors)
+# Использовать itertools.compress
+
+
+
+
+
+# Ответы compress
+"""
+from itertools import compress
+print(list(compress('ABCDEF', [1,0,1,0,1,1])))  # -> ['A', 'C', 'E', 'F']        
+print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']    
+"""
+
+
+# itertools.groupby(iterable, key=None)
+# Повтори from itertools import groupby
+
+res = 'AAAABBBCCDAABBB'
+
+
+
+
+
+
+
+
+# Пример from itertools import groupby
+"""
+from itertools import groupby
+[k for k, g in groupby('AAAABBBCCDAABBB')] #→ A B C D A B    # -> ['A', 'B', 'C', 'D', 'A', 'B']
+[list(g) for k, g in groupby('AAAABBBCCD')]#→ AAAA BBB CC D  # -> [['A', 'A', 'A', 'A'], ['B', 'B', 'B'], ['C', 'C'], ['D']]
+"""
+
+
+
+
+
+
+# --- functools — Функции высшего порядка и операции над вызываемыми объектами ---
+
+
+# functools.reduce(function, iterable[, initializer])
+# Напишите from functools import reduce/eval   Используя lambda/operator   eval - НЕ забудь
+
+lst = [1, 2, 3, 4]
+
+
+
+
+
+
+
+
+
+
+# Ответ  reduce/eval   lambda/operator
+"""
+import functools, operator
+lst = [1, 2, 3, 4]
+print(functools.reduce(operator.add, lst))      # -> 10
+print(functools.reduce(lambda x, y: x+y, lst))  # -> 10
+# Тоже самое
+print(eval('+'.join([str(i) for i in lst])))    # -> 10
+print(eval('+'.join(map(str, lst))))            # -> 10
+"""
+
+
+# @functools.cache(user_function)
+# Использовать cache
+
+
+
+
+
+
+# Ответ @functools.cache(user_function)
+"""
+from functools import cache
+@cache
+def factorial(n):
+    return n * factorial(n-1) if n else 1
+
+print(factorial(10))  # -> 3628800
+print(factorial(5))   # -> 120
+print(factorial(12))  # -> 479001600
+"""
+
+
+
+
+# @functools.lru_cache(user_function)
+# @functools.lru_cache(maxsize=128, typed=False)
+# Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
+
+
+
+
+
+
+
+
+
+
+# Решения Фибоначч с мемоизацией КЭШ  Скорость O(n)  @functools.lru_cache
+"""
+import timeit
+from pympler import asizeof
+from functools import lru_cache
+
+@__import__('functools').lru_cache(maxsize=None)  #  Так тоже можно импортировать
+# @functools.lru_cache(maxsize=None)
+def fibonacci__3(n):
+    if n < 2:
+        return n
+    else:
+        return fibonacci__3(n - 1) + fibonacci__3(n - 2)
+
+print(fibonacci__3(50))                                                              # -> 12586269025
+# Замеры с параметром 50!!!
+print(timeit.timeit('fibonacci__3(50)', globals=globals()))                          # -> 0.10358340013772249
+
+# Тоже самое но с setup()
+print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3"))  # -> 0.09871609997935593
+"""
+
+
+
+# functools.partial(func, /, *args, **keywords)
+# Используйте функцию from functools import partial
+
+
+def multiply(x, y):
+    return x * y
+
+
+
+
+
+
+
+
+
+# partial функция from functools import partial
+"""
+from functools import partial
+
+def multiply(x, y):
+    return x * y
+
+doubleNum = partial(multiply, 2)
+tripleNum = partial(multiply, 3)
+res = multiply(10, 2)
+
+print(res)  # 20
+print(multiply(10, 2))  # 20
+print(doubleNum(20))  # 40
+print(tripleNum(20))  # 60
+"""
+
+
+
+
+# @functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
-
-
-
-
 
 
 
@@ -1382,9 +1730,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
-
-
-
 # Ответ 1.1)
 # Класс как ДЕКОРАТОР
 """
@@ -1422,7 +1767,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
-
 # Ответ 1.2)
 # Декорирование класса в Python:
 """
@@ -1438,9 +1782,6 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 """
 
 # 2) Написать декоратор, который возвращает либо результат, либо экземпляр исключения:
-
-
-
 
 
 
@@ -1473,7 +1814,6 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
-
 
 
 
@@ -1529,10 +1869,6 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -1547,8 +1883,6 @@ for _ in range(10):
 """
 
 # 4) Получить из файла текст в юникоде.
-
-
 
 
 
@@ -1580,7 +1914,6 @@ print(текст)
 
 
 
-
 # Ответ 5)
 """
 def fib(a=1, b=2):
@@ -1594,37 +1927,6 @@ fib_gen = fib()
 # Выведет первые 10 чисел Фибоначчи начиная с a=1, b=2  # -> 1 2 3 5 8 13 21 34 55 89
 """
 
-
-# Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
-
-
-
-
-
-
-
-
-
-
-# Решения Фибоначч с мемоизацией КЭШ  Скорость O(n)
-"""
-import timeit
-from pympler import asizeof
-@__import__('functools').lru_cache(maxsize=None)  #  Так тоже можно импортировать
-# @functools.lru_cache(maxsize=None)
-def fibonacci__3(n):
-    if n < 2:
-        return n
-    else:
-        return fibonacci__3(n - 1) + fibonacci__3(n - 2)
-
-print(fibonacci__3(50))                                                              # -> 12586269025
-# Замеры с параметром 50!!!
-print(timeit.timeit('fibonacci__3(50)', globals=globals()))                          # -> 0.10358340013772249
-
-# Тоже самое но с setup()
-print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3"))  # -> 0.09871609997935593
-"""
 
 
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
@@ -1736,6 +2038,8 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 
+
+
 """
 # Как запустить что-то в Процессах и вывести результат? 
 
@@ -1778,9 +2082,6 @@ if __name__ == "__main__":
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
-
-
 
 
 
@@ -1879,6 +2180,8 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
+
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -1902,7 +2205,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # Написать Сортировку выбором (Selection Sort)
-
 
 
 
@@ -1945,6 +2247,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
+
 # Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -1975,6 +2278,8 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
+
+
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -1996,6 +2301,8 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
+
+
 
 
 
@@ -2047,8 +2354,6 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Напиши SQL Задачу с собеседования ---
-
-
 
 
 
