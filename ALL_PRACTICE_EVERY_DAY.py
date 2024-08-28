@@ -12,6 +12,23 @@ import re
 
 
 
+
+# Напишите  Обход в Обратном порядке в цикле for
+
+
+
+
+
+
+# Обход в Обратном порядке в цикле for
+"""
+# Обход в Обратном порядке в цикле for
+for i in range(10, -1, -1):
+    print(i, end=' ')  # -> 10 9 8 7 6 5 4 3 2 1 0 
+"""
+
+
+
 # Используйте dis - Библиотека работы с Байт-кодом   import dis
 
 
@@ -559,6 +576,24 @@ re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захвато
 re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захвата   (?:)
 """
 
+
+# Напишите   Lookahead   Lookbehind
+
+
+
+
+# Lookahead   Lookbehind
+# x(?=y) находит x, только если за x следует y             # Positive Lookahead
+# x(?!y) находит x, только если за x НЕ следует y          # Negative Lookahead
+# (?<=y)x находит x, только если перед x следует y         # Positive Lookbehind
+# (?<!y)x находит x, только если перед x НЕ следует y      # Negative Lookbehind
+"""
+text = '123ABC'
+print(re.findall(r'\d+(?=[A-Z])', text))   # -> ['123']
+print(re.findall(r'\d+(?!\d+)', text))     # -> ['123']
+print(re.findall(r'(?<=^)\d+', text))      # -> ['123']
+print(re.findall(r'(?<!$)[A-Z]+', text))   # -> ['ABC']
+"""
 
 
 # Перепиши ниже Обновление Словаря/Множества
@@ -1519,7 +1554,7 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 
 # itertools.compress(data, selectors)
-# Использовать itertools.compress
+# Использовать compress
 
 
 
@@ -1531,6 +1566,186 @@ from itertools import compress
 print(list(compress('ABCDEF', [1,0,1,0,1,1])))  # -> ['A', 'C', 'E', 'F']        
 print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']    
 """
+
+
+
+# itertools.dropwhile(predicate, iterable)
+# Использовать dropwhile
+
+
+
+
+
+# Ответы dropwhile
+"""
+from itertools import dropwhile
+# Пример 1
+print(list(dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1])))  # -> [6, 4, 1]
+
+# Пример 2
+def trigger_to_five(x):
+    return x > 5
+
+lst = [6, 7, 8, 9, 1, 2, 3, 10]
+print(list(dropwhile(trigger_to_five, lst)))  # -> [1, 2, 3, 10]
+"""
+
+
+# itertools.takewhile(predicate, iterable)
+# Использовать takewhile
+
+
+
+
+
+# Ответы takewhile
+"""
+from itertools import takewhile, dropwhile
+
+print(list(takewhile(lambda x: x < 5, [1, 4, 6, 4, 1])))    # -> [1, 4]
+
+print((list(dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1]))))  # -> [6, 4, 1]
+"""
+
+
+
+# itertools.filterfalse(predicate, iterable)
+# Использовать filterfalse
+
+
+
+
+
+# Ответы filterfalse
+"""
+from itertools import filterfalse
+
+print(list(filterfalse(lambda x: x > 5, [6, 7, 8, 9, 1, 2, 3, 10])))  # -> [1, 2, 3]
+print(list(filterfalse(lambda x: x < 5, [6, 7, 8, 9, 1, 2, 3, 10])))  # -> [6, 7, 8, 9, 10]
+print(list(filterfalse(lambda x: x % 2 == 0, [6, 7, 8, 9])))          # -> [7, 9]
+"""
+
+
+
+# itertools.islice(iterable, stop)
+# itertools.islice(iterable, start, stop[, step])
+# Использовать islice
+
+
+
+
+
+# Ответы islice
+"""
+from itertools import islice
+from more_itertools import islice_extended
+
+a_gen = (i for i in range(10))
+print(list(itertools.islice(a_gen, None, 5)))  # -> [0, 1, 2, 3, 4]
+
+
+a_gen = (i for i in range(10))
+
+# Используем islice_extended для отрицательных индексов
+print(list(islice_extended(a_gen, None, None, -1)))  # -> [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+# print(list(islice(a_gen, None, None, -1)))  # -> ValueError: Step for islice() must be a positive integer or None.
+
+
+# Используем срезов slice()
+print(list([1, 2, 3][slice(None, 2)]))         # -> [1, 2]
+print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]
+"""
+
+
+# itertools.pairwise(iterable)
+# Использовать pairwise
+
+
+
+
+
+# Ответы pairwise
+"""
+from itertools import pairwise
+result = pairwise([1, 2, 3])
+
+print(list(result))  # -> [(1, 2), (2, 3)]
+"""
+
+
+# itertools.starmap(function, iterable)
+# Использовать starmap
+
+
+
+
+
+# Ответы starmap
+"""
+from itertools import starmap
+
+x = starmap(max, [(2, 5, 4), (3, 2, 1), (10, 3, 8)])
+print(list(x))  # -> [5, 3, 10]
+
+
+# Пример 1: Важно Понимать отличие примера     map   vs   starmap
+def add_plus(a, b):
+    return a + b
+
+
+for item in starmap(add_plus, [(2, 3), (4, 5)]):
+    print(item, end=' ')
+# 5 9
+print()
+
+for item in map(add_plus, [(2, 3)], [(4, 5)]):
+    print(item, end=' ')
+print()
+# (2, 3, 4, 5)
+for item in map(add_plus, [2, 3], [4, 5]):
+    print(item, end=' ')
+# 6 8
+"""
+
+
+# itertools.tee(iterable, n=2)
+# Использовать tee
+
+
+
+
+
+# Ответы tee
+"""
+from itertools import tee
+
+rez = tee([1, 2, 3], 3)
+print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+"""
+
+
+
+
+# itertools.zip_longest(*iterables, fillvalue=None)
+# Использовать zip_longest
+
+
+
+
+
+# Ответы zip_longest
+"""
+from itertools import zip_longest
+
+rez = zip_longest([1, 2], [1, 2, 3], fillvalue=100)
+print(list(rez))  # -> [(1, 1), (2, 2), (100, 3)]
+
+
+# встроенная функция zip()
+rez = zip([1, 2], [1, 2, 3])
+print(list(rez))  # -> [(1, 1), (2, 2)]
+"""
+
 
 
 # itertools.groupby(iterable, key=None)
@@ -1554,6 +1769,28 @@ from itertools import groupby
 
 
 
+
+# --- Комбинаторные итераторы   Combinatoric iterators ---
+
+
+# itertools.product(*iterables, repeat=1)
+# Использовать product
+
+
+
+
+
+# Ответы product
+"""
+from itertools import product
+
+print(list(product([1, 2], repeat=2)))  # -> [(1, 1), (1, 2), (2, 1), (2, 2)]
+print(list(product([1, 2], repeat=3)))  # -> [(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)]
+
+pairs = ['Aa', 'Bb']
+gams = list([x for x in product(*pairs)])
+print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
+"""
 
 
 

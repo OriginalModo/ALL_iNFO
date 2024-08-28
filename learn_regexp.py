@@ -402,19 +402,14 @@ import re
 
 
 
+from itertools import product
 
+print(list(product([1, 2], repeat=2)))  # -> [(1, 1), (1, 2), (2, 1), (2, 2)]
+print(list(product([1, 2], repeat=3)))  # -> [(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)]
 
-
-
-
-
-
-
-
-
-
-
-
+pairs = ['Aa', 'Bb']
+gams = list([x for x in product(*pairs)])
+print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
 
 
 

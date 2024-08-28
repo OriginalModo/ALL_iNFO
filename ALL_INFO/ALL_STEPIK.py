@@ -59,7 +59,83 @@ ________________________________________________________________________________
  print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
 ________________________________________________________________________________________________________________________
 
+ # Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
 
+ # Первый вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     res = []
+     for i in lst:
+         if i not in res:
+             res.append(i)
+     return res
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+ # Второй вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     res = []
+     [res.append(i) for i in lst if i not in res]
+     return res
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+ # Третий вариант
+ def clean_duplicates(lst: list[dict]) -> list[dict]:
+     return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+________________________________________________________________________________________________________________________
+
+ # Two Sum Задача с собеседования
+
+ lst = [2, 7, 9, 10, 11]
+ target = 9
+
+ # Пример 1
+ def twoSum(nums, target):
+     res = []
+     for i, v in enumerate(pairwise(nums)):
+         if sum([v[0], v[1]]) == target:
+             res.append([nums.index(v[0]), nums.index(v[1])])
+     return res
+
+ print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+ # Пример 2
+ def twoSum(nums, target):
+     res = []
+     for i, v in enumerate(zip(nums[::2], nums[1::2])):
+         if sum([v[0], v[1]]) == target:
+             res.append([i, i+1])
+     return res
+
+ print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+ # Пример 3
+ from itertools import combinations
+ def twoSum(nums, target):
+     res = list(*[i for i in combinations(nums, 2) if sum(i) == target])
+     return [i for i, v in enumerate(nums) if v in res]
+
+ print(twoSum(lst, target))  # -> [0, 1]
+
+
+ # Ответ ChatGPT
+ def twoSum(lst, target):
+     res = []
+     n = len(lst)
+     # Ищем все пары индексов
+     for i in range(n):
+         for j in range(i + 1, n):
+             if lst[i] + lst[j] == target:
+                 res.append((i, j))
+     return res
+
+ # Пример использования
+ print(twoSum(lst, target))  # -> [(0, 1)]
+________________________________________________________________________________________________________________________
 
  # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars
 
@@ -2611,33 +2687,6 @@ ________________________________________________________________________________
  a = [[]] * 3
  a[1].append(1)
  print(a)        # -> [[1], [1], [1]]
- -----------------------------------------------------------------------------------------------------------------------
-
- # Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
-
- # Первый вариант
- def clean_duplicates(lst: list[dict]) -> list[dict]:
-     res = []
-     for i in lst:
-         if i not in res:
-             res.append(i)
-     return res
-
- print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-
- # Второй вариант
- def clean_duplicates(lst: list[dict]) -> list[dict]:
-     res = []
-     [res.append(i) for i in lst if i not in res]
-     return res
-
- print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-
- # Третий вариант
- def clean_duplicates(lst: list[dict]) -> list[dict]:
-     return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
-
- print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
  -----------------------------------------------------------------------------------------------------------------------
 
  Важно !!! \1+
