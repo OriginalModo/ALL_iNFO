@@ -30,6 +30,27 @@
  Если научиться принимать вещи как они есть, страдание исчезнет.
 ________________________________________________________________________________________________________________________
 
+ -- raw запросы --
+ people = Person.objects.raw("SELECT id, name FROM hello_person")
+
+ Пример raw запроса:
+
+ class Person(models.Model):
+     first_name = models.CharField(...)
+     last_name = models.CharField(...)
+     birth_date = models.DateField(...)
+ You could then execute custom SQL like so:
+
+ for p in Person.objects.raw("SELECT * FROM myapp_person"):
+     print(p)
+
+ # John Smith
+ # Jane Jones
+
+ # Сопоставление полей запроса с полями модели
+ name_map = {"first": "first_name", "last": "last_name", "bd": "birth_date", "pk": "id"}
+ Person.objects.raw("SELECT * FROM some_other_table", translations=name_map)
+
 
  Django использует метаклассы для создания моделей базы данных
 

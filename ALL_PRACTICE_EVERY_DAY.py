@@ -1210,6 +1210,36 @@ b.name = 'a'                                                b.name = 'a'
 # AttributeError: 'Child' object has no attribute 'name'    b.name  # -> a
 """
 
+
+# Использовать __slots__ в dataclasses
+
+
+
+
+
+
+
+
+
+
+
+# __slots__ в dataclasses
+"""
+from dataclasses import dataclass
+
+@dataclass(slots=True)
+class Point:
+    x: int = 0
+    y: int = 0
+
+p = Point()
+p.__dict__  # -> AttributeError: 'Point' object has no attribute '__dict__'. Did you mean: '__dir__'?
+p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
+"""
+
+
+
+
 # Напишите Singleton
 
 
@@ -1295,7 +1325,7 @@ print(mono_1.__dict__)  # -> {'a': 9999999999}
 """
 
 
-# Как создать класс без слова class?  И Создать такой же обычный dataclass
+# Как создать класс без слова class?  И Создать такой же обычный class и dataclass
 
 
 
@@ -1329,6 +1359,297 @@ print(my_.foo())   # -> 42
 """
 
 
+
+# Использовать setattr/delattr/hasattr/getattr
+
+
+
+
+
+
+# Использовать setattr/delattr/hasattr/getattr
+
+# getattr(object, name)
+# getattr(object, name, default)
+
+# setattr(object, name, value)
+
+# delattr(object, name)
+# hasattr(object, name)
+"""
+from dataclasses import dataclass
+
+@dataclass
+class New:
+    name: str = 'Chuck Norris'
+    surname: str = 'Sasya'
+    number: int = 10
+
+setattr(New, 'name', 'SuperSasya')   # установили новый атрибут
+delattr(New, 'surname')              # удалили атрибут
+hasattr(New, 'surname')              # False
+getattr(New, 'name')                 # 'SuperSasya'
+
+
+getattr(New, 'AAAA', 'HEHE')         # HEHE
+getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no attribute 'AAAA'
+"""
+
+
+
+# Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
+
+
+
+
+
+
+
+# __get__, __set__, __delete__
+# Дескриптор — это то, как реализован тип Python property
+# Функции/методы, связанные методы, property, classmethod и staticmethod все они используют эти специальные методы
+# для управления доступом к ним с помощью ТОЧЕЧНОГО ПОИСКА.
+
+# Встроенные объектов дескрипторы: classmethod, staticmethod, property, функции в целом
+# свойства с property: Создайте функции для управления получением, установкой и удалением атрибута
+'''
+class C:
+    def __init__(self):
+        self._x = None
+
+    @property
+    def x(self):
+        """I'm the 'x' property."""
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        if not isinstance(value, int):
+            raise ValueError
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+
+c = C()
+c.x = 10
+print(c.x)  # 10
+
+
+# Примеры Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
+def has_descriptor_attrs(obj):
+    return set(['__get__', '__set__', '__delete__']).intersection(dir(obj))
+
+def is_descriptor(obj):
+    """obj can be instance of descriptor or the descriptor class"""
+    return bool(has_descriptor_attrs(obj))
+
+def has_data_descriptor_attrs(obj):
+    return set(['__set__', '__delete__']) & set(dir(obj))
+
+def is_data_descriptor(obj):
+    return bool(has_data_descriptor_attrs(obj))
+
+
+
+# Мы можем видеть, что это classmethod и staticmethod и функции в целом есть Non-Data-Descriptors:
+print(is_descriptor(classmethod), is_data_descriptor(classmethod))    # -> True False
+print(is_descriptor(staticmethod), is_data_descriptor(staticmethod))  # -> True False
+
+# Обычные функция  Тоже Non-Data-Descriptors
+def foo(): pass
+my_func = lambda: 5
+
+print(is_descriptor(foo), is_data_descriptor(foo))                    # -> True False
+print(is_descriptor(my_func), is_data_descriptor(my_func))            # -> True False
+
+# Только метод __get__
+print(has_descriptor_attrs(classmethod))   # -> {'__get__'}
+print(has_descriptor_attrs(staticmethod))  # -> {'__get__'}
+# Обычные функции __get__
+print(has_descriptor_attrs(foo))           # -> {'__get__'}
+print(has_descriptor_attrs(my_func))       # -> {'__get__'}
+
+
+
+# Дескриптор данных, @property    Data-Descriptor
+# @property
+print(is_data_descriptor(property))    # -> True
+print(has_descriptor_attrs(property))  # -> {'__get__', '__delete__', '__set__'}
+'''
+
+# --- Контейнерные типы данных модуля collections ---
+
+
+# -- class collections.ChainMap(*maps) --
+# Использовать ChainMap
+
+
+
+
+
+# Ответы ChainMap
+"""
+from collections import ChainMap
+
+first = {1: 1, 2: 2, 3: 3}
+second = {4: 4, 5: 5}
+
+chain = ChainMap(first, second)
+
+print(chain)  # -> ChainMap({1: 1, 2: 2, 3: 3}, {4: 4, 5: 5})
+chain[1] = 200
+print(chain)  # -> ChainMap({1: 200, 2: 2, 3: 3}, {4: 4, 5: 5})
+"""
+
+
+
+# -- class collections.Counter([iterable-or-mapping]) --
+# Использовать Counter
+
+
+
+
+
+# Ответы Counter
+"""
+from collections import Counter
+
+counter = Counter('hello')
+print(counter)                 # -> Counter({'l': 2, 'h': 1, 'e': 1, 'o': 1})
+counter.update('world')
+print(counter.most_common(3))  # -> [('l', 3), ('o', 2), ('h', 1)]
+"""
+
+
+
+# -- class collections.OrderedDict([items]) --
+# Использовать OrderedDict
+
+
+
+
+
+
+# Ответы OrderedDict
+"""
+from collections import OrderedDict
+
+first = {1: 1, 2: 2, 3: 3}
+second = {2: 2, 1: 1}
+
+order1 = OrderedDict(first)
+order2 = OrderedDict(second)
+print(order1==order2)                     # -> False
+print(order1.popitem(last=False))         # -> (1, 1)
+print(order1.move_to_end(3, last=False))  # -> None
+print(order1)                             # -> OrderedDict([(3, 3), (2, 2)])
+"""
+
+
+
+# -- class collections.defaultdict(default_factory=None, /[, ...]) --
+# Использовать defaultdict
+
+
+
+
+
+
+# Ответы defaultdict
+"""
+from collections import defaultdict
+
+a_dict = defaultdict(list)
+for char in 'hello':
+    a_dict[char].append(char)
+
+print(a_dict)  # -> defaultdict(<class 'list'>, {'h': ['h'], 'e': ['e'], 'l': ['l', 'l'], 'o': ['o']})
+
+
+a_dict = defaultdict(int)
+for char in 'hello':
+    a_dict[char]+=1
+
+print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2), ('h', 1), ('e', 1), ('o', 1)]
+"""
+
+
+# -- collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None) --
+# Использовать namedtuple
+
+
+
+
+
+
+# Ответы namedtuple
+
+"""
+from collections import namedtuple
+
+Point = namedtuple('Point', 'x y')
+
+tom = ('Tom', 4, 'yellow')
+Cat = namedtuple('Cat', 'name age color')
+tom = Cat('Tom', 4, 'yellow')
+print(tom)       # -> Cat(name='Tom', age=4, color='yellow')
+print(tom.name)  # -> Tom
+
+
+Point = namedtuple('Point', ['x', 'y'])  # Тоже самое
+Point = namedtuple('Point', 'x y')       # Тоже самое
+Point = namedtuple('Point', 'x, y')      # Тоже самое
+p = Point(11, y=22)
+print(p)                # -> Point(x=11, y=22)
+
+# Поддерживает только getattr!!!                            <-----
+print(getattr(p, 'x'))  # -> 11
+d = {'x': 11, 'y': 22}
+print(Point(**d))       # -> Point(x=11, y=22)
+"""
+
+
+
+# -- class collections.deque([iterable[, maxlen]]) --
+# Использовать deque
+
+
+
+
+
+
+# Ответы deque
+"""
+from collections import deque
+
+
+a_deque = deque([1, 2, 3], maxlen=3)
+print(a_deque)     # -> deque([1, 2, 3], maxlen=3)
+a_deque.append(4)
+print(a_deque)     # -> deque([2, 3, 4], maxlen=3)
+
+
+a_deque = deque()
+a_deque.append(1)
+# a_deaue.pop(1)         # -> TypeError: deque.popleft() takes no arguments (1 given)
+print(a_deque)
+a_deque.appendleft(2)    # -> deque([1])
+# a_deaue.popleft(2)     # -> TypeError: deque.popleft() takes no arguments (1 given)
+print(a_deque)           # -> deque([2, 1])
+
+
+# deque НЕ поддерживает pop(1)/popleft(1) с аргументом(Индексом)
+
+b_list = list([1, 2])
+b_list.pop(0)
+print(b_list)  # -> [2]
+
+b_deque = deque([1, 2])
+b_deque.pop(1)      # -> TypeError: deque.pop() takes no arguments (1 given)
+b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
+"""
 
 
 
@@ -1793,6 +2114,80 @@ print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
 """
 
 
+# itertools.permutations(iterable, r=None)
+# Использовать permutations
+
+
+
+
+
+# Ответы permutations
+"""
+from itertools import permutations
+
+print(list(permutations('XY', 2)))  # -> [('X', 'Y'), ('Y', 'X')]
+print(list(permutations('XYZ', 3)))
+# [('X', 'Y', 'Z'), ('X', 'Z', 'Y'), ('Y', 'X', 'Z'), ('Y', 'Z', 'X'), ('Z', 'X', 'Y'), ('Z', 'Y', 'X')]
+"""
+
+
+
+# itertools.combinations(iterable, r)
+# Использовать combinations
+
+
+
+
+
+# Ответы combinations
+"""
+from itertools import combinations
+
+print(list(combinations('XYZ', 2)))  # -> [('X', 'Y'), ('X', 'Z'), ('Y', 'Z')]
+print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
+"""
+
+
+
+# itertools.combinations_with_replacement(iterable, r)
+# Использовать combinations_with_replacement
+
+
+
+
+
+# Ответы combinations_with_replacement
+"""
+from itertools import combinations_with_replacement
+
+print(list(combinations_with_replacement('XYZ', 2)))  # -> [('X', 'X'), ('X', 'Y'), ('X', 'Z'), ('Y', 'Y'), ('Y', 'Z'), ('Z', 'Z')]
+print(list(combinations_with_replacement('XYZ', 3)))
+# [('X', 'X', 'X'), ('X', 'X', 'Y'), ('X', 'X', 'Z'), ('X', 'Y', 'Y'), ('X', 'Y', 'Z'), ('X', 'Z', 'Z'), ('Y', 'Y', 'Y'),
+# ('Y', 'Y', 'Z'), ('Y', 'Z', 'Z'), ('Z', 'Z', 'Z')]
+"""
+
+
+
+# --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
+
+
+
+
+
+
+# Ответ
+#  --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
+"""
+from itertools import permutations, combinations, combinations_with_replacement
+
+print(list(permutations('XY', 2)))                    # -> [('X', 'Y'), ('Y', 'X')]
+print(list(combinations('XY', 2)))                    # -> [('X', 'Y')]
+print(list(combinations_with_replacement('XY', 2)))   # -> [('X', 'X'), ('X', 'Y'), ('Y', 'Y')]
+"""
+
+
+
+
 
 # --- functools — Функции высшего порядка и операции над вызываемыми объектами ---
 
@@ -2017,6 +2412,78 @@ class InventoryItem:
 item = InventoryItem(name="HEHE", unit_price=12, quantity=100)
 print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 """
+
+
+# 1.3) Сделать по умолчанию пустой список  Сравнение __eq__()  уже встроенно в dataclass
+
+
+
+
+
+
+
+
+
+
+# Ответ 1.3)
+# Сделать по умолчанию пустой список  Сравнение __eq__()  уже встроенно в dataclass
+"""
+from dataclasses import dataclass, field
+
+@dataclass
+class Foo:
+    n: int
+    s: str = 'a'
+    items: list[str] = field(default_factory=list)  # <-- и всё это - чтобы по умолчанию был пустой список
+
+f = Foo(1)
+f1 = Foo(1)
+
+print(f.__dict__)    # -> {'n': 1, 's': 'a', 'items': []}
+print(f.__eq__(f1))  # -> True
+print(f == f1)       # -> True
+
+ff = Foo(11111)
+ff1 = Foo(1)
+print(ff.__eq__(ff1))  # -> False
+print(ff == ff1)       # -> False
+"""
+
+
+# 1.4) Использовать Pydantic
+
+
+
+
+
+
+
+# Ответ 1.4)
+# Сравните это с пидантиком(Pydantic), в котором, кажется, думают о людях:
+"""
+from pydantic import BaseModel
+
+class MyDate(BaseModel):
+    n: int
+    s: str = 'a'
+    items: list[str] = []
+
+m = MyDate(n=1)
+m1 = MyDate(n=1)
+
+print(m.__dict__)    # -> {'n': 1, 's': 'a', 'items': []}
+
+print(m == m1)       # -> True
+print(m.__eq__(m1))  # -> True
+
+
+# Так будет ошибка  <-----   Важно 
+mm = MyDate(1)
+mm1 = MyDate(1)
+"""
+
+
+
 
 # 2) Написать декоратор, который возвращает либо результат, либо экземпляр исключения:
 
@@ -2624,7 +3091,6 @@ orders (заказы):
 # Будем сцепляться по id    
 select u.name from users as u
 left join products as p on u.id = p.id
-
 """
 
 

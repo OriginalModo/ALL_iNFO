@@ -10173,6 +10173,13 @@ fact(30)
 
  Лично мое мнение - главное что вы пишите тесты, а библиотеку выбирайте сами, исходя из знаний, потребностей и удобства.
 
+
+ Фикстуры (fixtures) в pytest — это специальные функции, которые подготавливают данные или состояние,
+ необходимые для выполнения тестов. Они позволяют создавать общее окружение для нескольких тестов, упрощают код,
+ обеспечивают настройку и очистку ресурсов. Фикстуры определяются с помощью декоратора `@pytest.fixture` и могут быть
+ использованы, передавая их как аргументы в тестовые функции. Это делает тесты более читаемыми и поддерживаемыми.
+
+
  --- Юнит-тестирование. Использование unittest и coverage в PyCharm ---
  Тесты нужно писать обязательно, это единственное доказательство того, что ваш код работает.
 
@@ -10193,6 +10200,11 @@ fact(30)
  9) при рефакторинге постоянно запускаем тесты
 
  Рефакторинг - Улучшение существующего кода
+
+ Фикстуры (fixtures) в юнит-тестировании — это функции или объекты, которые предварительно настраивают необходимое
+ окружение или состояние для тестов. Они помогают избежать дублирования кода, обеспечивают подготовку и очистку ресурсов,
+ такие как создание тестовых данных или подключение к базе данных, и могут использоваться в нескольких тестах для
+ повышения читаемости и поддерживаемости кода.
 
  --- Использование doctest в Python. Интеграция doctest и unittest ---
  Плюсы:
@@ -11919,6 +11931,7 @@ fact(30)
  getter еще называют - аксессор,  setter - мутатор
 
 
+
  --- Абстрактный класс ---
 
  Зачем нужны АБСТРАКТНЫЕ классы в Python?
@@ -12034,6 +12047,51 @@ fact(30)
  Когда __get__ вызывается объект функции (обычно это делается через точечный доступ .к экземпляру класса),
  Python преобразует функцию в метод и неявно передает экземпляр (обычно распознаваемый как self) в качестве первого аргумента.
 
+
+  -- Хороший пример про ДЕСКРИПТОРЫ --
+ # Примеры Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
+ def has_descriptor_attrs(obj):
+     return set(['__get__', '__set__', '__delete__']).intersection(dir(obj))
+
+ def is_descriptor(obj):
+     '''obj can be instance of descriptor or the descriptor class'''
+     return bool(has_descriptor_attrs(obj))
+
+ def has_data_descriptor_attrs(obj):
+     return set(['__set__', '__delete__']) & set(dir(obj))
+
+ def is_data_descriptor(obj):
+     return bool(has_data_descriptor_attrs(obj))
+
+
+
+ # Мы можем видеть, что это classmethod и staticmethod и функции в целом есть Non-Data-Descriptors:
+ print(is_descriptor(classmethod), is_data_descriptor(classmethod))    # -> True False
+ print(is_descriptor(staticmethod), is_data_descriptor(staticmethod))  # -> True False
+
+ # Обычные функция  Тоже Non-Data-Descriptors
+ def foo(): pass
+ my_func = lambda: 5
+
+ print(is_descriptor(foo), is_data_descriptor(foo))                    # -> True False
+ print(is_descriptor(my_func), is_data_descriptor(my_func))            # -> True False
+
+ # Только метод __get__
+ print(has_descriptor_attrs(classmethod))   # -> {'__get__'}
+ print(has_descriptor_attrs(staticmethod))  # -> {'__get__'}
+ # Обычные функции __get__
+ print(has_descriptor_attrs(foo))           # -> {'__get__'}
+ print(has_descriptor_attrs(my_func))       # -> {'__get__'}
+
+
+
+ # Дескриптор данных, @property    Data-Descriptor
+ # @property
+ print(is_data_descriptor(property))    # -> True
+ print(has_descriptor_attrs(property))  # -> {'__get__', '__delete__', '__set__'}
+
+
+
  --- dataclass Python 3.7   Классы данных ---
  Аннотации типов обязательны. Автоматическое создание методов: __init__ , __repr__, __eq__
  Модуль dataclasses предоставляет декоратор dataclass,
@@ -12051,6 +12109,24 @@ fact(30)
  class Customer:
      name: str
      balance: int = 4
+     items: list[str] = field(default_factory=list)  # <-- и всё это - чтобы по умолчанию был пустой список
+
+
+ @dataclass сравнение объектов класса (__eq__)
+ Если мы хотим сравнить два объекта одного класса на равенство, то @dataclass уже поддерживает встроенное сравнение,
+ когда сравниваются все атрибуты объектов.
+
+ c = Customer('a')
+ c1 = Customer('b')
+ print(c == c1)       # -> False
+ print(c.__eq__(c1))  # -> False
+
+
+ s = Customer('a')
+ s1 = Customer('a')
+ print(s == s1)       # -> False
+ print(s.__eq__(s1))  # -> False
+
 
  --- @classmethod    @staticmethod ---
  1) LEGB - правило продолжает действовать для простых имен переменных и их поиска
