@@ -1043,9 +1043,113 @@ ________________________________________________________________________________
  print(timeit.timeit("a[str(500)]", "a={str(key): 1 for key in range(1000)}" ))
  # 0.16474479995667934
 
- -- Вывод --                                                                                     <------
+ -- Вывод --                                                                                    <------
  Так что да, если данные, которые вы используете, используются только в качестве ключей к словарю, и не имеет значения,
- в каком формате вы их храните, тогда предпочтительнее использовать строки в небольшом словаре.  <------
+ в каком формате вы их храните, тогда предпочтительнее использовать строки в небольшом словаре. <------
+
+
+
+ --- Замеры размеров Python ---
+
+                            -- Примеры Списков deque vs list --                                 <-----
+ my_list = [1, 2, 3, 4, 5]
+ print(f'getsizeof list:  {sys.getsizeof(my_list)} байт')     # -> getsizeof list:  104 байт
+ print(f'asizeof   list:  {asizeof.asizeof(my_list)} байт')   # -> asizeof   list:  264 байт
+
+ from collections import deque
+ my_deque = deque([1, 2, 3, 4, 5])
+ print(f'getsizeof deque: {sys.getsizeof(my_list)} байт')     # -> getsizeof deque: 104 байт
+ print(f'asizeof   deque: {asizeof.asizeof(my_deque)} байт')  # -> asizeof   deque: 760 байт
+
+
+
+                            -- Примеры Кортежей namedtuple vs tuple --                          <-----
+ my_tuple = (1, 2, 3, 4, 5)
+ print(f'getsizeof tuple:       {sys.getsizeof(my_tuple)} байт')    # -> getsizeof tuple:       80 байт
+ print(f'asizeof   tuple:       {asizeof.asizeof(my_tuple)} байт')  # -> asizeof   tuple:       240 байт
+
+ from collections import namedtuple
+ nt_tuple = namedtuple('nt_tuple', ['a', 'b', 'c', 'd', 'e'])
+ p = nt_tuple(1, 2, c=3, d=4, e=5)
+ print(f'getsizeof namedtuple:  {sys.getsizeof(p)} байт')           # -> getsizeof namedtuple:  80 байт
+ print(f'asizeof   namedtuple:  {asizeof.asizeof(p)} байт')         # -> asizeof   namedtuple:  240 байт
+
+
+
+                            -- Примеры Словарей OrderedDict vs dict --                          <-----
+ my_dict = {1: 'a', 2: 'b', 3: 'c'}
+ print(f'getsizeof dict:         {sys.getsizeof(my_dict)} байт')     # -> getsizeof dict:       224 байт
+ print(f'asizeof   dict:         {asizeof.asizeof(my_dict)} байт')   # -> asizeof   dict:       488 байт
+
+
+ from collections import OrderedDict
+ or_dict = OrderedDict({1: 'a', 2: 'b', 3: 'c'})
+
+ print(f'getsizeof OrderedDict:  {sys.getsizeof(or_dict)} байт')    # -> getsizeof OrderedDict:  448 байт
+ print(f'asizeof   OrderedDict:  {asizeof.asizeof(or_dict)} байт')  # -> asizeof   OrderedDict:  712 байт
+
+
+
+                            -- Примеры Множества frozenset vs set --                            <-----
+ my_set = {1, 2, 3, 4, 5}
+ print(f'getsizeof set:        {sys.getsizeof(my_set)} байт')     # -> getsizeof set:        472 байт
+ print(f'asizeof   set:        {asizeof.asizeof(my_set)} байт')   # -> asizeof   set:        632 байт
+
+
+ fz_set = frozenset({1, 2, 3, 4, 5})
+
+ print(f'getsizeof frozenset:  {sys.getsizeof(fz_set)} байт')    # -> getsizeof frozenset:  472 байт
+ print(f'asizeof   frozenset:  {asizeof.asizeof(fz_set)} байт')  # -> asizeof   frozenset:  632 байт
+
+ # Если list внутри
+ fz_set = frozenset([1, 2, 3, 4, 5])
+
+ print(f'getsizeof frozenset:  {sys.getsizeof(fz_set)} байт')    # -> getsizeof frozenset:  728 байт
+ print(f'asizeof   frozenset:  {asizeof.asizeof(fz_set)} байт')  # -> asizeof   frozenset:  888 байт
+
+ # Если tuple внутри
+ fz_set = frozenset((1, 2, 3, 4, 5))
+
+ print(f'getsizeof frozenset:  {sys.getsizeof(fz_set)} байт')    # -> getsizeof frozenset:  728 байт
+ print(f'asizeof   frozenset:  {asizeof.asizeof(fz_set)} байт')  # -> asizeof   frozenset:  888 байт
+
+
+
+                            -- Примеры Строки/Числа str vs int --                              <-----
+ my_string = "Hello, World!"
+ print(f'getsizeof str:  {sys.getsizeof(my_string)} байт')    # -> getsizeof str:  62 байт
+ print(f'asizeof   str:  {asizeof.asizeof(my_string)} байт')  # -> asizeof   str:  64 байт
+
+
+ my_int = 10000
+
+ print(f'getsizeof int:  {sys.getsizeof(my_int)} байт')       # -> getsizeof int:  28 байт
+ print(f'asizeof   int:  {asizeof.asizeof(my_int)} байт')     # -> asizeof   int:  32 байт
+
+
+
+                            -- Сравнение slots vs no_slots --                                  <-----
+                            -- @dataclass(slots=True)  vs  @dataclass() --
+ from dataclasses import dataclass
+
+ @dataclass(slots=True)
+ class WithSlots:
+     value: int
+
+ with_slots = WithSlots(10)
+ print(f'getsizeof WithSlots:  {sys.getsizeof(with_slots)} байт')    # -> getsizeof WithSlots:  40 байт
+ print(f'asizeof   WithSlots:  {asizeof.asizeof(with_slots)} байт')  # -> asizeof   WithSlots:  72 байт
+
+
+ @dataclass
+ class NoSlots:
+     value: int
+
+ no_slots = NoSlots(10)
+ print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
+ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    440 байт
+
+
 
 
  Протокол итератора (iterator protocol) - объекты итератора должны поддерживать  iterator.__iter__()  и iterator.__next__()

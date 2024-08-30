@@ -398,6 +398,79 @@ rez = tee(x, 3)
 import re
 
 
+# Замерить все размеры структур Python
+
+
+import sys
+from pympler import asizeof
+
+# Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
+
+class MyDict:
+    def __init__(self):
+        self.data = []
+
+    def __setitem__(self, key, value):
+        # Проверяем, есть ли ключ уже в словаре
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                self.data[i] = (key, value)  # Обновляем значение
+                return
+        self.data.append((key, value))  # Добавляем новый элемент
+
+    def __getitem__(self, key):
+        for k, v in self.data:
+            if k == key:
+                return v  # Возвращаем значение, если ключ найден
+        raise KeyError(f"Key {key} not found.")
+
+    def __delitem__(self, key):
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                del self.data[i]  # Удаляем элемент с данным ключом
+                return
+        raise KeyError(f"Key {key} not found.")
+
+    def __contains__(self, key):
+        return any(k == key for k, v in self.data)  # Проверяем наличие ключа
+
+    def __len__(self):
+        return len(self.data)  # Возвращаем количество элементов в словаре
+
+    def __iter__(self):
+        return (k for k, v in self.data)  # Итерирование по ключам
+
+    def items(self):
+        return self.data.copy()  # Возвращаем все пары (ключ, значение)
+
+    def keys(self):
+        return [k for k, v in self.data]  # Возвращаем список ключей
+
+    def values(self):
+        return [v for k, v in self.data]  # Возвращаем список значений
+
+
+# Пример использования
+my_dict = MyDict()
+my_dict[[10]] = 1
+my_dict['banana'] = 2
+
+print(my_dict[[10]])     # Вывод: 1
+print('banana' in my_dict)  # Вывод: True
+print(len(my_dict))         # Вывод: 2
+
+my_dict['apple'] = 3
+print(my_dict['apple'])     # Вывод: 3
+
+
+
+
+
+
+
+
+
+
 
 
 
