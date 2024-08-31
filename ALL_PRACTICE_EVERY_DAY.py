@@ -1,5 +1,6 @@
 import asyncio
 import collections
+import dataclasses
 import functools
 import itertools
 import json
@@ -127,6 +128,7 @@ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asi
 
 
 
+
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -195,6 +197,13 @@ print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
 
 
 # Мой вариант на собеседовании ПРОСТОЙ   Через  tuple()
+
+# Тоже самое
+@dataclass
+class MyDict:
+    data: list = field(default_factory=list)
+
+
 class MyDict:
     def __init__(self):
         self.data = []
@@ -220,6 +229,8 @@ print(c._get(2))  # -> KeyError
 
 
 # Напишите  Обход в Обратном порядке в цикле for
+
+
 
 
 
@@ -268,8 +279,6 @@ matrix = [
     [5, 6, 7, 8],
     [9, 10, 11, 12],
 ]
-
-
 
 
 
@@ -334,8 +343,9 @@ s = "Hello"
 
 
 
+
 # Напечатайте индекс наименьшего числа в списке.
-lst = [5, 8, 3, 2, 7, 4, 9]
+a = [5, 8, 3, 2, 7, 4, 9]
 
 
 
@@ -393,6 +403,7 @@ print(nn + 10 if (nn := 10) % 2 == 0 else nn - 10)  # -> 20"""
 # Распарсить JSON-строку  json.loads()
 
 json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
+
 
 
 
@@ -472,6 +483,7 @@ data = {
 
 
 
+
 # Пример с 'json.dump()' с отступами
 # `json.dump()` сериализует объект Python и записывает его в файл в формате JSON.
 """
@@ -499,6 +511,7 @@ data = {
     "age": 30,
     "city": "New York"
 }
+
 
 
 
@@ -567,6 +580,7 @@ def parse_json(data):
 
 
 
+
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
 # print(parse_json(json_data))  # -> (True, '26.05.2023')
 
@@ -608,7 +622,6 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
-
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -631,7 +644,6 @@ print(mergeNodes(head))  # -> [4, 11]
 # Интересный пример Повтори кстати сам его придумал  a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'
 
 a = 'aaaabbcaa'
-
 
 
 
@@ -682,6 +694,8 @@ text = 'ABC'
 
 
 
+
+
 # По сути это if...else в Регулярках
 """
 # Если находим A значит ищем B иначе ищем C     1 - Номер группы
@@ -701,7 +715,6 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте re.compile
 
 text = 'ABC123---'
-
 
 
 
@@ -752,7 +765,6 @@ text = r'ggg wp'
 
 
 
-
 # Обычные/Именованные группы
 """
 text = r'ggg wp'
@@ -762,6 +774,10 @@ re.search(r'([a-zA-Zа-яА-ЯёЁ])\1', text).group()                          
 # Тоже самое
 re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)', text).group()            # -> gg
 re.search(r'(?P<first>[a-zA-Zа-яА-ЯёЁ])(?P=first)(?P=first)', text).group()  # -> ggg
+
+# В findall так НЕ РАБОТАЕТ
+re.findall(r'([a-zA-Zа-яА-ЯёЁ])\1', text)                                    # -> ['g']
+re.findall(r'([a-zA-Zа-яА-ЯёЁ])\1\1', text)                                  # -> ['g']
 """
 
 
@@ -784,6 +800,10 @@ re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захва
 
 
 # Напишите   Lookahead   Lookbehind
+
+text = '123ABC'
+
+
 
 
 
@@ -814,8 +834,6 @@ b_set = {"b", 3}
 
 
 
-
-
 """
 # Обновление словаря
 a_dict = {"a": 2}
@@ -840,7 +858,6 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
-
 
 
 
@@ -958,8 +975,6 @@ it = iter([i*i for i in range(10)])
 
 
 
-
-
 # Функцию-Генератор  range(5) и Обычный генератор
 """
 # Генератор
@@ -986,7 +1001,6 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 # Напишите Конструкцию yield from и ЕЁ аналог
-
 
 
 
@@ -1025,8 +1039,6 @@ print([*gen_list2('python')])     # -> ['p', 'y', 't', 'h', 'o', 'n']
 
 
 
-
-
 # Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
 """
 # Например, такой генератор, как:
@@ -1046,6 +1058,7 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
 
 
 
@@ -1132,8 +1145,6 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 
-
-
 # Замыкание
 """
 def names():
@@ -1155,11 +1166,6 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 # Напишите Замыкание lambda или Перепишите
-
-
-
-
-
 
 
 
@@ -1192,10 +1198,6 @@ print(pow_(2)(3))  # -> 9
 
 
 
-
-
-
-
 # Ответ lambda
 """
 double = lambda x: x * 2
@@ -1203,6 +1205,11 @@ print(double(2))             # -> 4
 
 # Тоже самое сразу вызываем функцию  Оборачиваем в ()
 print((lambda x: x * 2)(2))  # -> 4
+
+
+# Функцию Прибавили
+res = lambda: 5
+print((lambda x: x+res())(10))  # -> 15
 """
 
 
@@ -1213,10 +1220,7 @@ ints = list(range(20))
 
 
 
-
-
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
-
 
 
 
@@ -1295,7 +1299,6 @@ foo()
 
 
 
-
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1352,9 +1355,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 
-
-
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -1376,6 +1376,7 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
+
 
 
 
@@ -1418,7 +1419,6 @@ b.name = 'a'                                                b.name = 'a'
 
 
 # Использовать __slots__ в dataclasses
-
 
 
 
@@ -1485,7 +1485,9 @@ sing_1 = Singleton()
 print(id(sing_1))      # -> 1742792644240     # id Разные
 """
 
-# Напишите Monostate
+# Напишите Monostate Обычный class/dataclass
+
+
 
 
 
@@ -1505,6 +1507,7 @@ class Monostate:
 
    def __init__(self):
        self.__dict__ = self._shared_state
+    
 
 mono = Monostate()
 print(mono.__dict__)    # -> {'a': 1, 'b': 2}
@@ -1513,7 +1516,26 @@ print(mono_1.__dict__)  # -> {'a': 1, 'b': 2}
 mono_1.a = 9999999999
 print(mono.__dict__)    # -> {'a': 9999999999, 'b': 2}
 print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
+"""
 
+# Тоже самое через dataclass
+"""
+@dataclass
+class Monostate:
+    _shared_state: dict = None
+
+    def __post_init__(self):
+        if Monostate._shared_state is None:
+            Monostate._shared_state = {'a': 1, 'b': 2}
+        self.__dict__ = Monostate._shared_state 
+
+mono = Monostate()
+print(mono.__dict__)    # -> {'a': 1, 'b': 2}
+mono_1 = Monostate()
+print(mono_1.__dict__)  # -> {'a': 1, 'b': 2}
+mono_1.a = 9999999999
+print(mono.__dict__)    # -> {'a': 9999999999, 'b': 2}
+print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 """
 
 # Пример Monostate Обычный класс  # Смотри на словарь
@@ -1530,9 +1552,30 @@ print(mono.__dict__)    # -> {}
 print(mono_1.__dict__)  # -> {'a': 9999999999}
 """
 
+# Пример Monostate dataclass  # Смотри на словарь  Для каждого ЭК свой словарь    <-----
+"""
+from dataclasses import dataclass, field
+
+@dataclass
+class Monostate:
+    _shared_state: dict = field(default_factory=lambda: {'a': 1, 'b': 2})
+
+    def __post_init__(self):
+        self.__dict__ = self._shared_state
+
+
+mono = Monostate()
+print(mono.__dict__)    # -> {'a': 1, 'b': 2}
+mono_1 = Monostate()
+print(mono_1.__dict__)  # -> {'a': 1, 'b': 2}
+mono_1.a = 9999999999
+print(mono.__dict__)    # -> {'a': 1, 'b': 2}
+print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
+"""
+
+
 
 # Как создать класс без слова class?  И Создать такой же обычный class и dataclass
-
 
 
 
@@ -1567,6 +1610,15 @@ print(my_.foo())   # -> 42
 
 
 # Использовать setattr/delattr/hasattr/getattr
+
+from dataclasses import dataclass
+
+@dataclass
+class New:
+    name: str = 'Chuck Norris'
+    surname: str = 'Sasya'
+    number: int = 10
+
 
 
 
@@ -1604,6 +1656,9 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
+
+
+
 
 
 
@@ -1691,6 +1746,10 @@ print(has_descriptor_attrs(property))  # -> {'__get__', '__delete__', '__set__'}
 # -- class collections.ChainMap(*maps) --
 # Использовать ChainMap
 
+first = {1: 1, 2: 2, 3: 3}
+second = {4: 4, 5: 5}
+
+
 
 
 
@@ -1714,6 +1773,8 @@ print(chain)  # -> ChainMap({1: 200, 2: 2, 3: 3}, {4: 4, 5: 5})
 # -- class collections.Counter([iterable-or-mapping]) --
 # Использовать Counter
 
+text = 'hello'
+
 
 
 
@@ -1733,6 +1794,9 @@ print(counter.most_common(3))  # -> [('l', 3), ('o', 2), ('h', 1)]
 # -- class collections.OrderedDict([items]) --
 # Использовать OrderedDict
 
+first = {1: 1, 2: 2, 3: 3}
+second = {2: 2, 1: 1}
+
 
 
 
@@ -1747,16 +1811,29 @@ second = {2: 2, 1: 1}
 
 order1 = OrderedDict(first)
 order2 = OrderedDict(second)
-print(order1==order2)                     # -> False
+
 print(order1.popitem(last=False))         # -> (1, 1)
-print(order1.move_to_end(3, last=False))  # -> None
+
+print(order1)                             # -> OrderedDict([(2, 2), (3, 3)])
+order1.move_to_end(3, last=False)
 print(order1)                             # -> OrderedDict([(3, 3), (2, 2)])
+
+# Сравниваем порядок внутри
+a_dict = {1: 1, 2: 2}
+dict_a = {2: 2, 1: 1}
+print(a_dict==dict_a)                     # -> True
+
+order3 = OrderedDict({1: 1, 2: 2})
+order4 = OrderedDict({2: 2, 1: 1})
+print(order3==order4)                     # -> False
 """
 
 
 
 # -- class collections.defaultdict(default_factory=None, /[, ...]) --
 # Использовать defaultdict
+
+
 
 
 
@@ -1790,6 +1867,9 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 
 
+
+
+
 # Ответы namedtuple
 
 """
@@ -1798,6 +1878,7 @@ from collections import namedtuple
 Point = namedtuple('Point', 'x y')
 
 tom = ('Tom', 4, 'yellow')
+print(tom)       # -> ('Tom', 4, 'yellow')
 Cat = namedtuple('Cat', 'name age color')
 tom = Cat('Tom', 4, 'yellow')
 print(tom)       # -> Cat(name='Tom', age=4, color='yellow')
@@ -1822,6 +1903,8 @@ print(Point(**d))       # -> Point(x=11, y=22)
 
 # -- class collections.deque([iterable[, maxlen]]) --
 # Использовать deque
+
+
 
 
 
@@ -1875,6 +1958,7 @@ b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
 
 
 
+
 # Ответы count
 """
 from itertools import count
@@ -1906,6 +1990,7 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
+
 # Ответы cycle
 """
 from itertools import cycle, islice
@@ -1926,6 +2011,7 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
+
 
 
 
@@ -1988,6 +2074,7 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
+
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2027,7 +2114,6 @@ print(unflattened)  # -> [('roses', 'red'), ('violets', 'blue'), ('sugar', 'swee
 
 
 
-
 # Ответы chain
 """
 from itertools import chain
@@ -2053,7 +2139,7 @@ print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
 # classmethod chain.from_iterable(iterable)
 # Использовать chain.from_iterable
 
-
+a = ['foo', ['one', 'two', [1, 2]]]
 
 
 
@@ -2089,6 +2175,9 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 
 
+
+
+
 # Ответы compress
 """
 from itertools import compress
@@ -2100,6 +2189,10 @@ print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']
 
 # itertools.dropwhile(predicate, iterable)
 # Использовать dropwhile
+
+a = [1, 4, 6, 4, 1]
+
+
 
 
 
@@ -2124,6 +2217,9 @@ print(list(dropwhile(trigger_to_five, lst)))  # -> [1, 2, 3, 10]
 # Использовать takewhile
 
 
+a = [1, 4, 6, 4, 1]
+
+
 
 
 
@@ -2140,6 +2236,10 @@ print((list(dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1]))))  # -> [6, 4, 1]
 
 # itertools.filterfalse(predicate, iterable)
 # Использовать filterfalse
+
+
+a = range(1, 5)
+
 
 
 
@@ -2159,6 +2259,10 @@ print(list(filterfalse(lambda x: x % 2 == 0, [6, 7, 8, 9])))          # -> [7, 9
 # itertools.islice(iterable, stop)
 # itertools.islice(iterable, start, stop[, step])
 # Использовать islice
+
+gen = (i for i in range(5))
+
+
 
 
 
@@ -2182,12 +2286,17 @@ print(list(islice_extended(a_gen, None, None, -1)))  # -> [9, 8, 7, 6, 5, 4, 3, 
 
 # Используем срезов slice()
 print(list([1, 2, 3][slice(None, 2)]))         # -> [1, 2]
-print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]
+print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]          # Только 3 параметра!!!   <-----
 """
 
 
 # itertools.pairwise(iterable)
 # Использовать pairwise
+
+
+from itertools import pairwise
+
+a = [1, 2, 3]
 
 
 
@@ -2204,6 +2313,9 @@ print(list(result))  # -> [(1, 2), (2, 3)]
 
 # itertools.starmap(function, iterable)
 # Использовать starmap
+
+a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]
+
 
 
 
@@ -2240,6 +2352,8 @@ for item in map(add_plus, [2, 3], [4, 5]):
 # itertools.tee(iterable, n=2)
 # Использовать tee
 
+a = [1, 2, 3]
+
 
 
 
@@ -2258,6 +2372,8 @@ print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 # itertools.zip_longest(*iterables, fillvalue=None)
 # Использовать zip_longest
 
+a = [1, 2]
+b = [1, 2, 3]
 
 
 
@@ -2305,6 +2421,8 @@ from itertools import groupby
 # itertools.product(*iterables, repeat=1)
 # Использовать product
 
+a = [1, 2]
+
 
 
 
@@ -2325,6 +2443,8 @@ print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
 # itertools.permutations(iterable, r=None)
 # Использовать permutations
 
+a = 'XYZ'
+
 
 
 
@@ -2343,6 +2463,8 @@ print(list(permutations('XYZ', 3)))
 # itertools.combinations(iterable, r)
 # Использовать combinations
 
+a = 'XYZ'
+
 
 
 
@@ -2359,6 +2481,8 @@ print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
 
 # itertools.combinations_with_replacement(iterable, r)
 # Использовать combinations_with_replacement
+
+a = 'XYZ'
 
 
 
@@ -2378,7 +2502,7 @@ print(list(combinations_with_replacement('XYZ', 3)))
 
 # --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
 
-
+a = 'XYZ'
 
 
 
@@ -2403,9 +2527,7 @@ print(list(combinations_with_replacement('XY', 2)))   # -> [('X', 'X'), ('X', 'Y
 # functools.reduce(function, iterable[, initializer])
 # Напишите from functools import reduce/eval   Используя lambda/operator   eval - НЕ забудь
 
-lst = [1, 2, 3, 4]
-
-
+a = [1, 2, 3, 4]
 
 
 
@@ -2428,6 +2550,7 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 # @functools.cache(user_function)
 # Использовать cache
+
 
 
 
@@ -2496,11 +2619,6 @@ def multiply(x, y):
 
 
 
-
-
-
-
-
 # partial функция from functools import partial
 """
 from functools import partial
@@ -2516,6 +2634,11 @@ print(res)  # 20
 print(multiply(10, 2))  # 20
 print(doubleNum(20))  # 40
 print(tripleNum(20))  # 60
+
+# ИЛИ Сразу вызываем но нужно все аргументы прокидывать
+print(partial(multiply, 3, 3)())  # 9
+print(partial(multiply, 5, 5)())  # 25
+print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required positional argument: 'y'
 """
 
 
@@ -2523,6 +2646,8 @@ print(tripleNum(20))  # 60
 
 # @functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
+
+
 
 
 
@@ -2568,8 +2693,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
-
-
 # Ответ 1.1)
 # Класс как ДЕКОРАТОР
 """
@@ -2594,10 +2717,35 @@ def example_function(n):
         total += i
     return total
 example_function(1000000)  # -> Время выполнения функции 'example_function': 0.0738 секунд
+
+
+
+# Тоже самое через dataclass        from typing import Callable   - Чтобы указать аннотацию функция
+
+from dataclasses import dataclass, field
+from typing import Callable
+
+@dataclass
+class Timer:
+    func: Callable[[int], str]  # Аннотация типа для функции, принимающей int и возвращающей str
+
+    def __call__(self, *args, **kwargs):
+        s = time.perf_counter()
+        res = self.func(*args, **kwargs)
+        f = time.perf_counter()
+        print(f-s)
+        return res
+
+@Timer
+def plus(a, b):
+    return a + b
+
+print(plus(2, 2))
 """
 
 # 1.2) Написать dataclass
-
+# @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
+# kw_only=False, slots=False, weakref_slot=False)
 
 
 
@@ -2609,6 +2757,9 @@ example_function(1000000)  # -> Время выполнения функции '
 
 # Ответ 1.2)
 # Декорирование класса в Python:
+
+# @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
+# kw_only=False, slots=False, weakref_slot=False)
 """
 from dataclasses import dataclass
 @dataclass
@@ -2622,7 +2773,7 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 """
 
 
-# 1.3) Сделать по умолчанию пустой список  Сравнение __eq__()  уже встроенно в dataclass
+# 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
 
 
 
@@ -2634,31 +2785,45 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 # Ответ 1.3)
-# Сделать по умолчанию пустой список  Сравнение __eq__()  уже встроенно в dataclass
+# Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
 """
 from dataclasses import dataclass, field
 
-@dataclass
+
+@dataclass(order=True, frozen=True)
 class Foo:
     n: int
     s: str = 'a'
-    items: list[str] = field(default_factory=list)  # <-- и всё это - чтобы по умолчанию был пустой список
+    ss: str = field(default='AAA')
+    items: list[str] = field(default_factory=list)              # <-- и всё это - чтобы по умолчанию был пустой список
+    items_2: list[str] = field(default_factory=lambda: [1, 2])  # <-- и всё это - чтобы по умолчанию было [1, 2]
+    a_dict: dict = field(default_factory=lambda: {1: 2})
+    # a_list: list = field(default=[1, 2])                      # Так будет ошибка
+    # a_dict: dict = field(default={3:3})                       # Так будет ошибка
+    # ValueError: mutable default <class 'list'> for field a_list is not allowed: use default_factory
+
 
 f = Foo(1)
 f1 = Foo(1)
 
-print(f.__dict__)    # -> {'n': 1, 's': 'a', 'items': []}
-print(f.__eq__(f1))  # -> True
-print(f == f1)       # -> True
+print(f.__dict__)      # -> {'n': 1, 's': 'a', 'ss': 'AAA', 'items': [], 'items_2': [1, 2], 'a_dict': {1: 2}}
+print(f.__eq__(f1))    # -> True
+print(f == f1)         # -> True
 
 ff = Foo(11111)
 ff1 = Foo(1)
 print(ff.__eq__(ff1))  # -> False
 print(ff == ff1)       # -> False
+print(f >= f1)         # -> True       order=True  Будут работать
+f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to field 'a'   frozen=True
 """
 
 
 # 1.4) Использовать Pydantic
+
+
+
+
 
 
 
@@ -2705,6 +2870,7 @@ mm1 = MyDate(1)
 
 
 
+
 # Ответ 2)
 """
 def safe_decorator(func):
@@ -2726,6 +2892,7 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
+
 
 
 
@@ -2781,6 +2948,8 @@ if __name__ == '__main__':
 
 
 
+
+
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -2795,7 +2964,6 @@ for _ in range(10):
 """
 
 # 4) Получить из файла текст в юникоде.
-
 
 
 
@@ -2826,6 +2994,9 @@ print(текст)
 
 
 
+
+
+
 # Ответ 5)
 """
 def fib(a=1, b=2):
@@ -2842,6 +3013,8 @@ fib_gen = fib()
 
 
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+
+
 
 
 
@@ -2891,8 +3064,6 @@ print(c.area())  # -> 1000
 
 
 
-
-
 # Ответ Асинхронный код
 """
 import asyncio
@@ -2922,11 +3093,8 @@ if __name__ == '__main__':
 
 
 
-
-
-
+# Ответ  Как запустить что-то в потоке и вывести результат?  from concurrent.futures import ThreadPoolExecutor
 """
-# Как запустить что-то в потоке и вывести результат?  ThreadPoolExecutor
 from concurrent.futures import ThreadPoolExecutor
 
 fn = lambda: 5
@@ -2950,11 +3118,8 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 
-
-
+# Ответ Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
 """
-# Как запустить что-то в Процессах и вывести результат? 
-
 from concurrent.futures import ProcessPoolExecutor
 
 # lambda не сериализуется pickle
@@ -2994,6 +3159,9 @@ if __name__ == "__main__":
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
+
+
+
 
 
 
@@ -3126,8 +3294,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
-
 # Сортировка выбором (Selection Sort)
 """
 def selection_sort(arr):
@@ -3149,6 +3315,9 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 # Написать Сортировку вставками (Insertion Sort)
+
+
+
 
 
 
@@ -3222,9 +3391,6 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-
-
-
 # Сортировка слиянием (Merge Sort)
 """
 def merge_sort(arr):
@@ -3266,6 +3432,9 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Напиши SQL Задачу с собеседования ---
+
+
+
 
 
 
