@@ -399,35 +399,6 @@ import re
 
 
 
-print(list([1, 2, 3][slice(None, 2)]))         # -> [1, 2]
-print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

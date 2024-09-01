@@ -10130,7 +10130,8 @@ fact(30)
 
  Python min-куча (наименьшее значение всегда лежит в корне) реализована на базе списка при помощи встроенного модуля heapq
  Если вам нужна max-куча, с максимальным значением в корне можно использовать инвертирование или _protected функции
- heapq.heapify(listForTree) # for a min heap         heapq._heapify_max(listForTree)  # for a maxheap!!
+ heapq.heapify(listForTree) # for a min heap         heapq._heapify_max(listForTree)  # for a maxheap!!  или умножить на (-1)
+                                                                                                         или добавить - к числу
 
  -- Модуль heapq обеспечивает реализацию алгоритма очереди кучи, также известного как алгоритм очереди приоритетов.
  Можно рассматривать кучу как обычный список Python без сюрпризов.

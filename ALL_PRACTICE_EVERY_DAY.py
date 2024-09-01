@@ -129,6 +129,12 @@ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asi
 
 
 
+
+
+
+
+
+
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -198,7 +204,7 @@ print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
 
 # Мой вариант на собеседовании ПРОСТОЙ   Через  tuple()
 
-# Тоже самое
+# Тоже самое  Но каждый раз будет создаватся новый список
 @dataclass
 class MyDict:
     data: list = field(default_factory=list)
@@ -255,7 +261,6 @@ for i in range(10, -1, -1):
 
 
 
-
 # dis - Библиотека работы с Байт-кодом  from dis import dis
 """
 from dis import dis
@@ -279,6 +284,7 @@ matrix = [
     [5, 6, 7, 8],
     [9, 10, 11, 12],
 ]
+
 
 
 
@@ -331,7 +337,7 @@ print(list(zip(matrix)))   # -> [([1, 2, 3, 4],), ([5, 6, 7, 8],), ([9, 10, 11, 
 
 # Перепиши с Моржом
 n = 10
-# print(5 <= n < 10 or 101 < n < 201)
+# print(5 <= n < 10 or 101 < n < 201)  # -> False
 
 
 
@@ -343,10 +349,8 @@ s = "Hello"
 
 
 
-
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
-
 
 
 
@@ -403,7 +407,6 @@ print(nn + 10 if (nn := 10) % 2 == 0 else nn - 10)  # -> 20"""
 # Распарсить JSON-строку  json.loads()
 
 json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
-
 
 
 
@@ -483,7 +486,6 @@ data = {
 
 
 
-
 # Пример с 'json.dump()' с отступами
 # `json.dump()` сериализует объект Python и записывает его в файл в формате JSON.
 """
@@ -550,6 +552,7 @@ cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
 
 
 
+
 # match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 """
 # Всё Работает так же как и при обычной распаковке '*'
@@ -577,8 +580,6 @@ json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', '
 
 def parse_json(data):
     pass
-
-
 
 
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
@@ -622,6 +623,8 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
+
+
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -644,6 +647,10 @@ print(mergeNodes(head))  # -> [4, 11]
 # Интересный пример Повтори кстати сам его придумал  a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'
 
 a = 'aaaabbcaa'
+
+
+
+
 
 
 
@@ -695,7 +702,6 @@ text = 'ABC'
 
 
 
-
 # По сути это if...else в Регулярках
 """
 # Если находим A значит ищем B иначе ищем C     1 - Номер группы
@@ -715,6 +721,9 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте re.compile
 
 text = 'ABC123---'
+
+
+
 
 
 
@@ -791,7 +800,6 @@ text = "abc123"
 
 
 
-
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
@@ -802,6 +810,8 @@ re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захва
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
+
+
 
 
 
@@ -834,6 +844,7 @@ b_set = {"b", 3}
 
 
 
+
 """
 # Обновление словаря
 a_dict = {"a": 2}
@@ -858,7 +869,6 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
-
 
 
 
@@ -914,6 +924,9 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
+
+
+
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 """
 # list                               # set                                   # dict
@@ -931,7 +944,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 # Напишите функцию с docstring/name. Выведите документацию и название функции
-
 
 
 
@@ -959,6 +971,7 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
+
 # Итератор  range(10)
 """
 # Итератор
@@ -967,6 +980,8 @@ it = iter([i*i for i in range(10)])
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
+
+
 
 
 
@@ -1001,7 +1016,6 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 # Напишите Конструкцию yield from и ЕЁ аналог
-
 
 
 
@@ -1058,6 +1072,10 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
+
+
+
 
 
 
@@ -1173,6 +1191,7 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
+
 # Замыкание lambda
 """
 def pow_(base):
@@ -1198,6 +1217,9 @@ print(pow_(2)(3))  # -> 9
 
 
 
+
+
+
 # Ответ lambda
 """
 double = lambda x: x * 2
@@ -1210,6 +1232,17 @@ print((lambda x: x * 2)(2))  # -> 4
 # Функцию Прибавили
 res = lambda: 5
 print((lambda x: x+res())(10))  # -> 15
+
+# Можно использовать много +/++++ Разницы НЕТ
+print((lambda y: y+2)(3))         # -> 5
+print((lambda y: y++2)(3))        # -> 5
+print((lambda y: y++++++++2)(3))  # -> 5
+
+# Можно использовать много -/---- Разницы Есть!! четное количество - равно +     НЕ четное количество - равно -
+print((lambda x: x-2)(3))     # -> 1
+print((lambda x: x--2)(3))    # -> 5
+print((lambda x: x---2)(3))   # -> 1
+print((lambda x: x----2)(3))  # -> 5
 """
 
 
@@ -1220,7 +1253,10 @@ ints = list(range(20))
 
 
 
+
+
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
+
 
 
 
@@ -1235,6 +1271,7 @@ class Cat:
         return f'Cat {self.name}, age is {self.age}'
 
 cats = [Cat('Tom', 3), Cat('Angela', 4)]
+
 
 
 
@@ -1297,8 +1334,6 @@ foo()
 
 
 
-
-
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1328,7 +1363,6 @@ h = [20, 10, 1, 2]
 
 
 
-
 # Пример heapq
 """
 import heapq
@@ -1348,7 +1382,60 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 """
 
 
+
+# Использовать heapq   Написать    MaxHeap/MinHeap
+
+
+
+
+
+
+
+
+# Ответ Использовать heapq   Написать    MaxHeap/MinHeap     _heapify_max или умножение на -1 или добавить - к числу
+"""
+import heapq
+
+# MinHeap
+minheap = [20, 10, 1, 2]
+heapq.heapify(minheap)
+print(minheap[0])                     # -> 1
+print(heapq.heappop(minheap))         # -> 1
+
+
+# MaxHeap  через метод _heapify_max
+maxheap = [20, 10, 1, 2]
+heapq._heapify_max(maxheap)
+print(maxheap[0])                     # -> 20
+print(heapq.heappop(maxheap))         # -> 20
+
+
+# MaxHeap   через добавление минуса
+maxheap_2 = [20, 10, 1, 2]
+res = [-i for i in maxheap_2]
+print(res)                            # -> [-20, -10, -1, -2]
+heapq.heapify(res)
+print(res[0])                         # -> -20
+print(heapq.heappop(res))             # -> -20
+
+
+# MaxHeap   через умножение на -1
+maxheap_3 = [20, 10, 1, 2]
+res = [i*(-1) for i in maxheap_3]
+heapq.heapify(res)
+print(res[0])                         # -> -20
+print(heapq.heappop(res))             # -> -20
+"""
+
+
+
 # Написать Рекурсию сумма Входного списка  Проверьте assert
+
+
+
+
+
+
 
 
 
@@ -1429,6 +1516,7 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
+
 # __slots__ в dataclasses
 """
 from dataclasses import dataclass
@@ -1447,8 +1535,6 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 
 # Напишите Singleton
-
-
 
 
 
@@ -1486,11 +1572,6 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 """
 
 # Напишите Monostate Обычный class/dataclass
-
-
-
-
-
 
 
 
@@ -1584,7 +1665,6 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
-
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -1618,7 +1698,6 @@ class New:
     name: str = 'Chuck Norris'
     surname: str = 'Sasya'
     number: int = 10
-
 
 
 
@@ -1754,6 +1833,8 @@ second = {4: 4, 5: 5}
 
 
 
+
+
 # Ответы ChainMap
 """
 from collections import ChainMap
@@ -1779,6 +1860,8 @@ text = 'hello'
 
 
 
+
+
 # Ответы Counter
 """
 from collections import Counter
@@ -1796,6 +1879,8 @@ print(counter.most_common(3))  # -> [('l', 3), ('o', 2), ('h', 1)]
 
 first = {1: 1, 2: 2, 3: 3}
 second = {2: 2, 1: 1}
+
+
 
 
 
@@ -1840,6 +1925,11 @@ print(order3==order4)                     # -> False
 
 
 
+
+
+
+
+
 # Ответы defaultdict
 """
 from collections import defaultdict
@@ -1861,6 +1951,7 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 # -- collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None) --
 # Использовать namedtuple
+
 
 
 
@@ -1981,9 +2072,12 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
-
 # itertools.cycle(iterable)
 # Использовать cycle
+
+
+
+
 
 
 
@@ -2011,6 +2105,7 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
+
 
 
 
@@ -2075,6 +2170,8 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
+
+
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2103,12 +2200,10 @@ print(unflattened)  # -> [('roses', 'red'), ('violets', 'blue'), ('sugar', 'swee
 
 
 
-
-
 # itertools.chain(*iterables)
 # Использовать chain
 
-
+a = [1, 2, [3, 3], [4, 4]]
 
 
 
@@ -2170,8 +2265,6 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 # itertools.compress(data, selectors)
 # Использовать compress
-
-
 
 
 
@@ -2245,6 +2338,7 @@ a = range(1, 5)
 
 
 
+
 # Ответы filterfalse
 """
 from itertools import filterfalse
@@ -2261,6 +2355,8 @@ print(list(filterfalse(lambda x: x % 2 == 0, [6, 7, 8, 9])))          # -> [7, 9
 # Использовать islice
 
 gen = (i for i in range(5))
+
+
 
 
 
@@ -2293,10 +2389,12 @@ print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]          # Тол�
 # itertools.pairwise(iterable)
 # Использовать pairwise
 
-
-from itertools import pairwise
-
 a = [1, 2, 3]
+
+
+
+
+
 
 
 
@@ -2378,6 +2476,10 @@ b = [1, 2, 3]
 
 
 
+
+
+
+
 # Ответы zip_longest
 """
 from itertools import zip_longest
@@ -2427,6 +2529,9 @@ a = [1, 2]
 
 
 
+
+
+
 # Ответы product
 """
 from itertools import product
@@ -2444,6 +2549,8 @@ print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
 # Использовать permutations
 
 a = 'XYZ'
+
+
 
 
 
@@ -2469,6 +2576,9 @@ a = 'XYZ'
 
 
 
+
+
+
 # Ответы combinations
 """
 from itertools import combinations
@@ -2483,6 +2593,10 @@ print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
 # Использовать combinations_with_replacement
 
 a = 'XYZ'
+
+
+
+
 
 
 
@@ -2503,6 +2617,11 @@ print(list(combinations_with_replacement('XYZ', 3)))
 # --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
 
 a = 'XYZ'
+
+
+
+
+
 
 
 
@@ -2535,7 +2654,6 @@ a = [1, 2, 3, 4]
 
 
 
-
 # Ответ  reduce/eval   lambda/operator
 """
 import functools, operator
@@ -2550,6 +2668,9 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 # @functools.cache(user_function)
 # Использовать cache
+
+
+
 
 
 
@@ -2575,6 +2696,9 @@ print(factorial(12))  # -> 479001600
 # @functools.lru_cache(user_function)
 # @functools.lru_cache(maxsize=128, typed=False)
 # Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
+
+
+
 
 
 
@@ -2613,8 +2737,10 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 # Используйте функцию from functools import partial
 
 
-def multiply(x, y):
-    return x * y
+
+
+
+
 
 
 
@@ -2657,6 +2783,7 @@ print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required pos
 
 
 
+
 # Ответ 1)
 """
 from functools import wraps
@@ -2685,6 +2812,13 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
+
+
+
+
+
+
+
 
 
 
@@ -2755,6 +2889,8 @@ print(plus(2, 2))
 
 
 
+
+
 # Ответ 1.2)
 # Декорирование класса в Python:
 
@@ -2774,6 +2910,8 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 # 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
+
+
 
 
 
@@ -2831,6 +2969,7 @@ f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to fi
 
 
 
+
 # Ответ 1.4)
 # Сравните это с пидантиком(Pydantic), в котором, кажется, думают о людях:
 """
@@ -2871,6 +3010,7 @@ mm1 = MyDate(1)
 
 
 
+
 # Ответ 2)
 """
 def safe_decorator(func):
@@ -2892,6 +3032,10 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
+
+
+
+
 
 
 
@@ -2973,6 +3117,7 @@ for _ in range(10):
 
 
 
+
 # Ответ 4)
 """
 def read_unicode_file(file_path):
@@ -3023,10 +3168,8 @@ fib_gen = fib()
 
 
 
-
-
+# Ответ Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
 """
-# Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
 from abc import ABC, abstractmethod
 
 class Shape(ABC):
@@ -3049,10 +3192,32 @@ class MyClass(Shape):
 
 c = MyClass()
 print(c.area())  # -> 1000
+
+
+
+# Интересный момент с \     SyntaxError: unexpected character after line continuation character    <-----
+from abc import ABC, abstractmethod
+
+class C(ABC):
+    @abstractmethod
+    def fff(self):
+        pass
+
+class CC(C):
+
+    # def fff(self):
+    #     return \     # SyntaxError: unexpected character after line continuation character
+
+    def fff(self):
+        return \
+
+c = CC()
+print(c.fff())  # -> None
 """
 
 
 # Написать Асинхронный код
+
 
 
 
@@ -3093,6 +3258,8 @@ if __name__ == '__main__':
 
 
 
+
+
 # Ответ  Как запустить что-то в потоке и вывести результат?  from concurrent.futures import ThreadPoolExecutor
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -3109,6 +3276,8 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 # Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
+
+
 
 
 
@@ -3159,8 +3328,6 @@ if __name__ == "__main__":
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
-
 
 
 
@@ -3327,8 +3494,6 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-
-
 # Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -3360,7 +3525,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -3382,6 +3546,8 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
+
+
 
 
 
@@ -3431,9 +3597,127 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
+# --- Django  Чуть-чуть ---
+
+# Напишите raw-запрос
+
+
+
+
+
+
+# Ответ Напишите raw-запрос
+"""
+people = Person.objects.raw("SELECT id, name FROM hello_person")
+"""
+
+
+
+# Задачи на ORM
+"""
+class City(models.Model):
+   name = models.CharField()
+
+
+class Person(models.Model):
+    name = models.CharField()
+    city = models.ForeignKey(City)
+    """
+
+# Вывести список людей и городов где они живут?
+# Вывести всех людей, живущих в городе N
+# Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
+
+
+
+
+
+# Ответ:
+# Вот пример определения моделей с учетом этих деталей:
+"""
+from django.db import models
+
+class City(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Person(models.Model):
+     name = models.CharField(max_length=255)
+     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='people')
+
+     def __str__(self):
+         return self.name
+"""
+
+
+
+# -- Теперь перейдем к выполнению задач --:
+
+
+# 1. Вывести список людей и городов, где они живут:
+
+
+
+
+
+
+
+# Ответ 1. Вывести список людей и городов, где они живут:
+"""
+people_with_cities = Person.objects.select_related('city').values('name', 'city__name')
+for person in people_with_cities:
+    print(f'Человек: {person["name"]}, Город: {person["city__name"]}')
+"""
+
+
+
+# 2. Вывести всех людей, живущих в городе N:
+
+
+
+
+
+
+
+# Ответ 2. Вывести всех людей, живущих в городе N:
+"""
+city_name = 'N'  # укажите название города
+people_in_city_n = Person.objects.filter(city__name=city_name)
+
+for person in people_in_city_n:
+    print(f'Человек: {person.name}')
+"""
+
+
+
+
+# 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
+# Для этого нам нужно будет добавить поле для хранения количества людей в каждом городе. Однако, чтобы подсчитать
+# это количество динамически, мы можем использовать аннотирование с `Count`.
+
+
+
+
+
+
+# Ответ 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
+"""
+from django.db.models import Count
+
+top_cities = City.objects.annotate(population=Count('people')).order_by('-population')[:5]
+
+for city in top_cities:
+    print(f'Город: {city.name}, Население: {city.population}')
+"""
+
+
+
+
+
 # Напиши SQL Задачу с собеседования ---
-
-
 
 
 
