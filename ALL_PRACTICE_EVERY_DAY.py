@@ -135,6 +135,7 @@ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asi
 
 
 
+
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -261,6 +262,7 @@ for i in range(10, -1, -1):
 
 
 
+
 # dis - Библиотека работы с Байт-кодом  from dis import dis
 """
 from dis import dis
@@ -342,6 +344,7 @@ n = 10
 
 
 
+
 s = "Hello"
 # print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
 
@@ -349,8 +352,15 @@ s = "Hello"
 
 
 
+
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
+
+
+
+
+
+
 
 
 
@@ -416,6 +426,8 @@ json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 
 
 
+
+
 # Пример разбора JSON-строки
 # 'json.loads()' для разбора JSON-строки.
 """
@@ -441,6 +453,7 @@ print(data['name'])  # -> Alice
     ]
 }
 """
+
 
 
 
@@ -479,6 +492,8 @@ data = {
     "age": 30,
     "city": "New York"
 }
+
+
 
 
 
@@ -553,6 +568,7 @@ cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
 
 
 
+
 # match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 """
 # Всё Работает так же как и при обычной распаковке '*'
@@ -580,6 +596,7 @@ json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', '
 
 def parse_json(data):
     pass
+
 
 
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
@@ -657,9 +674,6 @@ a = 'aaaabbcaa'
 
 
 
-
-
-
 # a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
 """
 a = 'aaaabbcaa'
@@ -681,6 +695,7 @@ text = r'17383147371'
 
 
 
+
 # Разделит число из тестовых данных на числа, в конце которых стоит единица. 1
 """
 text = r'17383147371'
@@ -691,10 +706,11 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 
 
 
-
 # Классный пример Повтори   По сути это if...else в Регулярках
 
 text = 'ABC'
+
+
 
 
 
@@ -721,7 +737,6 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте re.compile
 
 text = 'ABC123---'
-
 
 
 
@@ -818,6 +833,7 @@ text = '123ABC'
 
 
 
+
 # Lookahead   Lookbehind
 # x(?=y) находит x, только если за x следует y             # Positive Lookahead
 # x(?!y) находит x, только если за x НЕ следует y          # Negative Lookahead
@@ -869,6 +885,9 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
+
+
+
 
 
 
@@ -951,6 +970,9 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
+
+
+
 # Ответ docstring/name
 '''
 def add_numbers(a, b):
@@ -971,11 +993,16 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
-
 # Итератор  range(10)
 """
 # Итератор
 it = iter([i*i for i in range(10)])
+
+
+it = iter([i for i in range(10)])
+print(*it)    # -> 0 1 2 3 4 5 6 7 8 9
+it = iter([i for i in range(10)])
+print([*it])  # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 """
 
 
@@ -3610,6 +3637,42 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 """
 people = Person.objects.raw("SELECT id, name FROM hello_person")
 """
+
+
+
+# Перепишите lookups
+
+
+
+
+
+
+# Ответ Перепишите lookups
+"""
+ Model.objects.filter(budget=1000)                    ==   фильтр на равенство поля
+ Model.objects.filter(budget__gt=1000)                 >   фильтр на поле больше значения (great then)
+ Model.objects.filter(budget__lt=1000)                 <   фильтр на поле меньше значения
+ Model.objects.filter(budget__gte=1000)               >=   фильтр на поле больше либо равно значения
+ Model.objects.filter(budget__lte=1000)               <=   фильтр на поле меньше либо равно значения
+ Model.objects.exclude(budget=1000)                   !=   фильтр на поле не равно значению
+ Model.objects.filter(year__isnull=True)                   фильтр на поле пустое (False - не пустое)
+ Model.objects.filter(year__isnull=True, name=’Avatar’)    фильтр на два поля
+ Model.objects.exclude(budget=1000).filter(name=’Avatar’)  фильтр на два поля
+ Model.objects.filter(name__contains=’Avatar’)             поле содержит значение, чувствителен к регистру
+ Model.objects.filter(name__icontains=’Avatar’)            поле содержит значение, НЕ чувствителен к регистру
+ Model.objects.filter(name__startswith=’a’)                поле начинается с “a”
+ Model.objects.filter(name__endswith=’a’)                  поле заканчивается на “a”
+ Model.objects.filter(id__in=[3,5,6]’)                     выбираются все значения из списка
+ 
+ # Очень полезные методы   __regex  - чувствительное к регистру       __iregex - НЕчувствительное к регистру
+ Model.objects.filter(adv_images__regex=r'^\d\.')[:3]
+ Model.objects.filter(adv_images__regex=r'^\d\.')[:3]
+ Model.objects.get(title__regex=r"^(An?|The) +")
+"""
+
+
+
+
 
 
 

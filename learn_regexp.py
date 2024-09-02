@@ -397,45 +397,23 @@ rez = tee(x, 3)
 
 import re
 
+# Есть список чисел. Нужно отсортировать нечетные числа по возрастанию, оставив четные на месте
 
 
+def sort_array(arr):
+    odds = sorted([i for i in arr if i % 2])
+    odd_index = 0
+    res = []
+    for i in arr:
+        if i % 2:
+            res.append(odds[odd_index])
+            odd_index += 1
+        else:
+            res.append(i)
+    return res
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 
 
 
