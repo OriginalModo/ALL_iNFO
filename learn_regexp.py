@@ -397,31 +397,35 @@ rez = tee(x, 3)
 
 import re
 
-# Есть список чисел. Нужно отсортировать нечетные числа по возрастанию, оставив четные на месте
+def longest_sequence(arr):
+    if not arr:
+        return []
 
+    max_len = 1
+    curr_len = 1
+    start_index = 0
+    longest_start = 0
 
-def sort_array(arr):
-    odds = sorted([i for i in arr if i % 2])
-    odd_index = 0
-    res = []
-    for i in arr:
-        if i % 2:
-            res.append(odds[odd_index])
-            odd_index += 1
+    for i in range(1, len(arr)):
+        if arr[i] == arr[i - 1] + 1:
+            curr_len += 1
         else:
-            res.append(i)
-    return res
+            if curr_len > max_len:
+                max_len = curr_len
+                longest_start = start_index
+            curr_len = 1
+            start_index = i
 
-numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+    if curr_len > max_len:
+        longest_start = start_index
+        max_len = curr_len
 
+    return arr[longest_start:longest_start + max_len]
 
-
-
-
-
-
-
+# Пример использования
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211]
+result = longest_sequence(arr)
+print("Самая длинная последовательность:", result)
 
 
 

@@ -30,6 +30,9 @@
  Если научиться принимать вещи как они есть, страдание исчезнет.
 ________________________________________________________________________________________________________________________
 
+ --- Задачи с Собеседования ---
+________________________________________________________________________________________________________________________
+
  # Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
 
  xs = [
@@ -113,15 +116,15 @@ ________________________________________________________________________________
  print(twoSum(lst, target))  # -> [[0, 1]]
 
 
- # Пример 2
- def twoSum(nums, target):
-     res = []
-     for i, v in enumerate(zip(nums[::2], nums[1::2])):
-         if sum([v[0], v[1]]) == target:
-             res.append([i, i+1])
-     return res
+ # Пример 2                                                # Тоже самое
+ def twoSum(nums, target):                                 def twoSum(nums, target):
+     res = []                                                  res = []
+     for i, v in enumerate(zip(nums[::2], nums[1::2])):        for i, (k, v) in enumerate(zip(nums[::2], nums[1::2])):
+         if sum([v[0], v[1]]) == target:                           if sum([k, v]) == target:
+             res.append([i, i+1])                                      res.append([i, i + 1])
+     return res                                                return res
 
- print(twoSum(lst, target))  # -> [[0, 1]]
+ print(twoSum(lst, target))  # -> [[0, 1]]                   print(twoSum(lst, target))  # -> [[0, 1]]
 
 
  # Пример 3
@@ -195,6 +198,16 @@ ________________________________________________________________________________
  print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 
 
+ # Ответ ChatGPT
+ def sort_array(source_array):
+     odds = sorted(filter(lambda i: i % 2 != 0, source_array))
+     odds_iter = iter(odds)
+     return [next(odds_iter) if i % 2 != 0 else i for i in source_array]
+
+ numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+ print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+
  # Задача 2
 
  '''Напишите функцию flatten, которая принимает любое кол-во аргументов
@@ -202,15 +215,15 @@ ________________________________________________________________________________
  должны разгладиться в один результирующий список'''
 
 
-                                            # Тоже самое
- def flatten(*args):                        def flatten(*args):
-     res = []                                   res = []
-     for i in args:                             for i in args:
-         if not isinstance(i, list):                if isinstance(i, list):
-             res.append(i)                              res.extend(flatten(*i))
-         else:                                      else:
-             res.extend(flatten(*i))                    res.append(i)
-     return res                                 return res
+                                                                # Тоже самое
+ def flatten(*args):                                            def flatten(*args):
+     res = []                                                       res = []
+     for i in args:                                                 for i in args:
+         if not isinstance(i, list):                                    if isinstance(i, list):
+             res.append(i)                                                  res.extend(flatten(*i))
+         else:                                                          else:
+             res.extend(flatten(*i))                                        res.append(i)
+     return res                                                     return res
 
  print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
 
@@ -220,6 +233,41 @@ ________________________________________________________________________________
      return eval(re.sub(r',?\)|\(', lambda x: '[' if x[0] == '(' else ']', res))
 
  print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+ # Интересный вариант
+ from ast import literal_eval
+
+ def flatten(*args):
+     res = re.sub(r'[\]\[]', '', str(args))
+     res_2 = re.sub(r'\(|,\)', '', res)
+     return literal_eval(f"[{res_2}]")
+     # return eval(f"[{res_2}]")
+
+ print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+ # Интересный вариант
+ def flatten(*args):
+     res = []
+     for i in args:
+         match i:
+             case list():
+                 res += flatten(*itertools.chain(i))
+             case _:
+                 res.append(i)
+     return res
+
+ print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+ # Интересный вариант
+ def flatten(*args):
+     try:
+         return [*map(int, [i for i in re.findall(r'[^\[\]()]', str(args)) if i not in ' ,'])]
+     except:
+         print('not good')
+
+ print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+________________________________________________________________________________________________________________________
+ --- END  Задачи с Собеседования ---
 ________________________________________________________________________________________________________________________
 
  # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars

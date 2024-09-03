@@ -2,6 +2,7 @@ import asyncio
 import collections
 import dataclasses
 import functools
+import heapq
 import itertools
 import json
 import operator
@@ -116,6 +117,24 @@ print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> get
 print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    440 байт
 """
 
+
+
+
+# type - это тип всех типов, для которых не указан явно иной метакласс  ПРОСТО ПОСМОТРЕТЬ!!!
+"""
+print(type(type))    # -> <class 'type'>
+print(type(object))  # -> <class 'type'>
+print(type(list))    # -> <class 'type'>
+print(type(set))     # -> <class 'type'>
+print(type(dict))    # -> <class 'type'>
+print(type(bool))    # -> <class 'type'>
+print(type(int))     # -> <class 'type'>
+print(type(str))     # -> <class 'type'>
+print(type(collections.deque))  # -> <class 'type'>
+
+class Bar(object): pass
+print(type(Bar))  # -> <class 'type'>
+"""
 
 
 
@@ -1111,11 +1130,6 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 
-
-
-
-
-
 # Пример создания итератора Iterator:
 """
 class SimpleIterator:
@@ -1179,8 +1193,73 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 """
 
 
-# Напишите Замыкание или Перепишите
+# eval vs exec   compile   Можно просто посмотреть
 
+
+
+
+
+
+
+
+
+
+# Ответ eval vs exec   compile   Можно просто посмотреть
+"""
+Интересный пример
+exec("print(a)", globals(), {'aaaa': 42})  # -> 42
+eval("print(a)", globals(), {'aaaa': 42})  # -> 42
+
+
+a = 5
+# Возвращает Результат
+print(eval('37 + a'))  # -> 42
+# Возвращает None
+print(exec('37 + a'))  # -> None
+
+# exec Может создать переменную
+print(exec('a = 47'))  # -> 47
+# eval НЕ Может создать переменную
+# print(eval('a = 47'))  # -> SyntaxError: invalid syntax
+
+
+# eval() НЕ Будет работать!
+x = eval('x = 5')  # INVALID; assignment is not an expression.
+x = eval('if 1: x = 4')  # INVALID; if is a statement, not an expression.
+
+# exec() Будет работать!
+exec('x = 5')
+print(x)  # -> 5
+x = exec('if 1: x = 4')
+print(x)  # -> None
+
+
+# Выполняет блок кода exec()        # Ошибка eval()
+program = '''                       program = '''                            
+for i in range(2):                  for i in range(2):                            
+    print("Python, sep=' '")            print("Python, sep=' '")                            
+'''                                 '''                            
+exec(program)                       eval(program)  # -> SyntaxError: invalid syntax                            
+# Python, sep=' '                                   
+# Python, sep=' '    
+
+# Работает
+exec(compile('for i in range(3): print(i, end=" ")', filename='<string>', mode='exec'))   # -> 0 1 2
+
+# compile вызывает исключение, если исходный код содержит операторы или что-либо еще, кроме одного выражения:
+# eval(compile('for i in range(3): print(i, end=" ")', filename='<string>', mode='eval'))
+# for i in range(3): print(i)
+#     ^^^
+# SyntaxError: invalid syntax
+
+# Работает
+compiled_exec = compile('print("Hello")',  filename='<string>', mode='exec')
+exec(compiled_exec)  # -> Hello
+compiled_eval = compile('print("Hello")',  filename='<string>', mode='eval')
+eval(compiled_eval)  # -> Hello                     
+"""
+
+# Напишите Замыкание или Перепишите
 
 
 
@@ -1219,6 +1298,8 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
+
+
 # Замыкание lambda
 """
 def pow_(base):
@@ -1237,7 +1318,6 @@ print(pow_(2)(3))  # -> 9
 
 
 # Напишите лямбда-функцию с присвоением переменной и без. Сразу вызов
-
 
 
 
@@ -1281,9 +1361,7 @@ ints = list(range(20))
 
 
 
-
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
-
 
 
 
@@ -1298,7 +1376,6 @@ class Cat:
         return f'Cat {self.name}, age is {self.age}'
 
 cats = [Cat('Tom', 3), Cat('Angela', 4)]
-
 
 
 
@@ -1360,7 +1437,6 @@ foo()
 
 
 
-
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1382,7 +1458,6 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
-
 
 
 
@@ -1412,9 +1487,11 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 # Использовать heapq   Написать    MaxHeap/MinHeap
 
+minheap = [20, 10, 1, 2]
 
 
 
+maxheap = [20, 10, 1, 2]
 
 
 
@@ -1457,9 +1534,6 @@ print(heapq.heappop(res))             # -> -20
 
 
 # Написать Рекурсию сумма Входного списка  Проверьте assert
-
-
-
 
 
 
@@ -1542,8 +1616,6 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
-
-
 # __slots__ в dataclasses
 """
 from dataclasses import dataclass
@@ -1599,6 +1671,7 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 """
 
 # Напишите Monostate Обычный class/dataclass
+
 
 
 
@@ -1689,9 +1762,6 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
-
-
-
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -1771,7 +1841,6 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 
-
 # __get__, __set__, __delete__
 # Дескриптор — это то, как реализован тип Python property
 # Функции/методы, связанные методы, property, classmethod и staticmethod все они используют эти специальные методы
@@ -1804,7 +1873,7 @@ c.x = 10
 print(c.x)  # 10
 
 
-# Примеры Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
+# Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
 def has_descriptor_attrs(obj):
     return set(['__get__', '__set__', '__delete__']).intersection(dir(obj))
 
@@ -1888,7 +1957,6 @@ text = 'hello'
 
 
 
-
 # Ответы Counter
 """
 from collections import Counter
@@ -1946,8 +2014,7 @@ print(order3==order4)                     # -> False
 # Использовать defaultdict
 
 
-
-
+text = 'hello'
 
 
 
@@ -1978,8 +2045,6 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 # -- collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None) --
 # Использовать namedtuple
-
-
 
 
 
@@ -2062,14 +2127,13 @@ b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
 
 
 
-# --- Модуль itertools в Python, эффективные итераторы для циклов   - сборник полезных итераторов --- ---
+# --- Модуль itertools в Python, эффективные итераторы для циклов   - сборник полезных итераторов ---
 
 # --- Бесконечные итераторы   Infinite iterators ---
 
 
 # itertools.count(start=0, step=1)
 # Использовать count
-
 
 
 
@@ -2110,8 +2174,6 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
-
-
 # Ответы cycle
 """
 from itertools import cycle, islice
@@ -2132,8 +2194,6 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
-
-
 
 
 
@@ -2198,7 +2258,6 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
-
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2231,6 +2290,7 @@ print(unflattened)  # -> [('roses', 'red'), ('violets', 'blue'), ('sugar', 'swee
 # Использовать chain
 
 a = [1, 2, [3, 3], [4, 4]]
+b, c, d = [1, 2], [1, 2], [1, 2]
 
 
 
@@ -2268,7 +2328,6 @@ a = ['foo', ['one', 'two', [1, 2]]]
 
 
 
-
 # Ответы chain.from_iterable
 
 """
@@ -2298,6 +2357,7 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 
 
+
 # Ответы compress
 """
 from itertools import compress
@@ -2311,6 +2371,7 @@ print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']
 # Использовать dropwhile
 
 a = [1, 4, 6, 4, 1]
+
 
 
 
@@ -2390,7 +2451,6 @@ gen = (i for i in range(5))
 
 
 
-
 # Ответы islice
 """
 from itertools import islice
@@ -2417,6 +2477,7 @@ print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]          # Тол�
 # Использовать pairwise
 
 a = [1, 2, 3]
+
 
 
 
@@ -2534,6 +2595,7 @@ res = 'AAAABBBCCDAABBB'
 
 
 
+
 # Пример from itertools import groupby
 """
 from itertools import groupby
@@ -2628,7 +2690,6 @@ a = 'XYZ'
 
 
 
-
 # Ответы combinations_with_replacement
 """
 from itertools import combinations_with_replacement
@@ -2644,7 +2705,6 @@ print(list(combinations_with_replacement('XYZ', 3)))
 # --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
 
 a = 'XYZ'
-
 
 
 
@@ -2676,6 +2736,12 @@ print(list(combinations_with_replacement('XY', 2)))   # -> [('X', 'X'), ('X', 'Y
 a = [1, 2, 3, 4]
 
 
+from functools import reduce
+
+
+
+
+
 
 
 
@@ -2695,8 +2761,6 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 # @functools.cache(user_function)
 # Использовать cache
-
-
 
 
 
@@ -2735,7 +2799,6 @@ print(factorial(12))  # -> 479001600
 
 
 
-
 # Решения Фибоначч с мемоизацией КЭШ  Скорость O(n)  @functools.lru_cache
 """
 import timeit
@@ -2762,8 +2825,6 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 # functools.partial(func, /, *args, **keywords)
 # Используйте функцию from functools import partial
-
-
 
 
 
@@ -2854,6 +2915,8 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 
+
+
 # Ответ 1.1)
 # Класс как ДЕКОРАТОР
 """
@@ -2918,6 +2981,8 @@ print(plus(2, 2))
 
 
 
+
+
 # Ответ 1.2)
 # Декорирование класса в Python:
 
@@ -2937,7 +3002,6 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 # 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
-
 
 
 
@@ -2992,11 +3056,6 @@ f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to fi
 
 
 
-
-
-
-
-
 # Ответ 1.4)
 # Сравните это с пидантиком(Pydantic), в котором, кажется, думают о людях:
 """
@@ -3036,8 +3095,6 @@ mm1 = MyDate(1)
 
 
 
-
-
 # Ответ 2)
 """
 def safe_decorator(func):
@@ -3059,7 +3116,6 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
-
 
 
 
@@ -3119,8 +3175,6 @@ if __name__ == '__main__':
 
 
 
-
-
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -3167,8 +3221,6 @@ print(текст)
 
 
 
-
-
 # Ответ 5)
 """
 def fib(a=1, b=2):
@@ -3185,6 +3237,12 @@ fib_gen = fib()
 
 
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+
+
+
+
+
+
 
 
 
@@ -3255,7 +3313,6 @@ print(c.fff())  # -> None
 
 
 
-
 # Ответ Асинхронный код
 """
 import asyncio
@@ -3273,10 +3330,57 @@ async def main():
 
 if __name__ == '__main__':
     asyncio.run(main())
+    
+    
+# Названия generator object    coroutine object
+def gen():
+    x = 10
+    print(x)
+    yield x
+
+# Не правильное использование
+async def example():
+    print(100)
+
+
+print(gen())      # -> <generator object gen at 0x00000208FA74B2A0>
+
+print(example())  # -> <coroutine object example at 0x00000208FA67E080>
+# RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+
+
+# Хороший пример с замером времени БЕЗ БЛОКИРУЮЩЕГО КОДА 3 СЕК   # C БЛОКИРУЮЩИМ КОДОМ  7 СЕК
+async def one():                                                 async def one():                                                                               
+    print('Start one')                                               print('Start one')                                                                                   
+    await asyncio.sleep(1)                                           await asyncio.sleep(1)                                                                                       
+    print('Stop one')                                                print('Stop one')                                                                                   
+                                                                                                                                 
+async def two():                                                 async def two():                                                                               
+    print('Start two')                                               print('Start two')                                                                                   
+    await asyncio.sleep(2)                                           await asyncio.sleep(2)                                                                                       
+    # time.sleep(5)                                                  time.sleep(5)             Тут   БЛОКИРУЮЩИЙ КОД                                                                 
+    print('Stop two')                                                print('Stop two')                                                                                   
+                                                                                                                                 
+async def three():                                               async def three():                                                                               
+    print('Start three')                                             print('Start three')                                                                                       
+    await asyncio.sleep(3)                                           await asyncio.sleep(3)                                                                                       
+    print('Stop three')                                              print('Stop three')                                                                                   
+                                                                                         
+async def main():                                                async def main():                                       
+    await asyncio.gather(one(), two(), three())                      await asyncio.gather(one(), two(), three())                                                                   
+                                                                                         
+                                                                                         
+if __name__ == '__main__':                                       if __name__ == '__main__':                                               
+    start = time.time()                                              start = time.time()                                           
+    asyncio.run(main())                                              asyncio.run(main())                                           
+    print(time.time() - start)  # -> 2.994696855545044               print(time.time() - start)  # -> 7.008123874664307                                                                           
 """
 
 
 # Как запустить что-то в потоке и вывести результат?   from concurrent.futures import ThreadPoolExecutor
+
+
+
 
 
 
@@ -3456,6 +3560,8 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
+
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -3485,9 +3591,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
-
-
 # Сортировка выбором (Selection Sort)
 """
 def selection_sort(arr):
@@ -3509,7 +3612,6 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 # Написать Сортировку вставками (Insertion Sort)
-
 
 
 
@@ -3551,7 +3653,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -3573,7 +3674,6 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
-
 
 
 
@@ -3641,6 +3741,9 @@ people = Person.objects.raw("SELECT id, name FROM hello_person")
 
 
 # Перепишите lookups
+
+
+
 
 
 
@@ -3739,7 +3842,7 @@ for person in people_with_cities:
 
 # 2. Вывести всех людей, живущих в городе N:
 
-
+city_name = 'N'  # укажите название города
 
 
 
@@ -3766,6 +3869,9 @@ for person in people_in_city_n:
 
 
 
+
+
+
 # Ответ 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
 """
 from django.db.models import Count
@@ -3781,6 +3887,8 @@ for city in top_cities:
 
 
 # Напиши SQL Задачу с собеседования ---
+
+
 
 
 

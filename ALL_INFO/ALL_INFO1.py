@@ -12309,7 +12309,7 @@ fact(30)
 
 
   -- Хороший пример про ДЕСКРИПТОРЫ --
- # Примеры Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
+ # Примеры встроенных объектов дескрипторов: classmethod, staticmethod, property, функции в целом      <-----
  def has_descriptor_attrs(obj):
      return set(['__get__', '__set__', '__delete__']).intersection(dir(obj))
 
@@ -12803,6 +12803,20 @@ fact(30)
     x = 42
     def foo(self):
         return self.x
+
+ # type - это тип всех типов, для которых не указан явно иной метакласс
+ print(type(type))    # -> <class 'type'>
+ print(type(object))  # -> <class 'type'>
+ print(type(list))    # -> <class 'type'>
+ print(type(set))     # -> <class 'type'>
+ print(type(dict))    # -> <class 'type'>
+ print(type(bool))    # -> <class 'type'>
+ print(type(int))     # -> <class 'type'>
+ print(type(str))     # -> <class 'type'>
+ print(type(collections.deque))     # -> <class 'type'>
+
+ class Bar(object): pass
+ print(type(Bar))     # -> <class 'type'>
 
 
  Когда выполняется определение класса, происходят следующие шаги:
