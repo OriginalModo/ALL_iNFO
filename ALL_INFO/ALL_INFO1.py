@@ -9110,15 +9110,15 @@ fact(30)
  from collections import OrderedDict
  or_dict = OrderedDict({1: 'a', 2: 'b', 3: 'c'})
 
- print(f'getsizeof OrderedDict:  {sys.getsizeof(or_dict)} байт')    # -> getsizeof OrderedDict:  448 байт
- print(f'asizeof   OrderedDict:  {asizeof.asizeof(or_dict)} байт')  # -> asizeof   OrderedDict:  712 байт
+ print(f'getsizeof OrderedDict:  {sys.getsizeof(or_dict)} байт')    # -> getsizeof OrderedDict: 448 байт
+ print(f'asizeof   OrderedDict:  {asizeof.asizeof(or_dict)} байт')  # -> asizeof   OrderedDict: 712 байт
 
 
 
                             -- Примеры Множества frozenset vs set --                            <-----
  my_set = {1, 2, 3, 4, 5}
- print(f'getsizeof set:        {sys.getsizeof(my_set)} байт')     # -> getsizeof set:        472 байт
- print(f'asizeof   set:        {asizeof.asizeof(my_set)} байт')   # -> asizeof   set:        632 байт
+ print(f'getsizeof set:        {sys.getsizeof(my_set)} байт')     # -> getsizeof set:       472 байт
+ print(f'asizeof   set:        {asizeof.asizeof(my_set)} байт')   # -> asizeof   set:       632 байт
 
 
  fz_set = frozenset({1, 2, 3, 4, 5})

@@ -94,7 +94,22 @@ ________________________________________________________________________________
  lst = [2, 7, 9, 10, 11]
  target = 9
 
+
+ # Хороший вариант
+ def twoSum(nums, target):
+     res = []
+     for i in range(len(nums)-1):
+         if nums[i] + nums[i+1] == target:
+             res.append(nums.index(nums[i]))
+             res.append(nums.index(nums[i+1]))
+     return res
+
+ print(twoSum(lst, target))  # -> [0, 1]
+
+
  # Пример 1
+ from itertools import pairwise
+
  def twoSum(nums, target):
      res = []
      for i, v in enumerate(pairwise(nums)):
@@ -105,8 +120,8 @@ ________________________________________________________________________________
  print(twoSum(lst, target))  # -> [[0, 1]]
 
 
- # Тоже самое slice(1, None, 2) - Принимает только 3 аргумента
- def twoSum(nums, target):
+ # Тоже самое slice(1, None, 2) - Принимает только 3 аргумента      Тут создает такие пары  [(2, 7), (9, 10)]
+ def twoSum(nums, target):                                          lst = [2, 7, 9, 10, 11]
      res = []
      for i, v in enumerate(zip(nums[slice(None, None, 2)], nums[slice(1, None, 2)])):
          if sum([v[0], v[1]]) == target:
@@ -116,6 +131,7 @@ ________________________________________________________________________________
  print(twoSum(lst, target))  # -> [[0, 1]]
 
 
+ # Тут создает такие пары  [(2, 7), (9, 10)]     lst = [2, 7, 9, 10, 11]
  # Пример 2                                                # Тоже самое
  def twoSum(nums, target):                                 def twoSum(nums, target):
      res = []                                                  res = []
@@ -129,6 +145,7 @@ ________________________________________________________________________________
 
  # Пример 3
  from itertools import combinations
+
  def twoSum(nums, target):
      res = list(*[i for i in combinations(nums, 2) if sum(i) == target])
      return [i for i, v in enumerate(nums) if v in res]
@@ -225,7 +242,9 @@ ________________________________________________________________________________
              res.extend(flatten(*i))                                        res.append(i)
      return res                                                     return res
 
- print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
+
 
  # Второй вариант
  def flatten(*args):
@@ -243,7 +262,8 @@ ________________________________________________________________________________
      return literal_eval(f"[{res_2}]")
      # return eval(f"[{res_2}]")
 
- print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
 
  # Интересный вариант
  def flatten(*args):
@@ -256,7 +276,8 @@ ________________________________________________________________________________
                  res.append(i)
      return res
 
- print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
 
  # Интересный вариант
  def flatten(*args):
@@ -265,7 +286,75 @@ ________________________________________________________________________________
      except:
          print('not good')
 
- print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
+ print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
+
+________________________________________________________________________________________________________________________
+ Задача максимальная последовательность чисел  СБЕР
+
+ # Мой вариант
+ def longest_sequence(arr):
+     if not arr:
+         return []
+     res = []
+     for i in range(len(arr)-1):
+         if arr[i] < arr[i+1]:
+             res.append(arr[i])
+         else:
+             res.append(arr[i])
+             res.append('A')
+     if arr[-1] > res[-1]:
+         res.append(arr[-1])
+     res_2 = [i.strip().split() for i in ' '.join(map(str, res)).split('A')]
+     return [*map(int, max(res_2, key=len))]
+
+ arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+ # Еще один вариант МОЙ
+ def longest_sequence(arr):
+     res = []
+     for i in range(len(arr)-1):
+         if arr[i] < arr[i+1]:
+             res.append(arr[i])
+         else:
+             res.append(arr[i])
+             res.append('A')
+     res_2 = ' '.join(map(str, res)).split('A')
+     return [*map(int, max([i.strip().split() for i in res_2], key=len))]
+
+
+ arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+ # Вариант ChatGPT
+ def longest_sequence(arr):
+     if not arr:
+         return []
+
+     max_seq = []
+     current_seq = []
+
+     for i in range(len(arr)):
+         # Если текущий элемент больше предыдущего
+         if i == 0 or arr[i] > arr[i - 1]:
+             current_seq.append(arr[i])
+         else:
+             # Если последовательность прерывается, проверяем и обновляем max_seq
+             if len(current_seq) > len(max_seq):
+                 max_seq = current_seq
+             current_seq = [arr[i]]  # Начинаем новую последовательность
+
+     # Проверяем последний текущий сегмент
+     if len(current_seq) > len(max_seq):
+         max_seq = current_seq
+     return max_seq
+
+ arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
 ________________________________________________________________________________________________________________________
  --- END  Задачи с Собеседования ---
 ________________________________________________________________________________________________________________________

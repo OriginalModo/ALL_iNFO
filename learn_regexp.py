@@ -397,47 +397,6 @@ rez = tee(x, 3)
 
 import re
 
-def longest_sequence(arr):
-    if not arr:
-        return []
-
-    max_len = 1
-    curr_len = 1
-    start_index = 0
-    longest_start = 0
-
-    for i in range(1, len(arr)):
-        if arr[i] == arr[i - 1] + 1:
-            curr_len += 1
-        else:
-            if curr_len > max_len:
-                max_len = curr_len
-                longest_start = start_index
-            curr_len = 1
-            start_index = i
-
-    if curr_len > max_len:
-        longest_start = start_index
-        max_len = curr_len
-
-    return arr[longest_start:longest_start + max_len]
-
-# Пример использования
-arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211]
-result = longest_sequence(arr)
-print("Самая длинная последовательность:", result)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

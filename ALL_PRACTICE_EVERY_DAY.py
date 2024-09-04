@@ -52,15 +52,15 @@ print(f'asizeof   dict:         {asizeof.asizeof(my_dict)} байт')   # -> asi
 from collections import OrderedDict
 or_dict = OrderedDict({1: 'a', 2: 'b', 3: 'c'})
 
-print(f'getsizeof OrderedDict:  {sys.getsizeof(or_dict)} байт')    # -> getsizeof OrderedDict:  448 байт
-print(f'asizeof   OrderedDict:  {asizeof.asizeof(or_dict)} байт')  # -> asizeof   OrderedDict:  712 байт
+print(f'getsizeof OrderedDict:  {sys.getsizeof(or_dict)} байт')    # -> getsizeof OrderedDict: 448 байт
+print(f'asizeof   OrderedDict:  {asizeof.asizeof(or_dict)} байт')  # -> asizeof   OrderedDict: 712 байт
 
 
 
                             -- Примеры Множества frozenset vs set --                            <-----
 my_set = {1, 2, 3, 4, 5}
-print(f'getsizeof set:        {sys.getsizeof(my_set)} байт')     # -> getsizeof set:        472 байт
-print(f'asizeof   set:        {asizeof.asizeof(my_set)} байт')   # -> asizeof   set:        632 байт
+print(f'getsizeof set:        {sys.getsizeof(my_set)} байт')     # -> getsizeof set:       472 байт
+print(f'asizeof   set:        {asizeof.asizeof(my_set)} байт')   # -> asizeof   set:       632 байт
 
 
 fz_set = frozenset({1, 2, 3, 4, 5})
@@ -140,9 +140,6 @@ print(type(Bar))  # -> <class 'type'>
 
 
 # Напишите Релизацию своего класса имитируещего словарь  через []    Создание собственного класса для реализации словаря
-
-
-
 
 
 
@@ -263,6 +260,7 @@ print(c._get(2))  # -> KeyError
 
 
 
+
 # Обход в Обратном порядке в цикле for
 """
 # Обход в Обратном порядке в цикле for
@@ -305,8 +303,6 @@ matrix = [
     [5, 6, 7, 8],
     [9, 10, 11, 12],
 ]
-
-
 
 
 
@@ -371,13 +367,8 @@ s = "Hello"
 
 
 
-
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
-
-
-
-
 
 
 
@@ -446,7 +437,6 @@ json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 
 
 
-
 # Пример разбора JSON-строки
 # 'json.loads()' для разбора JSON-строки.
 """
@@ -478,8 +468,6 @@ print(data['name'])  # -> Alice
 
 
 
-
-
 # Пример разбора JSON из файла
 # json.load()` для разбора JSON-данных из файла
 # Предположим, у вас есть файл 'data.json' с содержимым:
@@ -504,17 +492,13 @@ print(data['employees'][0]['name'])  # "John"
 """
 
 
-# Используйте метод 'json.dump()' с отступами   Перепишите пример ниже
+# Используйте метод 'json.dump()' с отступами  'data.json'  Перепишите пример ниже
 
 data = {
     "name": "Alice",
     "age": 30,
     "city": "New York"
 }
-
-
-
-
 
 
 
@@ -584,10 +568,6 @@ cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
 
 
 
-
-
-
-
 # match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 """
 # Всё Работает так же как и при обычной распаковке '*'
@@ -615,7 +595,6 @@ json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', '
 
 def parse_json(data):
     pass
-
 
 
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
@@ -658,9 +637,6 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
-
-
-
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -693,6 +669,7 @@ a = 'aaaabbcaa'
 
 
 
+
 # a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
 """
 a = 'aaaabbcaa'
@@ -705,8 +682,6 @@ re.sub(r'(\w)\1+|\w', lambda x: f'{x[0][0]}{len(x[0])}', a)  # -> a4b2c1a2
 # Так можно разделить легко  Повтори
 
 text = r'17383147371'
-
-
 
 
 
@@ -728,8 +703,6 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 # Классный пример Повтори   По сути это if...else в Регулярках
 
 text = 'ABC'
-
-
 
 
 
@@ -760,11 +733,6 @@ text = 'ABC123---'
 
 
 
-
-
-
-
-
 # Использование re.compile
 """
 regex = re.compile("[A-Za-z_]"      # letter or underscore             буква или подчеркивание
@@ -785,9 +753,6 @@ text = 'ABC 123'
 
 
 
-
-
-
 # Замена по индексу группы: '\1' '\2'    МЕЖДУ/ПЕРЕД/ПОСЛЕ групп можно использовать любые знаки
 """
 re.sub(r'(\w+)\s*(\d+)', r'+__\2  \1 !!+',  'ABC 123')                            # -> +__123  ABC !!+   # Поменяли местами
@@ -800,7 +765,6 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 # Напишите или Перепишите Обычные/Именованные группы
 
 text = r'ggg wp'
-
 
 
 
@@ -834,6 +798,7 @@ text = "abc123"
 
 
 
+
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
@@ -844,6 +809,7 @@ re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захва
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
+
 
 
 
@@ -879,7 +845,7 @@ b_set = {"b", 3}
 
 
 
-
+# Ответ Обновление Словаря/Множества
 """
 # Обновление словаря
 a_dict = {"a": 2}
@@ -904,7 +870,6 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
-
 
 
 
@@ -963,8 +928,6 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
-
-
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 """
 # list                               # set                                   # dict
@@ -991,7 +954,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
-
 # Ответ docstring/name
 '''
 def add_numbers(a, b):
@@ -1004,8 +966,6 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 # Напишите Итератор  range(10)
-
-
 
 
 
@@ -1072,6 +1032,7 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 
+
 # yield from  - это просто сокращенная форма for item in iterable: yield item
 """
 def gen_list1(iterable):
@@ -1118,8 +1079,6 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
-
-
 
 
 
@@ -1194,6 +1153,7 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 # eval vs exec   compile   Можно просто посмотреть
+
 
 
 
@@ -1381,6 +1341,7 @@ cats = [Cat('Tom', 3), Cat('Angela', 4)]
 
 
 
+
 # Разные Сортировки operator/lambda  Просто перепиши
 """
 from operator import attrgetter, itemgetter
@@ -1435,8 +1396,6 @@ foo()
 
 
 
-
-
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1458,6 +1417,7 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
+
 
 
 
@@ -1492,6 +1452,8 @@ minheap = [20, 10, 1, 2]
 
 
 maxheap = [20, 10, 1, 2]
+
+
 
 
 
@@ -1541,8 +1503,6 @@ print(heapq.heappop(res))             # -> -20
 
 
 
-
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -1564,7 +1524,6 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
-
 
 
 
@@ -1631,11 +1590,7 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 """
 
 
-
-
 # Напишите Singleton
-
-
 
 
 
@@ -1645,6 +1600,13 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 # Пример Singleton/Одиночка  # id Одинаковые     Гарантируется, что объект всегда будет один и тот же.
 """
+# Через from dataclasses import dataclass
+@dataclass
+class Singleton:
+    _instance: 'Singleton' = None
+
+
+# Через Обычный Класс
 class Singleton:
    instance = None
 
@@ -1669,6 +1631,8 @@ print(id(sing))        # -> 1742792644624     # id Разные
 sing_1 = Singleton()
 print(id(sing_1))      # -> 1742792644240     # id Разные
 """
+
+
 
 # Напишите Monostate Обычный class/dataclass
 
@@ -1699,7 +1663,7 @@ print(mono.__dict__)    # -> {'a': 9999999999, 'b': 2}
 print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 """
 
-# Тоже самое через dataclass
+# Тоже самое через dataclass    __post_init__
 """
 @dataclass
 class Monostate:
@@ -1762,6 +1726,11 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
+
+
+
+
+
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -1801,6 +1770,7 @@ class New:
 
 
 
+
 # Использовать setattr/delattr/hasattr/getattr
 
 # getattr(object, name)
@@ -1832,6 +1802,16 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1923,7 +1903,6 @@ print(has_descriptor_attrs(property))  # -> {'__get__', '__delete__', '__set__'}
 
 first = {1: 1, 2: 2, 3: 3}
 second = {4: 4, 5: 5}
-
 
 
 
@@ -2094,6 +2073,8 @@ print(Point(**d))       # -> Point(x=11, y=22)
 
 
 
+
+
 # Ответы deque
 """
 from collections import deque
@@ -2140,7 +2121,6 @@ b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
 
 
 
-
 # Ответы count
 """
 from itertools import count
@@ -2174,6 +2154,8 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
+
+
 # Ответы cycle
 """
 from itertools import cycle, islice
@@ -2194,6 +2176,8 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
+
+
 
 
 
@@ -2262,8 +2246,8 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 """
 from itertools import accumulate
 
-print(list(accumulate([1, 2, 3, 4, 5])))  # -> [1, 3, 6, 10, 15]
-print(list(accumulate([1, 2, 3, 4, 5], initial=100)))  # -> [100, 101, 103, 106, 110, 115]
+print(list(accumulate([1, 2, 3, 4, 5])))                # -> [1, 3, 6, 10, 15]
+print(list(accumulate([1, 2, 3, 4, 5], initial=100)))   # -> [100, 101, 103, 106, 110, 115]
 print(list(accumulate([1, 2, 3, 4, 5], operator.mul)))  # -> [1, 2, 6, 24, 120]
 print(list(accumulate([1, 2, 3, 4, 5], operator.sub)))  # -> [1, -1, -4, -8, -13]
 """
@@ -2291,6 +2275,8 @@ print(unflattened)  # -> [('roses', 'red'), ('violets', 'blue'), ('sugar', 'swee
 
 a = [1, 2, [3, 3], [4, 4]]
 b, c, d = [1, 2], [1, 2], [1, 2]
+
+
 
 
 
@@ -2357,7 +2343,6 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 
 
-
 # Ответы compress
 """
 from itertools import compress
@@ -2371,7 +2356,6 @@ print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']
 # Использовать dropwhile
 
 a = [1, 4, 6, 4, 1]
-
 
 
 
@@ -2399,6 +2383,9 @@ print(list(dropwhile(trigger_to_five, lst)))  # -> [1, 2, 3, 10]
 
 
 a = [1, 4, 6, 4, 1]
+
+
+
 
 
 
@@ -2488,6 +2475,7 @@ a = [1, 2, 3]
 
 
 
+
 # Ответы pairwise
 """
 from itertools import pairwise
@@ -2532,6 +2520,13 @@ print()
 for item in map(add_plus, [2, 3], [4, 5]):
     print(item, end=' ')
 # 6 8
+
+
+# Интересный вариант Присмотрись                                     Важно   <----- 
+a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]  
+
+print([*itertools.starmap(min, a)])                    # -> [2, 1, 3]   
+print([*itertools.starmap(lambda x, y, z: x*y+z, a)])  # -> [14, 7, 38]
 """
 
 
@@ -2539,6 +2534,8 @@ for item in map(add_plus, [2, 3], [4, 5]):
 # Использовать tee
 
 a = [1, 2, 3]
+
+
 
 
 
@@ -2555,13 +2552,11 @@ print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 
 
 
-# itertools.zip_longest(*iterables, fillvalue=None)
+# itertools.zip_longest(*iterables, fillvalue=None)     zip(*iterables, strict=False)
 # Использовать zip_longest
 
 a = [1, 2]
 b = [1, 2, 3]
-
-
 
 
 
@@ -2579,6 +2574,17 @@ print(list(rez))  # -> [(1, 1), (2, 2), (100, 3)]
 # встроенная функция zip()
 rez = zip([1, 2], [1, 2, 3])
 print(list(rez))  # -> [(1, 1), (2, 2)]
+
+
+
+# zip vs zip_longest
+a = [1, 2]
+b = [1, 2, 3]
+
+# zip vs zip_longest
+print([*itertools.zip_longest(a, b)])  # -> [(1, 1), (2, 2), (None, 3)]
+print([*zip(a, b, strict=False)])      # -> [(1, 1), (2, 2)]
+print([*zip(a, b, strict=True)])       # -> ValueError: zip() argument 2 is longer than argument 1
 """
 
 
@@ -2587,7 +2593,6 @@ print(list(rez))  # -> [(1, 1), (2, 2)]
 # Повтори from itertools import groupby
 
 res = 'AAAABBBCCDAABBB'
-
 
 
 
@@ -2616,6 +2621,7 @@ a = [1, 2]
 
 
 
+a, b = [1, 2], [3, 3]
 
 
 
@@ -2631,6 +2637,17 @@ print(list(product([1, 2], repeat=3)))  # -> [(1, 1, 1), (1, 1, 2), (1, 2, 1), (
 pairs = ['Aa', 'Bb']
 gams = list([x for x in product(*pairs)])
 print(gams)  # -> [('A', 'B'), ('A', 'b'), ('a', 'B'), ('a', 'b')]
+
+
+# Интересный пример
+a = [1, 2]
+print(list(itertools.product(a, repeat=1)))     # -> [(1,), (2,)]
+print(list(itertools.product(a, repeat=2)))     # -> [(1, 1), (1, 2), (2, 1), (2, 2)]
+
+a, b = [1, 2], [3, 3]
+print(list(itertools.product(a, b, repeat=1)))  # -> [(1, 3), (1, 3), (2, 3), (2, 3)]
+print(list(itertools.product(a, b, repeat=2)))
+# [(1, 3, 1, 3), (1, 3, 1, 3), (1, 3, 2, 3), (1, 3, 2, 3), (1, 3, 1, 3), (1, 3, 1, 3), (1, 3, 2, 3), (1, 3, 2, 3), ...
 """
 
 
@@ -2644,13 +2661,15 @@ a = 'XYZ'
 
 
 
-
 # Ответы permutations
 """
 from itertools import permutations
 
 print(list(permutations('XY', 2)))  # -> [('X', 'Y'), ('Y', 'X')]
 print(list(permutations('XYZ', 3)))
+# [('X', 'Y', 'Z'), ('X', 'Z', 'Y'), ('Y', 'X', 'Z'), ('Y', 'Z', 'X'), ('Z', 'X', 'Y'), ('Z', 'Y', 'X')]
+# По дефолту
+print(list(itertools.permutations('XYZ')))
 # [('X', 'Y', 'Z'), ('X', 'Z', 'Y'), ('Y', 'X', 'Z'), ('Y', 'Z', 'X'), ('Z', 'X', 'Y'), ('Z', 'Y', 'X')]
 """
 
@@ -2736,11 +2755,6 @@ print(list(combinations_with_replacement('XY', 2)))   # -> [('X', 'X'), ('X', 'Y
 a = [1, 2, 3, 4]
 
 
-from functools import reduce
-
-
-
-
 
 
 
@@ -2769,6 +2783,7 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 
 
+
 # Ответ @functools.cache(user_function)
 """
 from functools import cache
@@ -2787,8 +2802,6 @@ print(factorial(12))  # -> 479001600
 # @functools.lru_cache(user_function)
 # @functools.lru_cache(maxsize=128, typed=False)
 # Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
-
-
 
 
 
@@ -2826,6 +2839,8 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 # functools.partial(func, /, *args, **keywords)
 # Используйте функцию from functools import partial
 
+def multiply(x, y):
+    return x * y
 
 
 
@@ -2870,8 +2885,6 @@ print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required pos
 
 
 
-
-
 # Ответ 1)
 """
 from functools import wraps
@@ -2900,7 +2913,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
-
 
 
 
@@ -2980,9 +2992,6 @@ print(plus(2, 2))
 
 
 
-
-
-
 # Ответ 1.2)
 # Декорирование класса в Python:
 
@@ -3002,9 +3011,6 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 # 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
-
-
-
 
 
 
@@ -3056,6 +3062,10 @@ f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to fi
 
 
 
+
+
+
+
 # Ответ 1.4)
 # Сравните это с пидантиком(Pydantic), в котором, кажется, думают о людях:
 """
@@ -3084,6 +3094,7 @@ mm1 = MyDate(1)
 
 
 # 2) Написать декоратор, который возвращает либо результат, либо экземпляр исключения:
+
 
 
 
@@ -3198,7 +3209,6 @@ for _ in range(10):
 
 
 
-
 # Ответ 4)
 """
 def read_unicode_file(file_path):
@@ -3212,7 +3222,6 @@ print(текст)
 """
 
 # 5) Написать генератор чисел Фибоначчи вида def fib(a=1, b=2):
-
 
 
 
@@ -3237,8 +3246,6 @@ fib_gen = fib()
 
 
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
-
-
 
 
 
@@ -3312,7 +3319,6 @@ print(c.fff())  # -> None
 
 
 
-
 # Ответ Асинхронный код
 """
 import asyncio
@@ -3358,7 +3364,7 @@ async def one():                                                 async def one()
 async def two():                                                 async def two():                                                                               
     print('Start two')                                               print('Start two')                                                                                   
     await asyncio.sleep(2)                                           await asyncio.sleep(2)                                                                                       
-    # time.sleep(5)                                                  time.sleep(5)             Тут   БЛОКИРУЮЩИЙ КОД                                                                 
+    # time.sleep(5)                                                  time.sleep(5)            # Тут   БЛОКИРУЮЩИЙ КОД                                                                 
     print('Stop two')                                                print('Stop two')                                                                                   
                                                                                                                                  
 async def three():                                               async def three():                                                                               
@@ -3468,6 +3474,7 @@ if __name__ == "__main__":
 
 
 
+
 # Реализация Quick Sort/Быстрая сортировка
 """
 # Вариант 1: Опорный элемент — последний элемент массива
@@ -3560,8 +3567,6 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -3585,6 +3590,10 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # Написать Сортировку выбором (Selection Sort)
+
+
+
+
 
 
 
@@ -3653,6 +3662,9 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
+
+
+
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -3674,7 +3686,6 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
-
 
 
 
@@ -3733,6 +3744,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
+
 # Ответ Напишите raw-запрос
 """
 people = Person.objects.raw("SELECT id, name FROM hello_person")
@@ -3741,6 +3753,8 @@ people = Person.objects.raw("SELECT id, name FROM hello_person")
 
 
 # Перепишите lookups
+
+
 
 
 
@@ -3769,7 +3783,7 @@ people = Person.objects.raw("SELECT id, name FROM hello_person")
  
  # Очень полезные методы   __regex  - чувствительное к регистру       __iregex - НЕчувствительное к регистру
  Model.objects.filter(adv_images__regex=r'^\d\.')[:3]
- Model.objects.filter(adv_images__regex=r'^\d\.')[:3]
+ Model.objects.filter(adv_images__iregex=r'^\d\.')[:3]
  Model.objects.get(title__regex=r"^(An?|The) +")
 """
 
@@ -3831,6 +3845,8 @@ class Person(models.Model):
 
 
 
+
+
 # Ответ 1. Вывести список людей и городов, где они живут:
 """
 people_with_cities = Person.objects.select_related('city').values('name', 'city__name')
@@ -3843,6 +3859,8 @@ for person in people_with_cities:
 # 2. Вывести всех людей, живущих в городе N:
 
 city_name = 'N'  # укажите название города
+
+
 
 
 
@@ -3871,7 +3889,6 @@ for person in people_in_city_n:
 
 
 
-
 # Ответ 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
 """
 from django.db.models import Count
@@ -3887,7 +3904,6 @@ for city in top_cities:
 
 
 # Напиши SQL Задачу с собеседования ---
-
 
 
 
@@ -3929,7 +3945,515 @@ left join products as p on u.id = p.id
 
 
 
+# --- Задачи с Собеседования Python ---
 
+# Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
+
+xs = [
+    '1_a.txt',
+    '2_b.txt',
+    '1_c.txt',
+    '3_d.txt',
+    '1_e.txt',
+]
+
+
+
+
+
+
+
+# Ответ  Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
+"""
+xs = [
+    '1_a.txt',
+    '2_b.txt',
+    '1_c.txt',
+    '3_d.txt',
+    '1_e.txt',
+]
+
+def sub_fun(x):
+    return -int(re.sub(r'[^\d]+', '', x)), re.search(r'(?<=_)[a-z]+(?=\.)', x, flags=re.I).group()
+
+def my_func(lst: list) -> list:
+    return sorted(lst, key=sub_fun)
+
+print(my_func(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+
+print(sorted(xs, key=lambda x: (-int(x[0]), x[1])))
+print(sorted(xs, key=lambda x: (-int(re.sub(r'[^\d]+', '', x)), re.search(r'(?<=_)[a-z]+(?=\.)', x, flags=re.I).group())))
+print(sorted(xs, key=sub_fun))
+# ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+# ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+# ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+
+# Через split() хз как улучшить
+print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
+________________________________________________________________________________________________________________________
+"""
+
+
+
+# Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
+
+def clean_duplicates(lst):
+    pass
+
+
+
+# print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+
+
+
+
+# Ответ Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
+"""
+# Первый вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    res = []
+    for i in lst:
+        if i not in res:
+            res.append(i)
+    return res
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+# Второй вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    res = []
+    [res.append(i) for i in lst if i not in res]
+    return res
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+# Третий вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+________________________________________________________________________________________________________________________
+"""
+
+
+
+# Two Sum Задача с собеседования  YADRO
+
+lst = [2, 7, 9, 10, 11]
+target = 9
+
+def twoSum(nums, target):
+    pass
+
+
+
+# print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+
+
+
+
+# Ответ Two Sum Задача с собеседования  YADRO
+"""
+lst = [2, 7, 9, 10, 11]
+target = 9
+
+# Хороший вариант
+def twoSum(nums, target):
+    res = []
+    for i in range(len(nums)-1):
+        if nums[i] + nums[i+1] == target:
+            res.append(nums.index(nums[i]))
+            res.append(nums.index(nums[i+1]))
+    return res
+
+print(twoSum(lst, target))  # -> [0, 1]
+
+
+# Пример 1
+from itertools import pairwise
+
+def twoSum(nums, target):
+    res = []
+    for i, v in enumerate(pairwise(nums)):
+        if sum([v[0], v[1]]) == target:
+            res.append([nums.index(v[0]), nums.index(v[1])])
+    return res
+
+print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+# Тоже самое slice(1, None, 2) - Принимает только 3 аргумента      Тут создает такие пары  [(2, 7), (9, 10)]
+def twoSum(nums, target):                                          lst = [2, 7, 9, 10, 11]     
+    res = []
+    for i, v in enumerate(zip(nums[slice(None, None, 2)], nums[slice(1, None, 2)])):
+        if sum([v[0], v[1]]) == target:
+            res.append([i, i + 1])
+    return res
+
+print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+# Тут создает такие пары  [(2, 7), (9, 10)]     lst = [2, 7, 9, 10, 11]     
+# Пример 2                                                # Тоже самое                  
+def twoSum(nums, target):                                 def twoSum(nums, target):                 
+    res = []                                                  res = []
+    for i, v in enumerate(zip(nums[::2], nums[1::2])):        for i, (k, v) in enumerate(zip(nums[::2], nums[1::2])):
+        if sum([v[0], v[1]]) == target:                           if sum([k, v]) == target:
+            res.append([i, i+1])                                      res.append([i, i + 1])
+    return res                                                return res
+
+print(twoSum(lst, target))  # -> [[0, 1]]                   print(twoSum(lst, target))  # -> [[0, 1]]
+
+
+# Пример 3
+from itertools import combinations
+def twoSum(nums, target):
+    res = list(*[i for i in combinations(nums, 2) if sum(i) == target])
+    return [i for i, v in enumerate(nums) if v in res]
+
+print(twoSum(lst, target))  # -> [0, 1]
+
+
+# Ответ ChatGPT
+def twoSum(lst, target):
+    res = []
+    n = len(lst)
+    # Ищем все пары индексов
+    for i in range(n):
+        for j in range(i + 1, n):
+            if lst[i] + lst[j] == target:
+                res.append((i, j))
+    return res
+
+# Пример использования
+print(twoSum(lst, target))  # -> [(0, 1)]
+________________________________________________________________________________________________________________________
+"""
+
+
+
+# Релизация своего класса имитируещего СЛОВАРЬ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  Ответ Релизация своего класса имитируещего СЛОВАРЬ
+"""
+# Мой вариант на собеседовании ПРОСТОЙ
+
+class MyDict:
+    def __init__(self):
+        self.data = []
+
+    def _add(self, key, value):
+        if key:
+            self.data.append((key, value))
+
+    def _get(self, key):
+        for i, (k, v) in enumerate(self.data):
+            if key and k == key:
+                return v
+        raise KeyError
+
+
+c = MyDict()
+c._add(1, 'A')
+print(c._get(1))  # -> A
+print(c._get(2))  # -> KeyError
+
+
+
+# Более Правильный вариант Сложный
+class MyDict:
+    def __init__(self):
+        self.data = []
+
+    def __setitem__(self, key, value):
+        # Проверяем, есть ли ключ уже в словаре
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                self.data[i] = (key, value)  # Обновляем значение
+                return
+        self.data.append((key, value))  # Добавляем новый элемент
+
+    def __getitem__(self, key):
+        for k, v in self.data:
+            if k == key:
+                return v  # Возвращаем значение, если ключ найден
+        raise KeyError(f"Key {key} not found.")
+
+    def __delitem__(self, key):
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                del self.data[i]  # Удаляем элемент с данным ключом
+                return
+        raise KeyError(f"Key {key} not found.")
+
+    def __contains__(self, key):
+        return any(k == key for k, v in self.data)  # Проверяем наличие ключа
+
+    def __len__(self):
+        return len(self.data)  # Возвращаем количество элементов в словаре
+
+    def __iter__(self):
+        return (k for k, v in self.data)  # Итерирование по ключам
+
+    def items(self):
+        return self.data.copy()  # Возвращаем все пары (ключ, значение)
+
+    def keys(self):
+        return [k for k, v in self.data]  # Возвращаем список ключей
+
+    def values(self):
+        return [v for k, v in self.data]  # Возвращаем список значений
+
+
+# Пример использования
+my_dict = MyDict()
+my_dict['apple'] = 1
+my_dict['banana'] = 2
+
+print(my_dict['apple'])     # Вывод: 1
+print('banana' in my_dict)  # Вывод: True
+print(len(my_dict))         # Вывод: 2
+
+my_dict['apple'] = 3
+print(my_dict['apple'])     # Вывод: 3
+
+my_dict['cherry'] = 5
+print(my_dict.items())      # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
+
+del my_dict['banana']
+print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
+________________________________________________________________________________________________________________________
+"""
+
+
+
+
+# Задачи с собеседования  X5
+
+
+# Задача 1
+
+# Есть список чисел. Нужно отсортировать нечетные числа по возрастанию, оставив четные на месте
+
+
+def sort_array(arr):
+    pass
+
+
+numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+# print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+
+
+
+# Задача 2
+
+'''Напишите функцию flatten, которая принимает любое кол-во аргументов
+и 'разглаживает' их в один список. Все вложенные списки, неважно каких уровней вложенности,
+должны разгладиться в один результирующий список'''
+
+
+def flatten(*args):
+    pass
+
+
+
+# print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
+# print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
+
+
+
+
+# Ответ Задачи с собеседования  X5
+
+"""
+# Задача 1
+
+# Есть список чисел. Нужно отсортировать нечетные числа по возрастанию, оставив четные на месте
+
+def sort_array(arr):
+    odds = sorted([i for i in arr if i % 2])
+    odd_index = 0
+    res = []
+    for i in arr:
+        if i % 2:
+            res.append(odds[odd_index])
+            odd_index += 1
+        else:
+            res.append(i)
+    return res
+
+numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+
+# Ответ ChatGPT
+def sort_array(source_array):
+    odds = sorted(filter(lambda i: i % 2 != 0, source_array))
+    odds_iter = iter(odds)
+    return [next(odds_iter) if i % 2 != 0 else i for i in source_array]
+
+numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+
+
+# Задача 2
+
+'''Напишите функцию flatten, которая принимает любое кол-во аргументов
+и 'разглаживает' их в один список. Все вложенные списки, неважно каких уровней вложенности,
+должны разгладиться в один результирующий список'''
+
+
+                                                                # Тоже самое
+def flatten(*args):                                            def flatten(*args):
+    res = []                                                       res = []
+    for i in args:                                                 for i in args:
+        if not isinstance(i, list):                                    if isinstance(i, list):
+            res.append(i)                                                  res.extend(flatten(*i))
+        else:                                                          else:
+            res.extend(flatten(*i))                                        res.append(i)
+    return res                                                     return res
+
+print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+# Второй вариант
+def flatten(*args):
+    res = re.sub(r'[\]\[]', '', str(args))
+    return eval(re.sub(r',?\)|\(', lambda x: '[' if x[0] == '(' else ']', res))
+
+print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+# Интересный вариант
+from ast import literal_eval
+
+def flatten(*args):
+    res = re.sub(r'[\]\[]', '', str(args))
+    res_2 = re.sub(r'\(|,\)', '', res)
+    return literal_eval(f"[{res_2}]")
+    # return eval(f"[{res_2}]")
+
+print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+# Интересный вариант
+def flatten(*args):
+    res = []
+    for i in args:
+        match i:
+            case list():
+                res += flatten(*itertools.chain(i))
+            case _:
+                res.append(i)
+    return res
+
+print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+
+# Интересный вариант
+def flatten(*args):
+    try:
+        return [*map(int, [i for i in re.findall(r'[^\[\]()]', str(args)) if i not in ' ,'])]
+    except:
+        print('not good')
+
+print(flatten([1, 2, [2, 3, [4, 4]]]))  # -> [1, 2, 2, 3, 4, 4]
+________________________________________________________________________________________________________________________
+"""
+
+
+
+# Задача максимальная последовательность чисел  СБЕР
+
+
+def longest_sequence(arr):
+    pass
+
+
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+# print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+# Ответ Задача максимальная последовательность чисел  СБЕР
+"""
+# Мой вариант
+def longest_sequence(arr):
+    if not arr:
+        return []
+    res = []
+    for i in range(len(arr)-1):
+        if arr[i] < arr[i+1]:
+            res.append(arr[i])
+        else:
+            res.append(arr[i])
+            res.append('A')
+    if arr[-1] > res[-1]:
+        res.append(arr[-1])
+    res_2 = [i.strip().split() for i in ' '.join(map(str, res)).split('A')]
+    return [*map(int, max(res_2, key=len))]
+
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+# Еще один вариант МОЙ
+def longest_sequence(arr):
+    res = []
+    for i in range(len(arr)-1):
+        if arr[i] < arr[i+1]:
+            res.append(arr[i])
+        else:
+            res.append(arr[i])
+            res.append('A')
+    res_2 = ' '.join(map(str, res)).split('A')
+    return [*map(int, max([i.strip().split() for i in res_2], key=len))]
+
+
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+# Вариант ChatGPT
+def longest_sequence(arr):
+    if not arr:
+        return []
+
+    max_seq = []
+    current_seq = []
+
+    for i in range(len(arr)):
+        # Если текущий элемент больше предыдущего
+        if i == 0 or arr[i] > arr[i - 1]:
+            current_seq.append(arr[i])
+        else:
+            # Если последовательность прерывается, проверяем и обновляем max_seq
+            if len(current_seq) > len(max_seq):
+                max_seq = current_seq
+            current_seq = [arr[i]]  # Начинаем новую последовательность
+
+    # Проверяем последний текущий сегмент
+    if len(current_seq) > len(max_seq):
+        max_seq = current_seq
+    return max_seq
+
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+"""
 
 
 
