@@ -60,6 +60,18 @@ ________________________________________________________________________________
 
  # Через split() хз как улучшить
  print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
+
+ # Интересный вариат
+ def my_func(x):
+     return -int(x.split('_')[0]), x.split('_')[1]
+
+
+ def get_sorted(lst):
+     return sorted(lst, key=my_func)
+
+
+ print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+ print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
 ________________________________________________________________________________________________________________________
 
  # Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
@@ -74,6 +86,7 @@ ________________________________________________________________________________
 
  print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
+
  # Второй вариант
  def clean_duplicates(lst: list[dict]) -> list[dict]:
      res = []
@@ -82,9 +95,20 @@ ________________________________________________________________________________
 
  print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
+
  # Третий вариант
  def clean_duplicates(lst: list[dict]) -> list[dict]:
      return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
+
+ print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+ # Интересный вариант
+ def clean_duplicates(lst):
+     res = set()
+     for i in lst:
+         res.add(str(i))
+     return [eval(i) for i in res]
 
  print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 ________________________________________________________________________________________________________________________
@@ -190,6 +214,71 @@ ________________________________________________________________________________
  c._add(1, 'A')
  print(c._get(1))  # -> A
  print(c._get(2))  # -> KeyError
+
+
+
+ # Более Правильный вариант Сложный
+ class MyDict:
+     def __init__(self):
+         self.data = []
+
+     def __setitem__(self, key, value):
+         # Проверяем, есть ли ключ уже в словаре
+         for i, (k, v) in enumerate(self.data):
+             if k == key:
+                 self.data[i] = (key, value)  # Обновляем значение
+                 return
+         self.data.append((key, value))  # Добавляем новый элемент
+
+     def __getitem__(self, key):
+         for k, v in self.data:
+             if k == key:
+                 return v  # Возвращаем значение, если ключ найден
+         raise KeyError(f"Key {key} not found.")
+
+     def __delitem__(self, key):
+         for i, (k, v) in enumerate(self.data):
+             if k == key:
+                 del self.data[i]  # Удаляем элемент с данным ключом
+                 return
+         raise KeyError(f"Key {key} not found.")
+
+     def __contains__(self, key):
+         return any(k == key for k, v in self.data)  # Проверяем наличие ключа
+
+     def __len__(self):
+         return len(self.data)  # Возвращаем количество элементов в словаре
+
+     def __iter__(self):
+         return (k for k, v in self.data)  # Итерирование по ключам
+
+     def items(self):
+         return self.data.copy()  # Возвращаем все пары (ключ, значение)
+
+     def keys(self):
+         return [k for k, v in self.data]  # Возвращаем список ключей
+
+     def values(self):
+         return [v for k, v in self.data]  # Возвращаем список значений
+
+
+ # Пример использования
+ my_dict = MyDict()
+ my_dict['apple'] = 1
+ my_dict['banana'] = 2
+
+ print(my_dict['apple'])     # Вывод: 1
+ print('banana' in my_dict)  # Вывод: True
+ print(len(my_dict))         # Вывод: 2
+
+ my_dict['apple'] = 3
+ print(my_dict['apple'])     # Вывод: 3
+
+ my_dict['cherry'] = 5
+ print(my_dict.items())      # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
+
+ del my_dict['banana']
+ print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
 ________________________________________________________________________________________________________________________
 
  Задачи с собеседования  X5
@@ -232,12 +321,12 @@ ________________________________________________________________________________
  должны разгладиться в один результирующий список'''
 
 
-                                                                # Тоже самое
+ # Тоже самое  extend                                           # Тоже самое  +=
  def flatten(*args):                                            def flatten(*args):
      res = []                                                       res = []
      for i in args:                                                 for i in args:
          if not isinstance(i, list):                                    if isinstance(i, list):
-             res.append(i)                                                  res.extend(flatten(*i))
+             res.append(i)                                                  res += flatten(*i)
          else:                                                          else:
              res.extend(flatten(*i))                                        res.append(i)
      return res                                                     return res
@@ -356,10 +445,7 @@ ________________________________________________________________________________
  print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
 ________________________________________________________________________________________________________________________
- --- END  Задачи с Собеседования ---
-________________________________________________________________________________________________________________________
-
- # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars
+ # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
 
  # Первый Вариант
  def is_correct_brackets(text):
@@ -444,6 +530,10 @@ ________________________________________________________________________________
  print(is_valid("([)]"))  # False
  print(is_valid("{[]}"))  # True
 ________________________________________________________________________________________________________________________
+ --- END  Задачи с Собеседования ---
+________________________________________________________________________________________________________________________
+
+
 
  # Задача "Расстановка скобок в коде"
  def validBraces(string):

@@ -84,11 +84,27 @@ print(f'asizeof   frozenset:  {asizeof.asizeof(fz_set)} байт')  # -> asizeof
 
                             -- Примеры Строки/Числа str vs int --                              <-----
 my_string = "Hello, World!"
+
 print(f'getsizeof str:  {sys.getsizeof(my_string)} байт')    # -> getsizeof str:  62 байт
 print(f'asizeof   str:  {asizeof.asizeof(my_string)} байт')  # -> asizeof   str:  64 байт
 
 
-my_int = 10000
+my_int = 10000000000000000000000000000
+
+print(f'getsizeof int:  {sys.getsizeof(my_int)} байт')       # -> getsizeof int:  40 байт
+print(f'asizeof   int:  {asizeof.asizeof(my_int)} байт')     # -> asizeof   int:  40 байт
+
+
+
+# Чем больше строка тем больше размер так же и с другими обьектами
+
+my_string = "a"
+
+print(f'getsizeof str:  {sys.getsizeof(my_string)} байт')    # -> getsizeof str:  50 байт
+print(f'asizeof   str:  {asizeof.asizeof(my_string)} байт')  # -> asizeof   str:  56 байт
+
+
+my_int = 1
 
 print(f'getsizeof int:  {sys.getsizeof(my_int)} байт')       # -> getsizeof int:  28 байт
 print(f'asizeof   int:  {asizeof.asizeof(my_int)} байт')     # -> asizeof   int:  32 байт
@@ -119,8 +135,208 @@ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asi
 
 
 
+# Замеры ПУСТЫХ обьектом встроенных Python  ПРОСТО ПОСМОТРЕТЬ!!!
+"""
+ --- Замеры ПУСТЫХ обьектом встроенных Python ---
+ 
+                            -- Примеры list vs [] vs deque() vs heapq --                       <-----
+                            
+my_list = list()
+print(f'getsizeof list():      {sys.getsizeof(my_list)} байт')    # -> getsizeof list():       56 байт
+print(f'asizeof   list():      {asizeof.asizeof(my_list)} байт')  # -> asizeof   list():       56 байт
+ 
+my_list = []
+print(f'getsizeof []:          {sys.getsizeof(my_list)} байт')    # -> getsizeof []:           56 байт
+print(f'asizeof   []:          {asizeof.asizeof(my_list)} байт')  # -> asizeof   []:           56 байт
 
-# type - это тип всех типов, для которых не указан явно иной метакласс  ПРОСТО ПОСМОТРЕТЬ!!!
+
+from collections import deque
+
+my_deque = deque()
+print(f'getsizeof deque():     {sys.getsizeof(my_deque)} байт')    # -> getsizeof deque():     760 байт
+print(f'asizeof   deque():     {asizeof.asizeof(my_deque)} байт')  # -> asizeof   deque():     760 байт
+
+
+import heapq
+
+my_heapq = []
+heapq.heapify(my_heapq)
+print(f'getsizeof heapq:       {sys.getsizeof(my_heapq)} байт')    # -> getsizeof heapq:       56 байт
+print(f'asizeof   heapq:       {asizeof.asizeof(my_heapq)} байт')  # -> asizeof   heapq:       56 байт
+
+
+
+
+
+                            -- Примеры set() vs frozenset() --                                 <-----
+
+my_set = set()
+print(f'getsizeof set():       {sys.getsizeof(my_set)} байт')    # -> getsizeof set():         216 байт
+print(f'asizeof   set():       {asizeof.asizeof(my_set)} байт')  # -> asizeof   set():         216 байт
+  
+my_set = frozenset()
+print(f'getsizeof frozenset(): {sys.getsizeof(my_set)} байт')    # -> getsizeof frozenset():   216 байт
+print(f'asizeof   frozenset(): {asizeof.asizeof(my_set)} байт')  # -> asizeof   frozenset():   216 байт
+
+
+
+
+
+                            -- Примеры tuple() vs namedtuple() --                               <-----
+my_tuple = tuple()
+print(f'getsizeof tuple():    {sys.getsizeof(my_tuple)} байт')    # -> getsizeof tuple():       40 байт
+print(f'asizeof   tuple():    {asizeof.asizeof(my_tuple)} байт')  # -> asizeof   tuple():       40 байт
+
+
+from collections import namedtuple
+
+my_tuple = namedtuple('C', '')
+nt_tuple = my_tuple()
+print(f'getsizeof namedtuple: {sys.getsizeof(nt_tuple)} байт')    # -> getsizeof namedtuple:    40 байт
+print(f'asizeof   namedtuple: {asizeof.asizeof(nt_tuple)} байт')  # -> asizeof   namedtuple:    40 байт
+
+
+
+
+
+                            -- Примеры dict() vs {} vs OrderedDict() vs defaultdict() vs ChainMap() --        <-----
+my_dict = dict()
+print(f'getsizeof dict():       {sys.getsizeof(my_dict)} байт')      # -> getsizeof dict():       64 байт
+print(f'asizeof   dict():       {asizeof.asizeof(my_dict)} байт')    # -> asizeof   dict():       64 байт
+
+
+my_dict = {}
+print(f'getsizeof {{}}:         {sys.getsizeof(my_dict)} байт')      # -> getsizeof {}:           64 байт
+print(f'asizeof   {{}}:         {asizeof.asizeof(my_dict)} байт')    # -> asizeof   {}:           64 байт
+
+
+from collections import OrderedDict
+ 
+my_OrDt = OrderedDict()
+print(f'getsizeof OrderedDict:  {sys.getsizeof(my_OrDt)} байт')      # -> getsizeof OrderedDict:  128 байт
+print(f'asizeof   OrderedDict:  {asizeof.asizeof(my_OrDt)} байт')    # -> asizeof   OrderedDict:  128 байт
+
+
+from collections import defaultdict
+
+my_defa = defaultdict(int)     # Все будут весить ОДИНАКОВО!!!
+my_defa = defaultdict(str)     # Все будут весить ОДИНАКОВО!!!
+my_defa = defaultdict(list)    # Все будут весить ОДИНАКОВО!!!
+my_defa = defaultdict(set)     # Все будут весить ОДИНАКОВО!!!
+my_defa = defaultdict(dict)    # Все будут весить ОДИНАКОВО!!!
+my_defa = defaultdict()        # Все будут весить ОДИНАКОВО!!!
+print(f'getsizeof defaultdict():  {sys.getsizeof(my_defa)} байт')    # -> getsizeof defaultdict():  72 байт
+print(f'asizeof   defaultdict():  {asizeof.asizeof(my_defa)} байт')  # -> asizeof   defaultdict():  72 байт
+
+
+from collections import ChainMap
+ 
+my_chain = ChainMap()
+print(f'getsizeof ChainMap():  {sys.getsizeof(my_chain)} байт')    # -> ggetsizeof ChainMap():  56 байт
+print(f'asizeof   ChainMap():  {asizeof.asizeof(my_chain)} байт')  # -> aasizeof   ChainMap():  536 байт
+
+
+
+
+
+                            -- Сравнение slots vs no_slots --                                  <-----
+                            -- @dataclass(slots=True)  vs  @dataclass() --
+                            
+from dataclasses import dataclass
+
+@dataclass(slots=True)
+class WithSlots:pass
+
+with_slots = WithSlots()
+print(f'getsizeof WithSlots:  {sys.getsizeof(with_slots)} байт')    # -> getsizeof WithSlots:  32 байт
+print(f'asizeof   WithSlots:  {asizeof.asizeof(with_slots)} байт')  # -> asizeof   WithSlots:  32 байт
+
+
+@dataclass
+class NoSlots:pass
+
+no_slots = NoSlots()
+print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
+print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    352 байт
+
+
+
+
+
+                            -- Обычные классы По размеру тоже самое что @dataclass(slots=True)  vs  @dataclass() --
+                            -- Сравнение slots vs no_slots --
+                            
+class WithSlots:__slots__ = ()
+
+with_slots = WithSlots()
+print(f'getsizeof WithSlots:  {sys.getsizeof(with_slots)} байт')    # -> getsizeof WithSlots:  32 байт
+print(f'asizeof   WithSlots:  {asizeof.asizeof(with_slots)} байт')  # -> asizeof   WithSlots:  32 байт
+
+
+class NoSlots:pass
+
+no_slots = NoSlots()
+print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
+print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    352 байт                            
+
+
+
+
+
+                            -- Примеры int() float() complex() True False str() range(0) bytes() bytearray() --  <-----
+
+my_int = int()
+print(f'getsizeof int():  {sys.getsizeof(my_int)} байт')            # -> getsizeof int():      28 байт
+print(f'asizeof   int():  {asizeof.asizeof(my_int)} байт')          # -> asizeof   int():      32 байт
+
+
+my_float = float()
+print(f'getsizeof float():  {sys.getsizeof(my_float)} байт')        # -> getsizeof float():    24 байт
+print(f'asizeof   float():  {asizeof.asizeof(my_float)} байт')      # -> asizeof   float():    24 байт
+
+
+my_comp = complex()
+print(f'getsizeof complex():  {sys.getsizeof(my_comp)} байт')       # -> getsizeof complex():  32 байт
+print(f'asizeof   complex():  {asizeof.asizeof(my_comp)} байт')     # -> asizeof   complex():  32 байт
+
+
+# True
+print(f'getsizeof True:  {sys.getsizeof(True)} байт')               # -> getsizeof True:       28 байт
+print(f'asizeof   True:  {asizeof.asizeof(True)} байт')             # -> asizeof   True:       32 байт
+
+
+# False
+print(f'getsizeof False:  {sys.getsizeof(False)} байт')             # -> getsizeof False:      28 байт
+print(f'asizeof   False:  {asizeof.asizeof(False)} байт')           # -> asizeof   False:      32 байт
+
+
+my_str = str()
+print(f'getsizeof str():  {sys.getsizeof(my_str)} байт')            # -> getsizeof str():      49 байт
+print(f'asizeof   str():  {asizeof.asizeof(my_str)} байт')          # -> asizeof   str():      56 байт
+
+
+my_range = range(0)
+print(f'getsizeof range(0):  {sys.getsizeof(my_range)} байт')       # -> getsizeof range(0):   48 байт
+print(f'asizeof   range(0):  {asizeof.asizeof(my_range)} байт')     # -> asizeof   range(0):   48 байт
+
+
+my_bytes = bytes()
+print(f'getsizeof bytes():  {sys.getsizeof(my_bytes)} байт')        # -> getsizeof bytes():    33 байт
+print(f'asizeof   bytes():  {asizeof.asizeof(my_bytes)} байт')      # -> asizeof   bytes():    40 байт
+
+
+my_b_arr = bytearray()
+print(f'getsizeof bytearray():  {sys.getsizeof(my_b_arr)} байт')    # -> getsizeof bytearray():  56 байт
+print(f'asizeof   bytearray():  {asizeof.asizeof(my_b_arr)} байт')  # -> asizeof   bytearray():  56 байт
+"""
+
+
+
+
+
+
+
+# type - это тип ВСЕХ типов, для которых НЕ указан явно иной метакласс  ПРОСТО ПОСМОТРЕТЬ!!!
 """
 print(type(type))    # -> <class 'type'>
 print(type(object))  # -> <class 'type'>
@@ -140,6 +356,7 @@ print(type(Bar))  # -> <class 'type'>
 
 
 # Напишите Релизацию своего класса имитируещего словарь  через []    Создание собственного класса для реализации словаря
+
 
 
 
@@ -260,7 +477,6 @@ print(c._get(2))  # -> KeyError
 
 
 
-
 # Обход в Обратном порядке в цикле for
 """
 # Обход в Обратном порядке в цикле for
@@ -271,7 +487,6 @@ for i in range(10, -1, -1):
 
 
 # Используйте dis - Библиотека работы с Байт-кодом   import dis
-
 
 
 
@@ -303,6 +518,8 @@ matrix = [
     [5, 6, 7, 8],
     [9, 10, 11, 12],
 ]
+
+
 
 
 
@@ -360,6 +577,8 @@ n = 10
 
 
 
+
+
 s = "Hello"
 # print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
 
@@ -369,6 +588,7 @@ s = "Hello"
 
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
+
 
 
 
@@ -468,6 +688,8 @@ print(data['name'])  # -> Alice
 
 
 
+
+
 # Пример разбора JSON из файла
 # json.load()` для разбора JSON-данных из файла
 # Предположим, у вас есть файл 'data.json' с содержимым:
@@ -499,6 +721,9 @@ data = {
     "age": 30,
     "city": "New York"
 }
+
+
+
 
 
 
@@ -537,6 +762,8 @@ data = {
 
 
 
+
+
 # Пример с 'json.dumps()' с отступами
 # `json.dumps()` сериализует объект Python и возвращает его в виде строкового представления JSON.
 
@@ -560,7 +787,6 @@ print(json_string)
 # Перепиши Ниже вариант match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 
 cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
-
 
 
 
@@ -632,6 +858,9 @@ print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 
 head = [0, 3, 1, 0, 4, 5, 2, 0]
+
+
+
 
 
 
@@ -709,7 +938,6 @@ text = 'ABC'
 
 
 
-
 # По сути это if...else в Регулярках
 """
 # Если находим A значит ищем B иначе ищем C     1 - Номер группы
@@ -729,6 +957,11 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте re.compile
 
 text = 'ABC123---'
+
+
+
+
+
 
 
 
@@ -753,6 +986,11 @@ text = 'ABC 123'
 
 
 
+
+
+
+
+
 # Замена по индексу группы: '\1' '\2'    МЕЖДУ/ПЕРЕД/ПОСЛЕ групп можно использовать любые знаки
 """
 re.sub(r'(\w+)\s*(\d+)', r'+__\2  \1 !!+',  'ABC 123')                            # -> +__123  ABC !!+   # Поменяли местами
@@ -765,7 +1003,6 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 # Напишите или Перепишите Обычные/Именованные группы
 
 text = r'ggg wp'
-
 
 
 
@@ -799,6 +1036,9 @@ text = "abc123"
 
 
 
+
+
+
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
@@ -809,7 +1049,6 @@ re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захва
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
-
 
 
 
@@ -845,6 +1084,9 @@ b_set = {"b", 3}
 
 
 
+
+
+
 # Ответ Обновление Словаря/Множества
 """
 # Обновление словаря
@@ -870,6 +1112,7 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
+
 
 
 
@@ -928,6 +1171,8 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
+
+
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 """
 # list                               # set                                   # dict
@@ -966,6 +1211,8 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 # Напишите Итератор  range(10)
+
+
 
 
 
@@ -1032,7 +1279,6 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 
-
 # yield from  - это просто сокращенная форма for item in iterable: yield item
 """
 def gen_list1(iterable):
@@ -1079,6 +1325,9 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
+
+
 
 
 
@@ -1160,15 +1409,11 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 
-
-
-
-
 # Ответ eval vs exec   compile   Можно просто посмотреть
 """
 Интересный пример
-exec("print(a)", globals(), {'aaaa': 42})  # -> 42
-eval("print(a)", globals(), {'aaaa': 42})  # -> 42
+exec("print(aaaa)", globals(), {'aaaa': 42})  # -> 42
+eval("print(aaaa)", globals(), {'aaaa': 42})  # -> 42
 
 
 a = 5
@@ -1229,6 +1474,8 @@ eval(compiled_eval)  # -> Hello
 
 
 
+
+
 # Замыкание
 """
 def names():
@@ -1260,6 +1507,7 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
+
 # Замыкание lambda
 """
 def pow_(base):
@@ -1278,6 +1526,7 @@ print(pow_(2)(3))  # -> 9
 
 
 # Напишите лямбда-функцию с присвоением переменной и без. Сразу вызов
+
 
 
 
@@ -1321,7 +1570,12 @@ ints = list(range(20))
 
 
 
+
+
+
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
+
+
 
 
 
@@ -1396,6 +1650,11 @@ foo()
 
 
 
+
+
+
+
+
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1417,7 +1676,6 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
-
 
 
 
@@ -1447,11 +1705,17 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 # Использовать heapq   Написать    MaxHeap/MinHeap
 
+
 minheap = [20, 10, 1, 2]
 
 
 
+
+
+
 maxheap = [20, 10, 1, 2]
+
+
 
 
 
@@ -1503,6 +1767,9 @@ print(heapq.heappop(res))             # -> -20
 
 
 
+
+
+
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -1524,8 +1791,6 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
-
-
 
 
 
@@ -1575,6 +1840,8 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
+
+
 # __slots__ в dataclasses
 """
 from dataclasses import dataclass
@@ -1591,6 +1858,10 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 
 # Напишите Singleton
+
+
+
+
 
 
 
@@ -1635,6 +1906,8 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 
 
 # Напишите Monostate Обычный class/dataclass
+
+
 
 
 
@@ -1771,6 +2044,8 @@ class New:
 
 
 
+
+
 # Использовать setattr/delattr/hasattr/getattr
 
 # getattr(object, name)
@@ -1802,8 +2077,6 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
-
-
 
 
 
@@ -1910,6 +2183,8 @@ second = {4: 4, 5: 5}
 
 
 
+
+
 # Ответы ChainMap
 """
 from collections import ChainMap
@@ -1930,6 +2205,10 @@ print(chain)  # -> ChainMap({1: 200, 2: 2, 3: 3}, {4: 4, 5: 5})
 # Использовать Counter
 
 text = 'hello'
+
+
+
+
 
 
 
@@ -2075,6 +2354,7 @@ print(Point(**d))       # -> Point(x=11, y=22)
 
 
 
+
 # Ответы deque
 """
 from collections import deque
@@ -2095,7 +2375,7 @@ a_deque.appendleft(2)    # -> deque([1])
 print(a_deque)           # -> deque([2, 1])
 
 
-# deque НЕ поддерживает pop(1)/popleft(1) с аргументом(Индексом)
+# deque НЕ поддерживает pop(1)/popleft(1) с аргументом(Индексом)                            <-----   
 
 b_list = list([1, 2])
 b_list.pop(0)
@@ -2115,6 +2395,9 @@ b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
 
 # itertools.count(start=0, step=1)
 # Использовать count
+
+
+
 
 
 
@@ -2185,7 +2468,6 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 
 
-
 # Ответы repeat
 """
 from itertools import repeat
@@ -2240,8 +2522,6 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
-
-
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2282,6 +2562,7 @@ b, c, d = [1, 2], [1, 2], [1, 2]
 
 
 
+
 # Ответы chain
 """
 from itertools import chain
@@ -2308,6 +2589,8 @@ print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
 # Использовать chain.from_iterable
 
 a = ['foo', ['one', 'two', [1, 2]]]
+
+
 
 
 
@@ -2343,6 +2626,9 @@ print([*chain(lst)])                    # -> ['foo', ['one', 'two', [1, 2]]]
 
 
 
+
+
+
 # Ответы compress
 """
 from itertools import compress
@@ -2356,6 +2642,7 @@ print([*compress('ABCDEF', [1,0,1,0,1,1])])     # -> ['A', 'C', 'E', 'F']
 # Использовать dropwhile
 
 a = [1, 4, 6, 4, 1]
+
 
 
 
@@ -2383,6 +2670,7 @@ print(list(dropwhile(trigger_to_five, lst)))  # -> [1, 2, 3, 10]
 
 
 a = [1, 4, 6, 4, 1]
+
 
 
 
@@ -2454,7 +2742,7 @@ print(list(islice_extended(a_gen, None, None, -1)))  # -> [9, 8, 7, 6, 5, 4, 3, 
 # print(list(islice(a_gen, None, None, -1)))  # -> ValueError: Step for islice() must be a positive integer or None.
 
 
-# Используем срезов slice()
+# Используем срезы slice()
 print(list([1, 2, 3][slice(None, 2)]))         # -> [1, 2]
 print(list([1, 2, 3][slice(None, None, -1)]))  # -> [3, 2, 1]          # Только 3 параметра!!!   <-----
 """
@@ -2489,6 +2777,7 @@ print(list(result))  # -> [(1, 2), (2, 3)]
 # Использовать starmap
 
 a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]
+
 
 
 
@@ -2563,6 +2852,7 @@ b = [1, 2, 3]
 
 
 
+
 # Ответы zip_longest
 """
 from itertools import zip_longest
@@ -2601,6 +2891,7 @@ res = 'AAAABBBCCDAABBB'
 
 
 
+
 # Пример from itertools import groupby
 """
 from itertools import groupby
@@ -2618,6 +2909,9 @@ from itertools import groupby
 # Использовать product
 
 a = [1, 2]
+
+
+
 
 
 
@@ -2661,6 +2955,7 @@ a = 'XYZ'
 
 
 
+
 # Ответы permutations
 """
 from itertools import permutations
@@ -2679,7 +2974,6 @@ print(list(itertools.permutations('XYZ')))
 # Использовать combinations
 
 a = 'XYZ'
-
 
 
 
@@ -2731,7 +3025,6 @@ a = 'XYZ'
 
 
 
-
 # Ответ
 #  --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
 """
@@ -2775,6 +3068,8 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 # @functools.cache(user_function)
 # Использовать cache
+
+
 
 
 
@@ -2847,7 +3142,6 @@ def multiply(x, y):
 
 
 
-
 # partial функция from functools import partial
 """
 from functools import partial
@@ -2875,6 +3169,9 @@ print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required pos
 
 # @functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
+
+
+
 
 
 
@@ -2913,9 +3210,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
-
-
-
 
 
 
@@ -2992,6 +3286,7 @@ print(plus(2, 2))
 
 
 
+
 # Ответ 1.2)
 # Декорирование класса в Python:
 
@@ -3011,6 +3306,10 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 # 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
+
+
+
+
 
 
 
@@ -3106,6 +3405,7 @@ mm1 = MyDate(1)
 
 
 
+
 # Ответ 2)
 """
 def safe_decorator(func):
@@ -3186,6 +3486,7 @@ if __name__ == '__main__':
 
 
 
+
 # Ответ 3)
 """
 def fibonacci_generator(a, b):
@@ -3200,6 +3501,8 @@ for _ in range(10):
 """
 
 # 4) Получить из файла текст в юникоде.
+
+
 
 
 
@@ -3230,6 +3533,7 @@ print(текст)
 
 
 
+
 # Ответ 5)
 """
 def fib(a=1, b=2):
@@ -3246,6 +3550,7 @@ fib_gen = fib()
 
 
 # Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
+
 
 
 
@@ -3309,6 +3614,8 @@ print(c.fff())  # -> None
 
 
 # Написать Асинхронный код
+
+
 
 
 
@@ -3397,6 +3704,8 @@ if __name__ == '__main__':                                       if __name__ == 
 
 
 
+
+
 # Ответ  Как запустить что-то в потоке и вывести результат?  from concurrent.futures import ThreadPoolExecutor
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -3465,7 +3774,6 @@ if __name__ == "__main__":
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -3567,6 +3875,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -3590,6 +3899,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # Написать Сортировку выбором (Selection Sort)
+
 
 
 
@@ -3664,7 +3974,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -3686,6 +3995,9 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
+
+
+
 
 
 
@@ -3738,6 +4050,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 # --- Django  Чуть-чуть ---
 
 # Напишите raw-запрос
+
 
 
 
@@ -3845,8 +4158,6 @@ class Person(models.Model):
 
 
 
-
-
 # Ответ 1. Вывести список людей и городов, где они живут:
 """
 people_with_cities = Person.objects.select_related('city').values('name', 'city__name')
@@ -3859,6 +4170,10 @@ for person in people_with_cities:
 # 2. Вывести всех людей, живущих в городе N:
 
 city_name = 'N'  # укажите название города
+
+
+
+
 
 
 
@@ -3889,6 +4204,7 @@ for person in people_in_city_n:
 
 
 
+
 # Ответ 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
 """
 from django.db.models import Count
@@ -3904,6 +4220,7 @@ for city in top_cities:
 
 
 # Напиши SQL Задачу с собеседования ---
+
 
 
 
@@ -3947,6 +4264,180 @@ left join products as p on u.id = p.id
 
 # --- Задачи с Собеседования Python ---
 
+
+
+# Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
+
+
+# Написать 3 варианта
+def is_correct_brackets(text):
+    pass
+
+
+
+# print(is_correct_brackets('(((())))'))  # True
+# print(is_correct_brackets('(((())'))  # False
+# print(is_correct_brackets('())))'))  # False
+# print(is_correct_brackets('((((){}[]{}[])))'))  # True
+# print(is_correct_brackets('(){}[]{}[])))'))  # False
+# print(is_correct_brackets('(){}[]{}[]'))  # True
+
+
+
+
+
+
+
+# Ответ Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
+"""
+# Первый Вариант
+def is_correct_brackets(text):
+    while '()' in text or '[]' in text or '{}' in text:
+        text = text.replace('()', '')
+        text = text.replace('[]', '')
+        text = text.replace('{}', '')
+
+    # Возвращаем True, если text с пустой строкой
+    return not text
+
+
+print(is_correct_brackets('(((())))'))  # True
+print(is_correct_brackets('(((())'))  # False
+print(is_correct_brackets('())))'))  # False
+print(is_correct_brackets('((((){}[]{}[])))'))  # True
+print(is_correct_brackets('(){}[]{}[])))'))  # False
+print(is_correct_brackets('(){}[]{}[]'))  # True
+
+
+# Второй Вариант
+def validBraces(string):
+    braces = {"(": ")", "[": "]", "{": "}"}
+    stack = []
+    for character in string:
+        if character in braces.keys():
+            stack.append(character)
+        else:
+            if len(stack) == 0 or braces[stack.pop()] != character:
+                return False
+    return len(stack) == 0
+
+
+print(validBraces('(((())))'))  # True
+print(validBraces('(((())'))  # False
+print(validBraces('())))'))  # False
+print(validBraces('((((){}[]{}[])))'))  # True
+print(validBraces('(){}[]{}[])))'))  # False
+print(validBraces('(){}[]{}[]'))  # True
+
+
+# Третий Вариант
+def validBraces(string):
+    for _ in string:
+        string = string.replace('{}', '').replace('()', '').replace('[]', '')
+    return not string
+
+
+print(validBraces('(((())))'))  # True
+print(validBraces('(((())'))  # False
+print(validBraces('())))'))  # False
+print(validBraces('((((){}[]{}[])))'))  # True
+print(validBraces('(){}[]{}[])))'))  # False
+print(validBraces('(){}[]{}[]'))  # True
+
+
+# Ответ ChatGPT
+def is_valid(s: str) -> bool:
+    # Создаем стек для хранения открывающих скобок
+    stack = []
+    # Словарь для сопоставления открывающих и закрывающих скобок
+    mapping = {')': '(', '}': '{', ']': '['}
+
+    for char in s:
+        # Если символ — закрывающая скобка
+        if char in mapping:
+            # Извлекаем верхнюю скобку из стека, если стек не пуст
+            # В противном случае используем символ-знак
+            top_element = stack.pop() if stack else '#'
+            # Проверяем, соответствует ли открывающая скобка закрывающей
+            if mapping[char] != top_element:
+                return False
+        else:
+            # Если это открывающая скобка, добавляем её в стек
+            stack.append(char)
+
+    # Если стек пуст, значит все скобки корректны
+    return not stack
+
+
+# Примеры использования
+print(is_valid("()"))  # True
+print(is_valid("()[]{}"))  # True
+print(is_valid("(]"))  # False
+print(is_valid("([)]"))  # False
+print(is_valid("{[]}"))  # True
+________________________________________________________________________________________________________________________
+"""
+
+
+
+# Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
+
+
+# Написать 2 варианта
+def clean_duplicates(lst):
+    pass
+
+
+# print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+
+
+
+
+
+# Ответ Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
+"""
+# Первый вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    res = []
+    for i in lst:
+        if i not in res:
+            res.append(i)
+    return res
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+# Второй вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    res = []
+    [res.append(i) for i in lst if i not in res]
+    return res
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+# Третий вариант
+def clean_duplicates(lst: list[dict]) -> list[dict]:
+    return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+
+
+# Интересный вариант
+def clean_duplicates(lst):
+    res = set()
+    for i in lst:
+        res.add(str(i))
+    return [eval(i) for i in res]
+
+print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
+________________________________________________________________________________________________________________________
+"""
+
+
+
 # Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
 
 xs = [
@@ -3956,6 +4447,7 @@ xs = [
     '3_d.txt',
     '1_e.txt',
 ]
+
 
 
 
@@ -3990,52 +4482,25 @@ print(sorted(xs, key=sub_fun))
 
 # Через split() хз как улучшить
 print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
+
+
+# Интересный вариат
+def my_func(x):
+    return -int(x.split('_')[0]), x.split('_')[1]
+
+
+def get_sorted(lst):
+    return sorted(lst, key=my_func)
+
+
+print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
 ________________________________________________________________________________________________________________________
 """
 
 
 
-# Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
 
-def clean_duplicates(lst):
-    pass
-
-
-
-# print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-
-
-
-
-
-
-# Ответ Создать функцию которая убирает дубликаты           Задача с Live Coding Собеседования
-"""
-# Первый вариант
-def clean_duplicates(lst: list[dict]) -> list[dict]:
-    res = []
-    for i in lst:
-        if i not in res:
-            res.append(i)
-    return res
-
-print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-
-# Второй вариант
-def clean_duplicates(lst: list[dict]) -> list[dict]:
-    res = []
-    [res.append(i) for i in lst if i not in res]
-    return res
-
-print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-
-# Третий вариант
-def clean_duplicates(lst: list[dict]) -> list[dict]:
-    return list([eval(i) for i in set(tuple([str(i) for i in lst]))])
-
-print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
-________________________________________________________________________________________________________________________
-"""
 
 
 
@@ -4044,6 +4509,8 @@ ________________________________________________________________________________
 lst = [2, 7, 9, 10, 11]
 target = 9
 
+
+# Написать 2 варианта
 def twoSum(nums, target):
     pass
 
@@ -4136,7 +4603,7 @@ ________________________________________________________________________________
 
 
 
-# Релизация своего класса имитируещего СЛОВАРЬ
+# Релизация своего класса имитируещего СЛОВАРЬ   ML
 
 
 
@@ -4151,8 +4618,7 @@ ________________________________________________________________________________
 
 
 
-
-#  Ответ Релизация своего класса имитируещего СЛОВАРЬ
+#  Ответ Релизация своего класса имитируещего СЛОВАРЬ   ML
 """
 # Мой вариант на собеседовании ПРОСТОЙ
 
@@ -4258,6 +4724,7 @@ def sort_array(arr):
     pass
 
 
+
 numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 # print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 
@@ -4271,9 +4738,9 @@ numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 должны разгладиться в один результирующий список'''
 
 
+# Написать 2 варианта
 def flatten(*args):
     pass
-
 
 
 # print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
@@ -4322,12 +4789,12 @@ print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 должны разгладиться в один результирующий список'''
 
 
-                                                                # Тоже самое
+# Тоже самое  extend                                           # Тоже самое  +=
 def flatten(*args):                                            def flatten(*args):
     res = []                                                       res = []
     for i in args:                                                 for i in args:
         if not isinstance(i, list):                                    if isinstance(i, list):
-            res.append(i)                                                  res.extend(flatten(*i))
+            res.append(i)                                                  res += flatten(*i)
         else:                                                          else:
             res.extend(flatten(*i))                                        res.append(i)
     return res                                                     return res
@@ -4381,12 +4848,17 @@ ________________________________________________________________________________
 # Задача максимальная последовательность чисел  СБЕР
 
 
+# Написать 2 варианта
 def longest_sequence(arr):
     pass
 
 
+
 arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
 # print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+
 
 
 # Ответ Задача максимальная последовательность чисел  СБЕР

@@ -1234,6 +1234,199 @@ ________________________________________________________________________________
  print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    440 байт
 
 
+  --- Замеры ПУСТЫХ обьектом встроенных Python ---
+
+                             -- Примеры list vs [] vs deque() vs heapq --                       <-----
+
+ my_list = list()
+ print(f'getsizeof list():      {sys.getsizeof(my_list)} байт')    # -> getsizeof list():       56 байт
+ print(f'asizeof   list():      {asizeof.asizeof(my_list)} байт')  # -> asizeof   list():       56 байт
+
+ my_list = []
+ print(f'getsizeof []:          {sys.getsizeof(my_list)} байт')    # -> getsizeof []:           56 байт
+ print(f'asizeof   []:          {asizeof.asizeof(my_list)} байт')  # -> asizeof   []:           56 байт
+
+
+ from collections import deque
+
+ my_deque = deque()
+ print(f'getsizeof deque():     {sys.getsizeof(my_deque)} байт')    # -> getsizeof deque():     760 байт
+ print(f'asizeof   deque():     {asizeof.asizeof(my_deque)} байт')  # -> asizeof   deque():     760 байт
+
+
+ import heapq
+
+ my_heapq = []
+ heapq.heapify(my_heapq)
+ print(f'getsizeof heapq:       {sys.getsizeof(my_heapq)} байт')    # -> getsizeof heapq:       56 байт
+ print(f'asizeof   heapq:       {asizeof.asizeof(my_heapq)} байт')  # -> asizeof   heapq:       56 байт
+
+
+
+
+
+                             -- Примеры set() vs frozenset() --                                 <-----
+
+ my_set = set()
+ print(f'getsizeof set():       {sys.getsizeof(my_set)} байт')    # -> getsizeof set():         216 байт
+ print(f'asizeof   set():       {asizeof.asizeof(my_set)} байт')  # -> asizeof   set():         216 байт
+
+ my_set = frozenset()
+ print(f'getsizeof frozenset(): {sys.getsizeof(my_set)} байт')    # -> getsizeof frozenset():   216 байт
+ print(f'asizeof   frozenset(): {asizeof.asizeof(my_set)} байт')  # -> asizeof   frozenset():   216 байт
+
+
+
+
+
+                             -- Примеры tuple() vs namedtuple() --                               <-----
+ my_tuple = tuple()
+ print(f'getsizeof tuple():    {sys.getsizeof(my_tuple)} байт')    # -> getsizeof tuple():       40 байт
+ print(f'asizeof   tuple():    {asizeof.asizeof(my_tuple)} байт')  # -> asizeof   tuple():       40 байт
+
+
+ from collections import namedtuple
+
+ my_tuple = namedtuple('C', '')
+ nt_tuple = my_tuple()
+ print(f'getsizeof namedtuple: {sys.getsizeof(nt_tuple)} байт')    # -> getsizeof namedtuple:    40 байт
+ print(f'asizeof   namedtuple: {asizeof.asizeof(nt_tuple)} байт')  # -> asizeof   namedtuple:    40 байт
+
+
+
+
+
+                             -- Примеры dict() vs {} vs OrderedDict() vs defaultdict() vs ChainMap() --        <-----
+ my_dict = dict()
+ print(f'getsizeof dict():       {sys.getsizeof(my_dict)} байт')    # -> getsizeof dict():       64 байт
+ print(f'asizeof   dict():       {asizeof.asizeof(my_dict)} байт')  # -> asizeof   dict():       64 байт
+
+
+ my_dict = {}
+ print(f'getsizeof {{}}:         {sys.getsizeof(my_dict)} байт')    # -> getsizeof {}:           64 байт
+ print(f'asizeof   {{}}:         {asizeof.asizeof(my_dict)} байт')  # -> asizeof   {}:           64 байт
+
+
+ from collections import OrderedDict
+
+ my_OrDt = OrderedDict()
+ print(f'getsizeof OrderedDict:  {sys.getsizeof(my_OrDt)} байт')    # -> getsizeof OrderedDict:  128 байт
+ print(f'asizeof   OrderedDict:  {asizeof.asizeof(my_OrDt)} байт')  # -> asizeof   OrderedDict:  128 байт
+
+
+ from collections import defaultdict
+
+ my_defa = defaultdict(int)     # Все будут весить ОДИНАКОВО!!!
+ my_defa = defaultdict(str)     # Все будут весить ОДИНАКОВО!!!
+ my_defa = defaultdict(list)    # Все будут весить ОДИНАКОВО!!!
+ my_defa = defaultdict(set)     # Все будут весить ОДИНАКОВО!!!
+ my_defa = defaultdict(dict)    # Все будут весить ОДИНАКОВО!!!
+ my_defa = defaultdict()        # Все будут весить ОДИНАКОВО!!!
+ print(f'getsizeof defaultdict():  {sys.getsizeof(my_defa)} байт')    # -> getsizeof defaultdict():  72 байт
+ print(f'asizeof   defaultdict():  {asizeof.asizeof(my_defa)} байт')  # -> asizeof   defaultdict():  72 байт
+
+
+ from collections import ChainMap
+
+ my_chain = ChainMap()
+ print(f'getsizeof ChainMap():  {sys.getsizeof(my_chain)} байт')    # -> ggetsizeof ChainMap():  56 байт
+ print(f'asizeof   ChainMap():  {asizeof.asizeof(my_chain)} байт')  # -> aasizeof   ChainMap():  536 байт
+
+
+
+
+
+                             -- Сравнение slots vs no_slots --                                  <-----
+                             -- @dataclass(slots=True)  vs  @dataclass() --
+
+ from dataclasses import dataclass
+
+ @dataclass(slots=True)
+ class WithSlots:pass
+
+ with_slots = WithSlots()
+ print(f'getsizeof WithSlots:  {sys.getsizeof(with_slots)} байт')    # -> getsizeof WithSlots:  32 байт
+ print(f'asizeof   WithSlots:  {asizeof.asizeof(with_slots)} байт')  # -> asizeof   WithSlots:  32 байт
+
+
+ @dataclass
+ class NoSlots:pass
+
+ no_slots = NoSlots()
+ print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
+ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    352 байт
+
+
+
+
+
+                             -- Обычные классы По размеру тоже самое что @dataclass(slots=True)  vs  @dataclass() --
+                             -- Сравнение slots vs no_slots --
+
+ class WithSlots:__slots__ = ()
+
+ with_slots = WithSlots()
+ print(f'getsizeof WithSlots:  {sys.getsizeof(with_slots)} байт')    # -> getsizeof WithSlots:  32 байт
+ print(f'asizeof   WithSlots:  {asizeof.asizeof(with_slots)} байт')  # -> asizeof   WithSlots:  32 байт
+
+
+ class NoSlots:pass
+
+ no_slots = NoSlots()
+ print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
+ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    352 байт
+
+
+
+
+
+                             -- Примеры int() float() complex() True False str() range(0) bytes() bytearray() --  <-----
+
+ my_int = int()
+ print(f'getsizeof int():  {sys.getsizeof(my_int)} байт')            # -> getsizeof int():      28 байт
+ print(f'asizeof   int():  {asizeof.asizeof(my_int)} байт')          # -> asizeof   int():      32 байт
+
+
+ my_float = float()
+ print(f'getsizeof float():  {sys.getsizeof(my_float)} байт')        # -> getsizeof float():    24 байт
+ print(f'asizeof   float():  {asizeof.asizeof(my_float)} байт')      # -> asizeof   float():    24 байт
+
+
+ my_comp = complex()
+ print(f'getsizeof complex():  {sys.getsizeof(my_comp)} байт')       # -> getsizeof complex():  32 байт
+ print(f'asizeof   complex():  {asizeof.asizeof(my_comp)} байт')     # -> asizeof   complex():  32 байт
+
+
+ # True
+ print(f'getsizeof True:  {sys.getsizeof(True)} байт')               # -> getsizeof True:       28 байт
+ print(f'asizeof   True:  {asizeof.asizeof(True)} байт')             # -> asizeof   True:       32 байт
+
+
+ # False
+ print(f'getsizeof False:  {sys.getsizeof(False)} байт')             # -> getsizeof False:      28 байт
+ print(f'asizeof   False:  {asizeof.asizeof(False)} байт')           # -> asizeof   False:      32 байт
+
+
+ my_str = str()
+ print(f'getsizeof str():  {sys.getsizeof(my_str)} байт')            # -> getsizeof str():      49 байт
+ print(f'asizeof   str():  {asizeof.asizeof(my_str)} байт')          # -> asizeof   str():      56 байт
+
+
+ my_range = range(0)
+ print(f'getsizeof range(0):  {sys.getsizeof(my_range)} байт')       # -> getsizeof range(0):   48 байт
+ print(f'asizeof   range(0):  {asizeof.asizeof(my_range)} байт')     # -> asizeof   range(0):   48 байт
+
+
+ my_bytes = bytes()
+ print(f'getsizeof bytes():  {sys.getsizeof(my_bytes)} байт')        # -> getsizeof bytes():    33 байт
+ print(f'asizeof   bytes():  {asizeof.asizeof(my_bytes)} байт')      # -> asizeof   bytes():    40 байт
+
+
+ my_b_arr = bytearray()
+ print(f'getsizeof bytearray():  {sys.getsizeof(my_b_arr)} байт')    # -> getsizeof bytearray():  56 байт
+ print(f'asizeof   bytearray():  {asizeof.asizeof(my_b_arr)} байт')  # -> asizeof   bytearray():  56 байт
+
+
 
 
  Протокол итератора (iterator protocol) - объекты итератора должны поддерживать  iterator.__iter__()  и iterator.__next__()
