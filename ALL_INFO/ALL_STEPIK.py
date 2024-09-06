@@ -103,10 +103,10 @@ ________________________________________________________________________________
  print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
 
- # Интересный вариант
- def clean_duplicates(lst):
-     res = set()
-     for i in lst:
+ # Интересный вариант                                # Тоже самое
+ def clean_duplicates(lst):                          def clean_duplicates(lst):
+     res = set()                                         res = {str(i) for i in lst}
+     for i in lst:                                       return [eval(i) for i in res]
          res.add(str(i))
      return [eval(i) for i in res]
 
@@ -381,19 +381,19 @@ ________________________________________________________________________________
 ________________________________________________________________________________________________________________________
  Задача максимальная последовательность чисел  СБЕР
 
- # Мой вариант
- def longest_sequence(arr):
-     if not arr:
-         return []
-     res = []
-     for i in range(len(arr)-1):
-         if arr[i] < arr[i+1]:
-             res.append(arr[i])
-         else:
-             res.append(arr[i])
-             res.append('A')
-     if arr[-1] > res[-1]:
-         res.append(arr[-1])
+ # Мой вариант                                                   # Тоже самое
+ def longest_sequence(arr):                                      def longest_sequence(arr):
+     if not arr:                                                     if not arr:
+         return []                                                       return []
+     res = []                                                        res = []
+     for i in range(len(arr)-1):                                     for i in range(len(arr)-1):
+         if arr[i] < arr[i+1]:                                           if arr[i] < arr[i+1]:
+             res.append(arr[i])                                              res.append(arr[i])
+         else:                                                           else:
+             res.append(arr[i])                                              res.append(arr[i])
+             res.append('A')                                                 res.append('A')
+     if arr[-1] > res[-1]:                                           res_2 = ' '.join([str(i) for i in res]).split('A')
+         res.append(arr[-1])                                         return max([i.split() for i in res_2], key=len)
      res_2 = [i.strip().split() for i in ' '.join(map(str, res)).split('A')]
      return [*map(int, max(res_2, key=len))]
 
