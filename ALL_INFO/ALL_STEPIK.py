@@ -61,10 +61,10 @@ ________________________________________________________________________________
  # Через split() хз как улучшить
  print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
 
- # Интересный вариат
- def my_func(x):
-     return -int(x.split('_')[0]), x.split('_')[1]
-
+ # Интересный вариат                                           # Тоже самое
+ def my_func(x):                                               def my_func(x):
+     return -int(x.split('_')[0]), x.split('_')[1]                 a, b = x.split('_')
+                                                                   return -int(a), b
 
  def get_sorted(lst):
      return sorted(lst, key=my_func)
@@ -119,29 +119,29 @@ ________________________________________________________________________________
  target = 9
 
 
- # Хороший вариант
- def twoSum(nums, target):
-     res = []
-     for i in range(len(nums)-1):
-         if nums[i] + nums[i+1] == target:
-             res.append(nums.index(nums[i]))
-             res.append(nums.index(nums[i+1]))
-     return res
+ # Хороший вариант                                   # Тоже самое с МОРЖОМ
+ def twoSum(nums, target):                           def twoSum(nums, target):
+     res = []                                            res = []
+     for i in range(len(nums)-1):                        for i in range(len(nums)-1):
+         if nums[i] + nums[i+1] == target:                   if sum(((a:=nums[i]), (b:=nums[i+1]))) == target:
+             res.append(nums.index(nums[i]))                     res.append(nums.index(a))
+             res.append(nums.index(nums[i+1]))                   res.append(nums.index(b))
+     return res                                          return res
 
  print(twoSum(lst, target))  # -> [0, 1]
 
 
  # Пример 1
  from itertools import pairwise
+                                                                  # Тоже самое но ВЫВОД  [0, 1]
+ def twoSum(nums, target):                                        def twoSum(nums, target):
+     res = []                                                         res = []
+     for i, v in enumerate(pairwise(nums)):                           for i, j in itertools.pairwise(nums):
+         if sum([v[0], v[1]]) == target:                                  if i+j == target:
+             res.append([nums.index(v[0]), nums.index(v[1])])                 res.append((nums.index(i), nums.index(j)))
+     return res                                                       return [j for i in res for j in i]
 
- def twoSum(nums, target):
-     res = []
-     for i, v in enumerate(pairwise(nums)):
-         if sum([v[0], v[1]]) == target:
-             res.append([nums.index(v[0]), nums.index(v[1])])
-     return res
-
- print(twoSum(lst, target))  # -> [[0, 1]]
+ print(twoSum(lst, target))  # -> [[0, 1]]                        print(twoSum(lst, target))  # -> [0, 1]
 
 
  # Тоже самое slice(1, None, 2) - Принимает только 3 аргумента      Тут создает такие пары  [(2, 7), (9, 10)]
@@ -192,7 +192,7 @@ ________________________________________________________________________________
  print(twoSum(lst, target))  # -> [(0, 1)]
 ________________________________________________________________________________________________________________________
 
- # Релизация своего класса имитируещего СЛОВАРЬ
+ # Релизация своего класса имитируещего СЛОВАРЬ    ML
  # Мой вариант на собеседовании ПРОСТОЙ
 
  class MyDict:

@@ -398,48 +398,17 @@ rez = tee(x, 3)
 import re
 
 
-# 0(1)  Выполнение команды
-lst = [1, 4, 10, -5, 0, 2, 3, 18, 32]   # 0(1)  Выполнение команды
+def missingNumber(nums):
+    res = range(max(nums))
+    for i in res:
+        if i not in nums:
+            return i
 
 
-
-# O(log n): Логарифмическая сложность.   Как пример бинарный поиск
-
-search_v = 9
-n = 8
-
-bin_lst = [-1, -3, 2, 4, 5, 7, 8, 9]  # Будем искать 9
-# БИНАРНЫЙ поиск  O(log n) - кратко как работает берем серединный элемент например  4
-# сравниваем 9 > 4  и будем искать  ТОЛЬКО УЖЕ ТУТ   [4, 5, 7, 8, 9]
-# берем серединный элемент например  7
-# сравниваем 9 > 7  и будем искать  ТОЛЬКО УЖЕ ТУТ   [8, 9]
-
-
-# Алгоритм БИНАРНОГО поиска на Python  O(log n)    без конца делит область поиска пополам.
-d = [-1, -3, 2, 4, 5, 7, 8, 9]
-n = len(d)
-
-search_v = 9
-left, right = 0, n-1
-
-while left <= right:
-    middle = (left + right) // 2
-    v = d[middle]
-    if v == search_v:
-        print(v, middle)   # 9 7
-        break
-    elif v < search_v:
-        left = middle+1
-    elif v > search_v:
-        right = middle-1
-else:
-    print('Значение не найдено')
-
-
-
-
-
-
+nums = [3, 0, 1]
+nums = [0,1]
+nums = [9,6,4,2,3,5,7,0,1]
+print(missingNumber(nums))
 
 
 

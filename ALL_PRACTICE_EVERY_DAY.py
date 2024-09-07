@@ -3777,24 +3777,6 @@ if __name__ == "__main__":
 d = [-1, -3, 2, 4, 5, 7, 8, 9]
 target = 9
 
-n = len(d)
-
-l, r = 0, n-1
-
-while l >= r:
-    m = (l+r) // 2
-    v = d[m]
-    if v == target:
-        print(v, m)
-        break
-    elif v < target:
-        l = m+1
-    elif v > target:
-        l = m-1
-else:
-    print('None')
-
-
 
 
 
@@ -3836,7 +3818,6 @@ target = 9
 
 def binary_search(arr, target):
     pass
-
 
 
 # print(binary_search(d, target))  # -> 8
@@ -3976,8 +3957,6 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -4011,7 +3990,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
 # Сортировка выбором (Selection Sort)
 """
 def selection_sort(arr):
@@ -4033,6 +4011,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 # Написать Сортировку вставками (Insertion Sort)
+
 
 
 
@@ -4108,7 +4087,6 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-
 # Сортировка слиянием (Merge Sort)
 """
 def merge_sort(arr):
@@ -4152,7 +4130,6 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 # --- Django  Чуть-чуть ---
 
 # Напишите raw-запрос
-
 
 
 
@@ -4219,9 +4196,9 @@ class Person(models.Model):
     city = models.ForeignKey(City)
     """
 
-# Вывести список людей и городов где они живут?
-# Вывести всех людей, живущих в городе N
-# Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
+# 1)Вывести список людей и городов где они живут?
+# 2)Вывести всех людей, живущих в городе N
+# 3)Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
 
 
 
@@ -4260,6 +4237,8 @@ class Person(models.Model):
 
 
 
+
+
 # Ответ 1. Вывести список людей и городов, где они живут:
 """
 people_with_cities = Person.objects.select_related('city').values('name', 'city__name')
@@ -4272,6 +4251,7 @@ for person in people_with_cities:
 # 2. Вывести всех людей, живущих в городе N:
 
 city_name = 'N'  # укажите название города
+
 
 
 
@@ -4322,6 +4302,7 @@ for city in top_cities:
 
 
 # Напиши SQL Задачу с собеседования ---
+
 
 
 
@@ -4492,6 +4473,8 @@ def clean_duplicates(lst):
 
 
 
+
+
 # print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
 
@@ -4558,6 +4541,8 @@ xs = [
 
 
 
+
+
 # Ответ  Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
 """
 xs = [
@@ -4587,10 +4572,10 @@ print(sorted(xs, key=sub_fun))
 print(sorted(xs, key=lambda x: (-int(''.join(x.split('.')).split('_')[0]), ''.join(x.split('.')).split('_')[1])))
 
 
-# Интересный вариат
-def my_func(x):
-    return -int(x.split('_')[0]), x.split('_')[1]
-
+# Интересный вариат                                     # Тоже самое    
+def my_func(x):                                         def my_func(x):
+    return -int(x.split('_')[0]), x.split('_')[1]           a, b = x.split('_')                                    
+                                                            return -int(a), b        
 
 def get_sorted(lst):
     return sorted(lst, key=my_func)
@@ -4619,6 +4604,7 @@ def twoSum(nums, target):
 
 
 
+
 # print(twoSum(lst, target))  # -> [[0, 1]]
 
 
@@ -4631,29 +4617,29 @@ def twoSum(nums, target):
 lst = [2, 7, 9, 10, 11]
 target = 9
 
-# Хороший вариант
-def twoSum(nums, target):
-    res = []
-    for i in range(len(nums)-1):
-        if nums[i] + nums[i+1] == target:
-            res.append(nums.index(nums[i]))
-            res.append(nums.index(nums[i+1]))
-    return res
-
+# Хороший вариант                                     # Тоже самое с МОРЖОМ      
+def twoSum(nums, target):                             def twoSum(nums, target):                                  
+    res = []                                              res = []                      
+    for i in range(len(nums)-1):                          for i in range(len(nums)-1):                                          
+        if nums[i] + nums[i+1] == target:                     if sum(((a:=nums[i]), (b:=nums[i+1]))) == target:                                                  
+            res.append(nums.index(nums[i]))                       res.append(nums.index(a))                                                  
+            res.append(nums.index(nums[i+1]))                     res.append(nums.index(b))                                                      
+    return res                                            return res                      
+                                                                
 print(twoSum(lst, target))  # -> [0, 1]
 
 
 # Пример 1
 from itertools import pairwise
-
-def twoSum(nums, target):
-    res = []
-    for i, v in enumerate(pairwise(nums)):
-        if sum([v[0], v[1]]) == target:
-            res.append([nums.index(v[0]), nums.index(v[1])])
-    return res
-
-print(twoSum(lst, target))  # -> [[0, 1]]
+                                                                # Тоже самое но ВЫВОД  [0, 1]  
+def twoSum(nums, target):                                       def twoSum(nums, target):                                                                                    
+    res = []                                                        res = []                                                                        
+    for i, v in enumerate(pairwise(nums)):                          for i, j in itertools.pairwise(nums):                                    
+        if sum([v[0], v[1]]) == target:                                 if i+j == target:                                
+            res.append([nums.index(v[0]), nums.index(v[1])])                res.append((nums.index(i), nums.index(j)))                                                        
+    return res                                                      return [j for i in res for j in i]        
+                                                                     
+print(twoSum(lst, target))  # -> [[0, 1]]                       print(twoSum(lst, target))  # -> [0, 1]                                    
 
 
 # Тоже самое slice(1, None, 2) - Принимает только 3 аргумента      Тут создает такие пары  [(2, 7), (9, 10)]
@@ -4707,6 +4693,7 @@ ________________________________________________________________________________
 
 
 # Релизация своего класса имитируещего СЛОВАРЬ   ML
+
 
 
 
@@ -4821,8 +4808,6 @@ ________________________________________________________________________________
 
 def sort_array(arr):
     pass
-
-
 
 
 
@@ -4953,6 +4938,7 @@ ________________________________________________________________________________
 # Написать 2 варианта
 def longest_sequence(arr):
     pass
+
 
 
 
