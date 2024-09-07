@@ -3771,6 +3771,108 @@ if __name__ == "__main__":
 
 
 
+# БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
+
+
+d = [-1, -3, 2, 4, 5, 7, 8, 9]
+target = 9
+
+n = len(d)
+
+l, r = 0, n-1
+
+while l >= r:
+    m = (l+r) // 2
+    v = d[m]
+    if v == target:
+        print(v, m)
+        break
+    elif v < target:
+        l = m+1
+    elif v > target:
+        l = m-1
+else:
+    print('None')
+
+
+
+
+
+
+
+
+
+
+# Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
+# Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
+"""
+d = [-1, -3, 2, 4, 5, 7, 8, 9]
+n = len(d)
+
+search_v = 9
+left, right = 0, n-1
+
+while left <= right:
+    middle = (left + right) // 2
+    v = d[middle]
+    if v == search_v:
+        print(v, middle)   # 9 7
+        break
+    elif v < search_v:
+        left = middle+1
+    elif v > search_v:
+        right = middle-1
+else:
+    print('Значение не найдено')
+"""
+
+
+
+# ФУНКЦИЮ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
+
+d = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+target = 9
+
+
+def binary_search(arr, target):
+    pass
+
+
+
+# print(binary_search(d, target))  # -> 8
+
+
+
+
+# Ответ ФУНКЦИЮ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
+# Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
+"""
+d = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+target = 9
+
+def binary_search(arr, target):
+    arr = sorted(arr)
+    left, right = 0, len(arr) - 1
+
+    while left <= right:
+        mid = (left + right) // 2  # Находим середину
+
+        if arr[mid] == target:
+            return mid  # Нашли элемент, возвращаем его индекс
+        elif arr[mid] < target:
+            left = mid + 1  # Ищем в правой половине
+        else:
+            right = mid - 1  # Ищем в левой половине
+
+    return -1  # Элемент не найден
+
+
+print(binary_search(d, target))  # -> 8
+"""
+
+
+
+
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
