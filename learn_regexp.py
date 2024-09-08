@@ -398,48 +398,6 @@ rez = tee(x, 3)
 import re
 
 
-def missingNumber(nums):
-    res = range(max(nums))
-    for i in res:
-        if i not in nums:
-            return i
-
-
-nums = [3, 0, 1]
-nums = [0,1]
-nums = [9,6,4,2,3,5,7,0,1]
-print(missingNumber(nums))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
