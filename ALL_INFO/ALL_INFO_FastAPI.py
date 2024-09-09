@@ -107,7 +107,7 @@
  -- Using Dataclasses --
  FastAPI построен на основе Pydantic , и я показал вам, как использовать модели Pydantic для объявления запросов и ответов.
 
- Но FastAPI также поддерживает использованиеdataclasses
+ Но FastAPI также поддерживает использование dataclasses
 
  from dataclasses import dataclass
  from typing import Union
