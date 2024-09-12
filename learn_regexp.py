@@ -398,49 +398,6 @@ rez = tee(x, 3)
 import re
 
 
-target = 9
-nums = [1, 3, 7, 9]
-
-
-def search(nums: list, target: int) -> int:
-    nums = sorted(nums)
-    n = len(nums)
-    l, r = 0, n - 1
-    while l <= r:
-        m = (l+r)//2
-        if nums[m] == target:
-            return m
-        elif nums[m] < target:
-            l = m+1
-        else:
-            r = m-1
-    return -1
-
-print(search(nums, target))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
