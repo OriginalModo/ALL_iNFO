@@ -385,6 +385,13 @@ ________________________________________________________________________________
  obj = MyModel.objects.get(id=1)
 
 
+ **Методы `get()` и `filter()`**:
+- Вызов `get()` возвращает конкретный объект, тогда как `filter()` возвращает QuerySet, который будет выполнен позже.
+
+ single_object = MyModel.objects.get(id=1)                  # Выполняет SQL-запрос
+ filtered_objects = MyModel.objects.filter(name='example')  # Запрос выполняется при дальнейшей обработке
+
+
  **`first()` и `last()`**: Получает первый или последний объект и выполняет запрос.
  first_obj = MyModel.objects.first()
  last_obj = MyModel.objects.last()
