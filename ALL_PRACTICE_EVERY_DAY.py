@@ -4323,6 +4323,86 @@ for city in top_cities:
 
 
 
+# Переписать Класс Q Class Q  Написать Использование  1)OR  2)AND  3)NOT  4)Сложные условия  5)Комбинирование условий
+
+
+# Первый пример!
+
+
+
+
+
+# 1)OR  Найдем всех людей, у которых имя "John" ИЛИ фамилия "Doe"
+
+
+
+
+
+# 2)AND Найдем всех людей, у которых имя "John" И фамилия "Doe"
+
+
+
+
+
+# 3)NOT Найдем всех людей, у которых имя "John", кроме тех, у кого фамилия "Doe"
+
+
+
+
+
+# 4)Сложные условия Найдем всех людей, у которых имя "John" И (фамилия "Doe" ИЛИ возраст больше 30)
+
+
+
+
+
+# 5)Комбинирование условий Найдем всех людей, у которых имя "John", ИЛИ фамилия "Doe", И возраст не меньше 25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Ответ Класс Q Class Q  Написать Использование  1)OR  2)AND  3)NOT  4)Сложные условия  5)Комбинирование условий
+
+"""
+from django.db.models import Q
+
+# Первый пример!
+Women.objects.filter(Q(pk__lt=5) | Q(cat_id=2))                                  # | == OR  # |  = Вертикальная черта
+Women.objects.filter(Q(pk__lt=5) & Q(cat_id=2))                                  # & == AND # & = Амперсанд
+Women.objects.filter(~Q(pk__lt=5) & Q(cat_id=2))                                 # ~ == NOT # ~ = Тильда
+Women.objects.filter(~Q(pk__in=[1, 2, 5]) | Q(cat_id=2), title__icontains='pa')
+
+# 1)OR Использование с OR
+# Найдем всех людей, у которых имя "John" ИЛИ фамилия "Doe"
+people = Person.objects.filter(Q(first_name='John') | Q(last_name='Doe'))
+
+# 2)AND Использование с AND
+# Найдем всех людей, у которых имя "John" И фамилия "Doe"
+people = Person.objects.filter(Q(first_name='John') & Q(last_name='Doe'))
+
+# 3)NOT Использование NOT
+# Найдем всех людей, у которых имя "John", кроме тех, у кого фамилия "Doe"
+people = Person.objects.filter(Q(first_name='John') & ~Q(last_name='Doe'))
+
+# 4)Сложные условия
+# Найдем всех людей, у которых имя "John" И (фамилия "Doe" ИЛИ возраст больше 30)
+people = Person.objects.filter(Q(first_name='John') & (Q(last_name='Doe') | Q(age__gt=30)))
+
+# 5)Комбинирование условий
+# Найдем всех людей, у которых имя "John", ИЛИ фамилия "Doe", И возраст не меньше 25
+people = Person.objects.filter((Q(first_name='John') | Q(last_name='Doe')) & Q(age__gte=25))
+"""
+
 
 
 # Напиши SQL Задачу с собеседования ---
