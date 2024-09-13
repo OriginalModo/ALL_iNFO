@@ -5268,17 +5268,40 @@ print(unstable_function())
 
 
 
-# Ответ Задача На ЭК в словаре  Сколько будет объектов в Словаре data?
+# Ответ Задача На ЭК в словаре  Сколько будет объектов в Словаре data?   ЭК - может быть ключом в словаре!
 """
 class Foo:
     ...
+
 
 data = {
     Foo(): 1,
     Foo(): 2,
 }
 
-print(data)  # {<__main__.Foo object at 0x000001EFEDCF5610>: 1, <__main__.Foo object at 0x000001EFED985410>: 2}
+print(data)         # -> {<__main__.Foo object at 0x00000295B379A750>: 1, <__main__.Foo object at 0x00000295B38AA410>: 2}
+
+print(hash(Foo()))  # -> 177624230437  # Разные hash
+print(hash(Foo()))  # -> 177624099389  # Разные hash
+
+
+
+# Тоже самое  Даже с __hash__  но hash будет 42
+class Foo:
+    pass
+
+    def __hash__(self):
+        return 42
+
+data = {
+    Foo(): 1,
+    Foo(): 2,
+}
+
+print(data)         # -> {<__main__.Foo object at 0x00000295B41DFC50>: 1, <__main__.Foo object at 0x00000295B5408050>: 2}
+
+print(hash(Foo()))  # -> 42            # Одинаковые hash
+print(hash(Foo()))  # -> 42            # Одинаковые hash
 """
 
 
@@ -5305,12 +5328,69 @@ print(a is b)          # -> True       print(a is b)          # -> True
 
 
 
+# Реализовать функцию, которая будет преобразовывать строку (с целочисленным числом)
+# в число, не используя стандартные методы преобразования python.
 
 
 
 
 
 
+# Ответ Реализовать функцию, которая будет преобразовывать строку (с целочисленным числом)
+# в число, не используя стандартные методы преобразования python.
+"""
+# Мой ответ
+def to_digit(val):
+    res = {}
+    res[val] = int(val)
+    return res[val]
+
+def string_to_int(value: str) -> int:
+    res = 0
+    n = len(value) - 1
+    for i in value:
+        res += to_digit(i) * 10 ** n
+        n -= 1
+    return res
+
+print(string_to_int("3248"))  # -> 3248
+ 
+ 
+ 
+# Ответ ChatGPT
+def string_to_integer(s):
+    # Удаляем пробелы в начале и конце строки
+    s = s.strip()
+
+    if not s:  # Проверяем пустую строку
+        raise ValueError("Пустая строка не может быть преобразована в число.")
+
+    # Переменные для хранения результата и знака числа
+    result = 0
+    sign = 1
+    index = 0
+
+    # Проверка на знак числа
+    if s[index] == '-':
+        sign = -1
+        index += 1
+    elif s[index] == '+':
+        index += 1
+
+    # Преобразуем каждую цифру в числе
+    for char in s[index:]:
+        if char < '0' or char > '9':  # Проверяем, является ли символ цифрой
+            raise ValueError(f"Недопустимый символ: {char}")
+
+        result = result * 10 + (ord(char) - ord('0'))  # Преобразуем символ в цифру
+
+    return sign * result
+
+
+print(string_to_integer("123"))     # -> 123
+print(string_to_integer("-456"))    # -> -456
+print(string_to_integer(" +789 "))  # -> 789
+"""
 
 
 

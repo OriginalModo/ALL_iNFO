@@ -8519,6 +8519,19 @@ fact(30)
  print(b_dict)  # -> {<generator object <genexpr> at 0x0000020C6C2A0040>: [0, 1]}
 
 
+ # ЭК - может быть ключом в словаре!
+
+ class Foo:
+     ...
+
+ data = {
+     Foo(): 1,
+     Foo(): 2,
+ }
+
+ print(data)  # {<__main__.Foo object at 0x000001EFEDCF5610>: 1, <__main__.Foo object at 0x000001EFED985410>: 2}
+
+
 
  --- list (Список) ---
  list (Список) - список, ИЗМЕНЯЕМЫЙ УПОРЯДОЧЕННЫЙ, обычно хранит значения одного типа, О(1) доступ к элементу
@@ -9902,6 +9915,15 @@ fact(30)
  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
  list(it)
  # []
+
+
+ # reversed/__reversed__() НЕ Работает с generator/iterator  (Любой итератор)
+
+ print(*reversed([1 for _ in '123']))          # -> 1 1 1
+ print([1 for _ in '123'].__reversed__())      # -> <list_reverseiterator object at 0x000001DB708FFA30>
+ print(*reversed((1 for _ in '123')))          # -> TypeError: 'generator' object is not reversible
+ print(*reversed(iter([1 for _ in '123'])))    # -> TypeError: 'list_iterator' object is not reversible
+
 
  Пример создания итератора Iterator:
 
