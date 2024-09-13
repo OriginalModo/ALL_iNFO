@@ -408,8 +408,14 @@ data = {
 }
 
 print(data)         # -> {<__main__.Foo object at 0x00000295B379A750>: 1, <__main__.Foo object at 0x00000295B38AA410>: 2}
+
+# hash Будут Разные
 print(hash(Foo()))  # -> 177624230437  # Разные hash
 print(hash(Foo()))  # -> 177624099389  # Разные hash
+
+# id Будут Разные
+print(id(Foo()))    # -> 2849472269008  # Разные id
+print(id(Foo()))    # -> 2849472268944  # Разные id
 
 
 
@@ -426,8 +432,14 @@ data = {
 }
 
 print(data)         # -> {<__main__.Foo object at 0x00000295B41DFC50>: 1, <__main__.Foo object at 0x00000295B5408050>: 2}
-print(hash(Foo()))  # -> 42            # Одинаковые hash
-print(hash(Foo()))  # -> 42            # Одинаковые hash
+
+# hash Будут Одинаковые
+print(hash(Foo()))  # -> 42             # Одинаковые hash
+print(hash(Foo()))  # -> 42             # Одинаковые hash
+
+# id Будут разные
+print(id(Foo()))    # -> 2849472269008  # Разные id
+print(id(Foo()))    # -> 2849472268944  # Разные id
 
 
 
