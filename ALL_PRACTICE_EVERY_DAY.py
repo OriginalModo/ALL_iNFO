@@ -5262,6 +5262,7 @@ print(unstable_function())
 
 
 # Задача На ЭК в словаре  Сколько будет объектов в Словаре data?   ЭК - может быть ключом в словаре!
+# Интересно работает даже с pass или ...  Хотя функцию создали внутри
 
 
 
@@ -5269,6 +5270,7 @@ print(unstable_function())
 
 
 # Ответ Задача На ЭК в словаре  Сколько будет объектов в Словаре data?   ЭК - может быть ключом в словаре!
+# Интересно работает даже с pass или ...  Хотя функцию создали внутри    ЭК - может быть в set()
 """
 class Foo:
     ...
@@ -5280,6 +5282,10 @@ data = {
 }
 
 print(data)         # -> {<__main__.Foo object at 0x00000295B379A750>: 1, <__main__.Foo object at 0x00000295B38AA410>: 2}
+
+# В сет тоже можно закинуть ЭК
+my_set = {Foo(), Foo()}
+print(my_set)       # -> {<__main__.Foo object at 0x00000204FB4FD9D0>, <__main__.Foo object at 0x00000204FB4FDA10>}  
 
 # hash Будут Разные
 print(hash(Foo()))  # -> 177624230437  # Разные hash
@@ -5304,6 +5310,10 @@ data = {
 }
 
 print(data)         # -> {<__main__.Foo object at 0x00000295B41DFC50>: 1, <__main__.Foo object at 0x00000295B5408050>: 2}
+
+# В сет тоже можно закинуть ЭК
+my_set = {Foo(), Foo()}
+print(my_set)       # -> {<__main__.Foo object at 0x00000204FB4FD9D0>, <__main__.Foo object at 0x00000204FB4FDA10>}  
 
 # hash Будут Одинаковые
 print(hash(Foo()))  # -> 42             # Одинаковые hash
