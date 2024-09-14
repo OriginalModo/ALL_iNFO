@@ -3198,6 +3198,13 @@ ________________________________________________________________________________
  str.format()      # '{} and {}'.format('spam', 'eggs')  # ->  'spam and eggs'
 
 
+ # format Не работает с ф-строкой  SyntaxError: f-string: empty expression not allowed
+
+ print('{}{}'.format('he', 'he'))   # -> hehe
+ print(f'{}{}'.format('he', 'he'))  # -> SyntaxError: f-string: empty expression not allowed
+
+
+
  А вот метод format содержит в себе одно важное преимущество.
  Дело в том, что в модульных проектах не всегда бывает так, что переменная находится в том же окружении, что и строка-шаблон.
 

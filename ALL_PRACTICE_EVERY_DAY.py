@@ -232,8 +232,8 @@ print(f'asizeof   defaultdict():  {asizeof.asizeof(my_defa)} байт')  # -> as
 from collections import ChainMap
  
 my_chain = ChainMap()
-print(f'getsizeof ChainMap():  {sys.getsizeof(my_chain)} байт')    # -> ggetsizeof ChainMap():  56 байт
-print(f'asizeof   ChainMap():  {asizeof.asizeof(my_chain)} байт')  # -> aasizeof   ChainMap():  536 байт
+print(f'getsizeof ChainMap():  {sys.getsizeof(my_chain)} байт')      # -> ggetsizeof ChainMap():  56 байт
+print(f'asizeof   ChainMap():  {asizeof.asizeof(my_chain)} байт')    # -> aasizeof   ChainMap():  536 байт
 
 
 
@@ -368,7 +368,6 @@ print(type(Bar))  # -> <class 'type'>
 
 
 
-
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -477,6 +476,7 @@ print(c._get(2))  # -> KeyError
 
 
 
+
 # Обход в Обратном порядке в цикле for
 """
 # Обход в Обратном порядке в цикле for
@@ -487,6 +487,7 @@ for i in range(10, -1, -1):
 
 
 # Используйте dis - Библиотека работы с Байт-кодом   import dis
+
 
 
 
@@ -579,6 +580,7 @@ n = 10
 
 
 
+
 s = "Hello"
 # print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
 
@@ -586,8 +588,12 @@ s = "Hello"
 
 
 
+
+
+
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
+
 
 
 
@@ -647,8 +653,6 @@ print(nn + 10 if (nn := 10) % 2 == 0 else nn - 10)  # -> 20"""
 # Распарсить JSON-строку  json.loads()
 
 json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
-
-
 
 
 
@@ -729,6 +733,7 @@ data = {
 
 
 
+
 # Пример с 'json.dump()' с отступами
 # `json.dump()` сериализует объект Python и записывает его в файл в формате JSON.
 """
@@ -794,6 +799,8 @@ cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
 
 
 
+
+
 # match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 """
 # Всё Работает так же как и при обычной распаковке '*'
@@ -821,6 +828,7 @@ json_data = {'id': 2, 'access': True, 'data': ['26.05.2023', {'login': '1234', '
 
 def parse_json(data):
     pass
+
 
 
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
@@ -899,6 +907,8 @@ a = 'aaaabbcaa'
 
 
 
+
+
 # a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'  Считаем символы которые идут подряд
 """
 a = 'aaaabbcaa'
@@ -911,6 +921,7 @@ re.sub(r'(\w)\1+|\w', lambda x: f'{x[0][0]}{len(x[0])}', a)  # -> a4b2c1a2
 # Так можно разделить легко  Повтори
 
 text = r'17383147371'
+
 
 
 
@@ -932,6 +943,9 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 # Классный пример Повтори   По сути это if...else в Регулярках
 
 text = 'ABC'
+
+
+
 
 
 
@@ -962,10 +976,6 @@ text = 'ABC123---'
 
 
 
-
-
-
-
 # Использование re.compile
 """
 regex = re.compile("[A-Za-z_]"      # letter or underscore             буква или подчеркивание
@@ -976,6 +986,35 @@ re.findall(regex, 'ABC123---')  # -> ['ABC123']
 # Тоже самое
 regex.findall('ABC123---')  # -> ['ABC123']
 """
+
+
+
+# Использовать flags=re.VERBOSE  (?x)   Можно ставить комменты внутри регулярки  и пробелы не работают
+
+
+
+
+
+
+
+
+# Ответ flags=re.VERBOSE  (?x)   Можно ставить комменты внутри регулярки  и пробелы не работают
+"""
+text = '4G22ABC'
+test1 = re.findall(r'''[1-9]+    # Любая цифра, кроме 0
+                   .           # Любой символ, кроме новой строки
+                   \d {2,}     # Любая цифра''', text, flags=re.VERBOSE)
+                   
+print(test1)                  # -> ['4G22']
+
+
+pattern = re.compile(r'''(?x)
+\d+
+''')
+print(pattern.findall(text))  # -> ['4', '22']
+"""
+
+
 
 
 # Поменяйте местами в регулярке использую Обычные/Именованные группы или Перепишите
@@ -1003,6 +1042,9 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 # Напишите или Перепишите Обычные/Именованные группы
 
 text = r'ggg wp'
+
+
+
 
 
 
@@ -1039,6 +1081,8 @@ text = "abc123"
 
 
 
+
+
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
@@ -1049,6 +1093,7 @@ re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захва
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
+
 
 
 
@@ -1086,7 +1131,6 @@ b_set = {"b", 3}
 
 
 
-
 # Ответ Обновление Словаря/Множества
 """
 # Обновление словаря
@@ -1112,6 +1156,7 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
+
 
 
 
@@ -1172,7 +1217,6 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
-
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 """
 # list                               # set                                   # dict
@@ -1198,7 +1242,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
-
 # Ответ docstring/name
 '''
 def add_numbers(a, b):
@@ -1210,7 +1253,7 @@ print(add_numbers.__name__)  # -> add_numbers
 '''
 
 
-# Напишите Итератор  range(10)
+# Напишите Итератор  range(10)  iter
 
 
 
@@ -1219,7 +1262,9 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
-# Итератор  range(10)
+
+
+# Итератор  range(10)  iter
 """
 # Итератор
 it = iter([i*i for i in range(10)])
@@ -1233,6 +1278,7 @@ print([*it])  # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
+
 
 
 
@@ -1279,6 +1325,8 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 
+
+
 # yield from  - это просто сокращенная форма for item in iterable: yield item
 """
 def gen_list1(iterable):
@@ -1297,6 +1345,7 @@ print([*gen_list2('python')])     # -> ['p', 'y', 't', 'h', 'o', 'n']
 
 
 # Напишите Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
+
 
 
 
@@ -1325,7 +1374,6 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
-
 
 
 
@@ -1476,6 +1524,7 @@ eval(compiled_eval)  # -> Hello
 
 
 
+
 # Замыкание
 """
 def names():
@@ -1508,6 +1557,8 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
+
+
 # Замыкание lambda
 """
 def pow_(base):
@@ -1526,6 +1577,8 @@ print(pow_(2)(3))  # -> 9
 
 
 # Напишите лямбда-функцию с присвоением переменной и без. Сразу вызов
+
+
 
 
 
@@ -1654,7 +1707,6 @@ foo()
 
 
 
-
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1676,6 +1728,9 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
+
+
+
 
 
 
@@ -1713,10 +1768,9 @@ minheap = [20, 10, 1, 2]
 
 
 
+
+
 maxheap = [20, 10, 1, 2]
-
-
-
 
 
 
@@ -1800,6 +1854,9 @@ if __name__ == '__main__':
 
 
 
+
+
+
 # __slots__
 """
 import sys
@@ -1840,8 +1897,6 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
-
-
 # __slots__ в dataclasses
 """
 from dataclasses import dataclass
@@ -1858,6 +1913,7 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 
 # Напишите Singleton
+
 
 
 
@@ -1906,6 +1962,8 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 
 
 # Напишите Monostate Обычный class/dataclass
+
+
 
 
 
@@ -2003,7 +2061,6 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
-
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -2030,13 +2087,8 @@ print(my_.foo())   # -> 42
 
 # Использовать setattr/delattr/hasattr/getattr
 
-from dataclasses import dataclass
 
-@dataclass
-class New:
-    name: str = 'Chuck Norris'
-    surname: str = 'Sasya'
-    number: int = 10
+
 
 
 
@@ -2077,7 +2129,6 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
-
 
 
 
@@ -2183,8 +2234,6 @@ second = {4: 4, 5: 5}
 
 
 
-
-
 # Ответы ChainMap
 """
 from collections import ChainMap
@@ -2205,7 +2254,6 @@ print(chain)  # -> ChainMap({1: 200, 2: 2, 3: 3}, {4: 4, 5: 5})
 # Использовать Counter
 
 text = 'hello'
-
 
 
 
@@ -2311,6 +2359,7 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 
 
+
 # Ответы namedtuple
 
 """
@@ -2353,8 +2402,6 @@ print(Point(**d))       # -> Point(x=11, y=22)
 
 
 
-
-
 # Ответы deque
 """
 from collections import deque
@@ -2384,6 +2431,16 @@ print(b_list)  # -> [2]
 b_deque = deque([1, 2])
 b_deque.pop(1)      # -> TypeError: deque.pop() takes no arguments (1 given)
 b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
+
+
+# Пример rotate   разворачивает контейнер deque()   Если положительное число вправо Если отрицательное влево 
+a_deque = deque([1, 2, 3, 4, 5], maxlen=5)
+a_deque.rotate(-1)
+print(a_deque)  # -> deque([2, 3, 4, 5, 1], maxlen=5)
+
+a_deque = deque([1, 2, 3, 4, 5], maxlen=5)
+a_deque.rotate(1)
+print(a_deque)  # -> deque([5, 1, 2, 3, 4], maxlen=5)
 """
 
 
@@ -2395,6 +2452,7 @@ b_deque.popleft(1)  # -> TypeError: deque.popleft() takes no arguments (1 given)
 
 # itertools.count(start=0, step=1)
 # Использовать count
+
 
 
 
@@ -2437,8 +2495,6 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
-
-
 # Ответы cycle
 """
 from itertools import cycle, islice
@@ -2459,8 +2515,6 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
-
-
 
 
 
@@ -2522,6 +2576,9 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
+
+
+
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2563,6 +2620,9 @@ b, c, d = [1, 2], [1, 2], [1, 2]
 
 
 
+
+
+
 # Ответы chain
 """
 from itertools import chain
@@ -2589,6 +2649,7 @@ print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
 # Использовать chain.from_iterable
 
 a = ['foo', ['one', 'two', [1, 2]]]
+
 
 
 
@@ -2650,6 +2711,8 @@ a = [1, 4, 6, 4, 1]
 
 
 
+
+
 # Ответы dropwhile
 """
 from itertools import dropwhile
@@ -2670,6 +2733,7 @@ print(list(dropwhile(trigger_to_five, lst)))  # -> [1, 2, 3, 10]
 
 
 a = [1, 4, 6, 4, 1]
+
 
 
 
@@ -2702,6 +2766,8 @@ a = range(1, 5)
 
 
 
+
+
 # Ответы filterfalse
 """
 from itertools import filterfalse
@@ -2718,6 +2784,8 @@ print(list(filterfalse(lambda x: x % 2 == 0, [6, 7, 8, 9])))          # -> [7, 9
 # Использовать islice
 
 gen = (i for i in range(5))
+
+
 
 
 
@@ -2784,6 +2852,10 @@ a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]
 
 
 
+
+
+
+
 # Ответы starmap
 """
 from itertools import starmap
@@ -2830,6 +2902,9 @@ a = [1, 2, 3]
 
 
 
+
+
+
 # Ответы tee
 """
 from itertools import tee
@@ -2846,6 +2921,9 @@ print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 
 a = [1, 2]
 b = [1, 2, 3]
+
+
+
 
 
 
@@ -2892,6 +2970,7 @@ res = 'AAAABBBCCDAABBB'
 
 
 
+
 # Пример from itertools import groupby
 """
 from itertools import groupby
@@ -2916,6 +2995,9 @@ a = [1, 2]
 
 
 a, b = [1, 2], [3, 3]
+
+
+
 
 
 
@@ -2956,6 +3038,8 @@ a = 'XYZ'
 
 
 
+
+
 # Ответы permutations
 """
 from itertools import permutations
@@ -2981,6 +3065,9 @@ a = 'XYZ'
 
 
 
+
+
+
 # Ответы combinations
 """
 from itertools import combinations
@@ -2995,6 +3082,8 @@ print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
 # Использовать combinations_with_replacement
 
 a = 'XYZ'
+
+
 
 
 
@@ -3054,6 +3143,8 @@ a = [1, 2, 3, 4]
 
 
 
+
+
 # Ответ  reduce/eval   lambda/operator
 """
 import functools, operator
@@ -3066,7 +3157,7 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 """
 
 
-# @functools.cache(user_function)
+# @functools.cache(user_function)   Написать функцию  factorial
 # Использовать cache
 
 
@@ -3107,6 +3198,10 @@ print(factorial(12))  # -> 479001600
 
 
 
+
+
+
+
 # Решения Фибоначч с мемоизацией КЭШ  Скорость O(n)  @functools.lru_cache
 """
 import timeit
@@ -3136,6 +3231,10 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 def multiply(x, y):
     return x * y
+
+
+
+
 
 
 
@@ -3210,6 +3309,7 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
+
 
 
 
@@ -3317,7 +3417,6 @@ print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 
 
 
-
 # Ответ 1.3)
 # Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
 """
@@ -3353,7 +3452,7 @@ f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to fi
 """
 
 
-# 1.4) Использовать Pydantic
+# 1.4) Использовать Pydantic  по умолчанию пустой список и НЕ пустой
 
 
 
@@ -3365,7 +3464,9 @@ f.a = 10               # -> dataclasses.FrozenInstanceError: cannot assign to fi
 
 
 
-# Ответ 1.4)
+
+
+# Ответ 1.4)   Использовать Pydantic  по умолчанию пустой список и НЕ пустой
 # Сравните это с пидантиком(Pydantic), в котором, кажется, думают о людях:
 """
 from pydantic import BaseModel
@@ -3427,9 +3528,6 @@ print(divide(10, 2))  # -> 5.0
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
-
-
-
 
 
 
@@ -3510,8 +3608,6 @@ for _ in range(10):
 
 
 
-
-
 # Ответ 4)
 """
 def read_unicode_file(file_path):
@@ -3525,6 +3621,8 @@ print(текст)
 """
 
 # 5) Написать генератор чисел Фибоначчи вида def fib(a=1, b=2):
+
+
 
 
 
@@ -3625,7 +3723,6 @@ print(c.fff())  # -> None
 
 
 
-
 # Ответ Асинхронный код
 """
 import asyncio
@@ -3639,10 +3736,16 @@ async def world():
     print("World")
 
 async def main():
+    # asyncio.create_task(hello())
+    # asyncio.create_task(world())
     await asyncio.gather(hello(), world())
+    # await asyncio.create_task(hello())
+    # await asyncio.create_task(world())
 
 if __name__ == '__main__':
+    start = time.time()
     asyncio.run(main())
+    print(time.time() - start)
     
     
 # Названия generator object    coroutine object
@@ -3681,7 +3784,9 @@ async def three():                                               async def three
                                                                                          
 async def main():                                                async def main():                                       
     await asyncio.gather(one(), two(), three())                      await asyncio.gather(one(), two(), three())                                                                   
-                                                                                         
+    # asyncio.create_task(one())                                     # asyncio.create_task(one())   
+    # asyncio.create_task(two())                                     # asyncio.create_task(two())
+    # await asyncio.create_task(three())                             # await asyncio.create_task(three())                                                         
                                                                                          
 if __name__ == '__main__':                                       if __name__ == '__main__':                                               
     start = time.time()                                              start = time.time()                                           
@@ -3691,9 +3796,6 @@ if __name__ == '__main__':                                       if __name__ == 
 
 
 # Как запустить что-то в потоке и вывести результат?   from concurrent.futures import ThreadPoolExecutor
-
-
-
 
 
 
@@ -3722,6 +3824,7 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 # Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
+
 
 
 
@@ -3776,7 +3879,6 @@ if __name__ == "__main__":
 
 d = [-1, -3, 2, 4, 5, 7, 8, 9]
 target = 9
-
 
 
 
@@ -3862,6 +3964,8 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
+
+
 
 
 
@@ -4002,7 +4106,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
 # Сортировка выбором (Selection Sort)
 """
 def selection_sort(arr):
@@ -4036,7 +4139,6 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-
 # Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -4058,6 +4160,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 # Написать Быстрая сортировка (Quick Sort)
+
 
 
 
@@ -4154,6 +4257,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
+
 # Ответ Напишите raw-запрос
 """
 people = Person.objects.raw("SELECT id, name FROM hello_person")
@@ -4162,6 +4266,8 @@ people = Person.objects.raw("SELECT id, name FROM hello_person")
 
 
 # Перепишите lookups
+
+
 
 
 
@@ -4258,6 +4364,7 @@ class Person(models.Model):
 
 
 
+
 # Ответ 1. Вывести список людей и городов, где они живут:
 """
 people_with_cities = Person.objects.select_related('city').values('name', 'city__name')
@@ -4270,7 +4377,6 @@ for person in people_with_cities:
 # 2. Вывести всех людей, живущих в городе N:
 
 city_name = 'N'  # укажите название города
-
 
 
 
@@ -4350,19 +4456,15 @@ for city in top_cities:
 
 
 
+
 # 4)Сложные условия Найдем всех людей, у которых имя "John" И (фамилия "Doe" ИЛИ возраст больше 30)
 
 
 
 
 
+
 # 5)Комбинирование условий Найдем всех людей, у которых имя "John", ИЛИ фамилия "Doe", И возраст не меньше 25
-
-
-
-
-
-
 
 
 
@@ -4406,6 +4508,7 @@ people = Person.objects.filter((Q(first_name='John') | Q(last_name='Doe')) & Q(a
 
 
 # Напиши SQL Задачу с собеседования ---
+
 
 
 
@@ -4469,6 +4572,9 @@ left join products as p on u.id = p.id
 
 
 
+
+
+
 # Ответ  Задача SQL    Сделал ошибку fromm специально потому что код не был строкой
 """
 select product, sum(count) AS c 
@@ -4496,7 +4602,6 @@ def is_correct_brackets(text):
 
 
 
-
 # print(is_correct_brackets('(((())))'))  # True
 # print(is_correct_brackets('(((())'))  # False
 # print(is_correct_brackets('())))'))  # False
@@ -4512,15 +4617,16 @@ def is_correct_brackets(text):
 
 # Ответ Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
 """
-# Первый Вариант
-def is_correct_brackets(text):
-    while '()' in text or '[]' in text or '{}' in text:
-        text = text.replace('()', '')
-        text = text.replace('[]', '')
+# Первый Вариант                                         
+def is_correct_brackets(text):                          
+    while '()' in text or '[]' in text or '{}' in text:                                         
+        text = text.replace('()', '')                                                            
+        text = text.replace('[]', '')                   
         text = text.replace('{}', '')
-
-    # Возвращаем True, если text с пустой строкой
-    return not text
+        # text = text.replace('()', '').replace('[]', '').replace('{}', '')   # Тоже самое вместо 3-х строчек                  
+                                                        
+    # Возвращаем True, если text с пустой строкой                                     
+    return not text                                     
 
 
 print(is_correct_brackets('(((())))'))  # True
@@ -4611,8 +4717,6 @@ def clean_duplicates(lst):
 
 
 
-
-
 # print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
 
@@ -4672,6 +4776,10 @@ xs = [
     '3_d.txt',
     '1_e.txt',
 ]
+
+
+
+
 
 
 
@@ -4743,7 +4851,7 @@ def twoSum(nums, target):
 
 
 # print(twoSum(lst, target))  # -> [[0, 1]]
-
+# print(twoSum(lst, target))  # -> [0, 1]
 
 
 
@@ -4830,7 +4938,6 @@ ________________________________________________________________________________
 
 
 # Релизация своего класса имитируещего СЛОВАРЬ   ML
-
 
 
 
@@ -4969,6 +5076,7 @@ numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 # Написать 2 варианта
 def flatten(*args):
     pass
+
 
 
 
@@ -5227,6 +5335,15 @@ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
 
 
+
+
+
+
+
+
+
+
+
 # Ответ Создайте декоратор retry, который повторяет выполнение функции заданное количество раз, если она завершилась с
 # ошибкой. Если все попытки неудачны, декоратор должен вернуть сообщение об ошибке или выбросить исключение.   Сбер
 """
@@ -5234,8 +5351,8 @@ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 from functools import wraps
 import time
 
-def retry(retries, delay):
-    def retry(func):
+def retry(retries, delay):   # Важно чтобы параметры назывались так же как и в параметрах декорируемой функции   <-----
+    def retry(func):         # При передаче их как именованные параметры                                         <-----
         @wraps(func)
         def wrappper(*args, **kwargs):
             for i in range(1, retries + 1):
@@ -5249,8 +5366,8 @@ def retry(retries, delay):
     return retry
 
 
-@retry(retries=5, delay=2)
-def unstable_function():
+@retry(retries=5, delay=2)  # Важно чтобы параметры назывались так же как и в параметрах декорируемой функции   <-----
+def unstable_function():    # При передаче их как именованные параметры                                         <-----
     if time.time() % 2 > 1.5:
         raise ValueError("Случайная ошибка")
     return "Успех!"
@@ -5352,18 +5469,10 @@ print(a is b)          # -> True       print(a is b)          # -> True
 # в число, не используя стандартные методы преобразования python.
 
 
-
-
-
-
-# Ответ Реализовать функцию, которая будет преобразовывать строку (с целочисленным числом)
-# в число, не используя стандартные методы преобразования python.
-"""
-# Мой ответ
+# Еще один вариант Мой
 def to_digit(val):
-    res = {}
-    res[val] = int(val)
-    return res[val]
+    res = dict(zip(map(str, range(10)), range(10)))
+    return res.get(val)
 
 def string_to_int(value: str) -> int:
     res = 0
@@ -5374,8 +5483,30 @@ def string_to_int(value: str) -> int:
     return res
 
 print(string_to_int("3248"))  # -> 3248
- 
- 
+
+
+
+
+# Ответ Реализовать функцию, которая будет преобразовывать строку (с целочисленным числом)
+# в число, не используя стандартные методы преобразования python.
+"""
+# Мой ответ                                       # Еще один вариант Мой          
+def to_digit(val):                                def to_digit(val):                  
+    res = {}                                          res = dict(zip(map(str, range(10)), range(10)))              
+    res[val] = int(val)                               return res.get(val)                      
+    return res[val]                                                  
+                                                    
+def string_to_int(value: str) -> int:             def string_to_int(value: str) -> int:            
+    res = 0                                           res = 0                          
+    n = len(value) - 1                                n = len(value) - 1              
+    for i in value:                                   for i in value:                                   
+        res += to_digit(i) * 10 ** n                      res += to_digit(i) * 10 ** n                
+        n -= 1                                            n -= 1                       
+    return res                                        return res                             
+                                                   
+print(string_to_int("3248"))  # -> 3248           print(string_to_int("3248"))  # -> 3248                                        
+                                                    
+                                                    
  
 # Ответ ChatGPT
 def string_to_integer(s):
@@ -5411,6 +5542,261 @@ print(string_to_integer("123"))     # -> 123
 print(string_to_integer("-456"))    # -> -456
 print(string_to_integer(" +789 "))  # -> 789
 """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
