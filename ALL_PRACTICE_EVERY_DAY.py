@@ -20,13 +20,13 @@ import re
 
                             -- Примеры Списков deque vs list --                                 <-----
 my_list = [1, 2, 3, 4, 5]
-print(f'getsizeof list:  {sys.getsizeof(my_list)} байт')     # -> getsizeof list:  104 байт
-print(f'asizeof   list:  {asizeof.asizeof(my_list)} байт')   # -> asizeof   list:  264 байт
+print(f'getsizeof list:  {sys.getsizeof(my_list)} байт')           # -> getsizeof list:  104 байт
+print(f'asizeof   list:  {asizeof.asizeof(my_list)} байт')         # -> asizeof   list:  264 байт
 
 from collections import deque
 my_deque = deque([1, 2, 3, 4, 5])
-print(f'getsizeof deque: {sys.getsizeof(my_list)} байт')     # -> getsizeof deque: 104 байт
-print(f'asizeof   deque: {asizeof.asizeof(my_deque)} байт')  # -> asizeof   deque: 760 байт
+print(f'getsizeof deque: {sys.getsizeof(my_list)} байт')           # -> getsizeof deque: 104 байт
+print(f'asizeof   deque: {asizeof.asizeof(my_deque)} байт')        # -> asizeof   deque: 760 байт
 
 
 
@@ -368,6 +368,12 @@ print(type(Bar))  # -> <class 'type'>
 
 
 
+
+
+
+
+
+
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -477,6 +483,9 @@ print(c._get(2))  # -> KeyError
 
 
 
+
+
+
 # Обход в Обратном порядке в цикле for
 """
 # Обход в Обратном порядке в цикле for
@@ -487,6 +496,8 @@ for i in range(10, -1, -1):
 
 
 # Используйте dis - Библиотека работы с Байт-кодом   import dis
+
+
 
 
 
@@ -580,7 +591,6 @@ n = 10
 
 
 
-
 s = "Hello"
 # print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
 
@@ -591,8 +601,10 @@ s = "Hello"
 
 
 
+
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
+
 
 
 
@@ -661,6 +673,10 @@ json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 
 
 
+
+
+
+
 # Пример разбора JSON-строки
 # 'json.loads()' для разбора JSON-строки.
 """
@@ -686,6 +702,7 @@ print(data['name'])  # -> Alice
     ]
 }
 """
+
 
 
 
@@ -725,6 +742,7 @@ data = {
     "age": 30,
     "city": "New York"
 }
+
 
 
 
@@ -792,6 +810,8 @@ print(json_string)
 # Перепиши Ниже вариант match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 
 cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
+
+
 
 
 
@@ -872,8 +892,6 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
-
-
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -930,6 +948,10 @@ text = r'17383147371'
 
 
 
+
+
+
+
 # Разделит число из тестовых данных на числа, в конце которых стоит единица. 1
 """
 text = r'17383147371'
@@ -943,6 +965,8 @@ print(re.findall(r'\d*1', text))   # -> ['17383147371']          Без ?
 # Классный пример Повтори   По сути это if...else в Регулярках
 
 text = 'ABC'
+
+
 
 
 
@@ -976,6 +1000,11 @@ text = 'ABC123---'
 
 
 
+
+
+
+
+
 # Использование re.compile
 """
 regex = re.compile("[A-Za-z_]"      # letter or underscore             буква или подчеркивание
@@ -990,6 +1019,11 @@ regex.findall('ABC123---')  # -> ['ABC123']
 
 
 # Использовать flags=re.VERBOSE  (?x)   Можно ставить комменты внутри регулярки  и пробелы не работают
+
+text = '4G22ABC'
+
+
+
 
 
 
@@ -1081,18 +1115,21 @@ text = "abc123"
 
 
 
-
-
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
 re.findall("(?:[abc])+", "abc")  # -> ['abc']   # Группа БЕЗ захвата   (?:)
+
+# Интересный момент с плюсом + 
+print(re.findall(r'(?:\w)(\w+)', text))         # -> ['bc123']
+print(re.findall(r'(?:\w)(\w)+', text))         # -> ['3']
 """
 
 
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
+
 
 
 
@@ -1156,6 +1193,8 @@ C = {7, 8, 9}  # set
 
 a = {"w": 5, "x": 6}
 b = {"y": 7}
+
+
 
 
 
@@ -1242,6 +1281,9 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 
+
+
+
 # Ответ docstring/name
 '''
 def add_numbers(a, b):
@@ -1254,6 +1296,7 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 # Напишите Итератор  range(10)  iter
+
 
 
 
@@ -1278,6 +1321,8 @@ print([*it])  # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
+
+
 
 
 
@@ -1355,6 +1400,9 @@ print([*gen_list2('python')])     # -> ['p', 'y', 't', 'h', 'o', 'n']
 
 
 
+
+
+
 # Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
 """
 # Например, такой генератор, как:
@@ -1374,6 +1422,9 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
+
+
+
 
 
 
@@ -1455,8 +1506,6 @@ print(issubclass(types.GeneratorType, collections.abc.Iterator))        # -> Tru
 
 
 
-
-
 # Ответ eval vs exec   compile   Можно просто посмотреть
 """
 Интересный пример
@@ -1523,8 +1572,6 @@ eval(compiled_eval)  # -> Hello
 
 
 
-
-
 # Замыкание
 """
 def names():
@@ -1556,9 +1603,6 @@ print(names()((lambda x: x+5)(2)))        # -> [7]
 
 
 
-
-
-
 # Замыкание lambda
 """
 def pow_(base):
@@ -1577,7 +1621,6 @@ print(pow_(2)(3))  # -> 9
 
 
 # Напишите лямбда-функцию с присвоением переменной и без. Сразу вызов
-
 
 
 
@@ -1624,9 +1667,8 @@ ints = list(range(20))
 
 
 
-
-
 a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
+
 
 
 
@@ -1643,6 +1685,8 @@ class Cat:
         return f'Cat {self.name}, age is {self.age}'
 
 cats = [Cat('Tom', 3), Cat('Angela', 4)]
+
+
 
 
 
@@ -1696,7 +1740,6 @@ def foo():                          def foo():
 foo()
 # UnboundLocalError: cannot access local variable 'x' where it is not associated with a value
 """
-
 
 
 
@@ -1762,7 +1805,6 @@ print(heapq.nlargest(2, h))   # -> [20, 10]
 
 
 minheap = [20, 10, 1, 2]
-
 
 
 
@@ -1925,6 +1967,7 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 
 
+
 # Пример Singleton/Одиночка  # id Одинаковые     Гарантируется, что объект всегда будет один и тот же.
 """
 # Через from dataclasses import dataclass
@@ -1962,9 +2005,6 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 
 
 # Напишите Monostate Обычный class/dataclass
-
-
-
 
 
 
@@ -2061,6 +2101,9 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
+
+
+
 # Kласс можно создать без использования ключевого слова class, используя типы type:
 """
 MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
@@ -2087,8 +2130,13 @@ print(my_.foo())   # -> 42
 
 # Использовать setattr/delattr/hasattr/getattr
 
+from dataclasses import dataclass
 
-
+@dataclass
+class New:
+    name: str = 'Chuck Norris'
+    surname: str = 'Sasya'
+    number: int = 10
 
 
 
@@ -2129,6 +2177,10 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
+
+
+
+
 
 
 
@@ -2234,6 +2286,7 @@ second = {4: 4, 5: 5}
 
 
 
+
 # Ответы ChainMap
 """
 from collections import ChainMap
@@ -2288,6 +2341,9 @@ second = {2: 2, 1: 1}
 
 
 
+
+
+
 # Ответы OrderedDict
 """
 from collections import OrderedDict
@@ -2330,6 +2386,7 @@ text = 'hello'
 
 
 
+
 # Ответы defaultdict
 """
 from collections import defaultdict
@@ -2351,7 +2408,6 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 # -- collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None) --
 # Использовать namedtuple
-
 
 
 
@@ -2387,12 +2443,19 @@ print(p)                # -> Point(x=11, y=22)
 print(getattr(p, 'x'))  # -> 11
 d = {'x': 11, 'y': 22}
 print(Point(**d))       # -> Point(x=11, y=22)
+
+
+# Именованные параметры могут НЕ хранить порядок
+C = namedtuple('C', 'a b c')
+c = C(a=1, c=2, b=3)
+print(c)  # -> C(a=1, b=3, c=2)
 """
 
 
 
 # -- class collections.deque([iterable[, maxlen]]) --
 # Использовать deque
+
 
 
 
@@ -2495,6 +2558,7 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 
 
+
 # Ответы cycle
 """
 from itertools import cycle, islice
@@ -2515,6 +2579,9 @@ for i in islice(cycle([1, 2, 3]), 5):
 
 # itertools.repeat(object[, times])
 # Использовать repeat
+
+
+
 
 
 
@@ -2579,6 +2646,8 @@ print(inventory)  # -> [('apples', 10), ('oranges', 10), ('bananas', 1), ('pinea
 
 
 
+
+
 # Ответы accumulate
 """
 from itertools import accumulate
@@ -2623,6 +2692,7 @@ b, c, d = [1, 2], [1, 2], [1, 2]
 
 
 
+
 # Ответы chain
 """
 from itertools import chain
@@ -2649,6 +2719,8 @@ print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
 # Использовать chain.from_iterable
 
 a = ['foo', ['one', 'two', [1, 2]]]
+
+
 
 
 
@@ -2712,7 +2784,6 @@ a = [1, 4, 6, 4, 1]
 
 
 
-
 # Ответы dropwhile
 """
 from itertools import dropwhile
@@ -2767,7 +2838,6 @@ a = range(1, 5)
 
 
 
-
 # Ответы filterfalse
 """
 from itertools import filterfalse
@@ -2784,7 +2854,6 @@ print(list(filterfalse(lambda x: x % 2 == 0, [6, 7, 8, 9])))          # -> [7, 9
 # Использовать islice
 
 gen = (i for i in range(5))
-
 
 
 
@@ -2831,7 +2900,6 @@ a = [1, 2, 3]
 
 
 
-
 # Ответы pairwise
 """
 from itertools import pairwise
@@ -2845,6 +2913,7 @@ print(list(result))  # -> [(1, 2), (2, 3)]
 # Использовать starmap
 
 a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]
+
 
 
 
@@ -2911,6 +2980,10 @@ from itertools import tee
 
 rez = tee([1, 2, 3], 3)
 print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+
+
+a = [1, 2, 3]
+print(*map(list, itertools.tee(a, 3)))
 """
 
 
@@ -2921,6 +2994,7 @@ print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 
 a = [1, 2]
 b = [1, 2, 3]
+
 
 
 
@@ -2971,6 +3045,8 @@ res = 'AAAABBBCCDAABBB'
 
 
 
+
+
 # Пример from itertools import groupby
 """
 from itertools import groupby
@@ -2988,6 +3064,7 @@ from itertools import groupby
 # Использовать product
 
 a = [1, 2]
+
 
 
 
@@ -3067,7 +3144,6 @@ a = 'XYZ'
 
 
 
-
 # Ответы combinations
 """
 from itertools import combinations
@@ -3082,6 +3158,8 @@ print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
 # Использовать combinations_with_replacement
 
 a = 'XYZ'
+
+
 
 
 
@@ -3107,6 +3185,9 @@ print(list(combinations_with_replacement('XYZ', 3)))
 # --- Отличия    combinations  vs  combinations_with_replacement vs  permutations ---
 
 a = 'XYZ'
+
+
+
 
 
 
@@ -3168,8 +3249,6 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 
 
-
-
 # Ответ @functools.cache(user_function)
 """
 from functools import cache
@@ -3188,6 +3267,9 @@ print(factorial(12))  # -> 479001600
 # @functools.lru_cache(user_function)
 # @functools.lru_cache(maxsize=128, typed=False)
 # Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
+
+
+
 
 
 
@@ -3241,6 +3323,7 @@ def multiply(x, y):
 
 
 
+
 # partial функция from functools import partial
 """
 from functools import partial
@@ -3268,6 +3351,10 @@ print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required pos
 
 # @functools.wraps(wrapped, assigned=WRAPPER_ASSIGNMENTS, updated=WRAPPER_UPDATES)
 # 1) Написать декоратор, который выводит на экран время работы произвольной функции и используем   from functools import wraps
+
+
+
+from functools import wraps
 
 
 
@@ -3309,7 +3396,6 @@ example_function(1000000)  # -> Время выполнения функции '
 
 
 # 1.1) Написать Класс как ДЕКОРАТОР, который выводит на экран время работы произвольной функции:
-
 
 
 
@@ -3376,7 +3462,6 @@ print(plus(2, 2))
 # 1.2) Написать dataclass
 # @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
 # kw_only=False, slots=False, weakref_slot=False)
-
 
 
 
@@ -3480,6 +3565,7 @@ m = MyDate(n=1)
 m1 = MyDate(n=1)
 
 print(m.__dict__)    # -> {'n': 1, 's': 'a', 'items': []}
+print(m.dict)        # -> <bound method BaseModel.dict of MyDate(n=1, s='a', items=[])>
 
 print(m == m1)       # -> True
 print(m.__eq__(m1))  # -> True
@@ -3505,8 +3591,6 @@ mm1 = MyDate(1)
 
 
 
-
-
 # Ответ 2)
 """
 def safe_decorator(func):
@@ -3517,17 +3601,19 @@ def safe_decorator(func):
        except ZeroDivisionError as e:
            return e
    return wrapper
-
-@safe_decorator
-def divide(a, b):
-    return a / b
-
-print(divide(10, 0))  # -> division by zero
-print(divide(10, 2))  # -> 5.0
+                                                # Тоже самое Но нацело деление и ошибка другая
+@safe_decorator                                 @safe_decorator            
+def divide(a, b):                               def divide(a, b):                
+    return a / b                                    return a // b                
+                                                  
+print(divide(10, 0))  # -> division by zero     print(divide(10, 0))  # -> integer division or modulo by zero                                        
+print(divide(10, 2))  # -> 5.0                  print(divide(10, 2))  # -> 5                            
 """
 
 
 # Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
+
+
 
 
 
@@ -3575,6 +3661,7 @@ if __name__ == '__main__':
 
 
 # 3) Написать генератор Фибоначчи от a и b.  Вывести первые 10 чисел Фибоначчи
+
 
 
 
@@ -3663,6 +3750,8 @@ fib_gen = fib()
 
 
 
+
+
 # Ответ Создать Абстрактный класс  и Унаследоваться от него     from abc import ABC, abstractmethod
 """
 from abc import ABC, abstractmethod
@@ -3712,6 +3801,8 @@ print(c.fff())  # -> None
 
 
 # Написать Асинхронный код
+
+
 
 
 
@@ -3808,6 +3899,7 @@ if __name__ == '__main__':                                       if __name__ == 
 
 
 
+
 # Ответ  Как запустить что-то в потоке и вывести результат?  from concurrent.futures import ThreadPoolExecutor
 """
 from concurrent.futures import ThreadPoolExecutor
@@ -3824,6 +3916,7 @@ with ThreadPoolExecutor(max_workers=1) as executor:
 
 
 # Как запустить что-то в Процессах и вывести результат?   # lambda не сериализуется pickle   ProcessPoolExecutor
+
 
 
 
@@ -3879,6 +3972,7 @@ if __name__ == "__main__":
 
 d = [-1, -3, 2, 4, 5, 7, 8, 9]
 target = 9
+
 
 
 
@@ -3964,7 +4058,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -4071,6 +4164,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
 # Сортировка пузырьком (Bubble Sort)
 """
 def bubble_sort(arr):
@@ -4139,6 +4233,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
+
 # Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -4171,7 +4266,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-
 # Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -4193,6 +4287,7 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # Написать Сортировку слиянием (Merge Sort)
+
 
 
 
@@ -4258,6 +4353,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
+
 # Ответ Напишите raw-запрос
 """
 people = Person.objects.raw("SELECT id, name FROM hello_person")
@@ -4266,6 +4362,9 @@ people = Person.objects.raw("SELECT id, name FROM hello_person")
 
 
 # Перепишите lookups
+
+
+
 
 
 
@@ -4389,6 +4488,7 @@ city_name = 'N'  # укажите название города
 
 
 
+
 # Ответ 2. Вывести всех людей, живущих в городе N:
 """
 city_name = 'N'  # укажите название города
@@ -4404,6 +4504,7 @@ for person in people_in_city_n:
 # 3. Вывести 5 городов с наибольшим населением, упорядочив по убыванию.
 # Для этого нам нужно будет добавить поле для хранения количества людей в каждом городе. Однако, чтобы подсчитать
 # это количество динамически, мы можем использовать аннотирование с `Count`.
+
 
 
 
@@ -4438,7 +4539,10 @@ for city in top_cities:
 
 
 
+
 # 1)OR  Найдем всех людей, у которых имя "John" ИЛИ фамилия "Doe"
+
+
 
 
 
@@ -4450,7 +4554,12 @@ for city in top_cities:
 
 
 
+
+
+
 # 3)NOT Найдем всех людей, у которых имя "John", кроме тех, у кого фамилия "Doe"
+
+
 
 
 
@@ -4464,7 +4573,11 @@ for city in top_cities:
 
 
 
+
+
+
 # 5)Комбинирование условий Найдем всех людей, у которых имя "John", ИЛИ фамилия "Doe", И возраст не меньше 25
+
 
 
 
@@ -4508,8 +4621,6 @@ people = Person.objects.filter((Q(first_name='John') | Q(last_name='Doe')) & Q(a
 
 
 # Напиши SQL Задачу с собеседования ---
-
-
 
 
 
@@ -4566,6 +4677,8 @@ left join products as p on u.id = p.id
 # product | count
 # dog | 2
 # cat | 3
+
+
 
 
 
@@ -4717,6 +4830,7 @@ def clean_duplicates(lst):
 
 
 
+
 # print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
 
@@ -4787,6 +4901,8 @@ xs = [
 
 
 
+
+
 # Ответ  Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
 """
 xs = [
@@ -4845,7 +4961,6 @@ target = 9
 # Написать 2 варианта
 def twoSum(nums, target):
     pass
-
 
 
 
@@ -4938,6 +5053,8 @@ ________________________________________________________________________________
 
 
 # Релизация своего класса имитируещего СЛОВАРЬ   ML
+
+
 
 
 
@@ -5079,7 +5196,6 @@ def flatten(*args):
 
 
 
-
 # print(flatten([1, 2, [2, 3, [4, 4]]]))                  # -> [1, 2, 2, 3, 4, 4]
 # print(flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]]))  # -> [1, 2, 2, 3, 4, 4, 5, 5]
 
@@ -5188,6 +5304,7 @@ ________________________________________________________________________________
 # Написать 2 варианта
 def longest_sequence(arr):
     pass
+
 
 
 
@@ -5340,10 +5457,6 @@ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
 
 
-
-
-
-
 # Ответ Создайте декоратор retry, который повторяет выполнение функции заданное количество раз, если она завершилась с
 # ошибкой. Если все попытки неудачны, декоратор должен вернуть сообщение об ошибке или выбросить исключение.   Сбер
 """
@@ -5469,20 +5582,19 @@ print(a is b)          # -> True       print(a is b)          # -> True
 # в число, не используя стандартные методы преобразования python.
 
 
-# Еще один вариант Мой
+
+
 def to_digit(val):
-    res = dict(zip(map(str, range(10)), range(10)))
-    return res.get(val)
+    pass
+
+
 
 def string_to_int(value: str) -> int:
-    res = 0
-    n = len(value) - 1
-    for i in value:
-        res += to_digit(i) * 10 ** n
-        n -= 1
-    return res
+    pass
 
-print(string_to_int("3248"))  # -> 3248
+
+
+# print(string_to_int("3248"))  # -> 3248
 
 
 
