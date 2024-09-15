@@ -399,12 +399,24 @@ import re
 
 
 
+import asyncio
+
+@asyncio.coroutine
+def coroutine():
+    print('Засыпаю!')
+    yield from asyncio.sleep(1)
+    print('Проснулась')
 
 
+asyncio.run(coroutine())
 
 
-
-
+# async def coroutine():
+#     print('Засыпаю!')
+#     await asyncio.sleep(1)
+#     print('Проснулась')
+#
+# asyncio.run(coroutine())
 
 
 
