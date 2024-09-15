@@ -3459,6 +3459,8 @@ def plus(a, b):
 print(plus(2, 2))
 """
 
+
+
 # 1.2) Написать dataclass
 # @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
 # kw_only=False, slots=False, weakref_slot=False)
@@ -3488,6 +3490,47 @@ class InventoryItem:
 item = InventoryItem(name="HEHE", unit_price=12, quantity=100)
 print(item.__dict__)  # -> {'name': 'HEHE', 'unit_price': 12, 'quantity': 100}
 """
+
+
+
+
+# 1.2.1) compare=False   Написать dataclass  В котором Исключить поле из сравнения
+# @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
+# kw_only=False, slots=False, weakref_slot=False)
+
+
+
+
+
+
+
+
+
+
+# 1.2.1) Ответ compare=False   Написать dataclass  В котором Исключить поле из сравнения
+# @dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False, match_args=True,
+# kw_only=False, slots=False, weakref_slot=False)
+"""
+from dataclasses import dataclass, field
+
+@dataclass(order=True)
+class WorkItem:
+    priority: int
+    priority_2: int = field(compare=False)  # Это поле не участвует в сравнении
+    data: str = field(compare=False)  # Это поле также не участвует в сравнении
+
+# Создаем несколько экземпляров WorkItem
+item1 = WorkItem(priority=2, priority_2=5, data="A")
+item2 = WorkItem(priority=1, priority_2=10, data="B")
+item3 = WorkItem(priority=1, priority_2=20, data="C")
+
+# Сравнение экземпляров
+print(item1 > item2)   # True, так как priority 2 > 1
+print(item2 < item3)   # False, так как priority 1 == 1, но priority_2 не участвует в сравнении
+print(item2 == item3)  # True, так как priority 1 == 1, но при этом priority_2 не учитывается
+"""
+
+
 
 
 # 1.3) Сделать по умолчанию пустой список и НЕ пустой  Сравнение __eq__()  уже встроенно в dataclass
