@@ -182,18 +182,19 @@ print(f'asizeof   frozenset(): {asizeof.asizeof(my_set)} байт')  # -> asizeo
 
 
 
-                            -- Примеры tuple() vs namedtuple() --                               <-----
+                            -- Примеры tuple() vs namedtuple() vs () --                        <-----
 my_tuple = tuple()
-print(f'getsizeof tuple():    {sys.getsizeof(my_tuple)} байт')    # -> getsizeof tuple():       40 байт
-print(f'asizeof   tuple():    {asizeof.asizeof(my_tuple)} байт')  # -> asizeof   tuple():       40 байт
+print(f'getsizeof tuple():    {sys.getsizeof(my_tuple)} байт')    # -> getsizeof tuple():      40 байт
+print(f'asizeof   tuple():    {asizeof.asizeof(my_tuple)} байт')  # -> asizeof   tuple():      40 байт
+print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asizeof   ():           40 байт
 
 
 from collections import namedtuple
 
 my_tuple = namedtuple('C', '')
 nt_tuple = my_tuple()
-print(f'getsizeof namedtuple: {sys.getsizeof(nt_tuple)} байт')    # -> getsizeof namedtuple:    40 байт
-print(f'asizeof   namedtuple: {asizeof.asizeof(nt_tuple)} байт')  # -> asizeof   namedtuple:    40 байт
+print(f'getsizeof namedtuple: {sys.getsizeof(nt_tuple)} байт')    # -> getsizeof namedtuple:   40 байт
+print(f'asizeof   namedtuple: {asizeof.asizeof(nt_tuple)} байт')  # -> asizeof   namedtuple:   40 байт
 
 
 
@@ -283,21 +284,25 @@ print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asi
 
 
 
-                            -- Примеры int() float() complex() True False str() range(0) bytes() bytearray() --  <-----
-
+                            -- Примеры int() float() complex() True False str() range(0) bytes() bytearray() vs None -- 
+                            -- И пустые объекты Тоже самое 0  ''  0.0  0j  b""  bytearray(b"")  object()  --     <-----
+                            
 my_int = int()
 print(f'getsizeof int():  {sys.getsizeof(my_int)} байт')            # -> getsizeof int():      28 байт
 print(f'asizeof   int():  {asizeof.asizeof(my_int)} байт')          # -> asizeof   int():      32 байт
+print(f'asizeof   0:      {asizeof.asizeof(0)} байт')               # -> asizeof   0:          32 байт
 
 
 my_float = float()
 print(f'getsizeof float():  {sys.getsizeof(my_float)} байт')        # -> getsizeof float():    24 байт
 print(f'asizeof   float():  {asizeof.asizeof(my_float)} байт')      # -> asizeof   float():    24 байт
+print(f'asizeof   0.0:      {asizeof.asizeof(my_float)} байт')      # -> asizeof   0.0:        24 байт
 
 
 my_comp = complex()
 print(f'getsizeof complex():  {sys.getsizeof(my_comp)} байт')       # -> getsizeof complex():  32 байт
 print(f'asizeof   complex():  {asizeof.asizeof(my_comp)} байт')     # -> asizeof   complex():  32 байт
+print(f'asizeof   0j:         {asizeof.asizeof(my_comp)} байт')     # -> asizeof   0j:         32 байт
 
 
 # True
@@ -310,9 +315,15 @@ print(f'getsizeof False:  {sys.getsizeof(False)} байт')             # -> get
 print(f'asizeof   False:  {asizeof.asizeof(False)} байт')           # -> asizeof   False:      32 байт
 
 
+# None  занимает фиксированное количество памяти!!!        Один из самых маленьких объектов по памяти!!!      <-----
+print(f'getsizeof None:  {sys.getsizeof(None)} байт')               # -> getsizeof None:       16 байт
+print(f'asizeof   None:  {asizeof.asizeof(None)} байт')             # -> asizeof   None:       16 байт
+
+
 my_str = str()
 print(f'getsizeof str():  {sys.getsizeof(my_str)} байт')            # -> getsizeof str():      49 байт
 print(f'asizeof   str():  {asizeof.asizeof(my_str)} байт')          # -> asizeof   str():      56 байт
+print(f'asizeof   "":     {asizeof.asizeof("")} байт')              # -> asizeof   "":         56 байт
 
 
 my_range = range(0)
@@ -323,11 +334,18 @@ print(f'asizeof   range(0):  {asizeof.asizeof(my_range)} байт')     # -> asi
 my_bytes = bytes()
 print(f'getsizeof bytes():  {sys.getsizeof(my_bytes)} байт')        # -> getsizeof bytes():    33 байт
 print(f'asizeof   bytes():  {asizeof.asizeof(my_bytes)} байт')      # -> asizeof   bytes():    40 байт
+print(f'asizeof   b"":      {asizeof.asizeof(b"")} байт')           # -> asizeof   b"":        40 байт
 
 
 my_b_arr = bytearray()
-print(f'getsizeof bytearray():  {sys.getsizeof(my_b_arr)} байт')    # -> getsizeof bytearray():  56 байт
-print(f'asizeof   bytearray():  {asizeof.asizeof(my_b_arr)} байт')  # -> asizeof   bytearray():  56 байт
+print(f'getsizeof bytearray():  {sys.getsizeof(my_b_arr)} байт')    # -> getsizeof bytearray():              56 байт
+print(f'asizeof   bytearray():  {asizeof.asizeof(my_b_arr)} байт')  # -> asizeof   bytearray():              56 байт
+print(f'asizeof   bytearray(b""):  {asizeof.asizeof(bytearray(b""))} байт')  # -> asizeof   bytearray(b""):  56 байт
+
+
+my_object = object()
+print(f'getsizeof object():  {sys.getsizeof(my_object)} байт')      # -> getsizeof object():   16 байт
+print(f'asizeof   object():  {asizeof.asizeof(my_object)} байт')    # -> asizeof   object():   0 байт
 """
 
 
