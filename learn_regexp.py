@@ -398,35 +398,6 @@ rez = tee(x, 3)
 import re
 
 
-from pympler import asizeof
-
-
-
-
-
-print(tuple())
-
-
-
-
-my_object = tuple()
-print(f'getsizeof object():  {sys.getsizeof(my_object)} байт')             # -> getsizeof object():  16 байт
-print(f'asizeof   object():  {asizeof.asizeof(my_object)} байт')           # -> asizeof   object():  0 байт
-print(f'asizeof   ():        {asizeof.asizeof(())} байт')                  # -> asizeof   ():        40 байт
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
