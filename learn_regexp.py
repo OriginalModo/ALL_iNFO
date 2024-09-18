@@ -402,44 +402,22 @@ import re
 
 
 
+from more_itertools import one
 
 
 
 
 
 
+# chunked, spy, first, one, only, unique_everseen
 
+from more_itertools import ilen
 
+a_gen = (i for i in range(10))
+print(ilen(a_gen))  # -> 10  Генератор/Итератор одноразовый
+print(list(a_gen))  # -> []                                                                    <-----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(len(a_gen))   # -> TypeError: object of type 'generator' has no len()     Обычный len()  <-----
 
 
 

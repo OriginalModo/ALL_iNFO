@@ -3193,6 +3193,220 @@ print(list(combinations_with_replacement('XY', 2)))   # -> [('X', 'X'), ('X', 'Y
 
 
 
+# --- сторонний модуль more-itertools в Python, Больше процедур для работы с итерируемыми объектами, помимо itertools ---
+
+
+
+# more_itertools.chunked(iterable, n, strict=False) - Разбейте итерацию на списки длины n
+# Использовать chunked
+
+
+iterable = [1, 2, 3, 4, 5, 6]
+
+
+
+
+
+
+
+# Ответы chunked
+"""
+from more_itertools import chunked
+
+iterable = [1, 2, 3, 4, 5, 6]
+print(list(chunked(iterable, 1)))  # -> [[1], [2], [3], [4], [5], [6]]
+print(list(chunked(iterable, 2)))  # -> [[1, 2], [3, 4], [5, 6]]
+print(list(chunked(iterable, 3)))  # -> [[1, 2, 3], [4, 5, 6]]
+"""
+
+
+
+# more_itertools.spy(iterable, n=1) - первые n элементов , и итератор с теми же элементами, что и итерируемый объект.
+# Использовать spy
+
+
+iterable = 'abcdefg'
+
+
+
+
+
+# Ответы spy
+"""
+from more_itertools import spy
+
+iterable = 'abcdefg'
+
+head, iterable = spy(iterable, 3)
+print(head)             # -> ['a', 'b', 'c']
+print(list(iterable))   # -> ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+print(spy(iterable))    # -> ([], <itertools.chain object at 0x000002ADE9E0FB20>)    
+"""
+
+
+# more_itertools.first(iterable[, default]) - Возвращает первый элемент iterable или значение по умолчанию , если iterable пуст.
+# Использовать first
+
+
+iterable = [0, 1, 2, 3]
+
+
+iterable = []
+
+
+
+
+
+
+# Ответы first
+"""
+from more_itertools import first
+
+print(first([0, 1, 2, 3]))        # -> 0
+print(first([], 'some default'))  # -> 'some default'
+print(first([]))  # -> ValueError: first() was called on an empty iterable, and no default value was provided.
+"""
+
+
+
+# more_itertools.one(iterable, too_short=ValueError, too_long=ValueError) - Верните первый элемент из iterable
+# Использовать one
+
+
+
+
+
+
+# Ответы one
+"""
+from more_itertools import one
+
+
+it = [1]
+print(one(it))   # -> 1
+
+it = ['too', 'many']
+print(one(it))   # -> ValueError: Expected exactly one item in iterable, but got 'too', 'many', and perhaps more.
+
+too_long = RuntimeError
+one(it, too_long=too_long)  # -> RuntimeError
+
+it = 1
+print(one(it))   # -> TypeError: 'int' object is not iterable
+
+it = []
+print(one(it))   # -> ValueError: too few items in iterable (expected 1)
+"""
+
+
+
+# more_itertools.only(iterable, default=None, too_long=ValueError) - Если в iterable есть только один элемент, верните его.
+# Использовать only
+
+
+
+
+
+
+# Ответы only
+"""
+from more_itertools import only
+
+print(only([], default='missing'))       # -> 'missing'
+print(only([1]))                         # -> 1
+print(only([1, 2]))  # -> ValueError: Expected exactly one item in iterable, but got 1, 2, and perhaps more.
+print(only([1, 2], too_long=TypeError))  # -> TypeError
+"""
+
+
+
+# more_itertools.unique_everseen(iterable, key=None) - Создавайте уникальные элементы, сохраняя порядок.
+# Использовать unique_everseen
+
+
+
+
+
+
+# Ответы unique_everseen
+"""
+from more_itertools import unique_everseen
+from timeit import timeit
+
+print(list(unique_everseen('AAAABBBCCDAABBB')))     # -> ['A', 'B', 'C', 'D']
+print(list(unique_everseen('ABBCcAD', str.lower)))  # -> ['A', 'B', 'C', 'D']
+
+
+iterable = ([1, 2], [2, 3], [1, 2])
+print(list(unique_everseen(iterable)))              # [[1, 2], [2, 3]]          # Slow     <-----
+print(list(unique_everseen(iterable, key=tuple)))   # [[1, 2], [2, 3]]          # Faster   <-----
+
+
+#  В основном tuple самый быстрый, можно самому еще потестить варианты
+a_list = ([1, 2], [2, 3], [1, 2])
+print(timeit('list(unique_everseen(a_list))', globals=globals()))               # ->  3.41782069997862    <-----
+print(timeit('list(unique_everseen(a_list, key=tuple))', globals=globals()))    # ->  1.4006470999447629  <-----
+
+a_set = ({1, 2}, {2, 3}, {1, 2})
+print(timeit('list(unique_everseen(a_set))', globals=globals()))                 # ->  4.487388600013219   <-----
+print(timeit('list(unique_everseen(a_set, key=frozenset))', globals=globals()))  # ->  1.4916451999451965  <-----
+"""
+
+
+
+
+
+#  class more_itertools.islice_extended(iterable, stop)
+#  class more_itertools.islice_extended(iterable, start, stop[, step])
+#  Расширение этого itertools.islice() поддерживает отрицательные значения для stop , start и Step .
+
+
+iterable = iter('abcdefgh')
+
+
+
+
+
+# Ответы islice_extended
+"""
+from more_itertools import islice_extended
+
+
+iterable = iter('abcdefgh')
+print(list(islice_extended(iterable, None, None, -1)))  # -> ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a']
+iterable = iter('abcdefgh')
+print(list(islice_extended(iterable, -4, -1)))          # -> ['e', 'f', 'g']
+"""
+
+
+
+# # more_itertools.ilen(iterable) - Возвращает количество элементов в iterable .  Это потребляет итерацию .
+# Использовать ilen
+
+
+a_gen = (i for i in range(10))
+
+
+
+
+
+# Ответы ilen
+"""
+from more_itertools import ilen
+
+a_gen = (i for i in range(10))
+print(ilen(a_gen))  # -> 10  Генератор/Итератор одноразовый
+print(list(a_gen))  # -> []                                                                    <-----
+
+print(len(a_gen))   # -> TypeError: object of type 'generator' has no len()     Обычный len()  <-----
+"""
+
+
+
+
+
+
 # --- functools — Функции высшего порядка и операции над вызываемыми объектами ---
 
 

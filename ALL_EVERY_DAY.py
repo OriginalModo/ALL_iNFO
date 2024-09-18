@@ -1642,6 +1642,61 @@ ________________________________________________________________________________
 
 
 
+ --- Сравнение объектов ---
+ # Если объекты не могут быть сравниваемы (например, если они разных типов), то произойдет ошибка типа `TypeError`.
+
+ # В Python функции `max()`, `min()` и `sorted()` и другие подобные функции используют стандартные методы сравнения
+ # объектов, такиме как `__lt__`, `__le__`, `__gt__`, `__ge__`, и `__eq__`.
+
+ print(sorted([1, 2, 'a']))  # -> TypeError: '<' not supported between instances of 'str' and 'int'   Тут метод __lt__
+ print(min([1, 2, 'a']))     # -> TypeError: '<' not supported between instances of 'str' and 'int'   Тут метод __gt__
+ print(max([1, 2, 'a']))     # -> TypeError: '>' not supported between instances of 'str' and 'int'   Тут метод __gt__
+
+
+ # Чтобы можно было сравнивать ЭК нужно прописать методы         по умолчанию будет ошибка
+ class Person:
+     def __init__(self, name, age):
+         self.name = name
+         self.age = age
+
+     def __lt__(self, other):
+         return self.age < other.age
+
+ p1 = Person("Alice", 30)
+ p2 = Person("Bob", 25)
+
+ print(max(p1, p2).name)  # Вывод: Alice (поскольку Alice старше)
+ print(min(p1, p2).name)  # Вывод: Bob (поскольку Bob младше)
+
+ # Без методов будет ошибка
+ class Person:
+     def __init__(self, name, age):
+         self.name = name
+         self.age = age
+
+ p1 = Person("Alice", 30)
+ p2 = Person("Bob", 25)
+
+ print(p1 > p2)           # -> TypeError: '>' not supported between instances of 'Person' and 'Person'
+ print(max(p1, p2).name)  # -> TypeError: '>' not supported between instances of 'Person' and 'Person'
+ print(min(p1, p2).name)  # -> TypeError: '<' not supported between instances of 'Person' and 'Person'
+
+
+ # __eq__ по умолчанию сравнивает адрес в памяти
+
+ # В dataclass eq встроен сразу           # В обычном классе Сравниваем адрес в памяти
+ from dataclasses import dataclass
+
+ @dataclass                               class Person:
+ class Person:                                def __init__(self, name, age):
+     name: str                                    self.name = name
+     age: int                                     self.age = age
+
+ p1 = Person("Bob", 25)                   p1 = Person("Bob", 25)
+ p2 = Person("Bob", 25)                   p2 = Person("Bob", 25)
+ print(p1 == p2)  # -> True               print(p1 == p2)  # -> False
+
+
  Протокол итератора (iterator protocol) - объекты итератора должны поддерживать  iterator.__iter__()  и iterator.__next__()
  Для создания объекта типа Iterator можно воспользоваться встроенной функцией iter(). По итератору можно двигаться с помощью функции next().
 
