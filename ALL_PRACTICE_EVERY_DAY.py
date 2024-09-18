@@ -4713,8 +4713,6 @@ def is_correct_brackets(text):
 
 
 
-
-
 # print(is_correct_brackets('(((())))'))  # True
 # print(is_correct_brackets('(((())'))  # False
 # print(is_correct_brackets('())))'))  # False
@@ -4830,7 +4828,6 @@ def clean_duplicates(lst):
 
 
 
-
 # print(clean_duplicates([{1: 2}, {1: 2}, {1: 2}]))  # -> [{1: 2}]
 
 
@@ -4901,8 +4898,6 @@ xs = [
 
 
 
-
-
 # Ответ  Yandex-Маркет Задача Отсортировать по двум параметрам. Как я сделал я не знаю
 """
 xs = [
@@ -4943,6 +4938,29 @@ def get_sorted(lst):
 
 print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
 print(get_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
+
+
+# Интересный момент с унарным минусом - 
+def fun(x):
+    a, b = -int(re.search(r'\d(?=_)', x).group()), re.search(r'(?<=_)\w', x)[0]
+    return -a, b    
+
+def my_sorted(lst):
+    return sorted(lst, key=fun)
+
+print(my_sorted(xs))  # -> ['1_a.txt', '1_c.txt', '1_e.txt', '2_b.txt', '3_d.txt']
+
+
+# Без унарного минуса будет другой результат
+def fun(x):
+    a, b = -int(re.search(r'\d(?=_)', x).group()), re.search(r'(?<=_)\w', x)[0]
+    return a, b                                                                      # Убрали минус тут
+    # return ---a, b      # Можно еще ставить много минусов) с четным и НЕ четным результаты разные будет
+
+def my_sorted(lst):
+    return sorted(lst, key=fun)
+
+print(my_sorted(xs))  # -> ['3_d.txt', '2_b.txt', '1_a.txt', '1_c.txt', '1_e.txt']
 ________________________________________________________________________________________________________________________
 """
 
@@ -4961,7 +4979,6 @@ target = 9
 # Написать 2 варианта
 def twoSum(nums, target):
     pass
-
 
 
 
@@ -5053,7 +5070,6 @@ ________________________________________________________________________________
 
 
 # Релизация своего класса имитируещего СЛОВАРЬ   ML
-
 
 
 
@@ -5176,7 +5192,6 @@ def sort_array(arr):
 
 
 
-
 numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 # print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 
@@ -5193,6 +5208,7 @@ numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 # Написать 2 варианта
 def flatten(*args):
     pass
+
 
 
 
@@ -5307,8 +5323,6 @@ def longest_sequence(arr):
 
 
 
-
-
 arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
 # print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
@@ -5379,6 +5393,26 @@ def longest_sequence(arr):
 
 arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
 print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
+# Очень похожий вариант
+def longest_sequence(arr):
+    max_seq = []
+    current_seq = []
+    n = len(arr)
+    for i in range(n):
+        if arr[i] > arr[i-1]:
+            current_seq.append(arr[i])
+        else:
+            if len(current_seq) > len(max_seq):
+                max_seq = current_seq
+            current_seq = [arr[i]]
+    if len(current_seq) > len(max_seq):
+        max_seq = current_seq
+    return max_seq
+    
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 """
 
 
@@ -5445,8 +5479,6 @@ print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 # Попытка 3 не удалась: Случайная ошибка. Повтор через 2 секунд.
 # Попытка 4 не удалась: Случайная ошибка. Повтор через 2 секунд.
 # Функция не отработала корректно
-
-
 
 
 
@@ -5582,15 +5614,13 @@ print(a is b)          # -> True       print(a is b)          # -> True
 # в число, не используя стандартные методы преобразования python.
 
 
-
-
 def to_digit(val):
     pass
 
 
 
 def string_to_int(value: str) -> int:
-    pass
+    ...
 
 
 
