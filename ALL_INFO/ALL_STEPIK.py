@@ -3571,7 +3571,26 @@ ________________________________________________________________________________
  print(f"{} набрал {} баллов на экзамене по {}!".format(a, c, b))  # -> SyntaxError: f-string: empty expression not allowed
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Интересные примеры с import operator vs lambda
 
+ import operator
+
+ print(operator.itemgetter(1,3,5)('ABCDEFG'))      # -> ('B', 'D', 'F')
+ print((lambda x: (x[1], x[3], x[5]))('ABCDEFG'))  # -> ('B', 'D', 'F')
+
+
+ class MyObj:
+     def __init__(self, arg):
+         self.arg = arg
+         self.name = 'name'
+
+ m = MyObj('arg')
+ print(operator.attrgetter('arg')(m))              # -> arg
+ print(operator.attrgetter('name')(m))             # -> name
+ print((lambda x: x.arg)(m))                       # -> arg
+
+ print(operator.attrgetter('name', 'arg')(m))      # -> ('name', 'arg')
+ print((lambda x: (x.arg, x.name))(m))             # -> ('arg', 'name')
  -----------------------------------------------------------------------------------------------------------------------
 
 

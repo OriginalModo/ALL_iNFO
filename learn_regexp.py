@@ -397,59 +397,12 @@ rez = tee(x, 3)
 
 import re
 
-# Умножение списков
-a_list = [3, 2, 1] * 2
-print(a_list)  # -> [3, 2, 1, 3, 2, 1]
+# Сравнение '\B' и '\b'        '\B'  противоположность '\b'
+print(re.findall(r'py\B', 'python py3 py2'))  # -> ['py', 'py', 'py']   # В таких найдёт     <-----
+print(re.findall(r'py\B', 'py py. py!'))      # -> []                   # В таких НЕ найдёт  <-----
 
-# Умножение строк
-a_str = 'Python' * 2
-print(a_str)   # -> PythonPython
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(re.findall(r'py\b', 'python py3 py2'))  # -> []                   # В таких НЕ найдёт  <-----
+print(re.findall(r'py\b', 'py py. py!'))      # -> ['py', 'py', 'py']   # В таких найдёт     <-----
 
 
 

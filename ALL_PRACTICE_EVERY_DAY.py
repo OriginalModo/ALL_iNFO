@@ -346,6 +346,11 @@ print(f'asizeof   bytearray(b""):  {asizeof.asizeof(bytearray(b""))} байт') 
 my_object = object()
 print(f'getsizeof object():  {sys.getsizeof(my_object)} байт')      # -> getsizeof object():   16 байт
 print(f'asizeof   object():  {asizeof.asizeof(my_object)} байт')    # -> asizeof   object():   0 байт
+
+object() возвращает 0 байт, потому что функция `asizeof` не находит вложенных объектов или атрибутов для учета,
+так как `object` не содержит информации.  Сам по себе object() - весит 16 байт
+object() - является базовым пустым объектом без дополнительных атрибутов или содержимого.
+
 """
 
 
@@ -998,6 +1003,46 @@ re.search(r"(A)?(?(1)B)", 'BC')  # -> <re.Match object; span=(1, 2), match='C'>
 print(re.search(r"(?P<name>A)(?(name)B|C)", 'ABC').group())   # -> AB
 print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 """
+
+
+
+# Используйте \b \B
+
+text = 'арка чарка аркан баварка знахарка'
+
+
+
+
+
+# Ответ Используйте \b \B
+"""
+text = 'арка чарка аркан баварка знахарка'
+
+# Найти конкретное слово     '\b'
+print(re.findall(r'\bарка\b', text))   # -> ['арка']                           <-----
+
+# Найти конкретное слово     '\b'
+print(re.findall(r'\Bарка', text))     # -> ['арка', 'арка', 'арка']           <-----
+
+# Найти все слова которые НАЧИНАЮТСЯ с выбранного значения
+print(re.findall(r'\bарка', text))     # -> ['арка', 'арка']                  <-----
+print(re.findall(r'\bарка\w*', text))  # -> ['арка', 'аркан']                 <-----
+
+# Найти все слова которые ЗАКАНЧИВАЮТСЯ  выбранным значением
+print(re.findall(r'арка\b', text))     # -> ['арка', 'арка', 'арка', 'арка']           <-----
+print(re.findall(r'\w*арка\b', text))  # -> ['арка', 'чарка', 'баварка', 'знахарка']   <-----
+
+
+# Сравнение '\B' и '\b'        '\B'  противоположность '\b'
+print(re.findall(r'py\B', 'python py3 py2'))  # -> ['py', 'py', 'py']   # В таких найдёт     <-----
+print(re.findall(r'py\B', 'py py. py!'))      # -> []                   # В таких НЕ найдёт  <-----
+
+print(re.findall(r'py\b', 'python py3 py2'))  # -> []                   # В таких НЕ найдёт  <-----
+print(re.findall(r'py\b', 'py py. py!'))      # -> ['py', 'py', 'py']   # В таких найдёт     <-----
+"""
+
+
+
 
 
 # Используйте re.compile 2 Способа
@@ -5778,7 +5823,7 @@ class Foo:
     pass
 
     def __hash__(self):
-        return 42
+        return 42        
 
 data = {
     Foo(): 1,
