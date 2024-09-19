@@ -397,30 +397,13 @@ rez = tee(x, 3)
 
 import re
 
+# Умножение списков
+a_list = [3, 2, 1] * 2
+print(a_list)  # -> [3, 2, 1, 3, 2, 1]
 
-
-
-
-
-from more_itertools import one
-
-
-
-
-
-
-# chunked, spy, first, one, only, unique_everseen
-
-from more_itertools import ilen
-
-a_gen = (i for i in range(10))
-print(ilen(a_gen))  # -> 10  Генератор/Итератор одноразовый
-print(list(a_gen))  # -> []                                                                    <-----
-
-print(len(a_gen))   # -> TypeError: object of type 'generator' has no len()     Обычный len()  <-----
-
-
-
+# Умножение строк
+a_str = 'Python' * 2
+print(a_str)   # -> PythonPython
 
 
 
