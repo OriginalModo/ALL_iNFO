@@ -58,6 +58,65 @@ ________________________________________________________________________________
  Таким образом, в сумме у вас будет 30 минут + 15 минут = 45 минут.
 ________________________________________________________________________________________________________________________
 
+ Есть список
+ words = ['aba', 'bac', 'abb', 'bab', 'bba',
+ 'aab', 'abca']
+ Анаграммы - это такие пары слов, в которых одинаковые буквы и одинаковое количество букв, расположенных в разном
+ порядке. В приведенном примере группы анаграмм: (aba, aab), (abb, bab, bba). Напишите такой код, который выведет
+ на консоль первую анаграмму из каждой группы.
+
+
+ # Мой Ответ
+ from collections import defaultdict
+
+ def is_anagramm(lst: list[str]):
+     res = defaultdict(list)
+     for i in lst:
+         res[''.join(sorted(i))].append(i)
+     for j in res.values():
+         yield j[False]
+
+ words = ['aba', 'bac', 'abb', 'bab', 'bba', 'aab', 'abca']
+ res = is_anagramm(words)
+
+ print(*res)  # -> aba bac abb abca
+
+
+
+ # Ответ ChatGPT
+ words = ['aba', 'bac', 'abb', 'bab', 'bba', 'aab', 'abca']
+
+ # Словарь для группировки анаграмм
+ anagrams = {}
+
+ # Группируем слова по их отсортированной версии
+ for word in words:
+     # Отсортируем буквы в слове и используем это в качестве ключа
+     key = ''.join(sorted(word))
+     if key not in anagrams:
+         anagrams[key] = []
+     anagrams[key].append(word)
+
+ # Вывод первой анаграммы из каждой группы
+ for group in anagrams.values():
+     print(group[0], end=' ')  # -> aba bac abb abca
+
+
+
+ # Улучшение Моего варианта ChatGPT
+
+ def is_anagramm(lst: list[str]) -> list[str]:
+     res = defaultdict(list)
+     # Сортируем слова и группируем их анаграммы
+     for word in lst:
+         res[''.join(sorted(word))].append(word)
+     # Возвращаем первые слова из каждой группы анаграмм
+     return [words[0] for words in res.values()]
+
+ words = ['aba', 'bac', 'abb', 'bab', 'bba', 'aab', 'abca']
+ print(*is_anagramm(words))  # -> aba abb abca
+________________________________________________________________________________________________________________________
+
  Реализовать функцию, которая будет преобразовывать строку (с целочисленным числом)
  в число, не используя стандартные методы преобразования python.
 
