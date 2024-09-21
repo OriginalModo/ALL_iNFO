@@ -656,7 +656,7 @@ ________________________________________________________________________________
 
  @admin.register(Women)
  class WomenAdmin(admin.ModelAdmin):
- list_display = ('id', 'title', 'time_create', 'is_published')
+     list_display = ('id', 'title', 'time_create', 'is_published')
 
  --- CBV  -  Class-Based Views ---
  CBV могут наследоваться от множества классов и миксинов,
@@ -686,8 +686,8 @@ ________________________________________________________________________________
  template_name = 'women/index.html' # служит для указания шаблона(html)
  get_context_data - возвращает контекст для использования в шаблоне
  def get_context_data(self, **kwargs):
-    context = super().get_context_data(**kwargs)
-    return context
+     context = super().get_context_data(**kwargs)
+     return context
 
  DetailView, ListView представления на основе классов предназначены для отображения данных.
  Во многих проектах они обычно являются наиболее часто используемыми представлениями.

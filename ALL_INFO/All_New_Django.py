@@ -291,6 +291,7 @@
 
  Django Проверяет INSTALLED_APPS сверху вниз, Расположение приложений тоже имеет значение
 
+ render(request, template_name, context=None, content_type=None, status=None, using=None)
 
  Функция render() возвращает объект HttpResponse, который представляет собой HTTP-ответ, содержащий сгенерированный
  HTML-код, созданный на основе указанного шаблона и переданных данных.
