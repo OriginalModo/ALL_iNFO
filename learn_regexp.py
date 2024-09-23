@@ -398,26 +398,6 @@ rez = tee(x, 3)
 import re
 
 
-def my_count(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        wrapper.my_count += 1  # Увеличиваем счетчик вызовов
-        print(f"Функция '{func.__name__}' была вызвана {wrapper.my_count} раз(а).")
-        return func(*args, **kwargs)  # Вызываем оригинальную функцию
-
-    wrapper.my_count = 0  # Инициализируем счетчик вызовов
-    return wrapper
-
-
-@my_count
-def plus():
-    pass
-
-print(plus())  # -> Функция 'plus' была вызвана 1 раз(а). None
-print(plus())  # -> Функция 'plus' была вызвана 2 раз(а). None
-print(plus())  # -> Функция 'plus' была вызвана 3 раз(а). None
-
-
 
 
 

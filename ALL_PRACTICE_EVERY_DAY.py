@@ -4994,7 +4994,7 @@ left join products as p on u.id = p.id
 
 
 
-# Ответ  Задача SQL  С книгами    Сделал ошибку fromm специально потому что код не был строкой
+# Ответ  Задача SQL  С книгами сильный чел    Сделал ошибку fromm специально потому что код не был строкой
 """
 select product, sum(count) AS c 
 fromm sales
