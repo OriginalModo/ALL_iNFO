@@ -3886,12 +3886,13 @@ class MyDate(BaseModel):
     n: int
     s: str = 'a'
     items: list[str] = []
+    items_2: list[str] = [1, 2, 3]
 
 m = MyDate(n=1)
 m1 = MyDate(n=1)
 
-print(m.__dict__)    # -> {'n': 1, 's': 'a', 'items': []}
-print(m.dict)        # -> <bound method BaseModel.dict of MyDate(n=1, s='a', items=[])>
+print(m.__dict__)    # -> {'n': 1, 's': 'a', 'items': [], 'items_2': [1, 2, 3]}
+print(m.dict)        # -> <bound method BaseModel.dict of MyDate(n=1, s='a', items=[], items_2=[1, 2, 3])>
 
 print(m == m1)       # -> True
 print(m.__eq__(m1))  # -> True
@@ -4967,7 +4968,7 @@ left join products as p on u.id = p.id
 
 
 
-# Задача SQL
+# Задача SQL                                   С книгами сильный чел
 # sales
 #
 #
@@ -4993,13 +4994,44 @@ left join products as p on u.id = p.id
 
 
 
-# Ответ  Задача SQL    Сделал ошибку fromm специально потому что код не был строкой
+# Ответ  Задача SQL  С книгами    Сделал ошибку fromm специально потому что код не был строкой
 """
 select product, sum(count) AS c 
 fromm sales
 where year = '2024'
 group by product
 having sum(count) > 2;
+"""
+
+
+
+# Вернуть авторов, которые написали более двух книг      ivi  Иви
+
+# CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT);
+# CREATE TABLE book (id SERIAL PRIMARY KEY, title TEXT, publication_date DATE, author_id integer REFERENCES author (id));
+# INSERT INTO author(name) VALUES ('Автор 1'), ('Автор 2'), ('Автор 3');
+# INSERT INTO book(title, publication_date, author_id) VALUES ('Книга 1', '2017-04-01', 1),
+# ('Книга 2', '2018-04-01', 1), ('Книга 3', '2018-05-01', 2);
+
+
+
+
+
+
+
+# -- Ответ Вернуть авторов, которые написали более двух книг    FROMm - Специально      ivi  Иви
+
+# CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT);
+# CREATE TABLE book (id SERIAL PRIMARY KEY, title TEXT, publication_date DATE, author_id integer REFERENCES author (id));
+# INSERT INTO author(name) VALUES ('Автор 1'), ('Автор 2'), ('Автор 3');
+# INSERT INTO book(title, publication_date, author_id) VALUES ('Книга 1', '2017-04-01', 1),
+# ('Книга 2', '2018-04-01', 1), ('Книга 3', '2018-05-01', 2);
+"""
+SELECT a.name, COUNT(b.id) AS book_count
+FROMm author AS a
+JOIN book AS b ON b.author_id = a.id
+GROUP BY a.id, a.name
+HAVING COUNT(b.id) > 2;
 """
 
 
@@ -5993,7 +6025,7 @@ print(string_to_integer(" +789 "))  # -> 789
 
 
 
-#  Есть список
+#  Есть список                                              Грузовая кампания
 #  words = ['aba', 'bac', 'abb', 'bab', 'bba',
 #  'aab', 'abca']
 #  Анаграммы - это такие пары слов, в которых одинаковые буквы и одинаковое количество букв, расположенных в разном
@@ -6006,7 +6038,7 @@ print(string_to_integer(" +789 "))  # -> 789
 
 
 # Ответ
-# Есть список
+# Есть список                                              Грузовая кампания
 # words = ['aba', 'bac', 'abb', 'bab', 'bba',
 # 'aab', 'abca']
 # Анаграммы - это такие пары слов, в которых одинаковые буквы и одинаковое количество букв, расположенных в разном
@@ -6066,10 +6098,61 @@ print(*is_anagramm(words))  # -> aba abb abca
 
 
 
+# Замерить сколько раз вызывается функция       ivi  Иви
+# 2 Варианта через функцию  и 1 Вариант через класс
 
 
 
 
+
+# Ответ Замерить сколько раз вызывается функция      ivi  Иви
+"""
+from dataclasses import dataclass, field
+from typing import Callable
+from functools import wraps
+
+# Ответ через функцию                # Ответ ChatGPT через функцию    Интересный пример   <-----  wrapper.my_count += 1
+            
+def my_count(func):                  def my_count(func):                  
+    c = 0                                @wraps(func)          
+    @wraps(func)                         def wrapper(*args, **kwargs):                  
+    def wrapper(*args, **kwargs):            wrapper.my_count += 1  # Увеличиваем счетчик вызовов                                  
+        nonlocal c                           print(f"Функция '{func.__name__}' была вызвана {wrapper.my_count} раз(а).")
+        c += 1                               return func(*args, **kwargs)  # Вызываем оригинальную функцию                  
+        print(c)                         wrapper.my_count = 0  # Инициализируем счетчик вызовов              
+        return func(*args, **kwargs)     return wrapper                                      
+    return wrapper                                      
+                                     
+@my_count                            @my_count          
+def plus():                          def plus():                       
+    ...                                  pass               
+                                                 
+print(plus())  # -> 1 None           print(plus())  # -> Функция 'plus' была вызвана 1 раз(а). None
+print(plus())  # -> 2 None           print(plus())  # -> Функция 'plus' была вызвана 2 раз(а). None
+print(plus())  # -> 3 None           print(plus())  # -> Функция 'plus' была вызвана 3 раз(а). None
+
+
+
+# Ответ через класс
+
+@dataclass
+class MyClass:
+    f: Callable
+    c: int = 0
+
+    def __call__(self, *args, **kwargs):
+        self.c += 1
+        print(self.c)
+        return self.f(*args, **kwargs)
+
+@MyClass
+def plus():
+    ...
+
+print(plus())  # -> 1 None
+print(plus())  # -> 2 None
+print(plus())  # -> 3 None
+"""
 
 
 
