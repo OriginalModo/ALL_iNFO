@@ -5052,7 +5052,7 @@ HAVING COUNT(*) > 2;
 
 
 
-# -- Ответ Вернуть авторов, которые написали более двух книг    FROMm - Специально      ivi  Иви
+# -- Ответ Вернуть авторов, которые написали более двух книг          ivi  Иви
 
 # CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT);
 # CREATE TABLE book (id SERIAL PRIMARY KEY, title TEXT, publication_date DATE, author_id integer REFERENCES author (id));
