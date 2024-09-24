@@ -422,61 +422,24 @@ import re
 
 
 
+"""
+Мой вариант
 
-# Write a function called test() that takes a string of parentheses, and determines if the order of the
-# parentheses is valid. The function should return true if the string is valid, and false if it's invalid.
-# "()"              =>  true
-# ")(()))"          =>  false
-# "("               =>  false
-# "(())((()())())"  =>  true
-# "())("            =>  false
-
-
+select product, sum(count) AS c 
+fromm sales
+where year = '2024'
+group by product
+having sum(count) > 2;
 
 
+Второй вариант
 
-
-def is_valid_braces_3(a_str: str) -> bool:
-    while '()' in a_str:
-        a_str = a_str.replace(r'()', '')
-    return not a_str
-
-
-
-def is_valid_braces_2(a_str: str) -> bool:
-    braces = {'(':')'}
-    res = []
-    for i in a_str:
-        if i in braces.keys():
-            res.append(i)
-        else:
-            if not res or braces[res.pop()] != i:
-                return False
-    return not res
-
-
-
-def is_valid_braces(a_str: str) -> bool:
-    for _ in  a_str:
-        a_str = a_str.replace(r'()', '')
-    return len(a_str) == 0
-
-
-
-# print(is_valid_braces("()"))
-# print(is_valid_braces(")(()))"))
-# print(is_valid_braces("("))
-# print(is_valid_braces("(())((()())())"))
-# print(is_valid_braces("())("))
-
-
-from timeit import timeit
-
-print(timeit('is_valid_braces("()")', globals=globals()))
-print(timeit('is_valid_braces_2("()")', globals=globals()))
-print(timeit('is_valid_braces_3("()")', globals=globals()))
-
-
+SELECT product, COUNT(*) AS c 
+FROM sales 
+WHERE year = '2024' 
+GROUP BY product 
+HAVING COUNT(*) > 2;
+"""
 
 
 

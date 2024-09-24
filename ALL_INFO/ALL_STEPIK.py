@@ -908,9 +908,30 @@ ________________________________________________________________________________
      quantity (INT)
 
 
- # Будем сцепляться по id
- select u.name from users as u
- left join products as p on u.id = p.id
+ # Первый вариант
+ Чтобы получить имена пользователей, которые когда-либо делали заказы на продукты, использовать следующий SQL-запрос:
+
+ SELECT DISTINCT u.name
+ FROM users u
+ JOIN orders o ON u.id = o.user_id
+ JOIN products p ON o.product_id = p.id;
+
+ ### Объяснение:
+ 1. Используем `JOIN` для соединения таблицы `users` с таблицей `orders` по `user_id`.
+ 2. Затем соединяем таблицу `orders` с таблицей `products` по `product_id`.
+ 3. Используем `DISTINCT`, чтобы избежать дублирования имен пользователей, если они сделали несколько заказов.
+
+
+
+ # Второй вариант
+ **Использование `LEFT JOIN` для получения всех пользователей и их продуктов (если есть):**
+
+ SELECT u.name, p.name AS product_name
+ FROM users u
+ LEFT JOIN orders o ON u.id = o.user_id
+ LEFT JOIN products p ON o.product_id = p.id;
+
+ В этом запросе вы получите всех пользователей и, если они сделали заказ, соответствующий продукт.
 ________________________________________________________________________________________________________________________
 
  # Задача SQL                                   С книгами сильный чел
@@ -926,17 +947,26 @@ ________________________________________________________________________________
  #
  # Объем продаж по каждому продукту за 2024 год
  # product | count
- # dog | 2
- # cat | 3
+ # dog     | 2
+ # cat     | 3
 
 
- # Ответ
+ # Мой вариант
+
  select product, sum(count) AS c
  from sales
  where year = '2024'
  group by product
  having sum(count) > 2;
 
+
+ # Второй вариант
+
+ SELECT product, COUNT(*) AS c
+ FROM sales
+ WHERE CAST(year AS CHAR) REGEXP '2024'
+ GROUP BY product
+ HAVING COUNT(*) > 2;
 ________________________________________________________________________________________________________________________
 
  Вернуть авторов, которые написали более двух книг      ivi  Иви
@@ -947,11 +977,39 @@ ________________________________________________________________________________
  ('Книга 2', '2018-04-01', 1), ('Книга 3', '2018-05-01', 2);
 
 
+
+ # Мой ответ
+
  SELECT a.name, COUNT(b.id) AS book_count
- FROMm author AS a
+ FROM author AS a
  JOIN book AS b ON b.author_id = a.id
  GROUP BY a.id, a.name
  HAVING COUNT(b.id) > 2;
+
+
+
+ #  Вариант 2: Использование подзапроса
+
+ SELECT a.id, a.name
+ FROM author a
+ WHERE (
+     SELECT COUNT(*)
+     FROM book b
+     WHERE b.author_id = a.id
+ ) > 2;
+
+
+ Вариант 3: Использование CTE (Common Table Expression)   CTE обеспечивают дополнительную гибкость и читаемость кода.
+
+ WITH author_counts AS (
+     SELECT a.id, a.name, COUNT(b.id) AS book_count
+     FROM author a
+     JOIN book b ON a.id = b.author_id
+     GROUP BY a.id, a.name
+ )
+ SELECT id, name
+ FROM author_counts
+ WHERE book_count > 2;
 ________________________________________________________________________________________________________________________
  --- END  Задачи с Собеседования ---
 ________________________________________________________________________________________________________________________

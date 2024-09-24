@@ -4926,7 +4926,7 @@ people = Person.objects.filter((Q(first_name='John') | Q(last_name='Doe')) & Q(a
 
 
 
-# Напиши SQL Задачу с собеседования ---
+# Напиши SQL Задачу с собеседования    НАПИСАТЬ 2 ВАРИАНТА ---
 
 
 
@@ -4960,9 +4960,30 @@ orders (заказы):
     quantity (INT)
 
 
-# Будем сцепляться по id    
-select u.name from users as u
-left join products as p on u.id = p.id
+Первый вариант
+Чтобы получить имена пользователей, которые когда-либо делали заказы на продукты, использовать следующий SQL-запрос:
+
+SELECT DISTINCT u.name 
+FROM users u
+JOIN orders o ON u.id = o.user_id
+JOIN products p ON o.product_id = p.id;
+
+### Объяснение:
+1. Используем `JOIN` для соединения таблицы `users` с таблицей `orders` по `user_id`.
+2. Затем соединяем таблицу `orders` с таблицей `products` по `product_id`.
+3. Используем `DISTINCT`, чтобы избежать дублирования имен пользователей, если они сделали несколько заказов.
+
+
+
+Второй вариант
+**Использование `LEFT JOIN` для получения всех пользователей и их продуктов (если есть):**
+
+SELECT u.name, p.name AS product_name 
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+LEFT JOIN products p ON o.product_id = p.id;
+
+В этом запросе вы получите всех пользователей и, если они сделали заказ, соответствующий продукт.
 """
 
 
@@ -4981,8 +5002,8 @@ left join products as p on u.id = p.id
 #
 # Объем продаж по каждому продукту за 2024 год
 # product | count
-# dog | 2
-# cat | 3
+# dog     | 2
+# cat     | 3
 
 
 
@@ -4994,24 +5015,36 @@ left join products as p on u.id = p.id
 
 
 
-# Ответ  Задача SQL  С книгами сильный чел    Сделал ошибку fromm специально потому что код не был строкой
+# Ответ  Задача SQL  С книгами сильный чел   НАПИСАТЬ 2 ВАРИАНТА
 """
+Мой вариант
+
 select product, sum(count) AS c 
-fromm sales
+from sales
 where year = '2024'
 group by product
 having sum(count) > 2;
+
+
+Второй вариант
+
+SELECT product, COUNT(*) AS c 
+FROM sales 
+WHERE CAST(year AS CHAR) REGEXP '2024' 
+GROUP BY product 
+HAVING COUNT(*) > 2;
 """
 
 
 
-# Вернуть авторов, которые написали более двух книг      ivi  Иви
+# Вернуть авторов, которые написали более двух книг      ivi  Иви   НАПИСАТЬ 3 ВАРИАНТА
 
 # CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT);
 # CREATE TABLE book (id SERIAL PRIMARY KEY, title TEXT, publication_date DATE, author_id integer REFERENCES author (id));
 # INSERT INTO author(name) VALUES ('Автор 1'), ('Автор 2'), ('Автор 3');
 # INSERT INTO book(title, publication_date, author_id) VALUES ('Книга 1', '2017-04-01', 1),
 # ('Книга 2', '2018-04-01', 1), ('Книга 3', '2018-05-01', 2);
+
 
 
 
@@ -5027,13 +5060,40 @@ having sum(count) > 2;
 # INSERT INTO book(title, publication_date, author_id) VALUES ('Книга 1', '2017-04-01', 1),
 # ('Книга 2', '2018-04-01', 1), ('Книга 3', '2018-05-01', 2);
 """
+Мой ответ
+
 SELECT a.name, COUNT(b.id) AS book_count
-FROMm author AS a
+FROM author AS a
 JOIN book AS b ON b.author_id = a.id
 GROUP BY a.id, a.name
 HAVING COUNT(b.id) > 2;
-"""
 
+
+
+Вариант 2: Использование подзапроса
+
+SELECT a.id, a.name
+FROM author a
+WHERE (
+    SELECT COUNT(*)
+    FROM book b
+    WHERE b.author_id = a.id
+) > 2;
+
+
+
+Вариант 3: Использование CTE (Common Table Expression)   CTE обеспечивают дополнительную гибкость и читаемость кода.
+
+WITH author_counts AS (
+    SELECT a.id, a.name, COUNT(b.id) AS book_count
+    FROM author a
+    JOIN book b ON a.id = b.author_id
+    GROUP BY a.id, a.name
+)
+SELECT id, name
+FROM author_counts
+WHERE book_count > 2;
+"""
 
 
 
