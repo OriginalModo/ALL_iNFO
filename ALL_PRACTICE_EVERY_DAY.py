@@ -5043,6 +5043,18 @@ HAVING COUNT(b.id) > 2;
 
 # Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
 
+# 2 Раза повторялась задача Попалась и на другом собеседовании!!!
+
+# Write a function called test() that takes a string of parentheses, and determines if the order of the
+# parentheses is valid. The function should return true if the string is valid, and false if it's invalid.
+# "()"              =>  true
+# ")(()))"          =>  false
+# "("               =>  false
+# "(())((()())())"  =>  true
+# "())("            =>  false
+
+
+
 
 # Написать 3 варианта
 def is_correct_brackets(text):
@@ -5065,7 +5077,7 @@ def is_correct_brackets(text):
 
 # Ответ Задача "Правильная скобочная последовательность"    Valid Braces  Codewars    Мир Танков/World of Tanks
 """
-# Первый Вариант                                         
+# Первый Вариант            Квадратичная сложность O(n^2)       Вариант требует создания новых строк и перебора их.                                  
 def is_correct_brackets(text):                          
     while '()' in text or '[]' in text or '{}' in text:                                         
         text = text.replace('()', '')                                                            
@@ -5085,7 +5097,9 @@ print(is_correct_brackets('(){}[]{}[])))'))  # False
 print(is_correct_brackets('(){}[]{}[]'))  # True
 
 
-# Второй Вариант
+
+# НЕ только БЫСТРЕЕ по времени выполнения, но и более эффективно использует память.              <-----     <-----
+# Второй Вариант            Линейная сложность O(n)            Стек достигает O(n) в худшем случае.
 def validBraces(string):
     braces = {"(": ")", "[": "]", "{": "}"}
     stack = []
@@ -5106,7 +5120,8 @@ print(validBraces('(){}[]{}[])))'))  # False
 print(validBraces('(){}[]{}[]'))  # True
 
 
-# Третий Вариант
+
+# Третий Вариант            Квадратичная сложность O(n^2)       Вариант требует создания новых строк и перебора их.
 def validBraces(string):
     for _ in string:
         string = string.replace('{}', '').replace('()', '').replace('[]', '')

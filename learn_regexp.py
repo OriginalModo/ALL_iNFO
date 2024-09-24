@@ -396,54 +396,85 @@ rez = tee(x, 3)
 
 
 import re
+#
+#
+# from dataclasses import dataclass
+# from typing import Callable
+#
+# @dataclass
+# class MyClass:
+#     f: Callable
+#     c: int = 0
+#
+#     def __call__(self, *args, **kwargs):
+#         self.c += 1
+#         print(self.c)
+#         return self.f(*args, **kwargs)
+#
+# @MyClass
+# def plus():
+#     ...
+# # print(plus())  # -> 1 None
+# # print(plus())  # -> 2 None
+# # print(plus())  # -> 3 None
 
 
 
 
 
 
+# Write a function called test() that takes a string of parentheses, and determines if the order of the
+# parentheses is valid. The function should return true if the string is valid, and false if it's invalid.
+# "()"              =>  true
+# ")(()))"          =>  false
+# "("               =>  false
+# "(())((()())())"  =>  true
+# "())("            =>  false
 
 
 
 
 
 
+def is_valid_braces_3(a_str: str) -> bool:
+    while '()' in a_str:
+        a_str = a_str.replace(r'()', '')
+    return not a_str
 
 
 
+def is_valid_braces_2(a_str: str) -> bool:
+    braces = {'(':')'}
+    res = []
+    for i in a_str:
+        if i in braces.keys():
+            res.append(i)
+        else:
+            if not res or braces[res.pop()] != i:
+                return False
+    return not res
 
 
 
+def is_valid_braces(a_str: str) -> bool:
+    for _ in  a_str:
+        a_str = a_str.replace(r'()', '')
+    return len(a_str) == 0
 
 
 
+# print(is_valid_braces("()"))
+# print(is_valid_braces(")(()))"))
+# print(is_valid_braces("("))
+# print(is_valid_braces("(())((()())())"))
+# print(is_valid_braces("())("))
 
 
+from timeit import timeit
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(timeit('is_valid_braces("()")', globals=globals()))
+print(timeit('is_valid_braces_2("()")', globals=globals()))
+print(timeit('is_valid_braces_3("()")', globals=globals()))
 
 
 
