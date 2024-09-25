@@ -758,7 +758,7 @@ ________________________________________________________________________________
 
  Задача максимальная последовательность чисел  СБЕР
 
- # Мой вариант                                                   # Тоже самое
+ # Мой вариант                                                   # Такой вариант выведет   ['1', '2', '3', '4']
  def longest_sequence(arr):                                      def longest_sequence(arr):
      if not arr:                                                     if not arr:
          return []                                                       return []
@@ -787,6 +787,8 @@ ________________________________________________________________________________
          else:
              res.append(arr[i])
              res.append('A')
+     if arr[-1] > res[-1]:
+         res.append(arr[-1])
      res_2 = ' '.join(map(str, res)).split('A')
      return [*map(int, max([i.strip().split() for i in res_2], key=len))]
 

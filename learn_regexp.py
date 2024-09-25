@@ -396,48 +396,23 @@ rez = tee(x, 3)
 
 
 import re
-#
-#
-# from dataclasses import dataclass
-# from typing import Callable
-#
-# @dataclass
-# class MyClass:
-#     f: Callable
-#     c: int = 0
-#
-#     def __call__(self, *args, **kwargs):
-#         self.c += 1
-#         print(self.c)
-#         return self.f(*args, **kwargs)
-#
-# @MyClass
-# def plus():
-#     ...
-# # print(plus())  # -> 1 None
-# # print(plus())  # -> 2 None
-# # print(plus())  # -> 3 None
 
 
+def longest_sequence(arr):
+    if not arr:
+        return []
+    res = []
+    for i in range(len(arr)-1):
+        if arr[i] < arr[i+1]:
+            res.append(arr[i])
+        else:
+            res.append(arr[i])
+            res.append('A')
+    res_2 = ' '.join([str(i) for i in res]).split('A')
+    return max([i.split() for i in res_2], key=len)
 
-
-
-a = {1, 2, 3}
-bi = [1, 2, 3]
-
-gen = (j for i in a for j in bi)
-gen = (ai/b for ai in a for b in bi if (ai+b)%2==0)
-print([*gen])
-
-
-
-
-
-
-
-
-
-
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
 
 

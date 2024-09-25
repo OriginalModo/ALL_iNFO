@@ -5884,8 +5884,20 @@ ________________________________________________________________________________
 
 # Написать 2 варианта
 def longest_sequence(arr):
-    pass
+    if not arr:
+        return []
+    res = []
+    for i in range(len(arr)-1):
+        if arr[i] < arr[i+1]:
+            res.append(arr[i])
+        else:
+            res.append(arr[i])
+            res.append('A')
+    res_2 = ' '.join([str(i) for i in res]).split('A')
+    return res_2
 
+arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
+print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
 
 
 arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
@@ -5896,7 +5908,7 @@ arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
 
 # Ответ Задача максимальная последовательность чисел  СБЕР
 """
-# Мой вариант                                                   # Тоже самое          
+# Мой вариант                                                   # Такой вариант выведет   ['1', '2', '3', '4'] 
 def longest_sequence(arr):                                      def longest_sequence(arr):                                                                                                                                         
     if not arr:                                                     if not arr:                               
         return []                                                       return []                                                   
@@ -5925,6 +5937,8 @@ def longest_sequence(arr):
         else:
             res.append(arr[i])
             res.append('A')
+    if arr[-1] > res[-1]:
+        res.append(arr[-1])
     res_2 = ' '.join(map(str, res)).split('A')
     return [*map(int, max([i.strip().split() for i in res_2], key=len))]
 
