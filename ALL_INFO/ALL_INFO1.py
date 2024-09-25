@@ -13472,7 +13472,7 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  __floordiv__(self, other)            //    Целочисленное деление 9 // 2 -> 4 ,  -11 // 10 -> -2 ,  -9 // 2 -> -5
  __mod__(self, other)                 %     Остаток от деления 31 % 10 -> 1 , -31 % 10 -> 9 , -20 % 2 -> 0 , -9 % 2 -> 1
  __divmod__(self, other)              (a // b, a % b)     встроенной функции divmod()
- __pow__(self, other[, modulo])       **
+ __pow__(self, other[, modulo])       **                                                Возведение в степень    <----
 
  Отражённые арифметические операторы    обратный порядок действий:
  __radd__(self, other)              +
@@ -13483,7 +13483,7 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  __rfloordiv__(self, other)         //
  __rmod__(self, other)              %
  __rdivmod__(self, other)           (a // b, a % b)
- __rpow__(self, other[, modulo])    **
+ __rpow__(self, other[, modulo])    **                                                  Возведение в степень    <----
  __rlshift__(self, other)           <<
  __rrshift__(self, other)           >>
  __rand__(self, other)              &

@@ -377,6 +377,69 @@ print(type(Bar))  # -> <class 'type'>
 
 
 
+# ПРОСТО ПОСМОТРЕТЬ!!!
+# Интересный Пример с обновлением словаря   ПОСМОТРИ ОТВЕТЫ и почему        Словарь в любом случае обновляется!!! <----
+# Таким образом, словарь обновляется каждый раз, когда вызывается функция `test2`, независимо от того,
+# существует ли ключ `test` или нет.
+"""
+# Если ключ ЕСТЬ                                # Если ключа НЕТ                    
+dct = {'test': 321}                             dct = {'test': 321}                    
+                                                     
+def test2():                                    def test2():                
+    dct.update({'test': 444})                       dct.update({'test': 444})                                
+    return 123                                      return 123                
+                                                     
+print(dct.get('test', test2()))   # -> 444      print(dct.get('TTTTT', test2()))  # -> 123
+print(dct)               # -> {'test': 444}     print(dct)               # -> {'test': 444}
+"""
+
+
+
+
+# Про ДЕКОРАТОР ПРОСТО ПОСМОТРИ ВСЕ ВАРИАНТЫ!!!                                        <-----       <-----
+"""
+Сибур Задача  Про декоратор   Посмотри все варианты!!!                                 <-----
+
+# Ошибка вызов пустой функции  TypeError                                # Всё правильно без ОШИБОК!!!
+     
+def decor(strict=False):                                                def decor(strict=False):
+    def real_decor(func):                                                   def real_decor(func):
+        @wraps(func)                                                            @wraps(func)
+        def wrappper(*args, **kwargs):                                          def wrappper(*args, **kwargs):
+            if strict:                                                              if strict:
+                return func()                                                           return func()
+            return func(*args, **kwargs)                                            return func(*args, **kwargs)
+        return wrappper                                                         return wrappper
+    return real_decor                                                       return real_decor
+
+# @decor(True) # Тоже самое  НЕ ОБЯЗАТЕЛЬНО ИМЕНОВАННЫМИ ПЕРЕДАВАТЬ     # @decor(False) # Тоже самое    <----
+@decor(strict=True)             # Тут   strict=True                     @decor(strict=False)    # Тут   strict=False  
+def plus(a):                                                            def plus(a):
+    return a+5                                                              return a+5
+     
+print(plus(5))                                                          print(plus(5))  # -> 10
+# -> TypeError: plus() missing 1 required positional argument: 'a'
+
+
+
+# Будет ссылка БЕЗ ПЕРЕДАЧИ ПАРАМЕТРОВ в ДЕКОРИРУЕМУЮ ФУНКЦИЮ  БЕЗ ОШИБКИ  ОТРАБОТАЕТ!!!
+def decor(strict=False):
+    def real_decor(func):
+        @wraps(func)
+        def wrappper(*args, **kwargs):
+            if strict:
+                return func()
+            return func(*args, **kwargs)
+        return wrappper
+    return real_decor
+
+@decor                            # НЕ ПЕРЕДАЛИ АРГУМЕНТЫ ОТРАБОТАЕТ БЕЗ ОШИБОК       <-----
+def plus(a):
+    return a+5
+
+print(plus(5))  # -> <function decor.<locals>.real_decor.<locals>.wrappper at 0x000001C17794EFC0>   #  Важно !!<-----
+"""
+
 
 # Напишите Релизацию своего класса имитируещего словарь  через []    Создание собственного класса для реализации словаря
 
@@ -4936,7 +4999,7 @@ people = Person.objects.filter((Q(first_name='John') | Q(last_name='Doe')) & Q(a
 
 
 
-# --- SQL Задача с собеседования ---
+# --- SQL Задача с собеседования    НАПИСАТЬ 2 ВАРИАНТА  ---
 
 """
 Таблицы:
@@ -4989,7 +5052,7 @@ LEFT JOIN products p ON o.product_id = p.id;
 
 
 
-# Задача SQL                                   С книгами сильный чел
+# Задача SQL                                   С книгами сильный чел   НАПИСАТЬ 2 ВАРИАНТА
 # sales
 #
 #
@@ -5052,7 +5115,7 @@ HAVING COUNT(*) > 2;
 
 
 
-# -- Ответ Вернуть авторов, которые написали более двух книг          ivi  Иви
+# -- Ответ Вернуть авторов, которые написали более двух книг          ivi  Иви   НАПИСАТЬ 3 ВАРИАНТА
 
 # CREATE TABLE author (id SERIAL PRIMARY KEY, name TEXT);
 # CREATE TABLE book (id SERIAL PRIMARY KEY, title TEXT, publication_date DATE, author_id integer REFERENCES author (id));
@@ -5094,6 +5157,96 @@ SELECT id, name
 FROM author_counts
 WHERE book_count > 2;
 """
+
+
+
+# Задача SQL  СИБУР    Исправить код
+"""
+Исправить код
+SELECT  
+    C.customer_name,  
+    SUM(COALESCE(O.order_amt, 0)) AS total 
+FROM Customers AS C 
+LEFT JOIN Orders AS O ON C.customer_nbr = O.customer_nbr 
+WHERE 
+    O.order_date >= '2021-01-01' 
+GROUP BY 
+    C.customer_name
+"""
+
+
+
+
+
+
+
+
+# Ответ Задача SQL  СИБУР    Исправить код
+"""
+Исправленный вариант
+SELECT  
+    C.customer_name,  
+    SUM(COALESCE(O.order_amt, 0)) AS total 
+FROM Customers AS C 
+LEFT JOIN Orders AS O ON C.customer_nbr = O.customer_nbr AND O.order_date >= '2021-01-01' 
+GROUP BY 
+    C.customer_name;
+"""
+
+
+
+
+# Задача SQL  СИБУР   НАПИСАТЬ 2 ВАРИАНТА
+#/* Есть таблица t1 <PK, A1, A2, …, AN, T > PK – идентификатор объекта A1, …, AN – это атрибуты T – это время фиксации значения.
+#  Напиши SQL, который вернёт последнюю загруженную запись по оси T для каждого PK. */
+
+#  PK A1 A2 A3 A4 T
+#  1  1  1  1  1  1
+#  1  1  1  1  2  2
+#  1  1  1  1  1  3
+#  1  2  1  1  2  4
+#  1  1  1  1  1  5
+#  2  2  3  4  5  3
+#
+#  Что должно быть на выходе
+#  -> PK A1 A2 A3 A4  T
+#     1   1  1  1  1  5
+#     2   2  3  4  5  3
+
+
+
+
+
+
+
+# Ответ  Задача SQL  СИБУР   НАПИСАТЬ 2 ВАРИАНТА
+#/* Есть таблица t1 <PK, A1, A2, …, AN, T > PK – идентификатор объекта A1, …, AN – это атрибуты T – это время фиксации значения.
+#  Напиши SQL, который вернёт последнюю загруженную запись по оси T для каждого PK. */
+"""
+Вариант 1 с использованием подзапроса
+
+SELECT t.*
+FROM t1 t
+JOIN (
+    SELECT PK, MAX(T) AS max_time
+    FROM t1
+    GROUP BY PK
+) AS latest ON t.PK = latest.PK AND t.T = latest.max_time;
+
+
+
+Вариант 2 с использованием оконной функции
+
+SELECT PK, A1, A2, A3, A4, T
+FROM (
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY PK ORDER BY T DESC) as rn
+    FROM t1
+) AS numbered
+WHERE rn = 1;
+"""
+
+
+
 
 
 
@@ -5909,7 +6062,7 @@ from functools import wraps
 import time
 
 def retry(retries, delay):   # Важно чтобы параметры назывались так же как и в параметрах декорируемой функции   <-----
-    def retry(func):         # При передаче их как именованные параметры                                         <-----
+    def retry(func):         # При передаче их как именованные параметры      ИЛИ TypeError                      <-----
         @wraps(func)
         def wrappper(*args, **kwargs):
             for i in range(1, retries + 1):
@@ -5924,7 +6077,7 @@ def retry(retries, delay):   # Важно чтобы параметры назы
 
 
 @retry(retries=5, delay=2)  # Важно чтобы параметры назывались так же как и в параметрах декорируемой функции   <-----
-def unstable_function():    # При передаче их как именованные параметры                                         <-----
+def unstable_function():    # При передаче их как именованные параметры      ИЛИ TypeError                      <-----
     if time.time() % 2 > 1.5:
         raise ValueError("Случайная ошибка")
     return "Успех!"

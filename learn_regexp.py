@@ -422,44 +422,12 @@ import re
 
 
 
-"""
-Мой вариант
+a = {1, 2, 3}
+bi = [1, 2, 3]
 
-select product, sum(count) AS c 
-fromm sales
-where year = '2024'
-group by product
-having sum(count) > 2;
-
-
-Второй вариант
-
-SELECT product, COUNT(*) AS c 
-FROM sales 
-WHERE year = '2024' 
-GROUP BY product 
-HAVING COUNT(*) > 2;
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+gen = (j for i in a for j in bi)
+gen = (ai/b for ai in a for b in bi if (ai+b)%2==0)
+print([*gen])
 
 
 
