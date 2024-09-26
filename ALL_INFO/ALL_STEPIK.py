@@ -600,7 +600,6 @@ ________________________________________________________________________________
          self.data = []
 
      def __setitem__(self, key, value):
-         # Проверяем, есть ли ключ уже в словаре
          for i, (k, v) in enumerate(self.data):
              if k == key:
                  self.data[i] = (key, value)  # Обновляем значение
@@ -638,6 +637,56 @@ ________________________________________________________________________________
      def values(self):
          return [v for k, v in self.data]  # Возвращаем список значений
 
+     def clear(self):
+         '''Удаляет все элементы из словаря.'''
+         self.data.clear()
+
+     def update(self, other):
+         '''Обновляет словарь значениями из другого словаря или итерируемого объекта.'''
+         for k, v in other.items():
+             self[k] = v
+
+     def pop(self, key, default=None):
+         '''Удаляет элемент с указанным ключом и возвращает его значение. Если ключ не найден, возвращает значение по умолчанию.'''
+         for i, (k, v) in enumerate(self.data):
+             if k == key:
+                 del self.data[i]  # Удаляем элемент
+                 return v
+         if default is not None:
+             return default
+         raise KeyError(f"Key {key} not found.")
+
+     def popitem(self):
+         '''Удаляет и возвращает последнюю добавленную пару (ключ, значение). Если словарь пустой, вызывается исключение KeyError.'''
+         if not self.data:
+             raise KeyError("popitem(): dictionary is empty")
+         return self.data.pop()  # Возвращает и удаляет последний элемент
+
+     def get(self, key, default=None):
+         '''Возвращает значение по ключу, если ключ не найден – возвращает значение по умолчанию.'''
+         for k, v in self.data:
+             if k == key:
+                 return v
+         return default
+
+     def setdefault(self, key, default=None):
+         '''Возвращает значение по ключу. Если ключ не найден, добавляет ключ с значением по умолчанию и возвращает его.'''
+         if key not in self:
+             self[key] = default
+         return self[key]
+
+     def items_length(self):
+         '''Возвращает длину всех пар (ключ, значение) в словаре.'''
+         return len(self.data)
+
+     @classmethod
+     def fromkeys(cls, iterable, value=None):
+         '''Создает новый экземпляр MyDict с заданными ключами и значением по умолчанию.'''
+         new_dict = cls()
+         for key in iterable:
+             new_dict[key] = value
+         return new_dict
+
 
  # Пример использования
  my_dict = MyDict()
@@ -650,12 +699,38 @@ ________________________________________________________________________________
 
  my_dict['apple'] = 3
  print(my_dict['apple'])     # Вывод: 3
-
  my_dict['cherry'] = 5
  print(my_dict.items())      # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
 
  del my_dict['banana']
  print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
+
+ # Применение новых методов
+ my_dict.clear()
+ print(my_dict.items())      # Вывод: []
+
+ my_dict.update({'orange': 4, 'pear': 6})
+ print(my_dict.items())      # Вывод: [('orange', 4), ('pear', 6)]
+
+ value = my_dict.pop('orange')
+ print(value)  # Вывод: 4
+ print(my_dict.items())      # Вывод: [('pear', 6)]
+
+ last_item = my_dict.popitem()
+ print(last_item)  # Вывод: ('pear', 6)
+
+ # Демонстрация новых методов
+ print(my_dict.get('pear'))  # Вывод: KeyError
+ print(my_dict.get('pear', 'default_value'))  # Вывод: default_value
+
+ my_dict.setdefault('banana', 10)
+ print(my_dict.items())  # Вывод: [('banana', 10)]
+
+ length = my_dict.items_length()
+ print(length)           # Вывод: 1
+
+ new_dict = MyDict.fromkeys(['key1', 'key2', 'key3'], 'default_value')
+ print(new_dict.items())  # Вывод: [('key1', 'default_value'), ('key2', 'default_value'), ('key3', 'default_value')]
 ________________________________________________________________________________________________________________________
 
  Задачи с собеседования  X5

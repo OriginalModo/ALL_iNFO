@@ -13703,6 +13703,29 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  class MySubclass(MyClass):
      pass
 
+
+ Пример Создание своего Метакласса!
+
+ # Таким образом, вы создали метакласс `MyMeta`, который добавляет атрибут `custom_attribute` в класс `MyClass`.
+
+ class MyMeta(type):
+     def __new__(cls, name, bases, attrs):
+         # Модификация атрибутов класса
+         attrs['custom_attribute'] = 'This is a custom attribute'
+         attrs['hehe'] = '123'
+         return super().__new__(cls, name, bases, attrs)
+
+ class MyClass(metaclass=MyMeta):
+     pass
+
+ instance = MyClass()
+ print(instance.custom_attribute)  # Вывод: This is a custom attribute
+ print(instance.hehe)              # Вывод: 123
+ print(instance.__dict__)          # Вывод: {}
+ print(MyClass.hehe)               # Вывод: 123
+ print(MyClass.custom_attribute)   # Вывод: This is a custom attribute
+
+
  - Как создать класс без слова class?
  Kласс можно создать без использования ключевого слова class, используя типы type :
 

@@ -1490,6 +1490,20 @@ ________________________________________________________________________________
  print(f'asizeof   int:  {asizeof.asizeof(my_int)} байт')     # -> asizeof   int:  32 байт
 
 
+ # Чем больше строка тем больше размер так же и с другими обьектами
+
+ my_string = "a"
+
+ print(f'getsizeof str:  {sys.getsizeof(my_string)} байт')    # -> getsizeof str:  50 байт
+ print(f'asizeof   str:  {asizeof.asizeof(my_string)} байт')  # -> asizeof   str:  56 байт
+
+
+ my_int = 1
+
+ print(f'getsizeof int:  {sys.getsizeof(my_int)} байт')       # -> getsizeof int:  28 байт
+ print(f'asizeof   int:  {asizeof.asizeof(my_int)} байт')     # -> asizeof   int:  32 байт
+
+
 
                             -- Сравнение slots vs no_slots --                                  <-----
                             -- @dataclass(slots=True)  vs  @dataclass() --
@@ -1511,6 +1525,7 @@ ________________________________________________________________________________
  no_slots = NoSlots(10)
  print(f'getsizeof NoSlots:    {sys.getsizeof(no_slots)} байт')      # -> getsizeof NoSlots:    56 байт
  print(f'asizeof   NoSlots:    {asizeof.asizeof(no_slots)} байт')    # -> asizeof   NoSlots:    440 байт
+
 
 
   --- Замеры ПУСТЫХ обьектом встроенных Python ---
@@ -2809,6 +2824,28 @@ ________________________________________________________________________________
  Основное применение метаклассов это создание API. Типичный пример — Django ORM.   <----
 
  Django использует метаклассы для создания моделей базы данных
+
+ Пример Создание своего Метакласса!
+
+ # Таким образом, вы создали метакласс `MyMeta`, который добавляет атрибут `custom_attribute` в класс `MyClass`.
+
+ class MyMeta(type):
+     def __new__(cls, name, bases, attrs):
+         # Модификация атрибутов класса
+         attrs['custom_attribute'] = 'This is a custom attribute'
+         attrs['hehe'] = '123'
+         return super().__new__(cls, name, bases, attrs)
+
+ class MyClass(metaclass=MyMeta):
+     pass
+
+ instance = MyClass()
+ print(instance.custom_attribute)  # Вывод: This is a custom attribute
+ print(instance.hehe)              # Вывод: 123
+ print(instance.__dict__)          # Вывод: {}
+ print(MyClass.hehe)               # Вывод: 123
+ print(MyClass.custom_attribute)   # Вывод: This is a custom attribute
+
 
  - Как создать класс без слова class?
  Kласс можно создать без использования ключевого слова class, используя типы type :

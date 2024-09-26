@@ -12,7 +12,7 @@ import time
 import types
 import re
 
-
+import more_itertools
 
 # Замеры размеров структур Python  ПРОСТО ПОСМОТРЕТЬ!!!
 """
@@ -455,6 +455,8 @@ print(plus(5))  # -> <function decor.<locals>.real_decor.<locals>.wrappper at 0x
 
 
 
+
+
 # Ответ Релизация СЛОВАРЯ  Задача с собеседовании   Через  tuple()
 # Релизация своего класса имитируещего словарь      Создание собственного класса для реализации словаря
 """
@@ -463,7 +465,6 @@ class MyDict:
         self.data = []
 
     def __setitem__(self, key, value):
-        # Проверяем, есть ли ключ уже в словаре
         for i, (k, v) in enumerate(self.data):
             if k == key:
                 self.data[i] = (key, value)  # Обновляем значение
@@ -501,6 +502,56 @@ class MyDict:
     def values(self):
         return [v for k, v in self.data]  # Возвращаем список значений
 
+    def clear(self):
+        '''Удаляет все элементы из словаря.'''
+        self.data.clear()
+
+    def update(self, other):
+        '''Обновляет словарь значениями из другого словаря или итерируемого объекта.'''
+        for k, v in other.items():
+            self[k] = v
+
+    def pop(self, key, default=None):
+        '''Удаляет элемент с указанным ключом и возвращает его значение. Если ключ не найден, возвращает значение по умолчанию.'''
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                del self.data[i]  # Удаляем элемент
+                return v
+        if default is not None:
+            return default
+        raise KeyError(f"Key {key} not found.")
+
+    def popitem(self):
+        '''Удаляет и возвращает последнюю добавленную пару (ключ, значение). Если словарь пустой, вызывается исключение KeyError.'''
+        if not self.data:
+            raise KeyError("popitem(): dictionary is empty")
+        return self.data.pop()  # Возвращает и удаляет последний элемент
+
+    def get(self, key, default=None):
+        '''Возвращает значение по ключу, если ключ не найден – возвращает значение по умолчанию.'''
+        for k, v in self.data:
+            if k == key:
+                return v
+        return default
+
+    def setdefault(self, key, default=None):
+        '''Возвращает значение по ключу. Если ключ не найден, добавляет ключ с значением по умолчанию и возвращает его.'''
+        if key not in self:
+            self[key] = default
+        return self[key]
+
+    def items_length(self):
+        '''Возвращает длину всех пар (ключ, значение) в словаре.'''
+        return len(self.data)
+
+    @classmethod
+    def fromkeys(cls, iterable, value=None):
+        '''Создает новый экземпляр MyDict с заданными ключами и значением по умолчанию.'''
+        new_dict = cls()
+        for key in iterable:
+            new_dict[key] = value
+        return new_dict
+
 
 # Пример использования
 my_dict = MyDict()
@@ -513,12 +564,38 @@ print(len(my_dict))         # Вывод: 2
 
 my_dict['apple'] = 3
 print(my_dict['apple'])     # Вывод: 3
-
 my_dict['cherry'] = 5
 print(my_dict.items())      # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
 
 del my_dict['banana']
 print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
+
+# Применение новых методов
+my_dict.clear()
+print(my_dict.items())      # Вывод: []
+
+my_dict.update({'orange': 4, 'pear': 6})
+print(my_dict.items())      # Вывод: [('orange', 4), ('pear', 6)]
+
+value = my_dict.pop('orange')
+print(value)  # Вывод: 4
+print(my_dict.items())      # Вывод: [('pear', 6)]
+
+last_item = my_dict.popitem()
+print(last_item)  # Вывод: ('pear', 6)
+
+# Демонстрация новых методов
+print(my_dict.get('pear'))  # Вывод: KeyError
+print(my_dict.get('pear', 'default_value'))  # Вывод: default_value
+
+my_dict.setdefault('banana', 10)
+print(my_dict.items())  # Вывод: [('banana', 10)]
+
+length = my_dict.items_length()
+print(length)           # Вывод: 1
+
+new_dict = MyDict.fromkeys(['key1', 'key2', 'key3'], 'default_value')
+print(new_dict.items())  # Вывод: [('key1', 'default_value'), ('key2', 'default_value'), ('key3', 'default_value')]
 
 
 
@@ -563,7 +640,6 @@ print(c._get(2))  # -> KeyError
 
 
 
-
 # Обход в Обратном порядке в цикле for
 """
 # Обход в Обратном порядке в цикле for
@@ -576,8 +652,6 @@ print([*range(10, 0, -1)])  # -> [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 
 # Используйте dis - Библиотека работы с Байт-кодом   import dis
-
-
 
 
 
@@ -611,6 +685,7 @@ matrix = [
 ]
 
 
+transposed = []
 
 
 
@@ -669,6 +744,7 @@ n = 10
 
 
 
+
 s = "Hello"
 # print(f'Если перевернуть слово "{s}", получится "{s[::-1]}".')
 
@@ -677,9 +753,10 @@ s = "Hello"
 
 
 
-
 # Напечатайте индекс наименьшего числа в списке.
 a = [5, 8, 3, 2, 7, 4, 9]
+
+
 
 
 
@@ -780,8 +857,6 @@ print(data['name'])  # -> Alice
 
 
 
-
-
 # Пример разбора JSON из файла
 # json.load()` для разбора JSON-данных из файла
 # Предположим, у вас есть файл 'data.json' с содержимым:
@@ -813,8 +888,6 @@ data = {
     "age": 30,
     "city": "New York"
 }
-
-
 
 
 
@@ -858,7 +931,6 @@ data = {
 
 
 
-
 # Пример с 'json.dumps()' с отступами
 # `json.dumps()` сериализует объект Python и возвращает его в виде строкового представления JSON.
 
@@ -882,7 +954,6 @@ print(json_string)
 # Перепиши Ниже вариант match case  Кортеж/Список Всё Работает так же как и при обычной распаковке '*'
 
 cmd = [1, "Learning", "Python", 2000.78, 5, 3, 5, 10]
-
 
 
 
@@ -929,8 +1000,6 @@ def parse_json(data):
 
 
 
-
-
 # print(parse_json(json_data))  # -> ('1234', {'email': 'xxx@mail.com'})
 # print(parse_json(json_data))  # -> (True, '26.05.2023')
 
@@ -973,8 +1042,6 @@ head = [0, 3, 1, 0, 4, 5, 2, 0]
 
 
 
-
-
 # Разделить по Нулям(0) и получить сумму  Merge Nodes in Between Zeros
 """
 head = [0, 3, 1, 0, 4, 5, 2, 0]
@@ -997,8 +1064,6 @@ print(mergeNodes(head))  # -> [4, 11]
 # Интересный пример Повтори кстати сам его придумал  a = 'aaaabbсaa' преобразуется в 'a4b2с1a2'
 
 a = 'aaaabbcaa'
-
-
 
 
 
@@ -1053,7 +1118,6 @@ text = 'ABC'
 
 
 
-
 # По сути это if...else в Регулярках
 """
 # Если находим A значит ищем B иначе ищем C     1 - Номер группы
@@ -1074,6 +1138,10 @@ print(re.search(r"(?P<name>A)(?(name)BC)", 'ABC').group())    # -> ABC
 # Используйте \b \B
 
 text = 'арка чарка аркан баварка знахарка'
+
+
+
+
 
 
 
@@ -1113,7 +1181,6 @@ print(re.findall(r'py\b', 'py py. py!'))      # -> ['py', 'py', 'py']   # В т�
 # Используйте re.compile 2 Способа
 
 text = 'ABC123---'
-
 
 
 
@@ -1177,10 +1244,13 @@ text = 'ABC 123'
 
 
 
-
 # Замена по индексу группы: '\1' '\2'    МЕЖДУ/ПЕРЕД/ПОСЛЕ групп можно использовать любые знаки
 """
+text = 'ABC 123'
+
 re.sub(r'(\w+)\s*(\d+)', r'+__\2  \1 !!+',  'ABC 123')                            # -> +__123  ABC !!+   # Поменяли местами
+re.sub(r'(?P<ddd>\w+)\s*(?P<dd>\w+)', r'+__\2  \1 !!+',  'ABC 123')               # -> +__123  ABC !!+   # Тоже самое
+
 # Замена по Имени группы:   '\g<name>'
 re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')  # -> 123 ABC   # Поменяли местами
 
@@ -1188,8 +1258,11 @@ re.sub(r'(?P<first>\w+)\s*(?P<second>\d+)', r'\g<second> \g<first>',  'ABC 123')
 # Интересный момент Посмотри вывод!
 text = 'ABC 123'
 
-print(re.sub(r'(\w)\s(\w)', r'\2  ---  \1', text))                      # -> AB1  ---  C23    
+print(re.sub(r'(\w)\s(\w)', r'\2  ---  \1', text))                      # -> AB1  ---  C23
 print(re.sub(r'(?P<s1>\w)\s(?P<s2>\w)', r'\g<s2>  ---  \g<s1>', text))  # -> AB1  ---  C23
+
+# Группы можно использовать как угодно и сколько угодно!
+print(re.sub(r'(\w)\s(\w)', r'\2\1  ---  \1\1\1', text))                # -> AB1C  ---  CCC23
 """
 
 
@@ -1197,6 +1270,8 @@ print(re.sub(r'(?P<s1>\w)\s(?P<s2>\w)', r'\g<s2>  ---  \g<s1>', text))  # -> AB1
 # Напишите или Перепишите Обычные/Именованные группы
 
 text = r'ggg wp'
+
+
 
 
 
@@ -1233,8 +1308,6 @@ text = "abc123"
 
 
 
-
-
 # Группа С захватом ()   Группа БЕЗ захвата   (?:)
 """
 re.findall("([abc])+", "abc")    # -> ['c']     # Группа С захватом
@@ -1249,6 +1322,8 @@ print(re.findall(r'(?:\w)(\w)+', text))         # -> ['3']
 # Напишите   Lookahead   Lookbehind
 
 text = '123ABC'
+
+
 
 
 
@@ -1288,7 +1363,7 @@ text = r'6996966969'
 """
 text = r'6996966969'
 
-print(re.findall(r'(\d{2})\1', text))  # -> ['96', '69']
+print(re.findall(r'(\d{2})\1', text))    # -> ['96', '69']
 print(re.findall(r'([\d]{2})\1', text))  # -> ['96', '69']
 """
 
@@ -1298,6 +1373,7 @@ print(re.findall(r'([\d]{2})\1', text))  # -> ['96', '69']
 
 
 text = 'Нужно удалять удалять повторяющиеся слова слова.'
+
 
 
 
@@ -1417,6 +1493,7 @@ print(f.__defaults__) # -> ([1, 2],)  print(f.__defaults__) # -> ({1, 2},)  prin
 
 
 
+
 # Способ обойти это - использовать None по умолчанию и явно проверить его в теле функции:
 """
 # list                               # set                                   # dict
@@ -1434,7 +1511,6 @@ print(f.__defaults__) # -> (None,)   print(f.__defaults__) # -> (None,)      pri
 
 
 # Напишите функцию с docstring/name. Выведите документацию и название функции
-
 
 
 
@@ -1466,6 +1542,7 @@ print(add_numbers.__name__)  # -> add_numbers
 
 
 
+
 # Итератор  range(10)  iter
 """
 # Итератор
@@ -1480,7 +1557,6 @@ print([*it])  # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
 # Напишите Функцию-Генератор  range(5) и Обычный генератор
-
 
 
 
@@ -1529,6 +1605,7 @@ print(i for i in range(5))         # <generator object <genexpr> at 0x000001790A
 
 
 
+
 # yield from  - это просто сокращенная форма for item in iterable: yield item
 """
 def gen_list1(iterable):
@@ -1547,8 +1624,6 @@ print([*gen_list2('python')])     # -> ['p', 'y', 't', 'h', 'o', 'n']
 
 
 # Напишите Функцию-Генератор  range(1, 5) и Обычный генератор  range(1, 5)
-
-
 
 
 
@@ -1578,8 +1653,6 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 
 
 # Cоздайте свой Итератор
-
-
 
 
 
@@ -1816,7 +1889,7 @@ print((lambda x: x----2)(3))  # -> 5
 """
 
 
-# Повторите разные сортировки
+# Повторите разные сортировки  lambda  и  itemgetter, attrgetter
 from operator import itemgetter, attrgetter
 ints = list(range(20))
 
@@ -1833,8 +1906,6 @@ a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
 
 
 
-
-
 class Cat:
     def __init__(self, name, age):
         self.name = name
@@ -1844,7 +1915,6 @@ class Cat:
         return f'Cat {self.name}, age is {self.age}'
 
 cats = [Cat('Tom', 3), Cat('Angela', 4)]
-
 
 
 
@@ -1908,6 +1978,7 @@ foo()
 
 
 
+
 # Ответ
 """
 # Решение с nonlocal:                       Решение с global:
@@ -1929,6 +2000,7 @@ print(x)   # -> 10  не меняет x             print(z) # -> 100  СОЗД�
 # Использовать heapq       Можно найти минимальный или максимальный элемент
 
 h = [20, 10, 1, 2]
+
 
 
 
@@ -2024,8 +2096,6 @@ print(heapq.heappop(res))             # -> -20
 
 
 
-
-
 # Пример Рекурсия со Списком(list):
 """
 def my_sum(a_list: list) -> int:
@@ -2047,6 +2117,7 @@ if __name__ == '__main__':
 
 
 # Использовать __slots__ Написать класс  no_slots/with_slots  Замерить размер структур  asizeof.asizeof/sys.getsizeof
+
 
 
 
@@ -2100,6 +2171,7 @@ b.name = 'a'                                                b.name = 'a'
 
 
 
+
 # __slots__ в dataclasses
 """
 from dataclasses import dataclass
@@ -2127,12 +2199,14 @@ p.a = 10    # -> AttributeError: 'Point' object has no attribute 'a'
 
 
 
+
 # Пример Singleton/Одиночка  # id Одинаковые     Гарантируется, что объект всегда будет один и тот же.
 """
 # Через from dataclasses import dataclass
 @dataclass
 class Singleton:
     _instance: 'Singleton' = None
+    # _instance: Singleton = None     # Можно даже без кавычек ''
 
 
 # Через Обычный Класс
@@ -2164,6 +2238,7 @@ print(id(sing_1))      # -> 1742792644240     # id Разные
 
 
 # Напишите Monostate Обычный class/dataclass
+
 
 
 
@@ -2250,7 +2325,43 @@ print(mono_1.__dict__)  # -> {'a': 9999999999, 'b': 2}
 
 
 
+# Создайте свой Метакласс metaclass
+
+
+
+
+
+
+
+
+
+# Ответ Создайте свой Метакласс metaclass
+"""
+class MyMeta(type):
+    def __new__(cls, name, bases, attrs):
+        # Модификация атрибутов класса
+        attrs['custom_attribute'] = 'This is a custom attribute'
+        attrs['hehe'] = '123'
+        return super().__new__(cls, name, bases, attrs)
+
+class MyClass(metaclass=MyMeta):
+    pass
+
+instance = MyClass()
+print(instance.custom_attribute)  # Вывод: This is a custom attribute
+print(instance.hehe)              # Вывод: 123
+print(instance.__dict__)          # Вывод: {}
+print(MyClass.hehe)               # Вывод: 123
+print(MyClass.custom_attribute)   # Вывод: This is a custom attribute
+"""
+
+
+
+
+
 # Как создать класс без слова class?  И Создать такой же обычный class и dataclass
+
+
 
 
 
@@ -2290,13 +2401,7 @@ print(my_.foo())   # -> 42
 
 # Использовать setattr/delattr/hasattr/getattr
 
-from dataclasses import dataclass
 
-@dataclass
-class New:
-    name: str = 'Chuck Norris'
-    surname: str = 'Sasya'
-    number: int = 10
 
 
 
@@ -2336,9 +2441,6 @@ getattr(New, 'AAAA')                 # AttributeError: type object 'New' has no 
 
 
 # Создайте класс с property: Создайте функции для управления получением, установкой и удалением атрибута
-
-
-
 
 
 
@@ -2446,6 +2548,8 @@ second = {4: 4, 5: 5}
 
 
 
+
+
 # Ответы ChainMap
 """
 from collections import ChainMap
@@ -2474,7 +2578,6 @@ text = 'hello'
 
 
 
-
 # Ответы Counter
 """
 from collections import Counter
@@ -2492,8 +2595,6 @@ print(counter.most_common(3))  # -> [('l', 3), ('o', 2), ('h', 1)]
 
 first = {1: 1, 2: 2, 3: 3}
 second = {2: 2, 1: 1}
-
-
 
 
 
@@ -2544,6 +2645,7 @@ text = 'hello'
 
 
 
+
 # Ответы defaultdict
 """
 from collections import defaultdict
@@ -2565,6 +2667,7 @@ print(sorted(a_dict.items(), key=lambda x: x[1], reverse=True))  # -> [('l', 2),
 
 # -- collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None) --
 # Использовать namedtuple
+
 
 
 
@@ -2680,6 +2783,10 @@ print(a_deque)  # -> deque([5, 1, 2, 3, 4], maxlen=5)
 
 
 
+
+
+
+
 # Ответы count
 """
 from itertools import count
@@ -2704,7 +2811,6 @@ print(list(islice(count(10), 2, 5)))  # -> [12, 13, 14]
 
 # itertools.cycle(iterable)
 # Использовать cycle
-
 
 
 
@@ -2840,7 +2946,6 @@ b, c, d = [1, 2], [1, 2], [1, 2]
 
 
 
-
 # Ответы chain
 """
 from itertools import chain
@@ -2867,6 +2972,7 @@ print(list(chain(*[[1, 2, 3]])))  # -> [1, 2, 3]
 # Использовать chain.from_iterable
 
 a = ['foo', ['one', 'two', [1, 2]]]
+
 
 
 
@@ -2929,7 +3035,6 @@ a = [1, 4, 6, 4, 1]
 
 
 
-
 # Ответы dropwhile
 """
 from itertools import dropwhile
@@ -2960,6 +3065,8 @@ a = [1, 4, 6, 4, 1]
 
 
 
+
+
 # Ответы takewhile
 """
 from itertools import takewhile, dropwhile
@@ -2976,6 +3083,7 @@ print((list(dropwhile(lambda x: x < 5, [1, 4, 6, 4, 1]))))  # -> [6, 4, 1]
 
 
 a = range(1, 5)
+
 
 
 
@@ -3045,7 +3153,6 @@ a = [1, 2, 3]
 
 
 
-
 # Ответы pairwise
 """
 from itertools import pairwise
@@ -3059,7 +3166,6 @@ print(list(result))  # -> [(1, 2), (2, 3)]
 # Использовать starmap
 
 a = [(2, 5, 4), (3, 2, 1), (10, 3, 8)]
-
 
 
 
@@ -3118,7 +3224,6 @@ a = [1, 2, 3]
 
 
 
-
 # Ответы tee
 """
 from itertools import tee
@@ -3129,6 +3234,14 @@ print([list(i) for i in rez])  # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 
 a = [1, 2, 3]
 print(*map(list, itertools.tee(a, 3)))
+
+# Не принимает ИМЕНОВАННЫЕ АРГУМЕНТЫ!!!  tee                                tee(iterable, n=2)
+print([list(i) for i in tee(a, n=3)])  # -> TypeError: itertools.tee() takes no keyword arguments
+print([list(i) for i in tee(a, 3)])    # -> [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
+
+# Не принимает ПОЗИЦИОННЫЕ аргументы!!!  product                            product(*iterables, repeat=1)
+print(*itertools.product(a, repeat=2))   # -> (1, 1) (1, 2) (2, 1) (2, 2)
+print(*itertools.product(a, 2))          # -> TypeError: 'int' object is not iterable
 """
 
 
@@ -3139,7 +3252,6 @@ print(*map(list, itertools.tee(a, 3)))
 
 a = [1, 2]
 b = [1, 2, 3]
-
 
 
 
@@ -3168,9 +3280,13 @@ a = [1, 2]
 b = [1, 2, 3]
 
 # zip vs zip_longest
-print([*itertools.zip_longest(a, b)])  # -> [(1, 1), (2, 2), (None, 3)]
-print([*zip(a, b, strict=False)])      # -> [(1, 1), (2, 2)]
-print([*zip(a, b, strict=True)])       # -> ValueError: zip() argument 2 is longer than argument 1
+print([*itertools.zip_longest(a, b)])      # -> [(1, 1), (2, 2), (None, 3)]
+print([*zip(a, b, strict=False)])          # -> [(1, 1), (2, 2)]
+print([*zip(a, b, strict=True)])           # -> ValueError: zip() argument 2 is longer than argument 1
+
+# Интересный пример
+print(*itertools.zip_longest(a, b, a, b))  # -> (1, 1, 1, 1) (2, 2, 2, 2) (None, 3, None, 3) 
+print(*itertools.zip_longest(a, b, a))     # -> (1, 1, 1) (2, 2, 2) (None, 3, None)     
 """
 
 
@@ -3179,7 +3295,6 @@ print([*zip(a, b, strict=True)])       # -> ValueError: zip() argument 2 is long
 # Повтори from itertools import groupby
 
 res = 'AAAABBBCCDAABBB'
-
 
 
 
@@ -3243,6 +3358,11 @@ a, b = [1, 2], [3, 3]
 print(list(itertools.product(a, b, repeat=1)))  # -> [(1, 3), (1, 3), (2, 3), (2, 3)]
 print(list(itertools.product(a, b, repeat=2)))
 # [(1, 3, 1, 3), (1, 3, 1, 3), (1, 3, 2, 3), (1, 3, 2, 3), (1, 3, 1, 3), (1, 3, 1, 3), (1, 3, 2, 3), (1, 3, 2, 3), ...
+
+
+# Не принимает ПОЗИЦИОННЫЕ аргументы!!!
+print(*itertools.product(a, repeat=2))   # -> (1, 1) (1, 2) (2, 1) (2, 2)
+print(*itertools.product(a, 2))          # -> TypeError: 'int' object is not iterable
 """
 
 
@@ -3298,8 +3418,6 @@ print(list(combinations('XYZ', 3)))  # -> [('X', 'Y', 'Z')]
 # Использовать combinations_with_replacement
 
 a = 'XYZ'
-
-
 
 
 
@@ -3385,6 +3503,9 @@ iterable = 'abcdefg'
 
 
 
+
+
+
 # Ответы spy
 """
 from more_itertools import spy
@@ -3404,6 +3525,11 @@ print(spy(iterable))    # -> ([], <itertools.chain object at 0x000002ADE9E0FB20>
 
 
 iterable = [0, 1, 2, 3]
+
+
+
+
+
 
 
 iterable = []
@@ -3426,6 +3552,8 @@ print(first([]))  # -> ValueError: first() was called on an empty iterable, and 
 
 # more_itertools.one(iterable, too_short=ValueError, too_long=ValueError) - Верните первый элемент из iterable
 # Использовать one
+
+
 
 
 
@@ -3463,6 +3591,9 @@ print(one(it))   # -> ValueError: too few items in iterable (expected 1)
 
 
 
+
+
+
 # Ответы only
 """
 from more_itertools import only
@@ -3477,6 +3608,10 @@ print(only([1, 2], too_long=TypeError))  # -> TypeError
 
 # more_itertools.unique_everseen(iterable, key=None) - Создавайте уникальные элементы, сохраняя порядок.
 # Использовать unique_everseen
+
+
+
+
 
 
 
@@ -3522,6 +3657,10 @@ iterable = iter('abcdefgh')
 
 
 
+
+
+
+
 # Ответы islice_extended
 """
 from more_itertools import islice_extended
@@ -3540,6 +3679,9 @@ print(list(islice_extended(iterable, -4, -1)))          # -> ['e', 'f', 'g']
 
 
 a_gen = (i for i in range(10))
+
+
+
 
 
 
@@ -3601,6 +3743,7 @@ print(eval('+'.join(map(str, lst))))            # -> 10
 
 
 
+
 # Ответ @functools.cache(user_function)
 """
 from functools import cache
@@ -3619,12 +3762,6 @@ print(factorial(12))  # -> 479001600
 # @functools.lru_cache(user_function)
 # @functools.lru_cache(maxsize=128, typed=False)
 # Напишите Фибоначчи с кэшем и замер скорости работы timeit   globals=globals()/setup="from __main__ import fibonacci__3"
-
-
-
-
-
-
 
 
 
@@ -3663,7 +3800,6 @@ print(timeit.timeit('fibonacci__3(50)', setup="from __main__ import fibonacci__3
 
 def multiply(x, y):
     return x * y
-
 
 
 
@@ -3712,8 +3848,6 @@ print(partial(multiply, 5)())     # TypeError: multiply() missing 1 required pos
 
 
 
-
-
 # Ответ 1)
 """
 from functools import wraps
@@ -3731,6 +3865,7 @@ def timer(func):
     wrapper.__doc__ = func.__doc__     # Тоже самое что   @wraps(func)  Только ручное
     return wrapper
 
+@timer    # Если навесить еще то будет замерять еще раз     <----
 @timer
 def example_function(n):
     total = 0
@@ -5682,7 +5817,6 @@ class MyDict:
         self.data = []
 
     def __setitem__(self, key, value):
-        # Проверяем, есть ли ключ уже в словаре
         for i, (k, v) in enumerate(self.data):
             if k == key:
                 self.data[i] = (key, value)  # Обновляем значение
@@ -5720,24 +5854,100 @@ class MyDict:
     def values(self):
         return [v for k, v in self.data]  # Возвращаем список значений
 
+    def clear(self):
+        '''Удаляет все элементы из словаря.'''
+        self.data.clear()
+
+    def update(self, other):
+        '''Обновляет словарь значениями из другого словаря или итерируемого объекта.'''
+        for k, v in other.items():
+            self[k] = v
+
+    def pop(self, key, default=None):
+        '''Удаляет элемент с указанным ключом и возвращает его значение. Если ключ не найден, возвращает значение по умолчанию.'''
+        for i, (k, v) in enumerate(self.data):
+            if k == key:
+                del self.data[i]  # Удаляем элемент
+                return v
+        if default is not None:
+            return default
+        raise KeyError(f"Key {key} not found.")
+
+    def popitem(self):
+        '''Удаляет и возвращает последнюю добавленную пару (ключ, значение). Если словарь пустой, вызывается исключение KeyError.'''
+        if not self.data:
+            raise KeyError("popitem(): dictionary is empty")
+        return self.data.pop()  # Возвращает и удаляет последний элемент
+
+    def get(self, key, default=None):
+        '''Возвращает значение по ключу, если ключ не найден – возвращает значение по умолчанию.'''
+        for k, v in self.data:
+            if k == key:
+                return v
+        return default
+
+    def setdefault(self, key, default=None):
+        '''Возвращает значение по ключу. Если ключ не найден, добавляет ключ с значением по умолчанию и возвращает его.'''
+        if key not in self:
+            self[key] = default
+        return self[key]
+
+    def items_length(self):
+        '''Возвращает длину всех пар (ключ, значение) в словаре.'''
+        return len(self.data)
+
+    @classmethod
+    def fromkeys(cls, iterable, value=None):
+        '''Создает новый экземпляр MyDict с заданными ключами и значением по умолчанию.'''
+        new_dict = cls()
+        for key in iterable:
+            new_dict[key] = value
+        return new_dict
+
 
 # Пример использования
 my_dict = MyDict()
 my_dict['apple'] = 1
 my_dict['banana'] = 2
 
-print(my_dict['apple'])     # Вывод: 1
+print(my_dict['apple'])  # Вывод: 1
 print('banana' in my_dict)  # Вывод: True
-print(len(my_dict))         # Вывод: 2
+print(len(my_dict))  # Вывод: 2
 
 my_dict['apple'] = 3
-print(my_dict['apple'])     # Вывод: 3
-
+print(my_dict['apple'])  # Вывод: 3
 my_dict['cherry'] = 5
-print(my_dict.items())      # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
+print(my_dict.items())  # Вывод: [('apple', 3), ('banana', 2), ('cherry', 5)]
 
 del my_dict['banana']
-print(my_dict.items())      # Вывод: [('apple', 3), ('cherry', 5)]
+print(my_dict.items())  # Вывод: [('apple', 3), ('cherry', 5)]
+
+# Применение новых методов
+my_dict.clear()
+print(my_dict.items())  # Вывод: []
+
+my_dict.update({'orange': 4, 'pear': 6})
+print(my_dict.items())  # Вывод: [('orange', 4), ('pear', 6)]
+
+value = my_dict.pop('orange')
+print(value)  # Вывод: 4
+print(my_dict.items())  # Вывод: [('pear', 6)]
+
+last_item = my_dict.popitem()
+print(last_item)  # Вывод: ('pear', 6)
+
+# Демонстрация новых методов
+print(my_dict.get('pear'))  # Вывод: KeyError
+print(my_dict.get('pear', 'default_value'))  # Вывод: default_value
+
+my_dict.setdefault('banana', 10)
+print(my_dict.items())  # Вывод: [('banana', 10)]
+
+length = my_dict.items_length()
+print(length)  # Вывод: 1
+
+new_dict = MyDict.fromkeys(['key1', 'key2', 'key3'], 'default_value')
+print(new_dict.items())  # Вывод: [('key1', 'default_value'), ('key2', 'default_value'), ('key3', 'default_value')]
 ________________________________________________________________________________________________________________________
 """
 
@@ -5884,20 +6094,10 @@ ________________________________________________________________________________
 
 # Написать 2 варианта
 def longest_sequence(arr):
-    if not arr:
-        return []
-    res = []
-    for i in range(len(arr)-1):
-        if arr[i] < arr[i+1]:
-            res.append(arr[i])
-        else:
-            res.append(arr[i])
-            res.append('A')
-    res_2 = ' '.join([str(i) for i in res]).split('A')
-    return res_2
+    pass
 
-arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
-print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
+
+
 
 
 arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]

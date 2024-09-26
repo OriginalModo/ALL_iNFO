@@ -398,37 +398,6 @@ rez = tee(x, 3)
 import re
 
 
-def longest_sequence(arr):
-    if not arr:
-        return []
-    res = []
-    for i in range(len(arr)-1):
-        if arr[i] < arr[i+1]:
-            res.append(arr[i])
-        else:
-            res.append(arr[i])
-            res.append('A')
-    res_2 = ' '.join([str(i) for i in res]).split('A')
-    return max([i.split() for i in res_2], key=len)
-
-arr = [111, 22, 533, 61, 655, 7333, 911, 11, 211, 1, 2, 3, 4, 5]
-print(longest_sequence(arr))  # -> [1, 2, 3, 4, 5]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
