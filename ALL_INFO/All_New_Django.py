@@ -116,6 +116,8 @@
   python manage.py runserver - Запуск сервера для разработки
   python manage.py createsuperuser - Создать аккаунт администратора
 
+  python manage.py test название_приложения  - Запускать тесты
+
 
  Чтобы запускать несколько серверов прописываем разные порты в  Edit Configurations... runserver 8000   runserver 8001
  или через Django Server  в  Edit Configurations
