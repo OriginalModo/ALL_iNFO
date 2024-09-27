@@ -9932,6 +9932,7 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  print(L)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7]
  print(G)  # -> [1, 2, 3, 4, 5, 6, 8, 9, 7]
 
+
  --- Символьный ад ---
  Уберите детей от экрана.
 
@@ -9957,6 +9958,31 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  (1)                    # это просто число
  (1, 2, 3)              # это (ха-ха) кортеж
  (i for i in range(3))  # это не кортеж, это генератор :D
+
+
+ --- Символьный ад  2 ---
+
+ {'a': 1}               # это словарь
+ {'a'}                  # это множество (set)
+ {}                     # это не пустое множество, это пустой словарь
+ set()                  # а вот это пустое множество
+
+ 1                      # это просто число (int)
+ (1+2)                  # это число
+ (1, 2)                 # это кортеж (tuple)
+ (1)                    # это тоже просто число
+ 1,                     # это тоже кортеж
+ ()                     # это пустой кортеж
+ (,)                    # SyntaxError
+
+ []                     # это пустой список
+ [1]                    # это список с одним элементом
+ [1, 2, 3]              # это список с 3 элементами
+ [i for i in range(3)]  # это тоже список с 3 элементами
+ ()                     # это пустой кортеж
+ (1)                    # это просто число
+ (1, 2, 3)              # это кортеж
+ (i for i in range(3))  # это не кортеж, это generator expression
 
 
  --- Big O или Big Oh    Временная сложность ---
@@ -13366,6 +13392,31 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  s1 = Customer('a')
  print(s == s1)       # -> False
  print(s.__eq__(s1))  # -> False
+
+
+ -- Интересный пример Наследование в Dataclasses  Декорировать нужно все классы при Наследовании --
+
+ # Вот ещё пример логичности и простоты. Датаклассы Base и Child:
+
+ from dataclasses import dataclass
+
+ @dataclass
+ class Base:
+   a: str
+
+ class Child(Base):
+   b: str
+
+
+ # Внезапно оказывается, что Base ведёт себя как приличный датакласс, а Child — как неприличный:
+
+ print(Base())                     # -> TypeError: Base.__init__() missing 1 required positional argument: 'a'
+ print(Base(a='test'))             # -> Base(a='test')
+ print(Child(a='test'))            # -> Child(a='test')
+ print(Child(a='test', b='test'))  # -> TypeError: Base.__init__() got an unexpected keyword argument 'b'
+
+ # Почему так? Потому что «датаклассовость» не наследуется. Если хочется, чтобы Child тоже был датаклассом,
+ # его нужно тоже декорировать.             Так что будьте осторожны при наследовании.                      <-----
 
 
  --- @classmethod    @staticmethod ---
