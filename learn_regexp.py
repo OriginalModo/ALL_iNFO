@@ -891,30 +891,3 @@ RAW_DATA = '''phone, fullname, some_amount, rating_position
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

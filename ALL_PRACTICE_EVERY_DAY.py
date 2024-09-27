@@ -6598,7 +6598,7 @@ print(plus())  # -> 3 None
 
 
 
-# Задача Заказчик Открытые Решения
+# Задача Заказчик Открытые Решения  Переписать/Написать 4 Варианта
 # * Уровень 1 *
 # 1.  Распарсить CSV-строку в список словарей, ключи для которых взять из заголовка
 #     (built-in СТРОКОВЫМИ средствами)
@@ -6686,10 +6686,123 @@ print(data)
 """
 
 
+# Третий Вариант  применение чистых функций, функций высшего порядка синтаксического сахара
+"""
+# Чистая функция для парсинга CSV-строки
+def parse_csv_to_dicts(csv_string):
+    lines = csv_string.strip().split('\n')
+    header = lines[0].split(',')
+
+    return [
+        {header[i].strip(): value.strip() for i, value in enumerate(line.split(','))}
+        for line in lines[1:]
+    ]
 
 
+# Чистые функции для нормализации
+def normalize_phone(phone):
+    return ''.join(filter(str.isdigit, phone))
 
 
+def normalize_amount(amount):
+    try:
+        return float(amount.replace(' ', '').replace(',', '.'))
+    except ValueError:
+        return None
+
+
+def normalize_rating(rating):
+    try:
+        return int(rating)
+    except ValueError:
+        return None
+
+
+# Объединение нормализации в одну функцию
+def normalize_data(entries):
+    def normalize_entry(entry):
+        return {
+            'phone': normalize_phone(entry['phone']),
+            'fullname': entry['fullname'],
+            'some_amount': normalize_amount(entry['some_amount']),
+            'rating_position': normalize_rating(entry['rating_position']),
+        }
+
+    # Применяем функцию высшего порядка
+    return list(map(normalize_entry, entries))
+
+
+# Основная функция для обработки данных
+def process_csv_data(csv_string):
+    parsed_data = parse_csv_to_dicts(csv_string)
+    normalized_data = normalize_data(parsed_data)
+    return normalized_data
+
+
+# Вызов основной функции и вывод результата
+processed_data = process_csv_data(RAW_DATA)
+print(processed_data)
+# [{'phone': '79930965431', 'fullname': 'Абдуллаев Рамиль Ахмед оглы', 'some_amount': 5432.0, 'rating_position': 5},
+"""
+
+
+# Четвертый Вариант  применение чистых функций, функций высшего порядка синтаксического сахара
+"""
+def parse_csv(raw_data):
+    # Убираем лишние пробелы и разбиваем строки
+    lines = raw_data.strip().split('\n')
+
+    # Извлекаем заголовки и значения
+    keys = lines[0].split(', ')
+    data = []
+
+    for line in lines[1:]:
+        values = line.split(', ')
+        # Создаем словарь для каждой строки
+        data.append(dict(zip(keys, values)))
+
+    return data
+
+
+parsed_data = parse_csv(RAW_DATA)
+
+def normalize_phone(phone):
+    return ''.join(filter(str.isdigit, phone))  # Сохраняем только цифры
+
+def normalize_name(fullname):
+    return ' '.join(fullname.split())  # Убираем лишние пробелы
+
+def normalize_amount(amount):
+    amount = amount.replace(' ', '').replace(',', '.')  # Заменяем пробелы и запятые
+    return float(amount)
+
+def normalize_rating(rating):
+    return int(rating.strip())  # Приводим рейтинг к целому числу
+
+def normalize_data(data):
+    return {
+        'phone': normalize_phone(data['phone']),
+        'fullname': normalize_name(data['fullname']),
+        'some_amount': normalize_amount(data['some_amount']),
+        'rating_position': normalize_rating(data['rating_position']),
+    }
+
+# Применяем нормализацию к каждому элементу в списке словарей
+normalized_data = list(map(normalize_data, parsed_data))
+
+# Выводим результат
+for item in normalized_data:
+    print(item)
+
+# Вывод    
+{'phone': '79930965431', 'fullname': 'Абдуллаев Рамиль Ахмед оглы', 'some_amount': 5432.0, 'rating_position': 5}
+{'phone': '89615421187', 'fullname': 'Васильев Михаил Борисович', 'some_amount': 1577.93, 'rating_position': 3}
+{'phone': '79051270001', 'fullname': 'Филипс Тревор', 'some_amount': 7311.63, 'rating_position': 1}
+{'phone': '89876543210', 'fullname': 'Иванова Мария Сергеевна', 'some_amount': 104.0, 'rating_position': 4}
+{'phone': '89310772267', 'fullname': 'Петрова-Васильева Светлана Александровна', 'some_amount': 35567.92, 'rating_position': 7}
+{'phone': '9554388102', 'fullname': 'Крестовоздвиженский Войцишек Станислав Август', 'some_amount': 191.0, 'rating_position': 6}
+{'phone': '79116310780', 'fullname': 'Романов Борис Анатольевич', 'some_amount': 13.2, 'rating_position': 2}
+"""
 
 
 
