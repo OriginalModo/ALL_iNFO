@@ -119,6 +119,81 @@
   python manage.py test название_приложения  - Запускать тесты
 
 
+ # **Прямое выполнение миграций через код**
+ Если вам нужно выполнить миграции программно, вы можете использовать следующий код в Python
+
+ from django.core.management import call_command
+
+ call_command('migrate', 'app_name')  #  Замените `'app_name'` на имя вашего приложения
+
+ Имейте в виду, что `migrate` остается основным способом применения миграций и рекомендуется использовать его для
+ адекватного управления базой данных.
+
+ - Создайте каталог `management/commands` внутри приложения, если его еще нет.
+ - Создайте файл, например, `run_migrations.py`:
+
+ python
+      # myapp/management/commands/run_migrations.py
+
+      from django.core.management import BaseCommand, call_command
+
+      class Command(BaseCommand):
+          help = 'Выполнить миграции для приложения'
+
+          def handle(self, *args, **kwargs):
+              call_command('migrate', 'app_name')  # Замените 'app_name' на имя вашего приложения
+
+  Запускайте команду в терминале:
+  python manage.py run_migrations
+
+ Не забывайте, что выполнять миграции программно — это менее распространенная практика, и делайте это осознанно,
+ чтобы избежать непредвиденных проблем с базой данных.
+
+
+ -- Создание миграции вручную --
+
+ Чтобы создать миграции вручную через файл миграции `initial` в Django, выполните следующие шаги:
+
+ 1. **Создайте файл миграции вручную**:
+ - В каталоге вашей модели приложения создайте директорию `migrations`, если она еще не существует.
+ - Создайте файл миграции, назовите его, например, `0001_initial.py`.
+
+ 2. **Напишите код миграции**:
+ - Откройте созданный файл и добавьте следующий код:
+
+
+    from django.db import migrations, models
+
+    class Migration(migrations.Migration):
+
+        initial = True
+
+        operations = [
+            migrations.CreateModel(
+                name='YourModelName',
+                fields=[
+                    ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                    ('field_name', models.CharField(max_length=100)),
+                    # добавьте другие поля вашего модели
+                ],
+            ),
+        ]
+
+ - Замените `YourModelName` на название вашей модели и добавьте нужные поля.
+
+ 3. **Примените миграцию**:
+ - Запустите команду, чтобы применить миграцию:
+
+ bash
+    python manage.py migrate
+
+ Это создаст соответствующую таблицу в базе данных на основе вашей модели.
+
+ ### Примечания:
+ - Убедитесь, что вы правильно указали все поля и их типы в файле миграции.
+ - Файл миграций должен иметь уникальный номер (например, `0001`, `0002` и т.д.) для правильного управления миграциями.
+
+
  Чтобы запускать несколько серверов прописываем разные порты в  Edit Configurations... runserver 8000   runserver 8001
  или через Django Server  в  Edit Configurations
 
