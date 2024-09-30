@@ -447,48 +447,6 @@ RAW_DATA = '''phone, fullname, some_amount, rating_position
 
 
 
-class MyMeta(type):
-    def __new__(cls, name, bases, attrs):
-        # Модификация атрибутов класса
-        attrs['custom_attribute'] = 'This is a custom attribute'
-        attrs['hehe'] = '123'
-        return super().__new__(cls, name, bases, attrs)
-
-
-class MyClass(metaclass=MyMeta):
-    pass
-
-
-instance = MyClass()
-print(instance.custom_attribute)  # Вывод: This is a custom attribute
-print(instance.hehe)  # Вывод: 123
-print(instance.__dict__)  # Вывод: {}
-print(MyClass.hehe)  # Вывод: 123
-print(MyClass.custom_attribute)  # Вывод: This is a custom attribute
-
-# Важно Интересный пример!!!
-print(type(MyClass))   # -> <class '__main__.MyMeta'>
-print(type(instance))  # -> <class '__main__.MyClass'>
-
-
-class Bar(object): pass
-
-b = Bar()
-print(type(Bar))  # -> <class 'type'>
-print(type(b))    # -> <class '__main__.Bar'>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
