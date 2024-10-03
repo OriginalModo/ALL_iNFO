@@ -443,15 +443,18 @@ RAW_DATA = '''phone, fullname, some_amount, rating_position
 
 
 
+import numpy as np
+
+a = [10, 20, 10, 20]
+
+b = a.copy()
 
 
+for i in a:
+    if a.count(i) == b.count(i):
+        b.append(i)
 
-
-
-
-
-
-
+print(min(b))
 
 
 
