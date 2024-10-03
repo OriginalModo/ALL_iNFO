@@ -4610,6 +4610,8 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
     list(список), tuple(кортеж), dict(словарь), set(множество), frozenset(неизменяемое множество)
 
 
+ Пинг может влиять на скорость запроса   <-----
+
 
  -- Pydantic  - упрощает процесс проверки данных тесно связана с FastAPI --
  Pydantic - это библиотека для валидации данных, сериализации и документирования (используя JSON Schema),
@@ -7475,6 +7477,13 @@ fact(30)
  print(fact(5))                                   # -> 120
  from functools import reduce
  print(reduce(lambda x, y: x*y, range(1, 6), 1))  # -> 120
+
+
+ # Будет последнее значение выводить 10 раз    ПОСМОТРИ ВНИМАТЕЛЬНО КОД  Обрати внимание на    x         <-----
+
+ fun = [lambda x: a for a in range(10)]
+ for f in fun:
+     print(f(20), end=' ')               # -> 9 9 9 9 9 9 9 9 9 9
 
 
  Python поддерживает символы Unicode и Цветные иконки и смайлики Unicode:
@@ -10394,6 +10403,34 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  print([1 for _ in '123'].__reversed__())      # -> <list_reverseiterator object at 0x000001DB708FFA30>
  print(*reversed((1 for _ in '123')))          # -> TypeError: 'generator' object is not reversible
  print(*reversed(iter([1 for _ in '123'])))    # -> TypeError: 'list_iterator' object is not reversible
+
+
+ # Перевернуть генератор/итератор
+
+ # Через list
+ my_list = [1, 2, 3, 4, 5]
+ my_generator = (x**2 for x in my_list)
+
+ for item in reversed(list(my_generator)):
+     print(item, end=' ')  # -> 25 16 9 4 1
+
+
+ # Тоже самое только через tuple
+ my_list = [1, 2, 3, 4, 5]
+ my_generator = (x**2 for x in my_list)
+
+ for item in reversed(tuple(my_generator)):
+     print(item, end=' ')  # -> 25 16 9 4 1
+
+ # Как перевернуть генератор/итератор?     reversed(list)
+
+ # Что будет на выходе ПОСМОТРИ
+ my_list = [1, 2, 3, 4, 5]
+ my_generator = (x**2 for x in my_list)
+
+ print(reversed(list(my_generator)))  # -> <list_reverseiterator object at 0x000001C4286F3A00>
+ print(my_generator)                  # -> <generator object <genexpr> at 0x000001CA17B23850>
+ print(list(my_generator))            # -> []
 
 
  Пример создания итератора Iterator:

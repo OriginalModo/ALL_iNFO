@@ -11,8 +11,18 @@ import sys
 import time
 import types
 import re
-
 import more_itertools
+
+
+
+# Будет последнее значение выводить 10 раз    ПОСМОТРИ ВНИМАТЕЛЬНО КОД  Обрати внимание на    x
+"""
+fun = [lambda x: a for a in range(10)]
+for f in fun:
+    print(f(20), end=' ')  # -> 9 9 9 9 9 9 9 9 9 9
+"""
+
+
 
 # Замеры размеров структур Python  ПРОСТО ПОСМОТРЕТЬ!!!
 """
@@ -1650,6 +1660,31 @@ print([i for i in generator])  # -> [1, 4, 9, 16]
 generator = (i*i for i in range(1, 5))
 print([i for i in generator])  # -> [1, 4, 9, 16]
 """
+
+
+
+
+# Как перевернуть генератор/итератор?
+
+my_list = [1, 2, 3, 4, 5]
+my_generator = (x**2 for x in my_list)
+
+
+
+
+
+# Ответ Как перевернуть генератор/итератор?    reversed(list)
+"""
+# Что будет на выходе ПОСМОТРИ
+my_list = [1, 2, 3, 4, 5]
+my_generator = (x**2 for x in my_list)
+
+print(reversed(list(my_generator)))  # -> <list_reverseiterator object at 0x000001C4286F3A00>
+print(my_generator)                  # -> <generator object <genexpr> at 0x000001CA17B23850>
+print(list(my_generator))            # -> []
+"""
+
+
 
 
 # Cоздайте свой Итератор
