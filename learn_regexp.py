@@ -444,32 +444,6 @@ RAW_DATA = '''phone, fullname, some_amount, rating_position
 
 # migrations как делать
 
-# n = int(input())
-# res = [int(input()) for i in range(n)]
-# res_2 = [int(input()) for i in range(n)]
-# print(res, res_2)
-
-# res = [int(input()) for i in range(2)]
-# res_2 = [int(input()) for i in range(2)]
-
-
-# # Как вывести в print Несколько распаковок  **
-
-# dict1 = {'a': 1}
-# dict2 = {'b': 2}
-# print(**dict1, **dict2)  # TypeError: 'a' is an invalid keyword argument for print()
-
-
-# dict1 = {'a': 1}
-# dict2 = {'b': 2}
-# # Это вызовет SyntaxError
-# print(**dict1, **dict2)
-
-dict1 = {'x': 1}
-dict2 = {'y': 2}
-
-print(*dict1 if True else dict2)   # -> x
-print(dict1 if False else dict2)   # -> x
 
 
 
