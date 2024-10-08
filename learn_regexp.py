@@ -445,16 +445,10 @@ RAW_DATA = '''phone, fullname, some_amount, rating_position
 
 
 
-res = '1234'
-
-if len(set(res))==len(res):
-    print("YEs")
-else:
-    print('NO')
 
 
 
-
+# транзакции в django
 
 
 
