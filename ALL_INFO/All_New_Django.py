@@ -849,7 +849,7 @@
  Movies.objects.filter(name__icontains=’Avatar’)            поле содержит значение, НЕ чувствителен к регистру
  Movies.objects.filter(name__startswith=’a’)                поле начинается с “a”
  Movies.objects.filter(name__endswith=’a’)                  поле заканчивается на “a”
- Movies.objects.filter(id__in=[3,5,6]’)                     выбираются все значения из списка
+ Movies.objects.filter(id__in=[3,5,6])                     выбираются все значения из списка
 
 
  1. Метод get()- используется когда хотим получить только одну запись
