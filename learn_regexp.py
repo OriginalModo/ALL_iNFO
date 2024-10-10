@@ -3,6 +3,7 @@ import collections
 import copy
 import csv
 import datetime
+import dis
 import functools
 import itertools
 import math
@@ -527,46 +528,14 @@ Test - заявки с июля 2020 включительно
 
 
 
+# Устранить дубликаты и оставить Порядок элементов
+my_lst = [10, 10, 10, 2, 3]
+# Порядок НЕ УПОРЯДОЧЕННЫЙ!!!
+print(set(my_lst))                          # -> {3, 10, 2}
 
-# Будет TypeError
-t = (1, 2, [30, 40])
-t[2] += [50, 60]        # -> TypeError: 'tuple' object does not support item assignment
-print(t)
-
-# Будет Работать
-t = (1, 2, [30, 40])
-t[2].extend([50, 60])
-print(t)                # -> (1, 2, [30, 40, 50, 60])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Сохраняем порядок
+print(dict.fromkeys(my_lst).keys())        # -> dict_keys([10, 2, 3])
+print(list(dict.fromkeys(my_lst).keys()))  # -> [10, 2, 3]
 
 
 
