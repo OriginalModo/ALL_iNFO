@@ -528,46 +528,15 @@ Test - заявки с июля 2020 включительно
 
 
 
+# Будет TypeError
+t = (1, 2, [30, 40])
+t[2] += [50, 60]        # -> TypeError: 'tuple' object does not support item assignment
+print(t)
 
-
-
-# Сравнение built-in function vs dunder method
-from timeit import timeit
-
-
-#  len() vs __len__()    len()  Намного быстрее работает
-
-# РАБОТАЕТ В 2 РАЗА БЫСТРЕЕ  для []
-print(f"{timeit('len([100, 1000])', number=1000000):.6f}")        # -> 0.072438
-print(f"{timeit('[100, 1000].__len__()', number=1000000):.6f}")   # -> 0.145085
-
-# tuple  ()
-print(f"{timeit('len((100, 1000))', number=1000000):.6f}")        # -> 0.036578
-print(f"{timeit('(100, 1000).__len__()', number=1000000):.6f}")   # -> 0.103023
-
-# set
-print(f"{timeit('len({100, 1000})', number=1000000):.6f}")        # -> 0.127049
-print(f"{timeit('{100, 1000}.__len__()', number=1000000):.6f}")   # -> 0.183266
-
-# dict
-print(f"{timeit('len({100: 1000})', number=1000000):.6f}")        # -> 0.117994
-print(f"{timeit('{100: 1000}.__len__()', number=1000000):.6f}")   # -> 0.171075
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Будет Работать
+t = (1, 2, [30, 40])
+t[2].extend([50, 60])
+print(t)                # -> (1, 2, [30, 40, 50, 60])
 
 
 
