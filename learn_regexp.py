@@ -527,33 +527,31 @@ Test - заявки с июля 2020 включительно
 
 
 
-# Есть список чисел. Нужно отсортировать нечетные числа по возрастанию, оставив четные на месте
-def sort_array(arr):
-    ...
-
-numbers = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-# print(sort_array(numbers))  # -> [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
 
 
 
 
+# Сравнение built-in function vs dunder method
+from timeit import timeit
 
 
+#  len() vs __len__()    len()  Намного быстрее работает
 
+# РАБОТАЕТ В 2 РАЗА БЫСТРЕЕ  для []
+print(f"{timeit('len([100, 1000])', number=1000000):.6f}")        # -> 0.072438
+print(f"{timeit('[100, 1000].__len__()', number=1000000):.6f}")   # -> 0.145085
 
+# tuple  ()
+print(f"{timeit('len((100, 1000))', number=1000000):.6f}")        # -> 0.036578
+print(f"{timeit('(100, 1000).__len__()', number=1000000):.6f}")   # -> 0.103023
 
+# set
+print(f"{timeit('len({100, 1000})', number=1000000):.6f}")        # -> 0.127049
+print(f"{timeit('{100, 1000}.__len__()', number=1000000):.6f}")   # -> 0.183266
 
-
-
-
-
-
-
-
-
-
-
-
+# dict
+print(f"{timeit('len({100: 1000})', number=1000000):.6f}")        # -> 0.117994
+print(f"{timeit('{100: 1000}.__len__()', number=1000000):.6f}")   # -> 0.171075
 
 
 
