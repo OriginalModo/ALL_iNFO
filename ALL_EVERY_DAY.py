@@ -2841,17 +2841,20 @@ ________________________________________________________________________________
 
  Примеры:
 
- # dataclass                             # typing.NamedTuple                 # namedtuple
- from dataclasses import dataclass       from typing import NamedTuple       from collections import namedtuple
+ # dataclass                              # typing.NamedTuple                    # namedtuple
+ from dataclasses import dataclass        from typing import NamedTuple          from collections import namedtuple
 
- @dataclass                              class Point(NamedTuple):            Point = namedtuple('Point', ['x', 'y'])
- class Point:                                x: int
-     x: int                                  y: int
+ @dataclass                               class Point(NamedTuple):               Point = namedtuple('Point', ['x', 'y'])
+ class Point:                                 x: int
+     x: int                                   y: int
      y: int
 
- p = Point(10, 20)                       p = Point(10, 20)                   p = Point(10, 20)
- print(p)  # Point(x=10, y=20)           print(p.x, p.y)  # 10 20            print(p.x, p.y)  # 10 20
+ p = Point(10, 20)                        p = Point(10, 20)                      p = Point(10, 20)
+ Point.__doc__ # Point(x: int, y: int)    print(Point.__doc__)  # Point(x, y)    print(Point.__doc__)  # Point(x, y)
+ print(p)  # Point(x=10, y=20)            print(p.x, p.y)  # 10 20               print(p.x, p.y)  # 10 20
 
+ print(Point.__annotations__)               print(Point.__annotations__)                print(Point.__annotations__)
+ # {'x': <class 'int'>, 'y': <class 'int'>} # {'x': <class 'int'>, 'y': <class 'int'>}  # {}
 
 
  --- OOP ---

@@ -532,36 +532,14 @@ Test - заявки с июля 2020 включительно
 # SOLID - РАСПИСАТЬ ПРИМЕРЫ
 # ВСЕ МИНУСЫ С СОБЕСА ПРОЧИТАТЬ!!!
 
-
-from typing import NamedTuple
-
-class Point(NamedTuple):
-    x: int
-    y: int
-
-p = Point(10, 20)
-print(p.x, p.y)  # 10 20
-
-from dataclasses import dataclass
-
-@dataclass
-class Point:
-    x: int
-    y: int
-
-p = Point(10, 20)
-print(p)  # Point(x=10, y=20)
-
-# namedtuple
 from collections import namedtuple
-
 Point = namedtuple('Point', ['x', 'y'])
 p = Point(10, 20)
+print(Point.__doc__)  # Point(x, y)
 print(p.x, p.y)  # 10 20
 
-
-
-
+print(Point.__annotations__)
+# {}
 
 
 
