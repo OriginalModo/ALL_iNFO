@@ -4177,6 +4177,32 @@ mm1 = MyDate(1)
 """
 
 
+# 1.5) Написать  Построители классов данных  dataclass   typing.NamedTuple   namedtuple
+
+
+
+
+
+
+
+
+
+# 1.5) Ответ Написать  Построители классов данных  dataclass   typing.NamedTuple   namedtuple
+"""
+# dataclass                             # typing.NamedTuple                 # namedtuple
+from dataclasses import dataclass       from typing import NamedTuple       from collections import namedtuple
+
+@dataclass                              class Point(NamedTuple):            Point = namedtuple('Point', ['x', 'y'])
+class Point:                                x: int
+    x: int                                  y: int
+    y: int
+
+p = Point(10, 20)                       p = Point(10, 20)                   p = Point(10, 20)
+print(p)  # Point(x=10, y=20)           print(p.x, p.y)  # 10 20            print(p.x, p.y)  # 10 20
+"""
+
+
+
 
 
 # 2) Написать декоратор, который возвращает либо результат, либо экземпляр исключения:
