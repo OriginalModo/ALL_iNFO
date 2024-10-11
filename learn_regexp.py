@@ -529,13 +529,17 @@ Test - заявки с июля 2020 включительно
 
 
 
+# Совместимые с json ПСЕВДОНИМЫ   Можно копировать json прямо в консоль
+true, false, null = True, False, None
 
+fruit = {
+    'hehe': true,
+    'AAA': false,
+    'BBB': null,
+}
 
-
-
-
-
-
+print(fruit)              # -> {'hehe': True, 'AAA': False, 'BBB': None}
+print(true, false, null)  # -> True False None
 
 
 
