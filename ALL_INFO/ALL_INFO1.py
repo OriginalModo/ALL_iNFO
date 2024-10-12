@@ -13830,6 +13830,32 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
  # его нужно тоже декорировать.             Так что будьте осторожны при наследовании.                      <-----
 
 
+
+ -- Атрибут экземпляра  и   Атрибут класса        dataclass  с аннотацией и БЕЗ --
+
+ from dataclasses import dataclass
+ from typing import ClassVar       #  ClassVar - атрибут является атрибутом класса
+
+ # Обьяление С аннотацией типа  БУДЕТ  Атрибут экземпляра
+ @dataclass
+ class Spam:
+     repeat: int       # Атрибут экземпляра
+
+                                                # Объяление БЕЗ аннотации типа  БУДЕТ  Атрибут Класса    ClassVar
+ @dataclass                                     @dataclass                           @dataclass
+ class Spam:                                    class Spam:                          class Spam:
+     repeat: int = 99  # Атрибут экземпляра         repeat = 99  # Атрибут Класса        repeat: ClassVar[int] = 99
+
+ s = Spam()                                     s = Spam()
+ s1 = Spam()                                    s1 = Spam()
+
+ # Значение изменяется для всех ЭК              # Значение НЕ изменяется для всех ЭК
+ Spam.repeat = 10                               Spam.repeat = 10
+ print(s.repeat)   # -> 99                      print(s.repeat)    # -> 10
+ print(s1.repeat)  # -> 99                      print(s1.repeat)   # -> 10
+
+
+
  --- @classmethod    @staticmethod ---
  1) LEGB - правило продолжает действовать для простых имен переменных и их поиска
  2) для self атрибутов поиск идет сначала в объекте, потом в классе, затем у предков OCP(object-class-parent).
