@@ -1964,8 +1964,9 @@ print((lambda x: x----2)(3))  # -> 5
 """
 
 
-# Повторите разные сортировки  lambda  и  itemgetter, attrgetter
-from operator import itemgetter, attrgetter
+# Повторите разные сортировки  lambda  и  itemgetter, attrgetter   methodcaller  <---- НЕ ЗАБУДЬ !!!
+from operator import itemgetter, attrgetter, methodcaller
+
 ints = list(range(20))
 
 
@@ -1989,16 +1990,21 @@ class Cat:
     def __repr__(self):
         return f'Cat {self.name}, age is {self.age}'
 
+    def greet(self, name, age=None):
+        return f"Hello, {name}! Age: {age} {self.name}"
+
+
 cats = [Cat('Tom', 3), Cat('Angela', 4)]
 
+# methodcaller
 
 
 
 
-
-# Разные Сортировки operator/lambda  Просто перепиши
+# Ответ Повторите разные сортировки  lambda  и  itemgetter, attrgetter   methodcaller
+# Ответ Разные Сортировки operator/lambda  Просто перепиши
 """
-from operator import attrgetter, itemgetter
+from operator import attrgetter, itemgetter, methodcaller
 
 class Cat:
     def __init__(self, name, age):
@@ -2007,23 +2013,31 @@ class Cat:
 
     def __repr__(self):
         return f'Cat {self.name}, age is {self.age}'
+        
+    def greet(self, name, age=None):
+        return f"Hello, {name}! Age: {age} {self.name}"
+        
 
 if __name__ == '__main__':
     ints = list(range(20))
-    print(list(map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, ints))))
-    print([i ** 2 for i in range(20) if i % 2 == 0])
+    print(list(map(lambda x: x ** 2, filter(lambda x: x % 2 == 0, ints)))) # [0, 4, 16, 36, 64, 100, 144, 196, 256, 324]
+    print([i ** 2 for i in range(20) if i % 2 == 0])                       # [0, 4, 16, 36, 64, 100, 144, 196, 256, 324]
 
     a_dict = {'a': 3, 'b': 2, 'd': 1, 'c': 4}
-    print(sorted(a_dict.items(), key=lambda x: x[0]))
-    print(sorted(a_dict.items(), key=itemgetter(1)))
+    print(sorted(a_dict.items(), key=lambda x: x[0]))                # -> [('a', 3), ('b', 2), ('c', 4), ('d', 1)]
+    print(sorted(a_dict.items(), key=itemgetter(1)))                 # -> [('d', 1), ('b', 2), ('a', 3), ('c', 4)]
     
     # Двойная сортировка в кортеже - Унарный минус работает только с числами!!! Работает как  reverse=True  Но к элементу
-    print(sorted(a_dict.items(), key=lambda x: (-x[1], x[0])))
+    print(sorted(a_dict.items(), key=lambda x: (-x[1], x[0])))       # -> [('c', 4), ('a', 3), ('b', 2), ('d', 1)]
     
     cats = [Cat('Tom', 3), Cat('Angela', 4)]
-    print(sorted(cats, key=lambda x: x.age))
-    print(sorted(cats, key=attrgetter('age')))
-    print(sorted(cats, key=attrgetter('name')))
+    print(sorted(cats, key=lambda x: x.age))                         # -> [Cat Tom, age is 3, Cat Angela, age is 4]                    
+    print(sorted(cats, key=attrgetter('age')))                       # -> [Cat Tom, age is 3, Cat Angela, age is 4]                    
+    print(sorted(cats, key=attrgetter('name')))                      # -> [Cat Angela, age is 4, Cat Tom, age is 3]
+    
+    greet_method = operator.methodcaller('greet', 'Alice', age=30)   # Тоже самое что и НИЖЕ
+    print(greet_method(cats[1]))                                     # -> Hello, Alice! Age: 30 Angela
+    print(operator.methodcaller('greet', 'Alice', age=30)(cats[0]))  # -> Hello, Alice! Age: 30 Tom
 """
 
 

@@ -252,6 +252,16 @@ ________________________________________________________________________________
 
  print(orderFunc(8, 4, c=5, d=6)) # 60
  print(result(8, 4))              # 60
+
+ # Пример 4:
+ from functools import partial
+ from operator import mul
+
+ triple = partial(mul, 3)
+ print(triple(7))                        # 21
+
+ print(list(map(triple, range(1, 10))))  # [3, 6, 9, 12, 15, 18, 21, 24, 27]
+ print(list(map(mul, range(1, 10))))     # TypeError: mul expected 2 arguments, got 1
 ________________________________________________________________________________________________________________________
  class functools.partialmethod(func, /, *args, **keywords) - Заморозить часть аргументов метода класса.
 

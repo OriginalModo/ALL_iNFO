@@ -196,8 +196,50 @@ ________________________________________________________________________________
  # [(0, 0), (1, -2), (2, -4), (3, -6)]
 
 ________________________________________________________________________________________________________________________
+ operator.methodcaller(name, /, *args, **kwargs) - это функция, которая позволяет создавать вызываемый объект (callable)
+ для вызова метода у объекта. Этот метод принимает имя метода как строку и возвращает функцию, которая может быть
+ вызвана на любом объекте.
+
+ Пример 1:
+ import operator
+
+ # Создаем метод для вызова метода str.upper
+ upper = operator.methodcaller('upper')
+ my_replace = operator.methodcaller('replace', 'hello', 'OOO')
+
+ # Применяем его к строке
+ result = upper('hello')    # вернет 'HELLO'
+ res = my_replace('hello')  # вернет 'OOO'
+
+ print(result)  # -> HELLO
+ print(res)     # -> OOO
 
 
+ Пример 2:
+
+ data = [[1, 2, 3], (2, 2)]
+ # Создаем метод для вызова метода   __len__
+ length = operator.methodcaller('__len__')
+
+ # Применяем его к элементам списка
+ lengths = list(map(length, data))  # вернет [3, 2]
+
+ print(lengths)  # -> [3, 2]
+
+
+ Пример 3:
+ class MyClass:
+     def greet(self, name, age=None):
+         return f"Hello, {name}! Age: {age}"
+
+ obj = MyClass()
+
+ # Создаем метод вызова метода greet с аргументами
+ greet_method = operator.methodcaller('greet', 'Alice', age=30)
+
+ # Вызываем метод
+ result = greet_method(obj)
+ print(result)  # -> Hello, Alice! Age: 30
 ________________________________________________________________________________________________________________________
 
 
