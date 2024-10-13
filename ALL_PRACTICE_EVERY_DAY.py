@@ -1926,6 +1926,46 @@ print(pow_(2)(3))  # -> 9
 """
 
 
+
+# Напишите Замыкание class vs def    Реализация своей функции avg
+
+
+
+
+
+
+
+
+
+# Ответ Замыкание class vs def   Реализация своей функции avg
+"""
+ # Замыкание class vs def    Реализация своей функции avg
+ 
+ # Функция НЕЭФФЕКТИВНА              # ЭФФЕКТИВНА                               # Через КЛАСС
+ def make_averager():                def make_averager():                       class Averager:
+     series = []                         total = 0                                  def __init__(self):
+                                         count = 0                                      self.series = []
+     def averager(new_value):
+         series.append(new_value)        def averager(new_value):                   def __call__(self, new_value):
+         total = sum(series)                 nonlocal total, count                      self.series.append(new_value)
+         return total / len(series)          count +=1                                  total = sum(self.series)
+     return averager                         total += new_value                         return total / len(self.series)
+                                             return total/count
+ avg = make_averager()                   return averager                        avg = Averager()
+ print(avg(10))  # -> 10.0                                                      print(avg(10))  # -> 10.0
+ print(avg(11))  # -> 10.5                                                      print(avg(11))  # -> 10.5
+ print(avg(12))  # -> 11.0                                                      print(avg(12))  # -> 11.0                               
+ 
+# __code__ Откомпилированное ТЕЛО ФУНКЦИИ
+print(avg.__code__.co_varnames)          # -> ('new_value', 'total')  # Локальные переменные функции
+print(avg.__code__.co_freevars)          # -> ('series',)             # Свободные переменные замыкания
+print(avg.__closure__[0].cell_contents)  # -> [10, 11, 12]            # Текущее содержимое                           
+"""
+
+
+
+
+
 # Напишите лямбда-функцию с присвоением переменной и без. Сразу вызов
 
 
@@ -4256,7 +4296,8 @@ print(divide(10, 2))  # -> 5.0                  print(divide(10, 2))  # -> 5
 """
 
 
-# Напишите декоратор с ПАРАМЕТРАМИ/Аргументами
+
+# Напишите декоратор с ПАРАМЕТРАМИ/Аргументами   через  ФУНКЦИЮ  и КЛАСС    <-----
 
 
 
@@ -4274,21 +4315,21 @@ print(divide(10, 2))  # -> 5.0                  print(divide(10, 2))  # -> 5
 # ДЕКОРАТОР С ПАРАМЕТРАМИ - ЭТО ДОБАВЛЕНИЕ ЕЩЕ ОДНОГО УРОВНЯ ВЛОЖЕННОСТИ ДЛЯ ТОГО ЧТОБЫ ПЕРЕДАТЬ КАКОЙ-ТО ПАРАМЕТР А
 # ВНУТРИ ЛЕЖИТ ОБЫЧНЫЙ ДЕКОРАТОР.
 """
-def typed(type_):  # ->   Добавили уровень вложенности
-    def real_decorator(function):  # ->   Внутри обычный декоратор
-        @__import__('functools').wraps(function)
-        def wrapper(*args):
-            for arg in args:
-                if not isinstance(arg, type_):
-                    raise ValueError(f'Тип должен быть {type_}')
-            return function(*args)
-        return wrapper
-    return real_decorator  # ->   нужно вернуть еще одну функцию как и другие вложенности
-
-@typed(int)  # @real_decorator
-def calculate(a, b, c):
-    # Logic
-    return a + b + c
+def typed(type_):  # ->   Добавили уровень вложенности                                                                                              
+    def real_decorator(function):  # ->   Внутри обычный декоратор                                                                                              
+        @__import__('functools').wraps(function)                                                                                                
+        def wrapper(*args):                                                                                             
+            for arg in args:                                                                                                
+                if not isinstance(arg, type_):                                                                                              
+                    raise ValueError(f'Тип должен быть {type_}')                                                                                                
+            return function(*args)                                                                                              
+        return wrapper                                                                                              
+    return real_decorator  # ->   нужно вернуть еще одну функцию как и другие вложенности                                                                                               
+                                                                                                
+@typed(int)  # @real_decorator                                                                                              
+def calculate(a, b, c):                                                                                             
+    # Logic                                                                                             
+    return a + b + c                                                                                                
 
 @typed(str)  # @real_decorator
 def convert(a, b):
@@ -4300,7 +4341,41 @@ if __name__ == '__main__':
     print(calculate(2, 2, 2))           
     print(convert('1', 'hello'))            
     # convert = typed(str)(convert)     # Под капотом работает так! Ручное декорирование без @             <-----
+    
+    
+    
+# Тоже самое через КЛАСС   Только вешаем Декоратор ЧЕРЕЗ Большую букву 
+class Typed:
+    def __init__(self, type_):
+        self._type = type_
+ 
+    def __call__(self, func):
+        @wraps(func)
+        def wrapper(*args):
+            for arg in args:
+                if not isinstance(arg, self._type):
+                    raise ValueError(f'Тип должен быть {self._type}')
+            return func(*args)
+        return wrapper
+        
+@Typed(int)  # @real_decorator
+def calculate(a, b, c):
+    # Logic
+    return a + b + c
+ 
+@Typed(str)  # @real_decorator
+def convert(a, b):
+    # Logic
+    return a + b
+ 
+if __name__ == '__main__':
+    # calculate = Typed(int)(calculate) # Под капотом работает так! Ручное декорирование без @             <-----
+    print(calculate(2, 2, 2))
+    print(convert('1', 'hello'))
+    # convert = Typed(str)(convert)     # Под капотом работает так! Ручное декорирование без @             <-----
 """
+
+
 
 
 
