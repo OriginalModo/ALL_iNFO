@@ -538,34 +538,6 @@ Test - заявки с июля 2020 включительно
 
 
 
-# Для ПУСТЫХ вернется initializer
-print(functools.reduce(operator.add, [1, 2, 3], 0))  # -> 6
-print(sum([1, 2, 3], 0))                             # -> 6
-
-# Для ПУСТЫХ вернется initializer
-print(functools.reduce(operator.add, [], 0))         # -> 0
-print(sum([], start=0))                              # -> 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
