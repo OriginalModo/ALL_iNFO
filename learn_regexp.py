@@ -536,42 +536,34 @@ Test - заявки с июля 2020 включительно
 
 
 
-#  __neg__(self)         -            Определяет поведение для отрицания(-some_object)
-#  __pos__(self)         +            Определяет поведение для унарного плюса (+some_object)
-#  __abs__(self)         abs()        Определяет поведение для встроенной функции abs()
-#  __invert__(self)      ~            Двоичное НЕ  Побитовая инверсия - (перевести) в противоположное состояние
 
+class MyClass:
+    def __eq__(self, other):
+        return True  # Перегрузка оператора == разрешена
 
-# Очень интересный пример Унарный Плюс (+) Унарный минус (-)
-# Очень интересный пример Унарный Плюс (+) Унарный минус (-)
+    def __and__(self, other):  # Можно перегрузить, метод будет работать с &
+        return 1111
 
-from collections import Counter
+    def __or__(self, other):  # Можно перегрузить, метод будет работать с |
+        return 2222
 
-ct = Counter('abc')
-ct['a'] = -3
-ct['b'] = 0
-print(ct)  # -> Counter({'c': 1, 'b': 0, 'a': -3})
+    # 'is' и 'not' нельзя перегружать
+    def __is__(self, other):  # Ошибка
+        return 111
 
-print(+ct)  # -> Counter({'c': 1})  # Тоже самое
-print(ct.__pos__())  # -> Counter({'c': 1})  # Тоже самое
+    def __not__(self):  # Ошибка
+        return 'HEHE'
 
-print(-ct)  # -> Counter({'a': 3})  # Тоже самое
-print(ct.__neg__())  # -> Counter({'a': 3})  # Тоже самое
+obj1 = MyClass()
+obj2 = MyClass()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(obj1 == obj2)      # Разрешено, вывод: True
+print(obj1 & obj2)       # Вызов метода __and__, вывод: 1111
+print(obj1 | obj2)       # Вызов метода __or__, вывод:  2222
+print(obj1 and obj2)     # <__main__.MyClass object at 0x000001BE65B96750>
+print(obj1 or obj2)      # <__main__.MyClass object at 0x000001BE66BE27D0>
+print(obj1 is obj2)      # False   Это работает, но __is__ не будет вызван
+print(obj1 is not obj2)  # True    Это работает, но __not__ не будет вызван
 
 
 
