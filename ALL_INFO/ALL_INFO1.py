@@ -7930,6 +7930,20 @@ fact(30)
  # в Python - то как вы пишите рекурсивную функцию влияет только на её читаемость
  # в Других языках то как вы напишите рекурсивную функцию может повлиять и на скорость, будет ли она оптимизорована
 
+
+ # НЕ ЯВЛЯЕТСЯ ХВОСТОВОЙ РЕКУРСИЕЙ   ХВОСТОВОГО ВЫЗОВА НЕТ       # ХВОСТОВАЯ РЕКУРСИЯ   ХВОСТОВОЙ ВЫЗОВ ЕСТЬ
+ def factorial(n):                                               def factorial_tc(n, product=1):
+     if n < 2:                                                       if n < 1:
+         return 1                                                        return product
+     return n * factorial(n - 1)                                     return factorial_tc(n - 1, product * n)
+
+ print(factorial(5))  # -> 120                                   print(factorial_tc(5))  # -> 120
+
+ # factorial - результат рекурсивного вызова нужно умножить на n после возвращения.
+ # factorial_tc - рекурсивный вызов является последним выражением, и результат может быть возвращен напрямую
+   БЕЗ дополнительных операций.
+
+
  -- Как работает РЕКУРСИЯ??? --                                                                            <----   <----
  Стек сначала накапливает вызовы рекурсивной функции, потом как только мы дошли до первого условия выхода(BASE CASE)
  Стек обратно разматывает вызовы рекурсивной функции и получает результат.
@@ -11318,6 +11332,37 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
 
  END --- yield ---
 
+
+ -- YIELD FROM И СУБГЕНЕРАТОРЫ --
+ # Тоже самое                          # Тоже самое                         # return + yield   # Разбери пример
+ def sub_gen():                        def sub_gen():                       def sub_gen():
+     yield 1.1                             yield 1.1                            yield 1.1
+     yield 1.2                             yield 1.2                            yield 1.2
+                                                                            return 'Done'
+ def gen():                            def gen():
+     yield 1                               yield 1                          def gen():
+     for i in sub_gen():                   yield from sub_gen()                 yield 1
+         yield i                           yield 2                              result = yield from sub_gen()
+     yield 2                                                                    print('<--', result, end=' ')
+                                                                                yield 2
+
+ for i in gen():                       for i in gen():                      for i in gen():
+     print(i, end=' ') # 1 1.1 1.2 2      print(i, end=' ') # 1 1.1 1.2 2       print(i, end=' ') # 1 1.1 1.2 <-- Done 2
+
+
+ -- КОГДА НУЖНО ОБОРАЧИВАТЬ ГЕНЕРАТОР В СКОБКИ ()
+
+ # Если АГРУМЕНТА НЕТ   СКОБКИ ()  НЕ НУЖНЫ
+ print(i for i in range(10))            # -> <generator object <genexpr> at 0x000002D45E5B3B90>
+
+ # Если ЕСТЬ АГРУМЕНТ то нужно ОБОРАЧИВАТЬ ГЕНЕРАТОР   В СКОБКИ ()
+ print((i for i in range(10)), sep='')  # -> <generator object <genexpr> at 0x000002D45E5B3B90>
+
+ # БУДЕТ SyntaxError
+ # print(i for i in range(10), sep='')  # -> SyntaxError: Generator expression must be parenthesized
+
+
+
  Кто не использует генераторы в питоне, тот ещё юнец! Генераторы были придуманы, чтобы не писать скобки в вызовах функций:
 
  # Красиво? Красиво!
@@ -14348,7 +14393,7 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
 
  В Python 2 вместо метода __str__ следует использовать метод __unicode__.
 
- -- reprlib --
+ -- reprlib --                                                                              <-----
  reprlib в Python используется для создания сокращенных представлений объектов, которые могут быть слишком большими
  для стандартного repr()
 
@@ -14356,16 +14401,25 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
 
  large_list = list(range(1000))
 
- # Изменяем лимиты
  print(reprlib.repr(large_list))  # -> [0, 1, 2, 3, 4, 5, ...]
- print(repr(large_list))  # -> Будет ОГРОМНЫЙ ВЫВОД!!!
+ print(repr(large_list))          # -> Будет ОГРОМНЫЙ ВЫВОД!!!
 
- # Создаем объект Repr
+ # По умолчанию 30 символов лимит
+ large_str = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+
+ print(reprlib.repr(large_str))  # -> 'aaaaaaaaaaaa...aaaaaaaaaaaaa'
+ print(repr(large_str))          # -> 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+
+ # ИЗМЕНЯЕМ ЛИМИТЫ
+ # Создаем объект Repr    Там ЕЩЕ МНОГО АТРИБУТОВ
  r = reprlib.Repr()
- r.maxlist = 10  # Максимум элементов в списке
- r.maxdict = 5   # Максимум элементов в словаре
+ r.maxlist = 10    # Максимум элементов в списке
+ r.maxdict = 5     # Максимум элементов в словаре
+ r.maxstring = 10  # Максимум элементов в строке
 
+ # Вывод после ИЗМЕНЕНИЯ  ЛИМИТОВ
  print(r.repr(large_list))       # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...]
+ print(r.repr(large_str))        # -> 'aa...aaa'
 
 
  -- Таблица Магических методов --

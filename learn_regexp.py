@@ -534,47 +534,22 @@ Test - заявки с июля 2020 включительно
 
 
 
+# НЕ ЯВЛЯЕТСЯ ХВОСТОВОЙ РЕКУРСИЕЙ   ХВОСТОВОГО ВЫЗОВА НЕТ
+def factorial(n):
+    if n < 2:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(5))
 
 
-import reprlib
+# ХВОСТОВОЯ РЕКУРСИЯ   ХВОСТОВОГО ВЫЗОВА ЕСТЬ
+def factorial_tc(n, product=1):
+    if n < 1:
+        return product
+    return factorial_tc(n - 1, product * n)
 
-large_list = list(range(1000))
-
-# Изменяем лимиты
-print(reprlib.repr(large_list))  # -> [0, 1, 2, 3, 4, 5, ...]
-print(repr(large_list))  # -> Будет ОГРОМНЫЙ ВЫВОД!!!
-
-# Создаем объект Repr
-r = reprlib.Repr()
-r.maxlist = 10  # Максимум элементов в списке
-r.maxdict = 5   # Максимум элементов в словаре
-
-print(r.repr(large_list))       # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(factorial_tc(5))
 
 
 
