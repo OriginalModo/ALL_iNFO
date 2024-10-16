@@ -536,70 +536,20 @@ Test - заявки с июля 2020 включительно
 
 
 
+import reprlib
 
-class MyClass:
-    def __eq__(self, other):
-        return True  # Перегрузка оператора == разрешена
+large_list = list(range(1000))
 
-    def __and__(self, other):  # Можно перегрузить, метод будет работать с &
-        return 1111
+# Изменяем лимиты
+print(reprlib.repr(large_list))  # -> [0, 1, 2, 3, 4, 5, ...]
+print(repr(large_list))  # -> Будет ОГРОМНЫЙ ВЫВОД!!!
 
-    def __or__(self, other):  # Можно перегрузить, метод будет работать с |
-        return 2222
+# Создаем объект Repr
+r = reprlib.Repr()
+r.maxlist = 10  # Максимум элементов в списке
+r.maxdict = 5   # Максимум элементов в словаре
 
-    # 'is' и 'not' нельзя перегружать
-    def __is__(self, other):  # Ошибка
-        return 111
-
-    def __not__(self):  # Ошибка
-        return 'HEHE'
-
-obj1 = MyClass()
-obj2 = MyClass()
-
-print(obj1 == obj2)      # Разрешено, вывод: True
-print(obj1 & obj2)       # Вызов метода __and__, вывод: 1111
-print(obj1 | obj2)       # Вызов метода __or__, вывод:  2222
-print(obj1 and obj2)     # <__main__.MyClass object at 0x000001BE65B96750>
-print(obj1 or obj2)      # <__main__.MyClass object at 0x000001BE66BE27D0>
-print(obj1 is obj2)      # False   Это работает, но __is__ не будет вызван
-print(obj1 is not obj2)  # True    Это работает, но __not__ не будет вызван
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(r.repr(large_list))       # -> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, ...]
 
 
 
