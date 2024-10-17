@@ -4823,6 +4823,7 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
 
  # Сторонние библиотеки
  import requests
+ import httpx               # Поддерживает как Синхронный так Асинхронный API
  import numpy as np
 
 
