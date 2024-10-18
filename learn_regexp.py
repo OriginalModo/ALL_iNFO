@@ -535,41 +535,6 @@ Test - заявки с июля 2020 включительно
 
 
 
-# Содержащий только те пары ключ-значение, которые присутствуют в обоих словарях с одинаковыми значениями.
-
-employees = [
-   {"name": "Tom", "age": 24, "position": "Designer"},
-   {"name": "Alice", "position": "Developer"},
-   {"name": "Charlie", "age": 28, "position": "Designer"}
-]
-
-res = []
-
-for i, v in enumerate(employees):
-    if 'age' in v.keys():
-        res.append(v['age'])
-print(__import__('numpy').average(res))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
