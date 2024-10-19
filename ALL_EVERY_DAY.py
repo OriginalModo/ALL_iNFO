@@ -3753,6 +3753,12 @@ ________________________________________________________________________________
  print(type(Bar))     # -> <class 'type'>
  print(type(b))       # -> <class '__main__.Bar'>
 
+
+ НЕЛЬЗЯ изменять сам type, вы НЕ можете добавлять атрибуты напрямую к встроенному типу type   <-----
+ type является частью внутреннего устройства Python и НЕ предназначен для изменения.
+ Безопасно изменять только свои собственные метаклассы, созданные на основе type.
+
+
  --- Важные модули ---
 
  from timeit import timeit     # библиотека замера скорости
@@ -5252,6 +5258,17 @@ ________________________________________________________________________________
  URLField      - CharField для URL, проверяется валидатором URLValidator.
  IntegerField  - Целое число. Значения от -2147483648 до 2147483647  использует MinValueValidator и MaxValueValidator
  PositiveBigIntegerField, PositiveIntegerField, PositiveSmallIntegerField, SmallIntegerField - Классы чисел
+
+
+ -- Поля моделей в Django являются ДЕСКРИПТОРАМИ --
+
+ Поля моделей в Django являются дескрипторами. Они определяют, как данные хранятся и обрабатываются в базе данных. <----
+
+ from django.db import models
+
+ class Book(models.Model):
+     title = models.CharField(max_length=100)    # Дескриптор для поля строкового типа      <----
+     published_date = models.DateField()         # Дескриптор для поля даты                 <----
 
 
   --- ПРОБЛЕМА N+1 запроса ---

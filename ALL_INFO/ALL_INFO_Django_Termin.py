@@ -984,6 +984,17 @@ ________________________________________________________________________________
  PositiveBigIntegerField, PositiveIntegerField, PositiveSmallIntegerField, SmallIntegerField - Классы чисел
 
 
+  -- Поля моделей в Django являются ДЕСКРИПТОРАМИ --
+
+ Поля моделей в Django являются дескрипторами. Они определяют, как данные хранятся и обрабатываются в базе данных. <----
+
+ from django.db import models
+
+ class Book(models.Model):
+     title = models.CharField(max_length=100)    # Дескриптор для поля строкового типа      <----
+     published_date = models.DateField()         # Дескриптор для поля даты                 <----
+
+
 
  --- ПРОБЛЕМА N+1 запроса ---      Решение - select_related, prefetch_related, annotate и подзапросы
 
