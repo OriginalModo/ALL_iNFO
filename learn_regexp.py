@@ -537,13 +537,26 @@ Test - заявки с июля 2020 включительно
 # Марк Лутц  Изучаем Python
 
 
+from dataclasses import dataclass, field
+from typing import Callable                     # Лучше используем
+from collections.abc import Callable
 
+@dataclass
+class Timer:
+    func: Callable[[int], str]  # Аннотация типа для функции, принимающей int и возвращающей str
 
+    def __call__(self, *args, **kwargs):
+        s = time.perf_counter()
+        res = self.func(*args, **kwargs)
+        f = time.perf_counter()
+        print(f-s)
+        return res
 
+@Timer
+def plus(a, b):
+    return a + b
 
-
-
-
+print(plus(2, 2))
 
 
 

@@ -4048,7 +4048,7 @@ example_function(1000000)  # -> Время выполнения функции '
 # Тоже самое через dataclass        from typing import Callable   - Чтобы указать аннотацию функция
 
 from dataclasses import dataclass, field
-from typing import Callable
+from typing import Callable                     # Лучше используем    from collections.abc import Callable 
 
 @dataclass
 class Timer:
@@ -6773,7 +6773,7 @@ print(*is_anagramm(words))  # -> aba abb abca
 # Ответ Замерить сколько раз вызывается функция      ivi  Иви
 """
 from dataclasses import dataclass, field
-from typing import Callable
+from typing import Callable                     # Лучше используем    from collections.abc import Callable 
 from functools import wraps
 
 # Ответ через функцию                # Ответ ChatGPT через функцию    Интересный пример   <-----  wrapper.my_count += 1

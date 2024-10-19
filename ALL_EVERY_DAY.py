@@ -744,6 +744,23 @@ ________________________________________________________________________________
  Функции Python — это объекты первого класса
  Функции Python — это Дескрипторы.
 
+ # Пример
+ def func():
+     '''my func'''
+
+ print(type(func))            # -> <class 'function'>
+
+ # Если вызывать через ЭК  будет метод  Если через Класс функция                                                 <-----
+ class Func:
+     def class_fun(self):
+         '''my func'''
+
+ f = Func()
+ print(type(Func.class_fun))  # -> <class 'function'>                                                          # <-----
+ print(type(f.class_fun))     # -> <class 'method'>                                                            # <-----
+ Благодаря протоколу дескрипторов присоединенная к классу функция становиться методом при обращении через ЭК     <-----
+
+
  Любой тип данных (int, list, str, tuple и т.д.) является примером объекта первого класса в python.
  Объект называют «объектом первого класса» (first-class object, first-class entity, first-class citizen) если:
  - С ним можно работать как с переменными
@@ -3730,11 +3747,22 @@ ________________________________________________________________________________
 
  MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
 
- Тоже самое что и выше но с ключевым словом class!
+ # Тоже самое что и выше но с ключевым словом class!
  class MyClass:
     x = 42
     def foo(self):
         return self.x
+
+
+ # ТОЖЕ САМОЕ НО УКАЗЫВАЕМ  НАСЛЕДОВАНИЕ
+ MyClass = type('MyClass', (MySuperClass, MyMixin), {'x': 42, 'foo': lambda self: self.x})
+
+ # Тоже самое что и выше но с ключевым словом class!
+ class MyClass(MySuperClass, MyMixin):
+     x = 42
+
+     def foo(self):
+         return self.x
 
  # type - это тип всех типов, для которых не указан явно иной метакласс
  print(type(type))    # -> <class 'type'>

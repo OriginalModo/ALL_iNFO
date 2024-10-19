@@ -752,6 +752,8 @@ ________________________________________________________________________________
  Модуль typing обеспечивает поддержку выполнения аннотации типов. Наиболее фундаментальная поддержка состоит из типов:
  typing.Any, typing.Union, typing.Tuple, typing.Callable, typing.TypeVar и typing.Generic.
 
+ from typing import Callable                     # Лучше используем    from collections.abc import Callable
+
  Линтеры: Они проверяют код на соответствие стандартам
  PEP 8 - является официальным стандартом написания кода на Python. Этот документ содержит рекомендации и правила,
  которым стоит следовать, чтобы ваш код был легко читаемым, понятным и единообразным.
@@ -6692,6 +6694,23 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
  Функции Python — это объекты первого класса
  Функции Python — это Дескрипторы.
 
+ # Пример
+ def func():
+     '''my func'''
+
+ print(type(func))            # -> <class 'function'>
+
+ # Если вызывать через ЭК  будет метод  Если через Класс функция                                                 <-----
+ class Func:
+     def class_fun(self):
+         '''my func'''
+
+ f = Func()
+ print(type(Func.class_fun))  # -> <class 'function'>                                                          # <-----
+ print(type(f.class_fun))     # -> <class 'method'>                                                            # <-----
+ Благодаря протоколу дескрипторов присоединенная к классу функция становиться методом при обращении через ЭК     <-----
+
+
  Любой тип данных (int, list, str, tuple и т.д.) является примером объекта первого класса в python.
  Объект называют «объектом первого класса» (first-class object, first-class entity, first-class citizen) если:
  - С ним можно работать как с переменными
@@ -7340,6 +7359,7 @@ fact(30)
  - typing.TypeVar - переменная типа, позволяет синхронизировать аннотации различных параметров функции друг с другом
  - typing.ParamSpec (до py3.10 использовать из typing_extensions) - общая аннотация произвольных аргументов функции
 
+  from typing import Callable                     # Лучше используем    from collections.abc import Callable
 
  # typing.TypeVar Механизм, который позволяет создавать обобщенные типы, что упрощает создание ФУНКЦИЙ и КЛАССОВ,
    которые могут работать с различными типами данных.
@@ -14789,11 +14809,22 @@ print(f'asizeof   ():         {asizeof.asizeof(())} байт')        # -> asize
 
  MyClass = type('MyClass', (), {'x': 42, 'foo': lambda self: self.x})
 
- Тоже самое что и выше но с ключевым словом class!
+ # Тоже самое что и выше но с ключевым словом class!
  class MyClass:
     x = 42
     def foo(self):
         return self.x
+
+
+ # ТОЖЕ САМОЕ НО УКАЗЫВАЕМ  НАСЛЕДОВАНИЕ
+ MyClass = type('MyClass', (MySuperClass, MyMixin), {'x': 42, 'foo': lambda self: self.x})
+
+ # Тоже самое что и выше но с ключевым словом class!
+ class MyClass(MySuperClass, MyMixin):
+     x = 42
+
+     def foo(self):
+         return self.x
 
  # type - это тип всех типов, для которых не указан явно иной метакласс
  print(type(type))    # -> <class 'type'>
