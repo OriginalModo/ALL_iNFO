@@ -6497,6 +6497,13 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
  7) **kwargs в параметрах функции соберет все keyword (именованные) аргументы в словарь (dict)
 
 
+ # Интересный момент   Можно НЕ передавать аргументы при вызове функции
+ def ff(*args, **kwargs):          def ff(*args, **kwargs):       def ff(*args, **kwargs):      def ff(*args, **kwargs
+     return args, kwargs               pass                           return args                   return kwargs
+
+ print(ff())  # -> ((), {})        print(ff())   # -> None        print(ff())  # -> ()          print(ff())  # -> {}
+
+
  # В вызовах функций можно использовать * НЕСКОЛЬКО РАЗ      Оператор *
  def fun(a, b, c, d, *rest):
      return a, b, c, d, rest

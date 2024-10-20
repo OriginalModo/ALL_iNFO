@@ -4379,10 +4379,19 @@ print(*res if sum(res) < sum(res_2) else *res_2)   # -> SyntaxError: invalid syn
  # x: 7, y: 8, z: 9                      # x: 7, y: 8, z: 9
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Нужно оборачивать в кортеж в лямбде
+ min_max = lambda lst: (min(lst), max(lst))
+ print(min_max([1, -4, 23, 5, 33, 16]))      # -> (-4, 33)
 
+ min_max = lambda lst: min(lst), max(lst)    # NameError: name 'lst' is not defined. Did you mean: 'List'?
+ print(min_max([1, -4, 23, 5, 33, 16]))
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Интересный момент   Можно НЕ передавать аргументы при вызове функции
+ def ff(*args, **kwargs):          def ff(*args, **kwargs):       def ff(*args, **kwargs):      def ff(*args, **kwargs
+     return args, kwargs               pass                           return args                   return kwargs
 
+ print(ff())  # -> ((), {})        print(ff())   # -> None        print(ff())  # -> ()          print(ff())  # -> {}
  -----------------------------------------------------------------------------------------------------------------------
 
 
