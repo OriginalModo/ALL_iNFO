@@ -536,81 +536,10 @@ Test - заявки с июля 2020 включительно
 # Миша Горелик  Высокопроизводительные Python-приложения.    # High Performance Python" by Micha Gorelick and Ian Ozsvald
 # Марк Лутц  Изучаем Python
 
+# Написать все алгоритмы сортировок
 
 
-
-
-def apply_discount(*args):
-    res = args[0]
-    for i in args[1:]:
-        res -= res*float(f'0.{str(i)}')
-    return res
-
-print(apply_discount(100, 10, 20))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Тоже самое
 
 
 

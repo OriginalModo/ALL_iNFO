@@ -491,6 +491,48 @@ print(plus(5))  # -> <function decor.<locals>.real_decor.<locals>.wrappper at 0x
 """
 
 
+
+# Напишите функцию apply_multiple(funcs, value), которая принимает список функций funcs и значение value.  2 Варианта!!!
+# Функция должна последовательно применять все функции из списка к значению и вернуть результат.
+
+
+
+def apply_multiple():
+    pass
+
+
+def increment(x):
+    return x + 1
+
+def double(x):
+    return x * 2
+
+# result = apply_multiple([increment, double], 3)
+# print(result)  # -> 8
+
+
+
+# Напишите функцию apply_multiple(funcs, value), которая принимает список функций funcs и значение value.
+# Функция должна последовательно применять все функции из списка к значению и вернуть результат.
+f"""
+# Обычный Пример                                 #  Через reduce
+def apply_multiple(funcs, value):                def apply_multiple(funcs, value):
+    for i in funcs:                                  return reduce(lambda v, f: f(v), funcs, value)
+        value = i(value)                             # return reduce(lambda x, y: y(x), (el for el in funcs), value)
+    return value
+
+def increment(x):                                def increment(x):
+    return x + 1                                     return x + 1
+
+def double(x):                                   def double(x):
+    return x * 2                                     return x * 2
+
+result = apply_multiple([increment, double], 3)  result = apply_multiple([increment, double], 3)
+print(result)  # -> 8                            print(result)  # -> 8
+"""
+
+
+
 # Напишите Релизацию своего класса имитируещего словарь  через []    Создание собственного класса для реализации словаря
 
 
@@ -4893,7 +4935,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 """
 
 
-# Написать Сортировку пузырьком (Bubble Sort)
+# 1) Написать Сортировку пузырьком (Bubble Sort)
 
 
 
@@ -4904,19 +4946,20 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-# Сортировка пузырьком (Bubble Sort)
+# 1) Сортировка пузырьком (Bubble Sort)
 """
-def bubble_sort(arr):
-    n = len(arr)
-    for i in range(n):
-        swapped = False
-        for j in range(n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
-                swapped = True
-        if not swapped:
-            break
-    return arr
+# Тоже самое                                            # Тоже самое
+def bubble_sort(arr):                                   def bubble_sort(arr):            
+    n = len(arr)                                            n = len(arr)        
+    for i in range(n):                                      for i in range(n):            
+        swapped = False                                         for j in range(0, n-i-1):            
+        for j in range(n-i-1):                                      if arr[j] > arr[j+1]:                    
+            if arr[j] > arr[j+1]:                                       arr[j], arr[j+1] = arr[j+1], arr[j]                        
+                arr[j], arr[j+1] = arr[j+1], arr[j]         return arr                                        
+                swapped = True                                              
+        if not swapped:                                             
+            break                                               
+    return arr                                              
 
 
 # Пример использования
@@ -4926,7 +4969,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 """
 
 
-# Написать Сортировку выбором (Selection Sort)
+# 2) Написать Сортировку выбором (Selection Sort)
 
 
 
@@ -4937,7 +4980,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-# Сортировка выбором (Selection Sort)
+# 2) Сортировка выбором (Selection Sort)
 """
 def selection_sort(arr):
     n = len(arr)
@@ -4957,7 +5000,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-# Написать Сортировку вставками (Insertion Sort)
+# 3) Написать Сортировку вставками (Insertion Sort)
 
 
 
@@ -4971,7 +5014,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-# Сортировка вставками (Insertion Sort)
+# 3) Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
     for i in range(1, len(arr)):
@@ -4991,7 +5034,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-# Написать Быстрая сортировка (Quick Sort)
+# 4) Написать Быстрая сортировка (Quick Sort)
 
 
 
@@ -5003,7 +5046,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-# Быстрая сортировка (Quick Sort)
+# 4) Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
     match arr:
@@ -5023,7 +5066,7 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-# Написать Сортировку слиянием (Merge Sort)
+# 5) Написать Сортировку слиянием (Merge Sort)
 
 
 
@@ -5032,7 +5075,7 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-# Сортировка слиянием (Merge Sort)
+# 5) Сортировка слиянием (Merge Sort)
 """
 def merge_sort(arr):
     if len(arr) <= 1:
@@ -5052,8 +5095,8 @@ def merge(left, right):
         else:
             result.append(right[j])
             j += 1
-    result += left[i:]
-    result += right[j:]
+    result += left[i:]          # result.extend(left[i:])  # Тоже самое
+    result += right[j:]         # result.extend(right[j:]) # Тоже самое
     return result
 
 # Пример использования
@@ -5064,10 +5107,261 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-# Дальше Добавь Другие сортировки...
+# 6) Написать Пирамидальная сортировка (Heap Sort)
 
 
 
+
+
+
+
+
+# 6) Пирамидальная сортировка (Heap Sort)
+f"""
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+def heap_sort(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n - 1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+    return arr
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = heap_sort(arr)
+print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
+"""
+
+
+
+# 7) Написать Тим-сорт (Tim Sort)
+
+
+
+
+
+
+
+
+# 7) Тим-сорт (Tim Sort)
+f"""
+ef insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+
+def tim_sort(arr):
+    min_run = 32
+    n = len(arr)
+    for start in range(0, n, min_run):
+        end = min(start + min_run, n)
+        insertion_sort(arr[start:end])
+
+    size = min_run
+    while size < n:
+        for left in range(0, n, size * 2):
+            mid = left + size - 1
+            right = min((left + 2 * size - 1), (n - 1))
+            if mid < right:
+                merged = merge(arr[left:mid + 1], arr[mid + 1:right + 1])
+                arr[left:left + len(merged)] = merged
+        size *= 2
+    return arr
+
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = tim_sort(arr)
+print("(Tim Sort):", sorted_arr)  # -> (Tim Sort): [64, 25, 12, 22, 11]
+"""
+
+
+
+# 8) Написать Сортировка Шелла (Shell Sort)
+
+
+
+
+
+
+
+
+# 8) Сортировка Шелла (Shell Sort)
+f"""
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2
+    return arr
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = shell_sort(arr)
+print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
+"""
+
+
+
+# 9) Написать Сортировка битом (Radix Sort)
+
+
+
+
+
+
+
+
+# 9) Сортировка битом (Radix Sort)
+f"""
+def counting_sort_for_radix(arr, exp):
+    n = len(arr)
+    output = [0] * n
+    count = [0] * 10
+    for i in range(n):
+        index = arr[i] // exp
+        count[index % 10] += 1
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+    for i in range(n - 1, -1, -1):
+        index = arr[i] // exp
+        output[count[index % 10] - 1] = arr[i]
+        count[index % 10] -= 1
+    for i in range(n):
+        arr[i] = output[i]
+
+def radix_sort(arr):
+    max1 = max(arr)
+    exp = 1
+    while max1 // exp > 0:
+        counting_sort_for_radix(arr, exp)
+        exp *= 10
+    return arr
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = radix_sort(arr)
+print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
+"""
+
+
+
+# 10) Написать Сортировка подсчётом (Counting Sort)
+
+
+
+
+
+
+
+
+# 10) Сортировка подсчётом (Counting Sort)
+f"""
+def counting_sort(arr):
+    max_val = max(arr)
+    count = [0] * (max_val + 1)
+    output = [0] * len(arr)
+    for num in arr:
+        count[num] += 1
+    for i in range(1, len(count)):
+        count[i] += count[i - 1]
+    for i in range(len(arr) - 1, -1, -1):
+        output[count[arr[i]] - 1] = arr[i]
+        count[arr[i]] -= 1
+    return output
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = counting_sort(arr)
+print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64]
+"""
+
+
+
+# 11) Написать Сортировка по ведрам (Bucket Sort):
+
+
+
+
+
+
+
+
+# 11) Сортировка по ведрам (Bucket Sort)
+f"""
+def insertion_sort(arr):                                        # Тоже самое
+    for i in range(1, len(arr)):                                def bucket_sort(arr):   
+        key = arr[i]                                                if len(arr) == 0:   
+        j = i - 1                                                       return arr   
+        while j >= 0 and arr[j] > key:                              
+            arr[j + 1] = arr[j]                                     max_val = max(arr)      
+            j -= 1                                                  size = max_val / len(arr)     
+        arr[j + 1] = key                                                       
+    return arr                                                      buckets = [[] for _ in range(len(arr))]    
+                                                                    
+                                                                    for num in arr:   
+def bucket_sort(arr):                                                   index = int(num / size)   
+    if len(arr) == 0:                                                   if index != len(arr):   
+        return arr                                                          buckets[index].append(num)      
+    max_val = max(arr)                                                  else:              
+    size = max_val // len(arr)                                              buckets[len(arr) - 1].append(num)  
+    buckets = [[] for _ in range(size + 1)]                         
+    for num in arr:                                                 sorted_array = []         
+        index = num // size                                         for bucket in buckets:              
+        if index != size:                                               sorted_array.extend(sorted(bucket))    
+            buckets[index].append(num)                              
+        else:                                                       return sorted_array   
+            buckets[size].append(num)                
+    sorted_array = []                                                               
+    for bucket in buckets:                                      
+        sorted_array += insertion_sort(bucket)  # Используем сортировку вставками для сортировки ведер
+    return sorted_array
+
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+sorted_arr = bucket_sort(arr)
+print("(Bucket Sort):", sorted_arr)  # -> (Bucket Sort): [11, 12, 22, 25, 64]
+"""
 
 
 

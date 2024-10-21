@@ -4394,10 +4394,35 @@ print(*res if sum(res) < sum(res_2) else *res_2)   # -> SyntaxError: invalid syn
  print(ff())  # -> ((), {})        print(ff())   # -> None        print(ff())  # -> ()          print(ff())  # -> {}
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Может определить Атрибут позже       # Если атрибут НЕ Установил Ошибка
+ class Student:                         class Student:
+     age = 10
+     def show(self):                        def show(self):
+         print(self.name, self.age)             print(self.name, self.age)
 
+ student = Student()
+ student.name = 'Jessa'                 student = Student()
+ student.age = 14                       student.name = 'Jessa'
+ student.show()    # -> Jessa 14        student.show()    # -> AttributeError: 'Student' object has no attribute 'age'
  -----------------------------------------------------------------------------------------------------------------------
 
+ # Напишите функцию apply_multiple(funcs, value), которая принимает список функций funcs и значение value.
+ Функция должна последовательно применять все функции из списка к значению и вернуть результат.
 
+ # Обычный Пример                                 #  Через reduce
+ def apply_multiple(funcs, value):                def apply_multiple(funcs, value):
+     for i in funcs:                                  return reduce(lambda v, f: f(v), funcs, value)
+         value = i(value)                             # return reduce(lambda x, y: y(x), (el for el in funcs), value)
+     return value
+
+ def increment(x):                                def increment(x):
+     return x + 1                                     return x + 1
+
+ def double(x):                                   def double(x):
+     return x * 2                                     return x * 2
+
+ result = apply_multiple([increment, double], 3)  result = apply_multiple([increment, double], 3)
+ print(result)  # -> 8                            print(result)  # -> 8
  -----------------------------------------------------------------------------------------------------------------------
 
 
