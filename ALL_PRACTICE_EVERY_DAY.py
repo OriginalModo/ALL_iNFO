@@ -4969,6 +4969,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 """
 
 
+
 # 2) Написать Сортировку выбором (Selection Sort)
 
 
@@ -5117,7 +5118,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # 6) Пирамидальная сортировка (Heap Sort)
-f"""
+"""
 def heapify(arr, n, i):
     largest = i
     left = 2 * i + 1
@@ -5157,8 +5158,8 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Тим-сорт (Tim Sort)
-f"""
-ef insertion_sort(arr):
+"""
+def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
@@ -5220,7 +5221,7 @@ print("(Tim Sort):", sorted_arr)  # -> (Tim Sort): [64, 25, 12, 22, 11]
 
 
 # 8) Сортировка Шелла (Shell Sort)
-f"""
+"""
 def shell_sort(arr):
     n = len(arr)
     gap = n // 2
@@ -5253,7 +5254,7 @@ print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
 
 
 # 9) Сортировка битом (Radix Sort)
-f"""
+"""
 def counting_sort_for_radix(arr, exp):
     n = len(arr)
     output = [0] * n
@@ -5296,7 +5297,7 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 
 
 # 10) Сортировка подсчётом (Counting Sort)
-f"""
+"""
 def counting_sort(arr):
     max_val = max(arr)
     count = [0] * (max_val + 1)
@@ -5328,7 +5329,7 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 
 # 11) Сортировка по ведрам (Bucket Sort)
-f"""
+"""
 def insertion_sort(arr):                                        # Тоже самое
     for i in range(1, len(arr)):                                def bucket_sort(arr):   
         key = arr[i]                                                if len(arr) == 0:   
