@@ -4789,6 +4789,8 @@ while left <= right:
         right = middle-1
 else:
     print('Значение не найдено')
+    
+# 9 7
 """
 
 
@@ -4801,8 +4803,6 @@ target = 9
 
 def binary_search(arr, target):
     pass
-
-
 
 
 
@@ -4843,8 +4843,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
-
 
 
 
@@ -4944,8 +4942,6 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-
 # 1) Сортировка пузырьком (Bubble Sort)
 """
 # Тоже самое                                            # Тоже самое
@@ -5013,8 +5009,6 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-
-
 # 3) Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -5036,8 +5030,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 # 4) Написать Быстрая сортировка (Quick Sort)
-
-
 
 
 
@@ -5117,6 +5109,8 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
+
+
 # 6) Пирамидальная сортировка (Heap Sort)
 """
 def heapify(arr, n, i):
@@ -5148,7 +5142,9 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 
-# 7) Написать Тим-сорт (Tim Sort)
+# 7) Написать Тим-сорт (TimSort)
+
+
 
 
 
@@ -5220,6 +5216,7 @@ print("(Tim Sort):", sorted_arr)  # -> (Tim Sort): [64, 25, 12, 22, 11]
 
 
 
+
 # 8) Сортировка Шелла (Shell Sort)
 """
 def shell_sort(arr):
@@ -5245,6 +5242,8 @@ print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
 
 
 # 9) Написать Сортировка битом (Radix Sort)
+
+
 
 
 
@@ -5296,6 +5295,7 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 
 
 
+
 # 10) Сортировка подсчётом (Counting Sort)
 """
 def counting_sort(arr):
@@ -5320,6 +5320,9 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 
 # 11) Написать Сортировка по ведрам (Bucket Sort):
+
+
+
 
 
 
