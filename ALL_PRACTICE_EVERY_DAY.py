@@ -4768,6 +4768,8 @@ target = 9
 
 
 
+
+
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4803,7 +4805,6 @@ target = 9
 
 def binary_search(arr, target):
     pass
-
 
 
 # print(binary_search(d, target))  # -> 8
@@ -4843,7 +4844,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -4942,6 +4942,9 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
+
+
 # 1) Сортировка пузырьком (Bubble Sort)
 """
 # Тоже самое                                            # Тоже самое
@@ -4967,6 +4970,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # 2) Написать Сортировку выбором (Selection Sort)
+
 
 
 
@@ -5009,6 +5013,8 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
+
+
 # 3) Сортировка вставками (Insertion Sort)
 """
 def insertion_sort(arr):
@@ -5039,6 +5045,9 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
+
+
+
 # 4) Быстрая сортировка (Quick Sort)
 """
 def quick_sort(arr):
@@ -5060,6 +5069,8 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # 5) Написать Сортировку слиянием (Merge Sort)
+
+
 
 
 
@@ -5148,24 +5159,21 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 
-
-
-
-
-
 # 7) Тим-сорт (Tim Sort)
 """
-def insertion_sort(arr):
-    for i in range(1, len(arr)):
+def insertion_sort(arr, left, right):
+    '''Сортировка вставками для подмассива arr[left:right+1]'''
+    for i in range(left + 1, right + 1):
         key = arr[i]
         j = i - 1
-        while j >= 0 and arr[j] > key:
+        while j >= left and arr[j] > key:
             arr[j + 1] = arr[j]
             j -= 1
         arr[j + 1] = key
 
 
 def merge(left, right):
+    '''Слияние двух отсортированных подмассивов'''
     result = []
     i = j = 0
     while i < len(left) and j < len(right):
@@ -5181,20 +5189,26 @@ def merge(left, right):
 
 
 def tim_sort(arr):
-    min_run = 32
+    '''Основная функция Тим-сорт'''
+    min_run = 32  # Минимальный размер подмассива для сортировки вставками
     n = len(arr)
-    for start in range(0, n, min_run):
-        end = min(start + min_run, n)
-        insertion_sort(arr[start:end])
 
+    # 1. Сортируем подмассивы размером min_run
+    for start in range(0, n, min_run):
+        end = min(start + min_run - 1, n - 1)
+        insertion_sort(arr, start, end)
+
+    # 2. Объединяем отсортированные подмассивы
     size = min_run
     while size < n:
         for left in range(0, n, size * 2):
             mid = left + size - 1
             right = min((left + 2 * size - 1), (n - 1))
-            if mid < right:
+
+            if mid < right:  # Убедимся, что mid < right
                 merged = merge(arr[left:mid + 1], arr[mid + 1:right + 1])
                 arr[left:left + len(merged)] = merged
+
         size *= 2
     return arr
 
@@ -5202,7 +5216,7 @@ def tim_sort(arr):
 # Пример использования
 arr = [64, 25, 12, 22, 11]
 sorted_arr = tim_sort(arr)
-print("(Tim Sort):", sorted_arr)  # -> (Tim Sort): [64, 25, 12, 22, 11]
+print("(Tim Sort):", sorted_arr)  # Ожидается: (Tim Sort): [11, 12, 22, 25, 64]
 """
 
 
