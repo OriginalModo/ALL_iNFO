@@ -5337,47 +5337,7 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 # 11) Написать Сортировка по ведрам (Bucket Sort):
 
 
-def insertion_sort(arr):
-    for i in range(1, len(arr)):
-        key = arr[i]
-        j = i - 1
-        while j >= 0 and arr[j] > key:
-            arr[j + 1] = arr[j]
-            j -= 1
-        arr[j + 1] = key
-    return arr
 
-
-def bucket_sort(arr):
-    if len(arr) == 0:
-        return arr
-
-    max_val = max(arr)
-    min_val = min(arr)
-
-    bucket_count = len(arr)
-    bucket_range = (max_val - min_val) / bucket_count
-
-    buckets = [[] for _ in range(bucket_count)]
-
-    for num in arr:
-        index = int((num - min_val) / bucket_range)
-
-        if index >= bucket_count:
-            index = bucket_count - 1
-        buckets[index].append(num)
-
-    sorted_array = []
-    for bucket in buckets:
-        sorted_array += insertion_sort(bucket)
-
-    return sorted_array
-
-
-# Пример использования
-arr = [64, 25, 12, 22, 11]
-sorted_arr = bucket_sort(arr)
-print("(Bucket Sort):", sorted_arr)  # -> (Bucket Sort): [11, 12, 22, 25, 64]
 
 
 
