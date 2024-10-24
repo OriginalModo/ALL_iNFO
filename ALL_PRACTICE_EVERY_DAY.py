@@ -4767,9 +4767,6 @@ target = 9
 
 
 
-
-
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4844,7 +4841,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -4943,9 +4939,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-
-# 1) Сортировка пузырьком (Bubble Sort)
+# 1) Сортировка пузырьком (Bubble Sort)    Время: O(n²) в худшем и среднем случаях, O(n) в лучшем.   Пространство: O(1)
 """
 # Тоже самое                                            # Тоже самое
 def bubble_sort(arr):                                   def bubble_sort(arr):            
@@ -4980,8 +4974,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
-# 2) Сортировка выбором (Selection Sort)
+# 2) Сортировка выбором (Selection Sort)    Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
     n = len(arr)
@@ -5015,7 +5008,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-# 3) Сортировка вставками (Insertion Sort)
+# 3) Сортировка вставками (Insertion Sort)    Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
 """
 def insertion_sort(arr):
     for i in range(1, len(arr)):
@@ -5048,7 +5041,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-# 4) Быстрая сортировка (Quick Sort)
+# 4) Быстрая сортировка (Quick Sort)   O(n log n) в среднем случае, O(n²) в худшем. Пространство: O(log n) для рекурсии.
 """
 def quick_sort(arr):
     match arr:
@@ -5079,7 +5072,7 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-# 5) Сортировка слиянием (Merge Sort)
+# 5) Сортировка слиянием (Merge Sort)    Время: O(n log n) во всех случаях.    Пространство: O(n)
 """
 def merge_sort(arr):
     if len(arr) <= 1:
@@ -5163,7 +5156,7 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 
-# 7) Тим-сорт (Tim Sort)
+# 7) Тим-сорт (Tim Sort)     Время: O(n log n) в среднем, O(n) в лучшем случае.  Пространство: O(n)
 """
 def insertion_sort(arr, left, right):
     '''Сортировка вставками для подмассива arr[left:right+1]'''
