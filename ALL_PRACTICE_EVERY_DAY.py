@@ -4766,7 +4766,6 @@ target = 9
 
 
 
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4841,8 +4840,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
-
 
 
 
@@ -4937,8 +4934,6 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-
 # 1) Сортировка пузырьком (Bubble Sort)    Время: O(n²) в худшем и среднем случаях, O(n) в лучшем.   Пространство: O(1)
 """
 # Тоже самое                                            # Тоже самое
@@ -4946,7 +4941,7 @@ def bubble_sort(arr):                                   def bubble_sort(arr):
     n = len(arr)                                            n = len(arr)        
     for i in range(n):                                      for i in range(n):            
         swapped = False                                         for j in range(0, n-i-1):            
-        for j in range(n-i-1):                                      if arr[j] > arr[j+1]:                    
+        for j in range(n-i-1):                                      if arr[j] > arr[j+1]:  # Для обратной сортировки <                  
             if arr[j] > arr[j+1]:                                       arr[j], arr[j+1] = arr[j+1], arr[j]                        
                 arr[j], arr[j+1] = arr[j+1], arr[j]         return arr                                        
                 swapped = True                                              
@@ -4972,8 +4967,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
-
 # 2) Сортировка выбором (Selection Sort)    Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
@@ -4981,7 +4974,7 @@ def selection_sort(arr):
     for i in range(n):
         min_index = i
         for j in range(i+1, n):
-            if arr[j] < arr[min_index]:
+            if arr[j] < arr[min_index]:    # if arr[j] > arr[min_index]:   # Для обратной сортировки  >
                 min_index = j
         arr[i], arr[min_index] = arr[min_index], arr[i]
     return arr
@@ -5003,18 +4996,13 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-
-
-
-
-
 # 3) Сортировка вставками (Insertion Sort)    Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
 """
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
-        while j >= 0 and key < arr[j]:
+        while j >= 0 and arr[j] > key:   # while j >= 0 and arr[j] < key:   # Для обратной сортировки  >
             arr[j + 1] = arr[j]
             j -= 1
         arr[j + 1] = key
@@ -5037,10 +5025,6 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
-
-
-
-
 # 4) Быстрая сортировка (Quick Sort)   O(n log n) в среднем случае, O(n²) в худшем. Пространство: O(log n) для рекурсии.
 """
 def quick_sort(arr):
@@ -5052,6 +5036,7 @@ def quick_sort(arr):
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
     return quick_sort(left) + middle + quick_sort(right)
+    # return quick_sort(right) + middle + quick_sort(left)  # Для обратной сортировки
 
 # Пример использования
 arr = [64, 34, 25, 12, 22, 11, 90]
@@ -5062,9 +5047,6 @@ print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 
 
 
 # 5) Написать Сортировку слиянием (Merge Sort)
-
-
-
 
 
 
@@ -5086,7 +5068,7 @@ def merge(left, right):
     result = []
     i = j = 0
     while i < len(left) and j < len(right):
-        if left[i] < right[j]:
+        if left[i] < right[j]:               # if l[i] > r[j]:  # Для обратной сортировки
             result.append(left[i])
             i += 1
         else:
@@ -5147,8 +5129,6 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
-
-
 
 
 
