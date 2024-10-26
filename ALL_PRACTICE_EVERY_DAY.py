@@ -4766,6 +4766,7 @@ target = 9
 
 
 
+
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4840,6 +4841,7 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
+
 
 
 
@@ -4926,7 +4928,15 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 """
 
 
+
+
+
+# ---  Алгоритмы Сортировок ---
+
+
+
 # 1) Написать Сортировку пузырьком (Bubble Sort)
+
 
 
 
@@ -4995,7 +5005,6 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
-
 # 3) Сортировка вставками (Insertion Sort)    Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
 """
 def insertion_sort(arr):
@@ -5025,6 +5034,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 
+
 # 4) Быстрая сортировка (Quick Sort)   O(n log n) в среднем случае, O(n²) в худшем. Пространство: O(log n) для рекурсии.
 """
 def quick_sort(arr):
@@ -5042,6 +5052,23 @@ def quick_sort(arr):
 arr = [64, 34, 25, 12, 22, 11, 90]
 sorted_arr = quick_sort(arr)
 print("(Quick Sort):", sorted_arr)  # -> (Quick Sort): [11, 12, 22, 25, 34, 64, 90]
+
+
+# Придумал свой вариант
+def quick_sort(lst):
+    if len(lst) <= 1:
+        return lst
+    pp = lst[len(lst)//2]
+    l, r, m = [[] for _ in 'lrm']
+    for i in lst:
+        match i:
+            case i if i < pp:
+                l.append(i)
+            case i if i > pp:
+               r.append(i)
+            case _:
+               m.append(i)
+    return quick_sort(l) + m + quick_sort(r)
 """
 
 
@@ -5097,7 +5124,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 
 
-# 6) Пирамидальная сортировка (Heap Sort)
+# 6) Пирамидальная сортировка (Heap Sort)     Время: O(n log n) во всех случаях.  Пространство: O(1)
 """
 def heapify(arr, n, i):
     largest = i
@@ -5129,6 +5156,8 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
+
+
 
 
 
@@ -5206,7 +5235,7 @@ print("(Tim Sort):", sorted_arr)  # Ожидается: (Tim Sort): [11, 12, 22,
 
 
 
-# 8) Сортировка Шелла (Shell Sort)
+# 8) Сортировка Шелла (Shell Sort)     Время: O(n²) в худшем, O(n log n) в среднем.  Пространство: O(1)
 """
 def shell_sort(arr):
     n = len(arr)
@@ -5241,7 +5270,7 @@ print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
 
 
 
-# 9) Сортировка битом (Radix Sort)
+# 9) Сортировка битом (Radix Sort)     Время: O(nk), где k — количество разрядов.  Пространство: O(n + k)
 """
 def counting_sort_for_radix(arr, exp):
     n = len(arr)
@@ -5284,7 +5313,7 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 
 
 
-# 10) Сортировка подсчётом (Counting Sort)
+# 10) Сортировка подсчётом (Counting Sort)  Время: O(n + k), где k — максимальное значение в массиве. Пространство: O(k)
 """
 def counting_sort(arr):
     max_val = max(arr)
@@ -5315,7 +5344,7 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 
 
-# 11) Сортировка по ведрам (Bucket Sort)
+# 11) Сортировка по ведрам (Bucket Sort)  O(n + k) для равномерно распределенных данных, k - кол-во ведер. Прос. O(n + k)
 """
 def insertion_sort(arr):                                       
     for i in range(1, len(arr)):                               
