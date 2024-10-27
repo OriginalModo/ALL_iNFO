@@ -5344,6 +5344,7 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 
 
+
 # 11) Сортировка по ведрам (Bucket Sort)  O(n + k) для равномерно распределенных данных, k - кол-во ведер. Прос. O(n + k)
 """
 def insertion_sort(arr):                                       
