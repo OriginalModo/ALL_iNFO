@@ -4766,7 +4766,6 @@ target = 9
 
 
 
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4841,7 +4840,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -4930,8 +4928,6 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
-
-# ---  Алгоритмы Сортировок ---
 
 
 
@@ -5074,10 +5070,34 @@ def quick_sort(lst):
 
 
 # 5) Написать Сортировку слиянием (Merge Sort)
+def merge_sort(lst):
+    if len(lst) <= 1:
+        return lst
+    m = len(lst)//2
+    l = merge_sort(lst[m:])
+    r = merge_sort(lst[:m])
+    return merge(l, r)
+
+def merge(l, r):
+    res = []
+    i = j = 0
+    while i < len(l) and j < len(r):
+        if l[i] < r[j]:
+            res.append(l[i])
+            i+=1
+        elif l[i] > r[j]:
+            res.append(r[j])
+            j+=1
+    res+=l[i:]
+    res+=r[j:]
+    return res
 
 
 
-
+# Пример использования
+arr = [64, 34, 25, 12, 22, 11, 90]
+sorted_arr = merge_sort(arr)
+print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 90]
 
 
 
