@@ -539,16 +539,24 @@ Test - заявки с июля 2020 включительно
 # Написать все алгоритмы сортировок
 
 
+# Другой Вариант
+def simple_counting_sort(k, n, A):
+    C = [0] * k
+    for i in range(n):
+        C[A[i]] += 1
+    index = 0
+    for i in range(k):
+        for j in range(C[i]):
+            A[index] = i
+            index += 1
+    return A
 
 
-
-
-
-
-
-
-
-
+# Пример использования
+arr = [64, 25, 12, 22, 11]
+max_val = max(arr) + 1  # максимальное значение + 1
+sorted_arr = simple_counting_sort(max_val, len(arr), arr)
+print("(Counting Sort):", sorted_arr)  # (Counting Sort): [11, 12, 22, 25, 64]
 
 
 

@@ -4765,7 +4765,6 @@ target = 9
 
 
 
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4801,6 +4800,7 @@ target = 9
 
 def binary_search(arr, target):
     pass
+
 
 
 # print(binary_search(d, target))  # -> 8
@@ -4840,6 +4840,8 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
+
+
 
 
 
@@ -4970,9 +4972,6 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-
-
-
 # 2) Сортировка выбором (Selection Sort)    Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
@@ -4994,6 +4993,8 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 # 3) Написать Сортировку вставками (Insertion Sort)
+
+
 
 
 
@@ -5078,7 +5079,6 @@ def quick_sort(lst):
 
 
 
-
 # 5) Сортировка слиянием (Merge Sort)    Время: O(n log n) во всех случаях.    Пространство: O(n)
 """
 def merge_sort(arr):
@@ -5154,6 +5154,8 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
+
+
 
 
 
@@ -5312,22 +5314,25 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 
 # 10) Сортировка подсчётом (Counting Sort)  Время: O(n + k), где k — максимальное значение в массиве. Пространство: O(k)
 """
-def counting_sort(arr):
-    max_val = max(arr)
-    count = [0] * (max_val + 1)
-    output = [0] * len(arr)
-    for num in arr:
-        count[num] += 1
-    for i in range(1, len(count)):
-        count[i] += count[i - 1]
-    for i in range(len(arr) - 1, -1, -1):
-        output[count[arr[i]] - 1] = arr[i]
-        count[arr[i]] -= 1
-    return output
+Отличие заключается в том, сохраняется ли порядок одинаковых элементов после сортировки.  УСТРОЙЧИВАЯ vs НЕ УСТРОЙЧИВАЯ  
 
-# Пример использования
-arr = [64, 25, 12, 22, 11]
-sorted_arr = counting_sort(arr)
+# Первый вариант     УСТРОЙЧИВАЯ(stable)                 # Другой Вариант  НЕ УСТРОЙЧИВАЯ(unstable) 
+def counting_sort(arr):                          def simple_counting_sort(k, n, A):
+    max_val = max(arr)                               C = [0] * k
+    count = [0] * (max_val + 1)                      for i in range(n):
+    output = [0] * len(arr)                              C[A[i]] += 1
+    for num in arr:                                  index = 0
+        count[num] += 1                              for i in range(k):
+    for i in range(1, len(count)):                       for j in range(C[i]):      
+        count[i] += count[i - 1]                             A[index] = i 
+    for i in range(len(arr) - 1, -1, -1):                    index += 1       
+        output[count[arr[i]] - 1] = arr[i]           return A
+        count[arr[i]] -= 1                        
+    return output                                # Пример использования 
+                                                 arr = [64, 25, 12, 22, 11]     
+# Пример использования                           max_val = max(arr) + 1  # максимальное значение + 1  
+arr = [64, 25, 12, 22, 11]                       sorted_arr = simple_counting_sort(max_val, len(arr), arr)     
+sorted_arr = counting_sort(arr)                  print("(Counting Sort):", sorted_arr) # -> [11, 12, 22, 25, 64]
 print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64]
 """
 
