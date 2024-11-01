@@ -4799,7 +4799,6 @@ target = 9
 def binary_search(arr, target):
     pass
 
-
 # print(binary_search(d, target))  # -> 8
 
 
@@ -4973,6 +4972,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
+
 # 2) Сортировка выбором (Selection Sort)    Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
@@ -5001,6 +5001,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 
+
 # 3) Сортировка вставками (Insertion Sort)    Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
 """
 def insertion_sort(arr):
@@ -5022,6 +5023,9 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 # 4) Написать Быстрая сортировка (Quick Sort)
+
+
+
 
 
 
@@ -5153,8 +5157,6 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
-
-
 
 
 

@@ -6034,7 +6034,10 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
  git branch feature/new-feature
 
  **Переключитесь на эту ветку**
- git checkout имя_ветки
+ git checkout имя_ветки             git switch имя_ветки     # Лучше использовать switch  для переключения между ветками
+
+ **Создание новой ветки и переключение на нее**
+ git checkout -b имя_ветки
 
  **Просмотреть все ветки** в репозитории:
  git branch
