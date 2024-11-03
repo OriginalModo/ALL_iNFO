@@ -4755,9 +4755,15 @@ if __name__ == "__main__":
 d = [-1, -3, 2, 4, 5, 7, 8, 9]
 target = 9
 
+# Можно использовать цифры в reverse    ИНТЕРПРЕТИРУЮТСЯ как True и False   НО ЛУЧШЕ ИСПОЛЬЗУЕМ True или False
+lst = [1, 2, 3, 4, 5, 2]
+print(sorted(lst, reverse=True))   # -> [5, 4, 3, 2, 2, 1]
+print(sorted(lst, reverse=1))      # -> [5, 4, 3, 2, 2, 1]
+print(sorted(lst, reverse=11111))  # -> [5, 4, 3, 2, 2, 1]
 
-
-
+print(sorted(lst, reverse=False))  # -> [1, 2, 2, 3, 4, 5]
+print(sorted(lst, reverse=0))      # -> [1, 2, 2, 3, 4, 5]
+print(sorted(lst, reverse=00000))  # -> [1, 2, 2, 3, 4, 5]
 
 
 
@@ -5157,7 +5163,6 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
-
 
 
 
