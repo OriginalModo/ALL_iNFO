@@ -5152,21 +5152,14 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 # 7) Написать Тим-сорт (TimSort)
 
-
-d = {}
-d.setdefault('a', set()).add(1)
-d.setdefault('b', set()).add(2)
-d.setdefault('c', set()).add(4)
-print(d)  # -> {'a': {1}, 'b': {2}, 'c': {4}}
-
-d = {}
-d.setdefault('a', []).append(1)
-d.setdefault('b', []).append(2)
-d.setdefault('c', []).append(4)
-print(d)  # -> {'a': [1], 'b': [2], 'c': [4]}
-
-
-
+from collections import Counter
+# Интересный пример с математическими операциями
+words_1 = ['a', 'b', 'c']
+words_2 = ['a', 'b', 'c']
+a = Counter(words_1)
+b = Counter(words_2)
+print(a+b)   # -> Counter({'a': 2, 'b': 2, 'c': 2})
+print(a-b)   # -> Counter()
 
 # 7) Тим-сорт (Tim Sort)     Время: O(n log n) в среднем, O(n) в лучшем случае.  Пространство: O(n)
 """

@@ -5792,6 +5792,9 @@ with open('my_testik.txt', mode='r') as file: # -> режимы:   w, w+, wb, wb
  # indices(start, end, step)     или как в Книге   S.indices(len)  -> (start, end, stride)  stride - Расширенный срез
 
  res = 'ABCDE'
+ s = slice(None, 10, 2)
+ print(s.start, s.stop, s.step)  # -> None 10 2
+
  print(slice(None, 10, 2).indices(5))              # -> (0, 5, 2)
  print(slice(None, 100, 2).indices(5))             # -> (0, 5, 2)
  print(slice(None, 100, 2).indices(len(res)))      # -> (0, 5, 2)
