@@ -2909,6 +2909,9 @@ ________________________________________________________________________________
  str.endswith(suffix[, start[, end]]) - Возврат, True если строка заканчивается указанным суффиксом, в противном случае возврат False.
  'Testzzz'.endswith(('zzz', 'yyy', 'rrr')) = True, 'A B C A B'.endswith('A') = False, 'A B C A'.endswith('A') = True
 
+ `startswith()` и `endswith()` в Python часто работают быстрее, чем регулярные выражения.           <-----
+
+
  str.find(sub[, start[, end]]) - Поиск подстроки в строке. Возвращает номер первого вхождения или -1
  'ABC'.find('5') = -1,  'ABCA'.find('A') = 0, 'ABCA'.find('A', 1) = 1
 
@@ -7717,6 +7720,23 @@ fact(30)
  о том, что там есть. Тем, кто парсит сайты и работает с текстами -регулярки нужно просто знать!
 
  Если у тебя есть одна проблема и ты начал решать её регулярками, то теперь у тебя две проблемы)
+
+ # Интересный пример  РАЗБЕРИ ПОЧЕМУ ТАК РАБОТАЕТ
+  def matchcase(word):
+     def replace(m):
+         text = m.group()
+         if text.isupper():
+             return word.upper()
+         elif text.islower():
+             return word.lower()
+         elif text[0].ispper():
+             return word.capitalize()
+         else:
+             return word
+     return replace
+
+ res = 'UPPER PYTHON, lower python, mixed python'
+ print(re.sub(r'python', matchcase('shake'), res, flags=re.IGNORECASE))  # -> UPPER SHAKE, lower shake, mixed shake
 
 
  --- Closure Замыкание ---

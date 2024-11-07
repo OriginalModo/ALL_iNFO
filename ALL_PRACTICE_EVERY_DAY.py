@@ -5152,14 +5152,24 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 # 7) Написать Тим-сорт (TimSort)
 
-from collections import Counter
-# Интересный пример с математическими операциями
-words_1 = ['a', 'b', 'c']
-words_2 = ['a', 'b', 'c']
-a = Counter(words_1)
-b = Counter(words_2)
-print(a+b)   # -> Counter({'a': 2, 'b': 2, 'c': 2})
-print(a-b)   # -> Counter()
+
+import re
+def matchcase(word):
+    def replace(m):
+        text = m.group()
+        if text.isupper():
+            return word.upper()
+        elif text.islower():
+            return word.lower()
+        elif text[0].ispper():
+            return word.capitalize()
+        else:
+            return word
+    return replace
+
+res = 'UPPER PYTHON, lower python, mixed python'
+print(re.sub(r'python', matchcase('shake'), res, flags=re.IGNORECASE))  # -> UPPER SHAKE, lower shake, mixed shake
+
 
 # 7) Тим-сорт (Tim Sort)     Время: O(n log n) в среднем, O(n) в лучшем случае.  Пространство: O(n)
 """
