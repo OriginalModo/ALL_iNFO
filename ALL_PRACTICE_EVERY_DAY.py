@@ -4761,7 +4761,6 @@ target = 9
 
 
 
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -4836,7 +4835,6 @@ print(binary_search(d, target))  # -> 8
 
 # Задача с собеседования
 # Написать Quick Sort/Быстрая сортировка
-
 
 
 
@@ -4930,6 +4928,8 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 # 1) Написать Сортировку пузырьком (Bubble Sort)
+# Время: O(n²) в худшем и среднем случаях, O(n) в лучшем.  Пространство: O(1)
+
 
 
 
@@ -4963,6 +4963,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 # 2) Написать Сортировку выбором (Selection Sort)
+# Время: O(n²) во всех случаях.   Пространство: O(1)
 
 
 
@@ -4971,7 +4972,8 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
-# 2) Сортировка выбором (Selection Sort)    Время: O(n²) во всех случаях.   Пространство: O(1)
+
+# 2) Сортировка выбором (Selection Sort)  Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
     n = len(arr)
@@ -4992,6 +4994,8 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 
 # 3) Написать Сортировку вставками (Insertion Sort)
+# Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
+
 
 
 
@@ -5021,7 +5025,7 @@ print("(Insertion Sort):", sorted_arr)  # -> (Insertion Sort): [11, 12, 22, 25, 
 
 
 # 4) Написать Быстрая сортировка (Quick Sort)
-
+# O(n log n) в среднем случае, O(n²) в худшем. Пространство: O(log n) для рекурсии.
 
 
 
@@ -5069,6 +5073,7 @@ def quick_sort(lst):
 
 
 # 5) Написать Сортировку слиянием (Merge Sort)
+# Время: O(n log n) во всех случаях.    Пространство: O(n)
 
 
 
@@ -5151,24 +5156,13 @@ print("(Heap Sort):", sorted_arr)  # -> (Heap Sort): [11, 12, 22, 25, 64]
 
 
 # 7) Написать Тим-сорт (TimSort)
+# Время: O(n log n) в среднем, O(n) в лучшем случае.  Пространство: O(n)
 
 
-import re
-def matchcase(word):
-    def replace(m):
-        text = m.group()
-        if text.isupper():
-            return word.upper()
-        elif text.islower():
-            return word.lower()
-        elif text[0].ispper():
-            return word.capitalize()
-        else:
-            return word
-    return replace
 
-res = 'UPPER PYTHON, lower python, mixed python'
-print(re.sub(r'python', matchcase('shake'), res, flags=re.IGNORECASE))  # -> UPPER SHAKE, lower shake, mixed shake
+
+
+
 
 
 # 7) Тим-сорт (Tim Sort)     Время: O(n log n) в среднем, O(n) в лучшем случае.  Пространство: O(n)
@@ -5234,6 +5228,7 @@ print("(Tim Sort):", sorted_arr)  # Ожидается: (Tim Sort): [11, 12, 22,
 
 
 # 8) Написать Сортировка Шелла (Shell Sort)
+# Время: O(n²) в худшем, O(n log n) в среднем.  Пространство: O(1)
 
 
 
@@ -5267,6 +5262,7 @@ print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
 
 
 # 9) Написать Сортировка битом (Radix Sort)
+# Время: O(nk), где k — количество разрядов.  Пространство: O(n + k)
 
 
 
@@ -5312,6 +5308,7 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 
 
 # 10) Написать Сортировка подсчётом (Counting Sort)
+# Время: O(n + k), где k — максимальное значение в массиве. Пространство: O(k)
 
 
 
@@ -5347,7 +5344,7 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 
 # 11) Написать Сортировка по ведрам (Bucket Sort):
-
+# Время: O(n + k) для равномерно распределенных данных, где k — количество ведер. Пространство: O(n + k)
 
 
 
