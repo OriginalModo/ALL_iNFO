@@ -49,6 +49,7 @@ import re
 import string
 import sys
 import time
+import timeit
 
 import numpy
 import pandas as pd
@@ -539,107 +540,49 @@ Test - заявки с июля 2020 включительно
 # Написать все алгоритмы сортировок
 
 
-
-
-
-def merge(l, r):
-    res = []
-    j = i = 0
-    while i < len(l) and j < len(r):
-        if l[i] < r[j]:
-            res.append(l[i])
-            i+=1
-        else:
-            res.append(r[j])
-            j+=1
-    res.extend(l[i:])
-    res+=r[j:]
-    print(res)
-    return res
-
-
-def merge_sort(lst):
-    if len(lst) <= 1:
-        return lst
-    m = len(lst)//2
-    l = merge_sort(lst[m:])
-    r = merge_sort(lst[:m])
-    return merge(l, r)
-
-
-print(merge_sort(list(map(int, input().split()))))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class Data:
+    def __del__(self):
+        print('Data.__del__')
+
+
+class Node:
+    def __init__(self):
+        self.data = Data()
+        self.parent = None
+        self.children = []
+
+
+    # НИКОГДА ТАК НЕ ДЕЛАЙТЕ
+    # ПОКАЗАНО ТОЛЬКО ДЛЯ ДЕМОНСТРАЦИИ ПАТОЛОГИЧЕСКОГО ПОВЕДЕНИЯ
+    def __del__(self):
+        del self.data
+        del self.parent
+        del self.children
+
+    def add_child(self, child):
+        self.children.append(child)
+        child.parent = self
+
+
+# В ЭТОМ СЛУЧАЕ СТУРУКТУРА ДАННЫХ НИКОГДА НЕ БУДЕТ УДАЛЕНА СБОРЩИКОМ МУСОРА
+a = Node()
+a.add_child(Node())
+# Data.__del__
+# Data.__del__
+del a            # Нет сообщения (не собрано)
+import gc
+gc.collect()     # Нет сообщения (не собрано)
+
+
+# БУДЕТ УДАЛЕНА СБОРЩИКОМ МУСОРА   Слабые ссылки решают проблему ссылочных циклов   <-----
+import weakref
+a = Node()      # -> Data.__del__
+a_ref = weakref.ref(a)
+print(a_ref)    # -> <weakref at 0x0000029705565490; to 'Node' at 0x000002977FACEAD0>
+print(a_ref())  # -> <__main__.Node object at 0x000001AD3FA8EB10>
+del a
+Data.__del__
+print(a_ref())  # -> None
 
 
 

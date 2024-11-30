@@ -1005,6 +1005,20 @@ ________________________________________________________________________________
  должны разгладиться в один результирующий список'''
 
 
+ # Классный вариант  из Книги: Python Книга рецептов   Дэвид Бизли
+
+ from collections.abc import Iterable
+ def flatten(items, ignore_types=(str, bytes)):
+     for i in items:
+         if isinstance(i, Iterable) and not isinstance(i, ignore_types):
+             yield from flatten(i)
+         else:
+             yield i
+
+ print(list(flatten([1, 2, [2, 3, [4, 4]]])))               # -> [1, 2, 2, 3, 4, 4]
+ print([*flatten([1, 2, [2, 3, [4, 4]], [[[[[5, 5]]]]]])])  # -> [1, 2, 2, 3, 4, 4, 5, 5]
+
+
  # Тоже самое  extend                                           # Тоже самое  +=
  def flatten(*args):                                            def flatten(*args):
      res = []                                                       res = []
@@ -4492,6 +4506,408 @@ print(*res if sum(res) < sum(res_2) else *res_2)   # -> SyntaxError: invalid syn
  print([i if i > 2 else 100 for i in [1, 2, 3] if i < 2])  # -> [100]
  print([i if i > 2 else 100 for i in [1, 2, 3] if i > 2])  # -> [3]
  print((i if i > 2 else 100 for i in [1, 2, 3] if i < 2))  # -> <generator object <genexpr> at 0x00000176AEF68D40>]
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Интересный момент  Без запятой внутри они склеиваются
+ a = 'Hello'    'Hello'
+ print(a)  # -> HelloHello
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # format_map  и vars               vars - Работают с Эк
+ s = '{name} has {n} messages'
+ class Info:
+     def __init__(self, name, n):
+         self.name = name
+         self.n = n
+
+ a = Info('Guido', 37)
+ print(s.format_map(vars(a)))         # -> Guido has 37 messages
+ print(s.format(name='Guido', n=37))  # -> Guido has 37 messages
+ print(s.format(name='Guido'))        # -> KeyError: 'n'
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # textwrap   - для переформатирования выводимого текста
+
+ import textwrap
+ s = 'Look into my eyes, look into my eyes, the eyes, the eyes'
+ print(textwrap.fill(s, 20))
+
+ # Вывод
+ '''Look into my eyes,
+ look into my eyes,
+ the eyes, the eyes'''
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # БАЙТОВАЯ строка и ОБЫЧНАЯ строка
+ s = 'Hello World'
+ print(s[0])                     # -> H
+
+ s_bytes = b'Hello World'
+ print(s_bytes[0])               # -> 72
+
+ # Декоде
+ print(s_bytes.decode('ascii'))  # -> Hello World
+ print(s_bytes)                  # -> b'Hello World'
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Порядок от старшего к младшего и наоборот
+ x = 0x01020304
+
+ print(x.to_bytes(4, 'big'))     # -> b'\x01\x02\x03\x04'
+ print(x.to_bytes(4, 'little'))  # -> b'\x04\x03\x02\x01'
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Интересные примеры  inf   nan
+ a = float('inf')
+ print(a)            # -> inf
+ print(a+45)         # -> inf
+ print(a*10)         # -> inf
+ print(10/a)         # -> 0.0
+ print(a/a)          # -> nan
+
+ b = float('-inf')
+ print(a+b)          # -> nan
+
+ c = float('nan')
+ d = float('nan')
+ print(c+23)         # -> nan
+ print(c/2)          # -> nan
+ print(c*2)          # -> nan
+ print(__import__('math').sqrt(c))  # -> nan
+ print(c == d)       # -> False
+ print(c is d)       # -> False
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Интересный модуль dateutil
+ from dateutil.relativedelta import relativedelta
+
+ a = datetime(2012, 9, 23)
+
+ # ТАК НЕ РАБОТАЕТ
+ # a + timedelta(months=1)  # -> TypeError: 'months' is an invalid keyword argument for __new__()
+
+ print(a+relativedelta(months=+1))          # -> 2012-10-23 00:00:00
+ print(a+relativedelta(months=+4))          # -> 2013-01-23 00:00:00
+
+ b = datetime(2012, 12, 21)
+ d = b - a
+ print(d)                                   # -> 89 days, 0:00:00
+ d = relativedelta(b, a)
+
+ print(d.months)                            # -> 2
+ print(relativedelta(months=+2, days=+28))  # -> relativedelta(months=+2, days=+28)
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Функция strptime  Работает МЕДЛЕННО потому что написана на ЧИСЛОМ Python
+ # Можно использовать  pandas, dateutil  или написать самописные функции
+
+ from datetime import datetime, timedelta
+ text = '2012-09-20'
+ y = datetime.strptime(text, '%Y-%m-%d')
+ z = datetime.now()
+ diff = z - y
+ print(diff)                                      # -> 4454 days, 14:06:11.801976
+ print(timedelta(3, 77824, 177393))               # -> 3 days, 21:37:04.177393
+ print(datetime(2012, 9, 23, 21, 37, 4, 177393))  # -> 2012-09-23 21:37:04.177393
+ nice_z = datetime.strftime(z, '%A %B %d, %Y')
+ print(nice_z)                                    # -> Saturday November 30, 2024
+
+
+
+ # Если вы уверены что даты представлены в формате 'YYYY-MM-DD'  можно использовать такую функции  Работает в 7 раз БЫСТРЕЕ
+ # ДЛЯ БОЛЬШИХ ОБЪЕМОВ ДАННЫХ БУДЕТ РАБОТАТЬ БЫСТРЕЕ
+
+ from datetime import datetime
+ def parse_ymd(s):
+     year_s, mon_s, day_s = s.split('-')
+     return datetime(int(year_s), int(mon_s), int(day_s))
+
+ print(parse_ymd(text))  # -> 2012-09-20 00:00:00
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Распаковка из функции     # Функция также возвращает кортеж и выходит обычная распаковка
+ def myfun():
+     return 1, 2, 3
+
+ a, b, c = myfun()
+ print(a, b, c)  # -> 1 2 3
+
+ x = myfun()
+ print(x)       # -> (1, 2, 3)
+
+ # Тоже самое
+ a = (1, 2)             # Со скобками
+ print(a)  # -> (1, 2)
+ b = 1, 2               # Без скобок
+ print(b)  # -> (1, 2)
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # x - в lambda-выражении, является СВОБОДНАЯ ПЕРЕМЕННАЯ которая связывается во время выполнения, а НЕ вовремя определения
+
+ x = 10
+ a = lambda y: x + y
+ x = 20
+ b = lambda y: x + y
+ print(a(10))  # -> 30
+ print(b(10))  # -> 30
+
+ x = 15
+ print(a(10))  # -> 25
+ print(b(10))  # -> 25
+
+ # Чтобы lambda ЗАХВАТИЛА ЗНАЧЕНИЕ  нужно использовать значение по-умолчанию      x=x
+ x = 100
+ a = lambda y, x=x: x + y
+ x = 200
+ b = lambda y, x=x: x + y
+
+ print(a(10))  # -> 110
+ print(b(10))  # -> 210
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Хороший пример  ЗАХВАТИТЬ ПЕРЕМЕННУЮ
+
+ funcs = [lambda x: x+n for n in range(5)]
+ for f in funcs:
+     print(f(0), end=' ')  # -> 4 4 4 4 4
+
+ print()
+
+ funcs = [lambda x, n=n: x+n for n in range(5)]
+ for f in funcs:
+     print(f(0), end=' ')  # -> 0 1 2 3 4
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # ВЕРСИЯ с Замыканием Работает БЫСТРЕЕ  на 8% БЫСТРЕЕ . Выигрыш возникает за счет прямого доступа к переменным Эк.
+ # Замыкание быстрее, потому что не используют дополнительную переменную self.    <----
+ import sys
+
+ class ClosureInstance:
+     def __init__(self, locals=None):
+         if locals is None:
+             locals = sys._getframe(1).f_locals
+
+         self.__dict__.update((key, value) for key, value in locals.items() if callable(value))
+
+     def __len__(self):
+         return self.__dict__['__len__']()
+
+
+ def Stack():
+     items = []
+     def push(item):
+         items.append(item)
+
+     def pop():
+         return items.pop()
+
+     def __len__():
+         return len(items)
+
+     return ClosureInstance()
+
+ s = Stack()
+ s.push(10)
+ s.push(20)
+ s.push('Hello')
+ print(len(s))   # -> 3
+ print(s.pop())  # -> Hello
+ print(s.pop())  # -> 20
+ print(s.pop())  # -> 10
+
+
+
+ class Stack2():
+     def __init__(self):
+         self.items = []
+
+
+     def push(self, item):
+         self.items.append(item)
+
+     def pop(self):
+         return self.items.pop()
+
+     def __len__(self):
+         return len(self.items)
+
+
+ s = Stack()
+ print('Stack ', timeit.timeit('s.push(1);s.pop()', 'from __main__ import s'))  # -> Stack  0.5749851999571547
+
+ s = Stack2()
+ print('Stack2', timeit.timeit('s.push(1);s.pop()', 'from __main__ import s'))  # -> Stack2 0.5046093000564724
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Пример использования Расширение свойства в подклассе
+ class Person:
+     def __init__(self, name):
+         self.name = name
+
+     @property
+     def name(self):
+         return self._name
+
+     @name.setter
+     def name(self, value):
+         if not isinstance(value, str):
+             raise TypeError("Expected a string")
+         self._name = value
+
+     @name.deleter
+     def name(self):
+         raise AttributeError("Can't delete attribute")
+
+
+ # Чтобы расширить только один из методов свойства, используйте такой код:
+ class SubPerson(Person):                       class SubPerson(Person):
+     @Person.name.getter      # РАБОТАЕТ            @property                   # НЕ РАБОТАЕТ     <-----    <-----
+                                                    # @Person.getter            # Попробуй такой вариант с ним ошибка
+     def name(self):                                def name(self):
+         print('Getting name')                          print('Getting name')
+         return super().name                            return super().name
+
+     @Person.name.setter                                                                          <-----    <-----
+     def name(self, value):
+         print('Setting name to', value)
+         super(SubPerson, SubPerson).name.__set__(self, value)
+
+
+ s = SubPerson("Guido")
+ s.name              # -> Setting name to Guido
+ s.name = 'Larry'    # -> Setting name to Guido
+
+ s.name = 42
+ # -> Setting name to 42
+ # -> TypeError: Expected a string
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Сигнатура вызываемого объекта  inspect.signature
+ from inspect import signature
+
+ def spam(x, y, z=42):
+     pass
+
+ sig = signature(spam)
+ print(sig)             # -> (x, y, z=42)
+ print(sig.parameters)  # -> OrderedDict([('x', <Parameter "x">), ('y', <Parameter "y">), ('z', <Parameter "z=42">)])
+ print(sig.parameters['z'].name)     # -> z
+ print(sig.parameters['z'].default)  # -> 42
+ print(sig.parameters['z'].kind)     # -> POSITIONAL_OR_KEYWORD
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Декораторы  КЛАССА И ЭК
+ from functools import wraps
+
+ class A:
+     def decorator(self, func):
+         @wraps(func)
+         def wrapper(*args, **kwargs):
+             print('Decorator 1')
+             return func(*args, **kwargs)
+         return wrapper
+
+     @classmethod
+     def decorator2(cls, func):
+         @wraps(func)
+         def wrapper(*args, **kwargs):
+             print('Decorator 2')
+             return func(*args, **kwargs)
+         return wrapper
+
+ a = A()
+
+ @a.decorator   # Применения из ЭК                                      <-----     <-----
+ def spam():
+     pass
+
+ @A.decorator2  # Применения из Класса                                  <-----     <-----
+ def grok():
+     pass
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # Чтобы определить декоратор как ЭК  - нужно чтобы в нем были методы  __call__()  и  __get__()
+ import types
+ from functools import wraps
+
+ class Profiled:
+
+     def __init__(self, func):
+         wraps(func)(self)
+         self.ncalls = 0
+
+     def __call__(self, *args, **kwargs):
+         self.ncalls += 1
+         return self.__wrapped__(*args, **kwargs)
+
+     def __get__(self, instance, owner):
+         if instance is None:
+             return self
+         else:
+             return types.MethodType(self, instance)
+
+ @Profiled
+ def add(x, y):
+     return x + y
+
+ class Spam:
+     @Profiled
+     def bar(self, x):
+         print(self, x)
+
+ print(add(2, 3))    # -> 5
+ print(add(4, 5))    # -> 9
+ print(add.ncalls)   # -> 2
+
+ s = Spam()
+ s.bar(1)            # -> <__main__.Spam object at 0x000001AD739E5890> 1
+ s.bar(2)            # -> <__main__.Spam object at 0x000001AD739E5890> 2
+ -----------------------------------------------------------------------------------------------------------------------
+
+ # РАБОТА СБОРЩИКА МУСОРА И СЛАБЫХ ССЫЛОК
+ class Data:
+     def __del__(self):
+         print('Data.__del__')
+
+
+ class Node:
+     def __init__(self):
+         self.data = Data()
+         self.parent = None
+         self.children = []
+
+
+     # НИКОГДА ТАК НЕ ДЕЛАЙТЕ
+     # ПОКАЗАНО ТОЛЬКО ДЛЯ ДЕМОНСТРАЦИИ ПАТОЛОГИЧЕСКОГО ПОВЕДЕНИЯ
+     def __del__(self):
+         del self.data
+         del self.parent
+         del self.children
+
+     def add_child(self, child):
+         self.children.append(child)
+         child.parent = self
+
+
+ # В ЭТОМ СЛУЧАЕ СТУРУКТУРА ДАННЫХ НИКОГДА НЕ БУДЕТ УДАЛЕНА СБОРЩИКОМ МУСОРА
+ a = Node()
+ a.add_child(Node())
+ # Data.__del__
+ # Data.__del__
+ del a            # Нет сообщения (не собрано)
+ import gc
+ gc.collect()     # Нет сообщения (не собрано)
+
+
+ # БУДЕТ УДАЛЕНА СБОРЩИКОМ МУСОРА   Слабые ссылки решают проблему ссылочных циклов   <-----
+ import weakref
+ a = Node()      # -> Data.__del__
+ a_ref = weakref.ref(a)
+ print(a_ref)    # -> <weakref at 0x0000029705565490; to 'Node' at 0x000002977FACEAD0>
+ print(a_ref())  # -> <__main__.Node object at 0x000001AD3FA8EB10>
+ del a
+ Data.__del__
+ print(a_ref())  # -> None
  -----------------------------------------------------------------------------------------------------------------------
 
 
