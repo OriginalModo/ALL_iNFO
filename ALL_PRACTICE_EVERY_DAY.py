@@ -14,6 +14,248 @@ import re
 import more_itertools
 
 
+# --- ЗРИ В КОРЕНЬ ПРОСТО ПОСМОТРЕТЬ ---
+
+
+# Зри в корень 1
+"""
+value = 100
+
+print_value = lambda: print(value)
+
+
+value = 200
+print_value2 = lambda: print(value)
+
+print_value()       
+print_value2()      
+
+my_super_lambda = lambda: no(such(function()))
+
+# --- Вывод ---    Потому что lambda Вычисляется в момент ВЫЗОВА!!!
+# 200
+# 200
+"""
+
+
+
+
+# Зри в корень 2
+"""
+
+global value                        # Починили КОД                   
+value = 100                         value = 100                 
+                                         
+def print_value():                  def print_value():                     
+    print(value)                        print(value)        
+                                                              
+def change_value():                 def change_value():                    
+    value += 100                        global value                       
+    print(value)                        value += 100                       
+                                        print(value)     
+print_value()                       print_value()       # -> 100                   
+change_value()                      change_value()      # -> 200                   
+print_value()                       print_value()       # -> 200       
+                                
+# --- Вывод ---
+# 100
+# UnboundLocalError: cannot access local variable 'value' where it is not associated with a value
+"""
+
+
+
+
+# Зри в корень 3
+"""
+                                                    # Поменяли чтобы вывод был другой      
+value = 100                                         value = 100        
+                                                    
+def magic():                                        def magic():            
+    x = value                                           def invisible():            
+                                                            print(value)
+    def invisible():                                    return invisible                    
+        print(x)                                                     
+    return invisible                                          
+                                                    
+# В момент вызова magic()   value = 100             # Ничего НЕ захватывали внутри                        
+run = magic()                                       run = magic()                     
+                                                     
+value = 200                                         value = 200                   
+run()                                               run()         # -> 200     
+value = 300                                         value = 300        
+run()                                               run()         # -> 300     
+                                                    
+# --- Вывод ---   Замыкание Запоминает значение
+# 100
+# 100
+"""
+
+
+
+
+# Зри в корень 4
+"""
+                                                 # Тоже самое если поменяем местами  Объет Функции будет создан 
+                                                 # Но выполнение будет в scope  first()  
+value = 100                                      value = 100              
+                                                        
+def first():                                     def first():                  
+    def second():                                    length = lambda x: 0  # Если подчеркивает снизу это -  Shadows name              
+        print(len(a_list))                           len = length          # Перекрыли len    Shadows built-in name      
+        print(len(value))                            a_list = [1, 2, 3]                              
+                                                                    
+    length = lambda x: 0   # scope  first()          def second():                                                               
+    len = length           # scope  first()              print(len(a_list))                                                       
+    a_list = [1, 2, 3]     # scope  first()              print(len(value))                                                           
+    second()               # scope  first()          second()                                                      
+                                                        
+first()                                          first()          
+
+# --- Вывод ---
+# 0
+# 0
+"""
+
+
+
+
+# Зри в корень 5
+"""
+def main(x):
+    try:
+        return 100 / x
+    except Exception:
+        return 0
+    finally:
+        return 100
+
+print(main(0))
+print(main(111111))  # Даже если вводим любое число 
+
+# --- Вывод ---  finally  ВЫПОЛНЯЕТСЯ ВСЕГДА!!!   Срабатывает всегда даже при Исключениях
+# 100
+# 100
+"""
+
+
+
+
+# Зри в корень 6
+"""
+                                             # Чтобы изменить поведение
+def count(word: str, counter: dict = {}):    def count(word: str, counter: dict = None):                                               
+    for letter in word:                          if counter is None:                           
+        if letter in counter:                        counter = {}                                   
+            counter[letter] += 1                 for letter in word:                                       
+        else:                                        if letter in counter:                   
+            counter[letter] = 1                          counter[letter] += 1                                   
+    return counter                                   else:                       
+                                                         counter[letter] = 1       
+count("A")  # -> {'A': 1}                        return counter                               
+print(count('BC'))                                                   
+                                             count("A")  # -> {'A': 1}          
+                                             print(count('BC'))  # -> {'B': 1, 'C': 1}          
+                                                                                                        
+# --- Вывод ---    Потому что Изменяемый объект в аргументах по умолчанию
+# {'A': 1, 'B': 1, 'C': 1}
+"""
+
+
+
+
+# Зри в корень 7
+"""
+name = "Tom"
+cat = {"name": 'Tom', "age": 3}
+
+def change_name(name):
+    name = 'Jerry'    # Локальная переменная
+    return name       # Тут name 'Умирает'      # Будет собрана сборщиком мусора
+
+def change_cat(a_dict):
+    a_dict.clear()                        # Разные ссылки  Чистим словарь cat
+    a_dict = {"name": "Jerry", "age": 3}  # Разные ссылки  Создали локальную переменную
+    return a_dict                         # Тут локальный a_dict 'Умирает'   # Будет собрана сборщиком мусора
+
+change_name(name)
+change_cat(cat)
+
+print(name)
+print(cat)
+
+# --- Вывод ---     Строка неизменяемая (создаем новый объект при изменении)
+# Tom
+# {}
+
+
+#  --- ИЛИ  Другие Выводы ---
+name = "Tom"
+cat = {"name": 'Tom', "age": 3}
+
+def change_name(name):
+    name = 'Jerry'    
+    return name       
+
+def change_cat(a_dict):
+    a_dict.clear()
+    a_dict["name"] = "Jerry"    # Тут поменяли            
+    a_dict["age"] = 3           # Тут поменяли    
+    return a_dict               
+
+name = change_name(name)  # Чтобы изменить name
+cat = change_cat(cat)     # Чтобы изменить cat  clear внутри НЕ нужен
+change_cat(cat)
+
+print(name)  # -> JerryJerry
+print(cat)   # -> {'name': 'Jerry', 'age': 3}
+
+# --- Вывод ---     Строка неизменяемая (создаем новый объект при изменении)
+# Jerry
+# {'name': 'Jerry', 'age': 3}
+"""
+
+
+
+
+# Зри в корень 8
+"""
+# Перехватив Исключение МОЖНО поменять содержимое tuple
+a_list = [1, 2, 3, 4, 5]
+a_tuple = (a_list, 10)
+
+# + Сработал а на = Падает Исключение
+try:
+    a_tuple[0] += [6]  # += вызывает магический метод у list   Сначала ДОБАВЛЯЕТ элемент а потом ПРИСВАИВАЕТ  2 ЧАСТА
+except TypeError:
+    print(a_tuple)
+    print(a_list)
+
+# --- Вывод ---    Ошибка упала и список ИЗМЕНИЛСЯ   tuple - Нельзя изменять  НО элементы внутри МОЖНО
+# ([1, 2, 3, 4, 5, 6], 10)
+# [1, 2, 3, 4, 5, 6]
+
+
+# Интересный пример БЕЗ ОБРАБОТКИ                                                               <-----   <-----
+a_list = [1, 2, 3, 4, 5]
+a_tuple = (a_list, 10)
+
+a_list += [6]
+print(a_list)      # -> [1, 2, 3, 4, 5, 6]  # Так будет работать tuple мы не трогаем
+a_tuple[0] += [6]  # TypeError: 'tuple' object does not support item assignment
+"""
+
+
+
+
+# Зри в корень 9, 10   НУЖНО ПЕРЕСМОТРЕТЬ ВИДЕО
+"""
+Если подчеркнуто СЕРЫМ НЕ значит  что ИНТЕРПРЕТАТОР НЕ будет выполнять строчку. Только если она НЕ закоментирована
+"""
+
+
+
+
+
 
 #  X5 Задача что выведет Данный код?    val - являются разными переменными.   Будет выведено  # -> 1
 def a():
@@ -91,6 +333,10 @@ p = nt_tuple(1, 2, c=3, d=4, e=5)
 print(f'getsizeof namedtuple:  {sys.getsizeof(p)} байт')           # -> getsizeof namedtuple:  80 байт
 print(f'asizeof   namedtuple:  {asizeof.asizeof(p)} байт')         # -> asizeof   namedtuple:  240 байт
 
+
+Создание объекта namedtuple накладывает некоторые накладные расходы (например, ХРАНЕНИЕ ИМЕН ПОЛЕЙ), но для 
+НЕБОЛЬШИХ ОБЪЕКТОВ эти накладные расходы могут быть минимальными.
+Однако в большинстве случаев namedtuple будет занимать больше места в памяти по сравнению с обычным кортежем
 
 
                             -- Примеры Словарей OrderedDict vs dict --                          <-----
