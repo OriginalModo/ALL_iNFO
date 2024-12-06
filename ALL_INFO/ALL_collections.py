@@ -782,7 +782,33 @@ ________________________________________________________________________________
  for char in 'hello':
      a_dict[char].append(char)
 
- print(a_dict)
+ print(a_dict)  # defaultdict(<class 'list'>, {'h': ['h'], 'e': ['e'], 'l': ['l', 'l'], 'o': ['o']})
+
+
+
+ # Чтобы создать собственный класс по умолчанию в defaultdict, нужно использовать callable (конструктор класса)  <-----
+ # в качестве аргумента для создания экземпляров этого класса.                                         <-----    <-----
+
+ class A:
+     def __init__(self):
+         self.hehe = {1, 2}
+
+     def __repr__(self):
+         return f"A(hehe={self.hehe})"  # Метод для читаемого представления
+
+ res = defaultdict(A)
+
+ print(res)            # -> defaultdict(<class '__main__.A'>, {})
+ print(res[0])         # -> A(hehe={1, 2})   # Поскольку ключ 0 не существует, создается A с hehe={1, 2}
+ print(res[1])         # -> A(hehe={1, 2})   # Поскольку ключ 1 не существует, создается A с hehe={1, 2}
+ print(res[0].hehe)    # -> {1, 2}
+ print(res[1].hehe)    # -> {1, 2}
+ res['A'].hehe = {3, 4}              # Установили значению ключу
+ print(res['A'].hehe)  # -> {3, 4}
+ print(res[111].hehe)  # -> {1, 2}
+ print(res.keys())     # -> dict_keys([0, 1, 'A', 111])
+ print(res.values())   # -> dict_values([A(hehe={1, 2}), A(hehe={1, 2}), A(hehe={3, 4}), A(hehe={1, 2})])
+
 ________________________________________________________________________________________________________________________
  --- OrderedDict ---
 
