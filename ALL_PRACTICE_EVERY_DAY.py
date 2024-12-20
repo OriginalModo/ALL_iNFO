@@ -42,7 +42,6 @@ my_super_lambda = lambda: no(such(function()))
 
 # Зри в корень 2
 """
-
 global value                        # Починили КОД                   
 value = 100                         value = 100                 
                                          
@@ -5006,8 +5005,6 @@ target = 9
 
 
 
-
-
 # Ответ БЕЗ ФУНКЦИИ  Написать Алгоритм БИНАРНОГО поиска на Python  O(log n)   без конца делит область поиска пополам.
 # Важно отметить, что массив должен быть ОТСОРТИРОВАН для применения бинарного поиска.
 """
@@ -5179,6 +5176,7 @@ print("Отсортированный массив:", sorted_arr)  # -> Отсо
 
 
 
+
 # 1) Сортировка пузырьком (Bubble Sort)    Время: O(n²) в худшем и среднем случаях, O(n) в лучшем.   Пространство: O(1)
 """
 # Тоже самое                                            # Тоже самое
@@ -5211,6 +5209,7 @@ print("(Bubble Sort):", sorted_arr) # -> (Bubble Sort): [11, 12, 22, 25, 34, 64,
 
 
 
+
 # 2) Сортировка выбором (Selection Sort)  Время: O(n²) во всех случаях.   Пространство: O(1)
 """
 def selection_sort(arr):
@@ -5233,6 +5232,7 @@ print("(Selection Sort):", sorted_arr)  # -> (Selection Sort): [11, 12, 22, 25, 
 
 # 3) Написать Сортировку вставками (Insertion Sort)
 # Время: O(n²) в худшем случае, O(n) в лучшем.   Пространство: O(1)
+
 
 
 
@@ -5312,6 +5312,7 @@ def quick_sort(lst):
 
 
 
+
 # 5) Сортировка слиянием (Merge Sort)    Время: O(n log n) во всех случаях.    Пространство: O(n)
 """
 def merge_sort(arr):
@@ -5332,8 +5333,8 @@ def merge(left, right):
         else:
             result.append(right[j])
             j += 1
-    result += left[i:]          # result.extend(left[i:])  # Тоже самое
-    result += right[j:]         # result.extend(right[j:]) # Тоже самое
+    result += left[i:]          # result.extend(left[i:])  # Тоже самое    # Менять местами можно  result += right[j:]
+    result += right[j:]         # result.extend(right[j:]) # Тоже самое    # Менять местами можно  result += left[i:] 
     return result
 
 # Пример использования
@@ -5346,6 +5347,7 @@ print("(Merge Sort):", sorted_arr)  # -> (Merge Sort): [11, 12, 22, 25, 34, 64, 
 
 # 6) Написать Пирамидальная сортировка (Heap Sort)
 # Время: O(n log n) во всех случаях.  Пространство: O(1)
+
 
 
 
@@ -5459,6 +5461,9 @@ print("(Tim Sort):", sorted_arr)  # Ожидается: (Tim Sort): [11, 12, 22,
 
 
 
+
+
+
 # 8) Сортировка Шелла (Shell Sort)     Время: O(n²) в худшем, O(n log n) в среднем.  Пространство: O(1)
 """
 def shell_sort(arr):
@@ -5485,8 +5490,6 @@ print("(Shell Sort):", sorted_arr)  # -> (Shell Sort): [11, 12, 22, 25, 64]
 
 # 9) Написать Сортировка битом (Radix Sort)
 # Время: O(nk), где k — количество разрядов.  Пространство: O(n + k)
-
-
 
 
 
@@ -5540,7 +5543,7 @@ print("(Radix Sort):", sorted_arr)  # -> (Radix Sort): [11, 12, 22, 25, 64]
 """
 Отличие заключается в том, сохраняется ли порядок одинаковых элементов после сортировки.  УСТРОЙЧИВАЯ vs НЕ УСТРОЙЧИВАЯ  
 
-# Первый вариант     УСТРОЙЧИВАЯ(stable)                 # Другой Вариант  НЕ УСТРОЙЧИВАЯ(unstable) 
+# Первый вариант     УСТРОЙЧИВАЯ(stable)         # Другой Вариант  НЕ УСТРОЙЧИВАЯ(unstable) 
 def counting_sort(arr):                          def simple_counting_sort(k, n, A):
     max_val = max(arr)                               C = [0] * k
     count = [0] * (max_val + 1)                      for i in range(n):
@@ -5564,7 +5567,6 @@ print("(Counting Sort):", sorted_arr)  # -> (Counting Sort): [11, 12, 22, 25, 64
 
 # 11) Написать Сортировка по ведрам (Bucket Sort):
 # Время: O(n + k) для равномерно распределенных данных, где k — количество ведер. Пространство: O(n + k)
-
 
 
 
